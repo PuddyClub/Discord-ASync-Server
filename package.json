@@ -1,0 +1,28 @@
+{
+  "name": "discord-firebase-async-server",
+  "version": "1.0.0",
+  "description": "System for synchronizing Discord Bots with the Firebase Realtime Database.",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TinyPudding/Discord-Firebase-Async-Server.git"
+  },
+  "keywords": [
+    "discord-js", "firebase", "discord-bot", "discord-js-bot", "firebase-database", "discord", "api"
+  ],
+  "author": "Yasmin Seidel (Jasmin Dreasond)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TinyPudding/Discord-Firebase-Async-Server/issues"
+  },
+  "homepage": "https://github.com/TinyPudding/Discord-Firebase-Async-Server#readme",
+  "dependencies": {
+    "bufferutil": "^4.0.2",
+    "discord.js": "^12.5.1",
+    "erlpack": "github:discord/erlpack",
+    "firebase": "^8.2.1",
+    "utf-8-validate": "^5.0.3",
+    "zlib-sync": "^0.1.7"
+  }
+}
