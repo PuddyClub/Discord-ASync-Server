@@ -19,6 +19,21 @@ const tokenLogin = function () {
 // Starting
 console.log('Starting App! Getting the Firebase Token...');
 
+// onAuthStateChanged
+ds.firebase.onAuthStateChanged((data => {
+
+    // is User
+    if (data) {
+        console.log('Firebase Auth received User Data!');
+        console.log(data);
+    }
+
+    // Nope
+    else {
+        console.log('Firebase Auth received a empty User Data!');
+    }
+
+}));
 
 // Start Firebase
 ds.firebase.start(tinyCfg.firebase);

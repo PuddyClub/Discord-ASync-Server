@@ -30,18 +30,20 @@ module.exports = {
 
                 // Status Changed
 
-                // is User
-                if (user) {
-                    console.log('Your server is logged!');
-                }
-
-                // Nope
-                else {
-                    console.log('Your server made logout!');
-                }
-
                 // Callback
-                if (typeof app.auth.onAuthStateChanged === "function") { app.auth.onAuthStateChanged(user); }
+                if (typeof app.auth.onAuthStateChanged === "function") { app.auth.onAuthStateChanged(user); } else {
+
+                    // is User
+                    if (user) {
+                        console.log('Firebase Auth received User Data!');
+                    }
+
+                    // Nope
+                    else {
+                        console.log('Firebase Auth received a empty User Data!');
+                    }
+
+                }
 
             });
 
