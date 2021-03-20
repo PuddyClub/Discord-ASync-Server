@@ -56,13 +56,16 @@ module.exports = {
             return new Promise(async (resolve, reject) => {
 
                 // Start Login
-                const loginStart = function () {
+                const loginStart = function (token) {
                     return app.auth.root.signInWithCustomToken(token).then((userCredential) => {
                         resolve(userCredential);
                     }).catch((err) => {
                         reject(err);
                     });
                 };
+
+                // Add Login Cache
+                app.auth.login = token;
 
                 // Is Function
                 if (typeof token === "function") {
@@ -85,6 +88,9 @@ module.exports = {
 
                 // Nothing
                 else { reject(new Error('Invalid Firebase Token Value in the login method!')); }
+
+                // Complete
+                return;
 
             });
         }
