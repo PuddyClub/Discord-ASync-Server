@@ -4,7 +4,7 @@ const express = require('express');
 const ON_DEATH = require('death');
 
 // App
-const app = { auth: {} };
+const app = { auth: { login: null } };
 
 module.exports = {
 
@@ -53,14 +53,38 @@ module.exports = {
 
         // Login Firebase
         login: function (token) {
-            return new Promise((resolve, reject) => {
+            return new Promise(async (resolve, reject) => {
 
-                // Login
-                app.auth.signInWithCustomToken(token).then((userCredential) => {
-                    resolve(userCredential);
-                }).catch((err) => {
-                    reject(err)
-                });
+                // Start Login
+                const loginStart = function () {
+                    return app.auth.root.signInWithCustomToken(token).then((userCredential) => {
+                        resolve(userCredential);
+                    }).catch((err) => {
+                        reject(err);
+                    });
+                };
+
+                // Is Function
+                if (typeof token === "function") {
+
+                    // Try Token
+                    try {
+                        const tokenResult = await token();
+                        loginStart(tokenResult);
+                    }
+
+                    // Fail
+                    catch (err) { reject(err); }
+
+                }
+
+                // Is String
+                else if (typeof token === "string") {
+                    loginStart(token);
+                }
+
+                // Nothing
+                else { reject(new Error('Invalid Firebase Token Value in the login method!')); }
 
             });
         }

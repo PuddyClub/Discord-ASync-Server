@@ -5,22 +5,31 @@ const fetch = require('@tinypudding/puddy-lib/http/fetch/json');
 // Get Module
 const ds = require('../index');
 
+// Get Token
+const tokenLogin = function () {
+    return new Promise((resolve, reject) => {
+        fetch(tinyCfg.tokenURL, {
+            method: "POST",
+            body: JSON.stringify({ "token": tinyCfg.token }),
+            headers: { 'Content-Type': 'application/json' }
+        }).then((data) => { resolve(data.token); return; }).catch(err => { reject(err); return; });
+    });
+};
+
 // Starting
 console.log('Starting App! Getting the Firebase Token...');
-fetch(tinyCfg.tokenURL, { method: "POST", body: JSON.stringify({ "token": tinyCfg.token }), headers: { 'Content-Type': 'application/json' } }).then((data) => {
 
-    // Start Firebase
-    ds.firebase.start(tinyCfg);
-    ds.firebase.login(data.token).then((user) => {
 
-        // Login Complete
-        console.log('Login in Firebase Complete');
-        console.log(user);
+// Start Firebase
+ds.firebase.start(tinyCfg.firebase);
+ds.firebase.login(tokenLogin).then((user) => {
 
-        // Complete
-        return;
+    // Login Complete
+    console.log('Login in Firebase Complete');
+    console.log(user);
 
-    }).catch(err => { console.error(err); return; });
+    // Complete
+    return;
 
 }).catch(err => { console.error(err); return; });
 
