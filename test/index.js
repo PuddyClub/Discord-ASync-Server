@@ -7,7 +7,7 @@ const ds = require('../index');
 
 // Starting
 console.log('Starting App! Getting the Firebase Token...');
-fetch(tinyCfg.tokenURL, { method: "POST", body: JSON.stringify({ "token": tinyCfg.token }), headers: { 'Content-Type': 'application/json' }).then((data) => {
+fetch(tinyCfg.tokenURL, { method: "POST", body: JSON.stringify({ "token": tinyCfg.token }), headers: { 'Content-Type': 'application/json' } }).then((data) => {
 
     // Start Firebase
     ds.firebase.start(tinyCfg);
