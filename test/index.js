@@ -34,3 +34,5 @@ fetch(tinyCfg.tokenURL, {
 
 }).catch(err => { console.error(err); return; });
  */
+
+setInterval(function() {}, 1000);
