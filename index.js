@@ -57,6 +57,9 @@ module.exports = {
         login: function (token) {
             return new Promise(async (resolve, reject) => {
 
+                // Add Login Cache
+                if (typeof token !== "undefined") { app.auth.login = token; }
+
                 // Start Login
                 const loginStart = function (token) {
                     return app.auth.root.signInWithCustomToken(token).then((userCredential) => {
@@ -66,15 +69,12 @@ module.exports = {
                     });
                 };
 
-                // Add Login Cache
-                app.auth.login = token;
-
                 // Is Function
-                if (typeof token === "function") {
+                if (typeof app.auth.login === "function") {
 
                     // Try Token
                     try {
-                        const tokenResult = await token();
+                        const tokenResult = await app.auth.login();
                         loginStart(tokenResult);
                     }
 
@@ -84,8 +84,8 @@ module.exports = {
                 }
 
                 // Is String
-                else if (typeof token === "string") {
-                    loginStart(token);
+                else if (typeof app.auth.login === "string") {
+                    loginStart(app.auth.login);
                 }
 
                 // Nothing
