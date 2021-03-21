@@ -4,9 +4,22 @@ const express = require('express');
 const ON_DEATH = require('death');
 
 // App
-const app = { auth: { login: null } };
+const app = { auth: { login: null }, web: {} };
 
 module.exports = {
+
+    // Express
+    express: {
+
+        // Create
+        create: function() {
+
+            // Create Express App
+            app.web.root = express();
+
+        },
+
+    },
 
     // Firebase
     firebase: {
