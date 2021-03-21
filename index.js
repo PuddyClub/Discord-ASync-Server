@@ -12,12 +12,23 @@ module.exports = {
     express: {
 
         // Create
-        create: function() {
+        create: function () {
 
             // Create Express App
             app.web.root = express();
 
         },
+
+        // Start
+        start: function (port, callback) {
+
+            // Callback
+            if (typeof callback === "function") { app.web.root.listen(port, callback); }
+
+            // Nope
+            else { app.web.root.listen(port); }
+
+        }
 
     },
 
