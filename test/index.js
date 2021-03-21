@@ -41,7 +41,6 @@ ds.firebase.login(tokenLogin).then((user) => {
 
     // Login Complete
     console.log('Login in Firebase Complete');
-    console.log(user);
 
     // Complete
     return;
