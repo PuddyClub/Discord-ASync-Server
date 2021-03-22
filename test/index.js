@@ -43,10 +43,7 @@ ds.firebase.login(tokenLogin).then((user) => {
     console.log('Login in Firebase Complete');
 
     // Prepare Express
-    ds.express.setCookieSession({
-
-    });
-
+    ds.express.setCookieSession(tinyCfg.cookieSession);
     ds.express.create();
 
     // Start Express
