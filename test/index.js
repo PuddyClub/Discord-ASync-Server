@@ -42,9 +42,15 @@ ds.firebase.login(tokenLogin).then((user) => {
     // Login Complete
     console.log('Login in Firebase Complete');
 
+    // Prepare Express
+    ds.express.create();
+
+    // Prepare Express
+    ds.express.start(3000, function () {
+        console.log('Server Started: http://localhost:3000');
+    });
+
     // Complete
     return;
 
 }).catch(err => { console.error(err); return; });
-
-setInterval(function () { }, 1000);

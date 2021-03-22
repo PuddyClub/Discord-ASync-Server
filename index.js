@@ -16,12 +16,17 @@ module.exports = {
 
             // Create Express App
             app.web.root = express();
+            app.web.server = require('http').createServer(app.web.root);
+            app.web.io = require('socket.io')(app.web.server);
+
+            // Complete
+            return;
 
         },
 
         // Start Slash Command Listener
         slashCommandListener: function () {
-            
+
         },
 
         // Start
