@@ -1,8 +1,6 @@
 // Prepare Module
 const firebase = require('firebase');
 const express = require('express');
-const bodyParser = require('body-parser');
-const cookieSession = require('cookie-session');
 const ON_DEATH = require('death');
 
 // App
@@ -19,6 +17,10 @@ const appModule = {
         // Create
         create: function () {
 
+            // Modules
+            const bodyParser = require('body-parser');
+            const cookieSession = require('cookie-session');
+
             // Create Express App
             app.web.root = express();
             app.web.server = require('http').createServer(app.web.root);
@@ -33,6 +35,30 @@ const appModule = {
             });
 
             app.web.root.set('view engine', 'nunjucks');
+
+            // Helmet
+            const helmet = require('helmet');
+            app.web.root.use(helmet({
+                contentSecurityPolicy: {
+                    directives: {
+                        defaultSrc: [
+                            "'self'",
+                            "'unsafe-inline'",
+                            'https://securetoken.googleapis.com/',
+                            'https://www.googleapis.com/',
+                            'https://discord.com/',
+                            'wss://*.firebaseio.com/',
+                            'https://*.firebaseio.com/',
+                            'https://*.typekit.net/',
+                        ],
+                        imgSrc: [
+                            "'self' data:",
+                            'https://cdn.discordapp.com/',
+                            'https://discord.com/'
+                        ]
+                    }
+                }
+            }));
 
             // Cookie Session
             app.web.cookieSession = cookieSession(appModule.express.cookieSession);
