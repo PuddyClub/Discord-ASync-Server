@@ -24,6 +24,16 @@ const appModule = {
             app.web.server = require('http').createServer(app.web.root);
             app.web.io = require('socket.io')(app.web.server);
 
+            // Nunjucks
+            const path = require('path');
+            const nunjucks = require('nunjucks');
+            nunjucks.configure(path.join(__dirname, '../views'), {
+                autoescape: true,
+                express: app.web.root
+            });
+
+            app.web.root.set('view engine', 'nunjucks');
+
             // Cookie Session
             app.web.cookieSession = cookieSession(appModule.express.cookieSession);
 
