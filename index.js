@@ -1,6 +1,7 @@
 // Prepare Module
 const firebase = require('firebase');
 const express = require('express');
+const bodyParser = require('body-parser');
 const ON_DEATH = require('death');
 
 // App
@@ -18,6 +19,12 @@ module.exports = {
             app.web.root = express();
             app.web.server = require('http').createServer(app.web.root);
             app.web.io = require('socket.io')(app.web.server);
+
+            // Body Parser
+            app.web.root.use(bodyParser.json());
+            app.web.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+                extended: true
+            }));
 
             // Complete
             return;
