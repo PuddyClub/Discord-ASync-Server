@@ -19,6 +19,11 @@ module.exports = {
 
         },
 
+        // Start Slash Command Listener
+        slashCommandListener: function () {
+            
+        },
+
         // Start
         start: function (port, callback) {
 
