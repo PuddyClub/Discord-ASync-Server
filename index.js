@@ -39,7 +39,7 @@ const appModule = {
 
             // Body Parser
             app.web.root.use(bodyParser.json());
-            app.web.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+            app.web.root.use(bodyParser.urlencoded({     // to support URL-encoded bodies
                 extended: true
             }));
 
