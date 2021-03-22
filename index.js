@@ -2,15 +2,19 @@
 const firebase = require('firebase');
 const express = require('express');
 const bodyParser = require('body-parser');
+const cookieSession = require('cookie-session');
 const ON_DEATH = require('death');
 
 // App
 const app = { auth: { login: null }, web: {} };
-
-module.exports = {
+const appModule = {
 
     // Express
     express: {
+
+        // Cookie Session
+        setCookieSession: function (result) { appModule.express.cookieSession = result; },
+        cookieSession: {},
 
         // Create
         create: function () {
@@ -19,6 +23,9 @@ module.exports = {
             app.web.root = express();
             app.web.server = require('http').createServer(app.web.root);
             app.web.io = require('socket.io')(app.web.server);
+
+            // Cookie Session
+            app.web.cookieSession = cookieSession(appModule.express.cookieSession);
 
             // Body Parser
             app.web.root.use(bodyParser.json());
@@ -141,6 +148,8 @@ module.exports = {
     }
 
 };
+
+module.exports = appModule;
 
 // ON Death
 ON_DEATH(async function (signal, err) {

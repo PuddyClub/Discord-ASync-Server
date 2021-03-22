@@ -43,9 +43,13 @@ ds.firebase.login(tokenLogin).then((user) => {
     console.log('Login in Firebase Complete');
 
     // Prepare Express
+    ds.express.setCookieSession({
+
+    });
+
     ds.express.create();
 
-    // Prepare Express
+    // Start Express
     ds.express.start(3000, function () {
         console.log('Server Started: http://localhost:3000');
     });
