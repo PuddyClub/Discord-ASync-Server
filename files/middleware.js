@@ -1,4 +1,4 @@
-module.exports = function (web) {
+module.exports = function (resolve, web, app) {
 
     // Nunjucks
     const path = require('path');
@@ -24,6 +24,7 @@ module.exports = function (web) {
 
     // Homepage
     web.app.get('/', web.dsSession(), (req, res) => {
+        console.log('Page!');
         res.render('test');
         return;
     });
