@@ -2,6 +2,8 @@
 const firebase = require('firebase');
 const expressTemplate = require('@tinypudding/firebase-express-template');
 const ON_DEATH = require('death');
+let isDebug = false;
+if (process.argv[2] === "test") { isDebug = true; }
 
 // App
 const app = { auth: { login: null }, web: {} };
@@ -127,6 +129,23 @@ const appModule = {
 
                     // Main
                     main: {
+
+                        // Invalid Domain
+                        invalidDomainCallback: function (req, res, next) {
+
+                            // Invalid Domain
+                            if (!isDebug) {
+                                const error_page = require('@tinypudding/puddy-lib/http/HTTP-1.0');
+                                console.error(new Error('Invalid Domain! ' + req.firebase_web_session.domain));
+                                return error_page.send(res, 403);
+                            }
+
+                            // Debug
+                            else { next(); }
+
+                        },
+
+                        // Validator
                         domainValidator: {
 
                             // Domain Validator
@@ -136,6 +155,7 @@ const appModule = {
                             staticPath: ['/css/', '/img/', '/js/', '/sound/', '/webfonts/']
 
                         }
+
                     },
 
                     // csrftoken
