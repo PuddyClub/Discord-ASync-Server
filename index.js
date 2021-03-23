@@ -42,7 +42,7 @@ const appModule = {
                     errorPage: require('./files/errorPage'),
 
                     // Website Middleware
-                    middleware: (web) => { return middleware(resolve, web, app); },
+                    middleware: (web) => { return middleware(resolve, tinyCfg.web, web, app); },
 
                     // config.json
                     cfg: { domain: tinyCfg.domain },
@@ -183,25 +183,6 @@ const appModule = {
                 return;
 
             });
-        },
-
-        // Start Slash Command Listener
-        slashCommandListener: function () {
-
-            // Complete
-            return;
-
-        },
-
-        // Start Slash Command Listener
-        botChecker: function () {
-
-            // Start Socket IO
-            app.web.io = require('socket.io')(app.web.server);
-
-            // Complete
-            return;
-
         },
 
         // Start

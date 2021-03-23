@@ -1,4 +1,4 @@
-module.exports = function (resolve, web, app) {
+module.exports = function (resolve, webCfg, web, app) {
 
     // Nunjucks
     const path = require('path');
@@ -15,6 +15,9 @@ module.exports = function (resolve, web, app) {
 
     // Create Express App
     app.web.server = require('http').createServer(web.app);
+
+    // bot Checker
+    if (webCfg.botChecker) { app.web.io = require('socket.io')(app.web.server); }
 
     // Body Parser
     web.app.use(bodyParser.json());
