@@ -1,6 +1,5 @@
 // Prepare Module
 const firebase = require('firebase');
-const express = require('express');
 const ON_DEATH = require('death');
 
 // App
@@ -18,6 +17,7 @@ const appModule = {
         create: function () {
 
             // Modules
+            const express = require('express');
             const bodyParser = require('body-parser');
             const cookieSession = require('cookie-session');
 
