@@ -42,7 +42,7 @@ const appModule = {
                     errorPage: require('./files/errorPage'),
 
                     // Website Middleware
-                    middleware: (web) => { return new Promise((resolve) => { return middleware(resolve, web, app); }); },
+                    middleware: (web) => { return middleware(resolve, web, app); },
 
                     // config.json
                     cfg: { domain: tinyCfg.domain },
