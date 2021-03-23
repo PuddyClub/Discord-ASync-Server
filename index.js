@@ -1,5 +1,6 @@
 // Prepare Module
 const firebase = require('firebase');
+const expressTemplate = require('@tinypudding/firebase-express-template');
 const ON_DEATH = require('death');
 
 // App
@@ -14,60 +15,224 @@ const appModule = {
         cookieSession: {},
 
         // Create
-        create: function () {
+        create: function (tinyCfg) {
+            return new Promise((resolve) => {
 
-            // Modules
-            const express = require('express');
-            const bodyParser = require('body-parser');
-            const cookieSession = require('cookie-session');
+                const cookieSession = require('cookie-session');
+                appModule.express.cookieSession = cookieSession(appModule.express.cookieSession);
 
-            // Create Express App
-            app.web.root = express();
-            app.web.server = require('http').createServer(app.web.root);
-            app.web.io = require('socket.io')(app.web.server);
+                // Prepare App
+                app.web.root = expressTemplate({
 
-            // Nunjucks
-            const path = require('path');
-            const nunjucks = require('nunjucks');
-            nunjucks.configure(path.join(__dirname, '../views'), {
-                autoescape: true,
-                express: app.web.root
-            });
+                    // Cookie Session
+                    cookieSession: appModule.express.cookieSession,
 
-            app.web.root.set('view engine', 'nunjucks');
+                    // File Config
+                    fileCfg: {
+                        fileMaxAge: '2592000000'
+                    },
 
-            // Helmet
-            const helmet = require('helmet');
-            app.web.root.use(helmet({
-                contentSecurityPolicy: {
-                    directives: {
-                        defaultSrc: [
-                            "'self'",
-                            "'unsafe-inline'",
-                            'https://securetoken.googleapis.com/',
-                            'https://www.googleapis.com/',
-                            'https://discord.com/',
-                            'wss://*.firebaseio.com/',
-                            'https://*.firebaseio.com/',
-                            'https://*.typekit.net/',
-                        ],
-                        imgSrc: [
-                            "'self' data:",
-                            'https://cdn.discordapp.com/',
-                            'https://discord.com/'
-                        ]
+                    // Error Page
+                    errorPage: (req, res, data, cfg, firebaseWeb) => {
+
+                        // Is a Error Page
+                        if (res && req) {
+
+                            // Prepare Result
+                            const result = { code: data.code };
+
+                            // Get Error Message
+                            if (data.message) { result.text = data.message; }
+                            else if (data.err && data.err.message) { result.text = data.err.message; }
+                            else { result.text = '???'; }
+
+                            // Log
+                            if (data.code !== 404) {
+                                let errorData = null;
+                                if (data.err) { errorData = data.err; }
+                                else if (data.message) { errorData = new Error(data.message); }
+                                else { errorData = new Error('Unknown Error'); }
+                                errorData.code = data.code;
+                                console.error(errorData);
+                            }
+
+                            // Send Error Page
+                            return res.json(result);
+
+                        }
+
+                        // Nothing
+                        else { return; }
+
+                    },
+
+                    // Website Middleware
+                    middleware: function (web) {
+
+                        // Nunjucks
+                        const path = require('path');
+                        const nunjucks = require('nunjucks');
+                        nunjucks.configure(path.join(__dirname, '../views'), {
+                            autoescape: true,
+                            express: web.app
+                        });
+
+                        web.app.set('view engine', 'nunjucks');
+
+                        // Modules
+                        const bodyParser = require('body-parser');
+
+                        // Create Express App
+                        app.web.server = require('http').createServer(web.app);
+
+                        // Body Parser
+                        web.app.use(bodyParser.json());
+                        web.app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+                            extended: true
+                        }));
+
+                        // Homepage
+                        web.app.get('/', web.dsSession(), (req, res) => {
+                            res.render('test');
+                            return;
+                        });
+
+                        // Complete
+                        web.fn();
+                        resolve(web);
+
+                    },
+
+                    // config.json
+                    cfg: { domain: tinyCfg.domain },
+
+                    // Helmet
+                    // https://www.npmjs.com/package/helmet
+                    helmet: {
+                        contentSecurityPolicy: {
+                            directives: {
+                                defaultSrc: [
+                                    "'self'",
+                                    "'unsafe-inline'",
+                                    'https://discord.com/'
+                                ],
+                                imgSrc: [
+                                    "'self' data:",
+                                    'https://cdn.discordapp.com/',
+                                    'https://discord.com/'
+                                ]
+                            }
+                        }
+                    },
+
+                    // Main
+                    main: {
+                        domainValidator: {
+
+                            // Domain Validator
+                            domain: tinyCfg.domain,
+
+                            // Static Path Protector
+                            staticPath: ['/css/', '/img/', '/js/', '/sound/', '/webfonts/']
+
+                        }
+                    },
+
+                    // csrftoken
+                    csrftoken: {
+
+                        // This is the path of the module method ( csrftoken(csrfToken', 1, 'hours'); )
+                        module: ['csrfToken', 1, 'hours'],
+
+                        // The Callback of the Csrf Token validator for all other modules of the template.
+                        callback: function (req) { return { now: req.body.csrftoken, server: req.csrftoken.now.value }; }
+
+                    },
+
+                    // Timezone Module
+                    timezone: {
+                        urls: { setTime: '/setTime' },
+                        clock24: true,
+                        autoList: true,
+                        setSecondary: true,
+                        fileMaxAge: '2592000000'
+                    },
+
+                    // i18 Module 
+                    i18: {
+
+                        // Vars Session Names.
+                        cfg: {
+
+                            // Vars cookie-session.
+                            varsSession: {
+                                sessionLang: 'sessionLang',
+                                userLang: 'userLang',
+                                nowLang: 'nowLang',
+                                langIsUser: 'langIsUser'
+                            },
+
+                            // Lang List.
+                            list: [
+                                { value: 'en', name: 'English' },
+                                { value: 'pt-br', name: 'Português Brasil' }
+                            ]
+
+                        },
+
+                        // URLs of the module.
+                        urls: {
+                            setLang: '/setLang'
+                        },
+
+                    },
+
+                    // Discord
+                    discordOAuth2: {
+
+                        // Localhost to test
+                        localhost: tinyCfg.localhost,
+
+                        // Base
+                        discord: {
+
+                            // Discord URL
+                            url: {
+                                commandLogin: '/commandLogin',
+                                botLogin: '/botLogin',
+                                login: '/login',
+                                logout: '/logout',
+                                redirect: '/redirect'
+                            },
+
+                            // Auth. If you don't set any database values to get the values automatically, the values written here will be used. You must at least enter the discordScope. 
+                            auth: {
+                                client_id: '',
+                                client_secret: '',
+                                discordScope: ['identify', 'email'],
+                                first_get_user: true
+                            },
+
+                            // Crypto Key
+                            crypto: { key: 'tinypudding123456789012345678900' },
+
+                            // Configuration
+                            cfg: { needEmailVerified: true }
+
+                        }
+
                     }
-                }
-            }));
 
-            // Cookie Session
-            app.web.cookieSession = cookieSession(appModule.express.cookieSession);
+                });
 
-            // Body Parser
-            app.web.root.use(bodyParser.json());
-            app.web.root.use(bodyParser.urlencoded({     // to support URL-encoded bodies
-                extended: true
-            }));
+                // Complete
+                return;
+
+            });
+        },
+
+        // Start Slash Command Listener
+        slashCommandListener: function () {
 
             // Complete
             return;
@@ -75,7 +240,13 @@ const appModule = {
         },
 
         // Start Slash Command Listener
-        slashCommandListener: function () {
+        botChecker: function () {
+
+            // Start Socket IO
+            app.web.io = require('socket.io')(app.web.server);
+
+            // Complete
+            return;
 
         },
 

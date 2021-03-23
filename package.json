@@ -24,7 +24,13 @@
   },
   "homepage": "https://github.com/TinyPudding/Discord-Firebase-Async-Server#readme",
   "dependencies": {
+    "@tinypudding/csrftoken-lib": "^1.0.4",
+    "@tinypudding/discord-oauth2": "^1.0.21",
+    "@tinypudding/firebase-express-template": "^1.1.12",
+    "@tinypudding/firebase-lib": "^1.0.5",
+    "@tinypudding/i18": "^1.2.0",
     "@tinypudding/puddy-lib": "^1.1.20",
+    "@tinypudding/timezone-cookie-session": "^1.1.1",
     "body-parser": "^1.19.0",
     "bufferutil": "^4.0.2",
     "cookie-session": "^1.4.0",

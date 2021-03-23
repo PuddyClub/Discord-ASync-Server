@@ -44,11 +44,13 @@ ds.firebase.login(tokenLogin).then((user) => {
 
     // Prepare Express
     ds.express.setCookieSession(tinyCfg.cookieSession);
-    ds.express.create();
+    ds.express.create(tinyCfg).then(() => {
 
-    // Start Express
-    ds.express.start(3000, function () {
-        console.log('Server Started: http://localhost:3000');
+        // Start Express
+        ds.express.start(3000, function () {
+            console.log('Server Started: http://localhost:3000');
+        });
+
     });
 
     // Complete
