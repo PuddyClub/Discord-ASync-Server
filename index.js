@@ -36,9 +36,7 @@ const appModule = {
                     cookieSession: appModule.express.cookieSession,
 
                     // File Config
-                    fileCfg: {
-                        fileMaxAge: '2592000000'
-                    },
+                    fileCfg: { fileMaxAge: '2592000000' },
 
                     // Error Page
                     errorPage: (req, res, data, cfg, firebaseWeb) => {
