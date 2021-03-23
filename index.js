@@ -1,6 +1,7 @@
 // Prepare Module
 const firebase = require('firebase');
 const expressTemplate = require('@tinypudding/firebase-express-template');
+const middleware = require('./files/middleware');
 const ON_DEATH = require('death');
 let isDebug = false;
 if (process.argv[2] === "test") { isDebug = true; }
@@ -20,8 +21,13 @@ const appModule = {
         create: function (tinyCfg) {
             return new Promise((resolve) => {
 
+                // Cookie Session
                 const cookieSession = require('cookie-session');
                 appModule.express.cookieSession = cookieSession(appModule.express.cookieSession);
+
+                // Discord Config
+                tinyCfg.discord.auth.discordScope = ['identify', 'email'];
+                tinyCfg.discord.auth.first_get_user = true;
 
                 // Prepare App
                 app.web.root = expressTemplate({
@@ -69,41 +75,7 @@ const appModule = {
                     },
 
                     // Website Middleware
-                    middleware: function (web) {
-
-                        // Nunjucks
-                        const path = require('path');
-                        const nunjucks = require('nunjucks');
-                        nunjucks.configure(path.join(__dirname, '../views'), {
-                            autoescape: true,
-                            express: web.app
-                        });
-
-                        web.app.set('view engine', 'nunjucks');
-
-                        // Modules
-                        const bodyParser = require('body-parser');
-
-                        // Create Express App
-                        app.web.server = require('http').createServer(web.app);
-
-                        // Body Parser
-                        web.app.use(bodyParser.json());
-                        web.app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
-                            extended: true
-                        }));
-
-                        // Homepage
-                        web.app.get('/', web.dsSession(), (req, res) => {
-                            res.render('test');
-                            return;
-                        });
-
-                        // Complete
-                        web.fn();
-                        resolve(web);
-
-                    },
+                    middleware: (web) => { return middleware(web, app); },
 
                     // config.json
                     cfg: { domain: tinyCfg.domain },
@@ -226,15 +198,10 @@ const appModule = {
                             },
 
                             // Auth. If you don't set any database values to get the values automatically, the values written here will be used. You must at least enter the discordScope. 
-                            auth: {
-                                client_id: '',
-                                client_secret: '',
-                                discordScope: ['identify', 'email'],
-                                first_get_user: true
-                            },
+                            auth: tinyCfg.discord.auth,
 
                             // Crypto Key
-                            crypto: { key: 'tinypudding123456789012345678900' },
+                            crypto: tinyCfg.crypto,
 
                             // Configuration
                             cfg: { needEmailVerified: true }
