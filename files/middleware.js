@@ -3,7 +3,7 @@ module.exports = function (resolve, webCfg, web, app) {
     // Nunjucks
     const path = require('path');
     const nunjucks = require('nunjucks');
-    nunjucks.configure(path.join(__dirname, '../views'), {
+    nunjucks.configure(path.join(__dirname, './views'), {
         autoescape: true,
         express: web.app
     });
