@@ -189,10 +189,10 @@ const appModule = {
         start: function (port, callback) {
 
             // Callback
-            if (typeof callback === "function") { app.web.root.listen(port, callback); }
+            if (typeof callback === "function") { app.web.server.listen(port, callback); }
 
             // Nope
-            else { app.web.root.listen(port); }
+            else { app.web.server.listen(port); }
 
         }
 
