@@ -80,7 +80,7 @@ const appModule = {
                             }
 
                             // Debug
-                            else { next(); }
+                            else { return next(); }
 
                         },
 
