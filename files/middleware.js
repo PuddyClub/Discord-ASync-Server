@@ -1,4 +1,4 @@
-module.exports = function (resolve, webCfg, web, app) {
+module.exports = async function (resolve, webCfg, web, app) {
 
     // Nunjucks
     const path = require('path');
@@ -25,6 +25,9 @@ module.exports = function (resolve, webCfg, web, app) {
         extended: true
     }));
 
+    // Extra
+    if (typeof webCfg.middleware === "function") { await webCfg.middleware(web, app); }
+
     // Homepage
     web.app.get('/', web.dsSession(), (req, res) => {
         console.log('Page!');
@@ -34,6 +37,7 @@ module.exports = function (resolve, webCfg, web, app) {
 
     // Complete
     web.fn();
-    resolve(web);
+    resolve();
+    return;
 
 };

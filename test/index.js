@@ -35,6 +35,17 @@ ds.firebase.onAuthStateChanged((data => {
 
 }));
 
+// Middleware
+tinyCfg.web.middleware = function (web, app) {
+
+    // Warn
+    console.log('Starting Middleware...');
+
+    /// Complete
+    return;
+
+};
+
 // Start Firebase
 ds.firebase.start(tinyCfg.firebase);
 ds.firebase.login(tokenLogin).then((user) => {
