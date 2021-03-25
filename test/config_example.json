@@ -12,6 +12,12 @@
       ]
     },
     "discord": {
+      "apps": {
+        "test": {
+          "client_id": "",
+          "public_key": ""
+        }
+      },
       "auth": {
         "client_id": "",
         "client_secret": ""

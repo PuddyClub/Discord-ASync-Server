@@ -33,13 +33,10 @@ module.exports = async function (resolve, reject, webCfg, web, app) {
 
     // Interaction
     if (webCfg.slashCommandListener && webCfg.slashCommandListener.enabled && typeof webCfg.slashCommandListener.function === "string") {
-    
-        // Prepare Firebase Functions
-        const functions = app.firebase.functions();
 
         // Insert Interactions Endpoint
         web.app.get('/interactions/endpoint', (req, res) => {
-            return require('./interactionEndPoint')(req, res, webCfg.slashCommandListener, functions);
+            return require('./interactionEndPoint')(req, res, webCfg.slashCommandListener, app.firebase);
         });
     
     }

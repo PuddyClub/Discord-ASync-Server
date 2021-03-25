@@ -38,6 +38,12 @@ You will need to create a JSON file to configure your server.
       ]
     },
     "discord": {
+      "apps": {
+        "test": {
+          "client_id": "",
+          "public_key": ""
+        }
+      },
       "auth": {
         "client_id": "",
         "client_secret": ""
