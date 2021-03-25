@@ -1,9 +1,9 @@
 // Preparing Module
 let interactionsEndpoint;
-const firebaseEndPoint = require('@tinypudding/firebase-discord-interactions/functionListener/firebaseCallback/client');;
+const firebaseEndPoint = require('@tinypudding/firebase-discord-interactions/functionListener/firebaseCallback/client');
 
 // Export
-module.exports = async function (req, res, cfg, firebase, discordApps) {
+module.exports = function (req, res, cfg, firebase, discordApps) {
 
     // Get Error Page
     const errorPage = require('@tinypudding/puddy-lib/http/HTTP-1.0');

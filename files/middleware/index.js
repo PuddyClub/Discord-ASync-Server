@@ -12,6 +12,8 @@ module.exports = async function (resolve, reject, discordCfg, webCfg, web, app) 
 
     // Modules
     const bodyParser = require('body-parser');
+    const interactionEndPoint =  require('./interactionEndPoint');
+    const homepage = require('./homepage');
 
     // Create Express App
     app.web.server = require('http').createServer(web.app);
@@ -29,7 +31,7 @@ module.exports = async function (resolve, reject, discordCfg, webCfg, web, app) 
     if (typeof webCfg.middleware === "function") { await webCfg.middleware(web, app); }
 
     // Bot Checker
-    if (webCfg.botChecker) { web.app.get('/', web.dsSession({ getUser: true }), (req, res) => { return require('./homepage')(req, res, webCfg, web, app); }); }
+    if (webCfg.botChecker) { web.app.get('/', web.dsSession({ getUser: true }), (req, res) => { return homepage(req, res, webCfg, web, app); }); }
 
     // Interaction
     if (
@@ -41,7 +43,7 @@ module.exports = async function (resolve, reject, discordCfg, webCfg, web, app) 
 
         // Insert Interactions Endpoint
         web.app.all('/interactions/endpoint', (req, res) => {
-            return require('./interactionEndPoint')(req, res, webCfg.slashCommandListener, app.firebase, discordCfg.apps);
+            return interactionEndPoint(req, res, webCfg.slashCommandListener, app.firebase, discordCfg.apps);
         });
     
     }
