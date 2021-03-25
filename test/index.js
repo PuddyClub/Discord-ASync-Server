@@ -68,15 +68,18 @@ ds.firebase.login(tokenLogin).then((user) => {
 
     // Prepare Express
     ds.express.setCookieSession(tinyCfg.cookieSession);
-    ds.express.create(tinyCfg).then(() => {
+    ds.express.create(tinyCfg).then(async () => {
 
         // Start Discord.JS Bot
-        bot.login(tinyCfg.testBot);
+        await bot.login(tinyCfg.testBot);
 
         // Start Express
         ds.express.start(3000, function () {
             console.log('Server Started: http://localhost:3000');
         });
+
+        // Complete
+        return;
 
     });
 
