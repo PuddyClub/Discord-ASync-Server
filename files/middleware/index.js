@@ -3,7 +3,7 @@ module.exports = async function (resolve, reject, webCfg, web, app) {
     // Nunjucks
     const path = require('path');
     const nunjucks = require('nunjucks');
-    nunjucks.configure(path.join(__dirname, './views'), {
+    nunjucks.configure(path.join(__dirname, '../views'), {
         autoescape: true,
         express: web.app
     });
@@ -29,15 +29,11 @@ module.exports = async function (resolve, reject, webCfg, web, app) {
     if (typeof webCfg.middleware === "function") { await webCfg.middleware(web, app); }
 
     // Homepage
-    web.app.get('/', web.dsSession(), (req, res) => {
-        console.log('Page!');
-        res.render('test');
-        return;
-    });
+    web.app.get('/', web.dsSession(), (req, res) => { return require('./homepage')(req, res, webCfg, web, app); });
 
     // Load Bots and Start the Website
     if (app.bots && app.bots.length > 0) {
-        
+
         require('for-promise')({ data: app.bots }, function (i, fn, fn_error) {
 
             // Complete
@@ -55,7 +51,7 @@ module.exports = async function (resolve, reject, webCfg, web, app) {
             reject(err);
             return;
         });
-        
+
         return;
 
     }
