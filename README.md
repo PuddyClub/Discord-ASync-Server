@@ -71,7 +71,9 @@ For security reasons, it is recommended that you create an application in Discor
 ### web (Object)
 Choose which module features you want to activate.
 
-slashCommandListener - Activate a special URL to receive your bot's interactions via your Firebase server.
+slashCommandListener.enabled (Boolean) - Activate a special URL to receive your bot's interactions via your Firebase server.
+
+slashCommandListener.id (string) - Special security ID of your URL that will be read by the Discord Interaction API Webhook.
 
 botChecker - Activate your bot's monitoring website.
 
@@ -86,6 +88,3 @@ Crypto Key. Enter a value that is at least 32 characters long.
 
 ### token (String)
 Security token of your Firebase server that is receiving the interactions.
-
-### interactionsID (String)
-Special security ID of your URL that will be read by the Discord Interaction API Webhook.
