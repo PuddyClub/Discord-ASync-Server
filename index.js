@@ -217,8 +217,8 @@ const appModule = {
 
             // Starting Firebase
             firebase.initializeApp(cfg);
+            app.firebase = firebase;
             app.auth.root = firebase.auth();
-            app.db = firebase.database();
 
             // Firebase AuthStateChanged
             app.auth.root.onAuthStateChanged((user) => {

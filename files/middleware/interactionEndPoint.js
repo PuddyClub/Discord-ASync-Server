@@ -1,4 +1,4 @@
-module.exports = async function (req, res, cfg) {
+module.exports = async function (req, res, cfg, functions) {
 
     // Get Error Page
     const errorPage = require('@tinypudding/puddy-lib/http/HTTP-1.0');

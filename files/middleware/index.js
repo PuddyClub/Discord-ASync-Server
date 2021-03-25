@@ -32,7 +32,17 @@ module.exports = async function (resolve, reject, webCfg, web, app) {
     if (webCfg.botChecker) { web.app.get('/', web.dsSession({ getUser: true }), (req, res) => { return require('./homepage')(req, res, webCfg, web, app); }); }
 
     // Interaction
-    if (webCfg.slashCommandListener && webCfg.slashCommandListener.enabled && typeof webCfg.slashCommandListener.function === "string") { web.app.get('/interactions/endpoint', (req, res) => { return require('./interactionEndPoint')(req, res, webCfg.slashCommandListener); }); }
+    if (webCfg.slashCommandListener && webCfg.slashCommandListener.enabled && typeof webCfg.slashCommandListener.function === "string") {
+    
+        // Prepare Firebase Functions
+        const functions = app.firebase.functions();
+
+        // Insert Interactions Endpoint
+        web.app.get('/interactions/endpoint', (req, res) => {
+            return require('./interactionEndPoint')(req, res, webCfg.slashCommandListener, functions);
+        });
+    
+    }
 
     // Load Bots and Start the Website
     if (app.bots && app.bots.length > 0) {
