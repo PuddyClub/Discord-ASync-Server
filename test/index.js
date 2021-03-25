@@ -30,7 +30,7 @@ bot.on('ready', (event) => {
 });
 
 // Add Bot
-ds.addBot(bot);
+ds.addBot({ bot: bot, token: tinyCfg.testBot });
 
 // onAuthStateChanged
 ds.firebase.onAuthStateChanged((data => {
@@ -68,18 +68,12 @@ ds.firebase.login(tokenLogin).then((user) => {
 
     // Prepare Express
     ds.express.setCookieSession(tinyCfg.cookieSession);
-    ds.express.create(tinyCfg).then(async () => {
-
-        // Start Discord.JS Bot
-        await bot.login(tinyCfg.testBot);
+    ds.express.create(tinyCfg).then(() => {
 
         // Start Express
         ds.express.start(3000, function () {
             console.log('Server Started: http://localhost:3000');
         });
-
-        // Complete
-        return;
 
     });
 
