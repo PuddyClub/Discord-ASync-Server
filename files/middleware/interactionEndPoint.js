@@ -3,7 +3,7 @@ let interactionsEndpoint;
 const firebaseEndPoint = require('@tinypudding/firebase-discord-interactions/functionListener/firebaseCallback/client');;
 
 // Export
-module.exports = async function (req, res, cfg, firebase) {
+module.exports = async function (req, res, cfg, firebase, discordApps) {
 
     // Get Error Page
     const errorPage = require('@tinypudding/puddy-lib/http/HTTP-1.0');
@@ -11,19 +11,29 @@ module.exports = async function (req, res, cfg, firebase) {
     // Verify Interaction ID
     if (typeof req.query.id === "string" && req.query.id === cfg.id) {
 
-        // Prepare Module
-        if (!interactionsEndpoint) {
-            interactionsEndpoint = firebaseEndPoint({
-                firebase: firebase,
-                app: {},
-                varNames: { bot: 'bot' }
-            });
+        // Bot
+        if (discordApps[req.query.bot]) {
+
+            // Prepare Module
+            if (!interactionsEndpoint) {
+                interactionsEndpoint = firebaseEndPoint({
+                    firebase: firebase,
+                    app: discordApps,
+                    errorCallback: function (req, res, code, message) {
+                        res.status(code);
+                        return res.json({ code: code, message: message });
+                    },
+                    varNames: { bot: 'bot' }
+                });
+            }
+
+            return interactionsEndpoint(req, res, discordApps[req.query.bot].waitMessage);
+
         }
 
+        // Nope
+        else { errorPage.send(res, 404); }
 
-
-        console.log(cfg);
-        res.send('cfg.token and cfg.function');
     }
 
     // Nope

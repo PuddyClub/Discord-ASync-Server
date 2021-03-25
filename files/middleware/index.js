@@ -1,4 +1,4 @@
-module.exports = async function (resolve, reject, webCfg, web, app) {
+module.exports = async function (resolve, reject, discordCfg, webCfg, web, app) {
 
     // Nunjucks
     const path = require('path');
@@ -32,11 +32,16 @@ module.exports = async function (resolve, reject, webCfg, web, app) {
     if (webCfg.botChecker) { web.app.get('/', web.dsSession({ getUser: true }), (req, res) => { return require('./homepage')(req, res, webCfg, web, app); }); }
 
     // Interaction
-    if (webCfg.slashCommandListener && webCfg.slashCommandListener.enabled && typeof webCfg.slashCommandListener.function === "string") {
+    if (
+        webCfg.slashCommandListener && 
+        webCfg.slashCommandListener.enabled && 
+        typeof webCfg.slashCommandListener.function === "string" &&
+        discordCfg && discordCfg.app
+    ) {
 
         // Insert Interactions Endpoint
         web.app.get('/interactions/endpoint', (req, res) => {
-            return require('./interactionEndPoint')(req, res, webCfg.slashCommandListener, app.firebase);
+            return require('./interactionEndPoint')(req, res, webCfg.slashCommandListener, app.firebase, discordCfg.app);
         });
     
     }

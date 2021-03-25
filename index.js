@@ -44,7 +44,7 @@ const appModule = {
                     errorPage: require('./files/errorPage'),
 
                     // Website Middleware
-                    middleware: (web) => { return middleware(resolve, reject, tinyCfg.web, web, app); },
+                    middleware: (web) => { return middleware(resolve, reject, tinyCfg.discord, tinyCfg.web, web, app); },
 
                     // config.json
                     cfg: { domain: tinyCfg.domain },
