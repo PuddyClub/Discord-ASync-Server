@@ -35,6 +35,7 @@ module.exports = async function (resolve, webCfg, web, app) {
         return;
     });
 
+    // Load Bots and Start the Website
     return require('for-promise')({ data: app.bots }, function (i, fn, fn_error) {
 
         // Complete
