@@ -38,7 +38,7 @@ module.exports = async function (resolve, webCfg, web, app) {
     return require('for-promise')({ data: app.bots }, function (i, fn, fn_error) {
 
         // Complete
-        app.bots[i].bot(app.bots[i].token).then(() => { return fn(); }).catch(err => { return fn_error(err); });
+        app.bots[i].bot.login(app.bots[i].token).then(() => { return fn(); }).catch(err => { return fn_error(err); });
         return;
 
     }).then(() => {

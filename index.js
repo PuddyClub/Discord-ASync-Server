@@ -199,7 +199,7 @@ const appModule = {
     },
 
     // Add Bots
-    addBot: function(bot) {app.bots.push(bot)},
+    addBot: function (bot) { app.bots.push(bot); return; },
 
     // Firebase
     firebase: {
