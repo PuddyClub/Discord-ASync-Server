@@ -19,11 +19,13 @@ const appModule = {
 
         // Create
         create: function (tinyCfg) {
-            return new Promise((resolve) => {
+            return new Promise((resolve, reject) => {
 
                 // Cookie Session
                 const cookieSession = require('cookie-session');
-                appModule.express.cookieSession = cookieSession(appModule.express.cookieSession);
+                try {
+                    appModule.express.cookieSession = cookieSession(appModule.express.cookieSession);
+                } catch (err) { reject(err); }
 
                 // Discord Config
                 tinyCfg.discord.auth.discordScope = ['identify', 'email'];
@@ -42,7 +44,7 @@ const appModule = {
                     errorPage: require('./files/errorPage'),
 
                     // Website Middleware
-                    middleware: (web) => { return middleware(resolve, tinyCfg.web, web, app); },
+                    middleware: (web) => { return middleware(resolve, reject, tinyCfg.web, web, app); },
 
                     // config.json
                     cfg: { domain: tinyCfg.domain },

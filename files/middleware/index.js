@@ -1,4 +1,4 @@
-module.exports = async function (resolve, webCfg, web, app) {
+module.exports = async function (resolve, reject, webCfg, web, app) {
 
     // Nunjucks
     const path = require('path');
@@ -36,22 +36,31 @@ module.exports = async function (resolve, webCfg, web, app) {
     });
 
     // Load Bots and Start the Website
-    return require('for-promise')({ data: app.bots }, function (i, fn, fn_error) {
+    if (app.bots && app.bots.length > 0) {
+        
+        require('for-promise')({ data: app.bots }, function (i, fn, fn_error) {
 
-        // Complete
-        app.bots[i].bot.login(app.bots[i].token).then(() => { return fn(); }).catch(err => { return fn_error(err); });
+            // Complete
+            app.bots[i].bot.login(app.bots[i].token).then(() => { return fn(); }).catch(err => { return fn_error(err); });
+            return;
+
+        }).then(() => {
+
+            // Complete
+            web.fn();
+            resolve();
+            return;
+
+        }).catch(err => {
+            reject(err);
+            return;
+        });
+        
         return;
 
-    }).then(() => {
+    }
 
-        // Complete
-        web.fn();
-        resolve();
-        return;
-
-    }).catch(err => {
-        console.error(err);
-        return;
-    })
+    // Nope
+    else { web.fn(); resolve(); return; }
 
 };
