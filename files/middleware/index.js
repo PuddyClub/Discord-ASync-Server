@@ -40,7 +40,7 @@ module.exports = async function (resolve, reject, discordCfg, webCfg, web, app) 
     ) {
 
         // Insert Interactions Endpoint
-        web.app.get('/interactions/endpoint', (req, res) => {
+        web.app.all('/interactions/endpoint', (req, res) => {
             return require('./interactionEndPoint')(req, res, webCfg.slashCommandListener, app.firebase, discordCfg.app);
         });
     
