@@ -7,7 +7,7 @@ let isDebug = false;
 if (process.argv[2] === "test") { isDebug = true; }
 
 // App
-const app = { auth: { login: null }, web: {} };
+const app = { auth: { login: null }, web: {}, bots: [] };
 const appModule = {
 
     // Express
@@ -197,6 +197,9 @@ const appModule = {
         }
 
     },
+
+    // Add Bots
+    addBot: function(bot) {app.bots.push(bot)},
 
     // Firebase
     firebase: {

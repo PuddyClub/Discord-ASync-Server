@@ -1,0 +1,30 @@
+{
+    "firebase": {
+      "apiKey": "",
+      "databaseURL": "",
+      "projectId": "",
+      "appId": ""
+    },
+    "cookieSession": {
+      "keys": [
+        "",
+        ""
+      ]
+    },
+    "discord": {
+      "auth": {
+        "client_id": "",
+        "client_secret": ""
+      }
+    },
+    "web": {
+      "slashCommandListener": true,
+      "botChecker": true
+    },
+    "localhost": "localhost:3000",
+    "domain": "",
+    "crypto": "",
+    "token": "",
+    "interactionsID": "",
+    "tokenURL": ""
+  }
