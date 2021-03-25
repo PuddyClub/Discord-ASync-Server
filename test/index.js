@@ -1,6 +1,7 @@
 // Tiny Config
 const tinyCfg = require('./config.json');
 const fetch = require('@tinypudding/puddy-lib/http/fetch/json');
+const Discord = require('discord.js');
 
 // Get Module
 const ds = require('../index');
@@ -18,6 +19,18 @@ const tokenLogin = function () {
 
 // Starting
 console.log('Starting App! Getting the Firebase Token...');
+
+// Create Bot
+const bot = new Discord.Client({ autoReconnect: true });
+bot.on('ready', (event) => {
+
+    // Welcome
+    console.log(`Discord Logged in as ${bot.user.tag}!`);
+
+});
+
+// Add Bot
+ds.addBot(bot);
 
 // onAuthStateChanged
 ds.firebase.onAuthStateChanged((data => {
@@ -56,6 +69,9 @@ ds.firebase.login(tokenLogin).then((user) => {
     // Prepare Express
     ds.express.setCookieSession(tinyCfg.cookieSession);
     ds.express.create(tinyCfg).then(() => {
+
+        // Start Discord.JS Bot
+        bot.login(tinyCfg.testBot);
 
         // Start Express
         ds.express.start(3000, function () {
