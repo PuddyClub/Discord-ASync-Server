@@ -20,7 +20,7 @@ const tokenLogin = function () {
 console.log('Starting App! Getting the Firebase Token...');
 
 // Add Bot
-const bot = ds.addBot(tinyCfg.testBot);
+const bot = ds.addBot(tinyCfg.testBot, { autoReconnect: true });
 bot.on('ready', (event) => {
 
     // Welcome

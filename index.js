@@ -201,7 +201,7 @@ const appModule = {
     },
 
     // Add Bots
-    addBot: function (token, cfg = { autoReconnect: true }) {
+    addBot: function (token, cfg = {}) {
         app.discord.bots.push({ bot: new app.discord.module.Client(cfg), token: token }); return;
     },
 
