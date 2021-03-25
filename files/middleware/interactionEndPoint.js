@@ -27,7 +27,10 @@ module.exports = async function (req, res, cfg, firebase, discordApps) {
                 });
             }
 
-            return interactionsEndpoint(req, res, discordApps[req.query.bot].waitMessage);
+            console.log('send!');
+            return interactionsEndpoint(req, res, discordApps[req.query.bot].waitMessage).err((err) => {
+                console.error(err);
+            });
 
         }
 

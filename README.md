@@ -41,7 +41,8 @@ You will need to create a JSON file to configure your server.
       "apps": {
         "test": {
           "client_id": "",
-          "public_key": ""
+          "public_key": "",
+          "waitMessage": "Loading your message..."
         }
       },
       "auth": {

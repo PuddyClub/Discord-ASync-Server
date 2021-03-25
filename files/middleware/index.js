@@ -36,12 +36,12 @@ module.exports = async function (resolve, reject, discordCfg, webCfg, web, app) 
         webCfg.slashCommandListener && 
         webCfg.slashCommandListener.enabled && 
         typeof webCfg.slashCommandListener.function === "string" &&
-        discordCfg && discordCfg.app
+        discordCfg && discordCfg.apps
     ) {
 
         // Insert Interactions Endpoint
         web.app.all('/interactions/endpoint', (req, res) => {
-            return require('./interactionEndPoint')(req, res, webCfg.slashCommandListener, app.firebase, discordCfg.app);
+            return require('./interactionEndPoint')(req, res, webCfg.slashCommandListener, app.firebase, discordCfg.apps);
         });
     
     }
