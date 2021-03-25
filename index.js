@@ -7,7 +7,7 @@ let isDebug = false;
 if (process.argv[2] === "test") { isDebug = true; }
 
 // App
-const app = { auth: { login: null }, web: {}, bots: [] };
+const app = { auth: { login: null }, web: {}, discord: { bots: [], module: require('discord.js') } };
 const appModule = {
 
     // Express
@@ -201,7 +201,9 @@ const appModule = {
     },
 
     // Add Bots
-    addBot: function (bot) { app.bots.push(bot); return; },
+    addBot: function (token, cfg = { autoReconnect: true }) {
+        app.discord.bots.push({ bot: new app.discord.module.Client(cfg), token: token }); return;
+    },
 
     // Firebase
     firebase: {

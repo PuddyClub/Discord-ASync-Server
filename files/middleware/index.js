@@ -47,12 +47,12 @@ module.exports = async function (resolve, reject, discordCfg, webCfg, web, app) 
     }
 
     // Load Bots and Start the Website
-    if (app.bots && app.bots.length > 0) {
+    if (app.discord.bots && app.discord.bots.length > 0) {
 
-        require('for-promise')({ data: app.bots }, function (i, fn, fn_error) {
+        require('for-promise')({ data: app.discord.bots }, function (i, fn, fn_error) {
 
             // Complete
-            app.bots[i].bot.login(app.bots[i].token).then(() => { return fn(); }).catch(err => { return fn_error(err); });
+            app.discord.bots[i].bot.login(app.discord.bots[i].token).then(() => { return fn(); }).catch(err => { return fn_error(err); });
             return;
 
         }).then(() => {
