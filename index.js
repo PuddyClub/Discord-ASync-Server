@@ -202,7 +202,9 @@ const appModule = {
 
     // Add Bots
     addBot: function (token, cfg = {}) {
-        app.discord.bots.push({ bot: new app.discord.module.Client(cfg), token: token }); return;
+        const bot = new app.discord.module.Client(cfg);
+        app.discord.bots.push({ bot: bot, token: token }); 
+        return bot;
     },
 
     // Firebase
