@@ -1,6 +1,5 @@
 // Tiny Config
 const tinyCfg = require('./config.json');
-console.log(tinyCfg)
 const fetch = require('@tinypudding/puddy-lib/http/fetch/json');
 const Discord = require('discord.js');
 
