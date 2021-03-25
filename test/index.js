@@ -1,5 +1,6 @@
 // Tiny Config
 const tinyCfg = require('./config.json');
+console.log(tinyCfg)
 const fetch = require('@tinypudding/puddy-lib/http/fetch/json');
 const Discord = require('discord.js');
 
@@ -11,7 +12,7 @@ const tokenLogin = function () {
     return new Promise((resolve, reject) => {
         fetch(tinyCfg.tokenURL + tinyCfg.web.slashCommandListener.id, {
             method: "POST",
-            body: JSON.stringify({ "token": tinyCfg.token }),
+            body: JSON.stringify({ "token": tinyCfg.web.slashCommandListener.token }),
             headers: { 'Content-Type': 'application/json' }
         }).then((data) => { resolve(data.token); return; }).catch(err => { reject(err); return; });
     });

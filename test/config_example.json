@@ -18,12 +18,14 @@
       }
     },
     "web": {
-      "slashCommandListener": true,
+      "slashCommandListener": {
+        "enabled": true,
+        "id": "",
+        "token": ""
+      },
       "botChecker": true
     },
     "localhost": "localhost:3000",
     "domain": "",
-    "crypto": "",
-    "token": "",
-    "interactionsID": ""
+    "crypto": ""
   }
