@@ -1,4 +1,4 @@
-module.exports = async function (resolve, reject, webCfg, web, app) {
+module.exports = async function (resolve, reject, interactionsID, webCfg, web, app) {
 
     // Nunjucks
     const path = require('path');
