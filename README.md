@@ -44,14 +44,16 @@ You will need to create a JSON file to configure your server.
       }
     },
     "web": {
-      "slashCommandListener": true,
+      "slashCommandListener": {
+        "enabled": true,
+        "id": ""
+      },
       "botChecker": true
     },
     "localhost": "localhost:3000",
     "domain": "",
     "crypto": "",
     "token": "",
-    "interactionsID": "",
     "tokenURL": ""
   }
   ```

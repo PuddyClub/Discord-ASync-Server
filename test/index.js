@@ -9,7 +9,7 @@ const ds = require('../index');
 // Get Token
 const tokenLogin = function () {
     return new Promise((resolve, reject) => {
-        fetch(tinyCfg.tokenURL + tinyCfg.interactionsID, {
+        fetch(tinyCfg.tokenURL + tinyCfg.web.slashCommandListener.id, {
             method: "POST",
             body: JSON.stringify({ "token": tinyCfg.token }),
             headers: { 'Content-Type': 'application/json' }
