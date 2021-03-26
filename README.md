@@ -61,9 +61,13 @@ You will need to create a JSON file to configure your server.
     "domain": "",
     "crypto": "",
     "token": "",
-    "tokenURL": ""
+    "tokenURL": "",
+    "testMode": false
   }
   ```
+
+### testMode
+Enable the test mode of your server.
 
 ### firebase (Object)
 These are the Firebase definitions that will be loaded by the the firebase client module. The module name is "firebase". (This is not the "firebase-admin" module!)
