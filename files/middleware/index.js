@@ -12,6 +12,8 @@ module.exports = async function (resolve, reject, discordCfg, webCfg, web, app) 
 
     // Modules
     const bodyParser = require('body-parser');
+    const readFile = require('@tinypudding/puddy-lib/http/fileCache');
+    const fs = require('fs');
     const interactionEndPoint = require('./interactionEndPoint');
     const homepage = require('./homepage');
 
@@ -26,6 +28,17 @@ module.exports = async function (resolve, reject, discordCfg, webCfg, web, app) 
     web.app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
         extended: true
     }));
+
+    // Main CSS
+    web.app.get('/css/main.css', (req, res, next) => {
+        return readFile(res, next, {
+            file: fs.readFileSync(path.join(__dirname, '../css/main.css'), 'utf8'),
+            date: { year: 2021, month: 3, day: 26, hour: 14, minute: 00 },
+            timezone: 'America/Sao_Paulo',
+            contentType: 'text/css',
+            fileMaxAge: '2592000000'
+        });
+    });
 
     // Extra
     if (typeof webCfg.middleware === "function") { await webCfg.middleware(web, app); }
