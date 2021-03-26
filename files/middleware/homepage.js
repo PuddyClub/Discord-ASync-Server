@@ -4,7 +4,7 @@ module.exports = async function (req, res, webCfg, web, app) {
     if(req.discord_session.user) {
 
         console.log(req);
-        res.render('test');
+        res.render('homepage');
 
     }
 
