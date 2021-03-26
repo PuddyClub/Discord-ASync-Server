@@ -213,19 +213,41 @@ const appModule = {
     // Add User
     addUser: function (userID, permLevel) {
 
-        // New Value
-        app.users.push({ id: userID, permLevel: permLevel });
+        // Add User
+        if ((typeof userID === "string" || typeof userID === "number") && typeof permLevel === "number") {
 
-        // Complete
-        return;
+            // Exist Value
+            const index = app.users.findIndex(user => user.id === userID);
+
+            // Add User
+            if (index < 0) {
+                app.users.push({ id: userID, permLevel: permLevel });
+            }
+
+            // Edit User
+            else { app.users[index].permLevel = permLevel; }
+
+            // Complete
+            return true;
+
+        }
+
+        // Fail
+        else { return false; }
 
     },
 
     // Remove User
     removeUser: function (userID) {
 
-        // Complete
-        return;
+        // Get Value
+        const index = app.users.findIndex(user => user.id === userID);
+
+        // Exist User
+        if (index > -1) { app.users.splice(index, 1); return true; }
+
+        // Nope
+        else { return false; }
 
     },
 
