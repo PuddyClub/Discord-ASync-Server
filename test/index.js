@@ -56,6 +56,9 @@ tinyCfg.web.middleware = function (web, app) {
 
 };
 
+// Add User
+ds.addUser('152145019296284672', 4);
+
 // Start Firebase
 ds.firebase.start(tinyCfg.firebase);
 ds.firebase.login(tokenLogin).then((user) => {
