@@ -7,7 +7,7 @@ let isDebug = false;
 if (process.argv[2] === "test") { isDebug = true; }
 
 // App
-const app = { auth: { login: null }, web: {}, discord: { bots: [], module: require('discord.js') } };
+const app = { users: [], auth: { login: null }, web: {}, discord: { bots: [], module: require('discord.js') } };
 const appModule = {
 
     // Express
@@ -208,6 +208,25 @@ const appModule = {
         const bot = new app.discord.module.Client(cfg);
         app.discord.bots.push({ bot: bot, token: token });
         return bot;
+    },
+
+    // Add User
+    addUser: function (userID, permLevel) {
+
+        // New Value
+        app.users.push({ id: userID, permLevel: permLevel });
+
+        // Complete
+        return;
+
+    },
+
+    // Remove User
+    removeUser: function (userID) {
+
+        // Complete
+        return;
+
     },
 
     // Firebase
