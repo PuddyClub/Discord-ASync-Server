@@ -63,6 +63,8 @@ ds.addUser('152145019296284672', 4);
 ds.firebase.start(tinyCfg.firebase);
 ds.firebase.login(tokenLogin).then((user) => {
 
+    /* user value is the value returned from login with custom token */
+
     // Login Complete
     console.log('Login in Firebase Complete');
 
