@@ -1,6 +1,7 @@
 // Tiny Config
 const tinyCfg = require('./config.json');
 const fetch = require('@tinypudding/puddy-lib/http/fetch/json');
+tinyCfg.testMode = true;
 
 // Get Module
 const ds = require('../index');

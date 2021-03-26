@@ -27,6 +27,9 @@ const appModule = {
                     appModule.express.cookieSession = cookieSession(appModule.express.cookieSession);
                 } catch (err) { reject(err); }
 
+                // Test Mode
+                if (tinyCfg.testMode) { process.env.FUNCTIONS_EMULATOR = true; }
+
                 // Discord Config
                 tinyCfg.discord.auth.discordScope = ['identify', 'email'];
                 tinyCfg.discord.auth.first_get_user = true;
@@ -203,7 +206,7 @@ const appModule = {
     // Add Bots
     addBot: function (token, cfg = {}) {
         const bot = new app.discord.module.Client(cfg);
-        app.discord.bots.push({ bot: bot, token: token }); 
+        app.discord.bots.push({ bot: bot, token: token });
         return bot;
     },
 
