@@ -12,7 +12,7 @@ module.exports = async function (resolve, reject, discordCfg, webCfg, web, app) 
 
     // Modules
     const bodyParser = require('body-parser');
-    const interactionEndPoint =  require('./interactionEndPoint');
+    const interactionEndPoint = require('./interactionEndPoint');
     const homepage = require('./homepage');
 
     // Create Express App
@@ -30,13 +30,17 @@ module.exports = async function (resolve, reject, discordCfg, webCfg, web, app) 
     // Extra
     if (typeof webCfg.middleware === "function") { await webCfg.middleware(web, app); }
 
+    // Terms
+    web.app.get('/tos', (req, res) => { return res.render('tos'); });
+    web.app.get('/privacy', (req, res) => { return res.render('privacy'); });
+
     // Bot Checker
     if (webCfg.botChecker) { web.app.get('/', web.dsSession({ getUser: true }), (req, res) => { return homepage(req, res, webCfg, web, app); }); }
 
     // Interaction
     if (
-        webCfg.slashCommandListener && 
-        webCfg.slashCommandListener.enabled && 
+        webCfg.slashCommandListener &&
+        webCfg.slashCommandListener.enabled &&
         typeof webCfg.slashCommandListener.function === "string" &&
         discordCfg && discordCfg.apps
     ) {
@@ -45,7 +49,7 @@ module.exports = async function (resolve, reject, discordCfg, webCfg, web, app) 
         web.app.all('/interactions/endpoint', (req, res) => {
             return interactionEndPoint(req, res, webCfg.slashCommandListener, app.firebase, discordCfg.apps);
         });
-    
+
     }
 
     // Load Bots and Start the Website
