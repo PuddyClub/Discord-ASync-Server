@@ -1,5 +1,6 @@
 // Prepare Module
 const firebase = require('firebase');
+const _ = require('lodash');
 const expressTemplate = require('@tinypudding/firebase-express-template');
 const middleware = require('./files/middleware');
 const ON_DEATH = require('death');
@@ -20,6 +21,43 @@ const appModule = {
         // Create
         create: function (tinyCfg) {
             return new Promise((resolve, reject) => {
+
+                // Create Settings
+                tinyCfg = _.defaultsDeep({}, tinyCfg, {
+                    
+                    // Firebase Settings
+                    firebase: {},
+                    
+                    // Cookie Session Settings
+                    cookieSession: {
+                        keys: []
+                    },
+
+                    // Discord Settings
+                    discord: {
+                        apps: {},
+                        auth: {
+                            client_id: "",
+                            client_secret: ""
+                        }
+                    },
+
+                    // Web Settings
+                    web: {
+                        slashCommandListener: {
+                            enabled: true,
+                            id: "",
+                            token: ""
+                        },
+                        botChecker: false
+                    },
+
+                    // Other Settings
+                    localhost: "localhost:3000",
+                    domain: "",
+                    crypto: ""
+
+                });
 
                 // Cookie Session
                 const cookieSession = require('cookie-session');
@@ -60,12 +98,16 @@ const appModule = {
                                 defaultSrc: [
                                     "'self'",
                                     "'unsafe-inline'",
-                                    'https://discord.com/'
+                                    'https://discord.com/',
+                                    'https://*.cloudflare.com/',
+                                    'https://*.typekit.net/'
                                 ],
                                 imgSrc: [
                                     "'self' data:",
                                     'https://cdn.discordapp.com/',
-                                    'https://discord.com/'
+                                    'https://discord.com/',
+                                    'https://*.cloudflare.com/',
+                                    'https://*.typekit.net/'
                                 ]
                             }
                         }

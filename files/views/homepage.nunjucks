@@ -1,1 +1,23 @@
-welcome
+<!doctype html>
+<html lang="en">
+
+    <head>
+
+        <title>Discord Bot Monitor</title>
+        {% include "template/head.nunjucks" %}
+
+    </head>
+
+    <body>
+
+        {% include "template/header.nunjucks" %}
+
+        <div class="container my-3">
+
+        </div>
+
+        {% include "template/footer.nunjucks" %}
+
+    </body>
+
+</html>

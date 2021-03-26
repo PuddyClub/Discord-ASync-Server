@@ -1,0 +1,53 @@
+{# The Navbar #}
+<nav id="header" class="navbar navbar-expand-lg navbar-nav thead d-block p-0 w-100 small">
+    <div class="navbase">
+        <button class="navbar-toggler ml-3 mr-3 mt-2 mb-2 border" type="button" data-toggle="collapse" data-target="#navTopPage" aria-controls="navTopPage" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon">
+                <i class="fas fa-ellipsis-v" style="font-size: 23pt; color: #f0f0f0;"></i>
+            </span>
+        </button>
+    </div>
+    <div class="collapse navbar-collapse pl-3 pr-3 pt-2 pb-2 text-white" id="navTopPage">
+
+        <a class="navbar-brand mb-0 h1" href="/">
+            {{global.name}}
+        </a>
+
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0"></ul>
+
+        <ul class="nav navbar-nav navbar-right ml-3">
+
+            <li class="nav-item">
+                <a class="nav-link" href="/logout?csrfToken={{global.csrftoken.now.uri}}&redirect={{global.url.uri}}">
+                    <i class="fas fa-sign-out-alt"></i>
+                        Sign Out
+                    </a>
+            </li>
+
+            <li class="nav-item">
+                <span class="nav-link">
+                    {{global.user.username}}#{{global.user.discriminator}}
+                </span>
+            </li>
+
+            <li class="nav-item">
+                <a class="btn btn-info" target="_blank" href="https://www.patreon.com/JasminDreasond">
+                    <i class="fab fa-patreon"></i>
+                    Patreon
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+</nav>
+
+<div id="app">
+
+    <noscript>
+        <div class="container my-3">
+            <div class="alert alert-danger">
+                Our website will only work correctly using javascript. Please enable the javascript!
+            </div>
+        </div>
+    </noscript>
