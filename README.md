@@ -53,7 +53,8 @@ You will need to create a JSON file to configure your server.
     "web": {
       "slashCommandListener": {
         "enabled": true,
-        "id": ""
+        "id": "",
+        "waitMessage": "Loading your message..."
       },
       "botChecker": true
     },
@@ -85,6 +86,8 @@ Choose which module features you want to activate.
 slashCommandListener.enabled (Boolean) (BETA) - Activate a special URL to receive your bot's interactions via your Firebase server.
 
 slashCommandListener.id (string) (BETA) - Special security ID of your URL that will be read by the Discord Interaction API Webhook.
+
+slashCommandListener.waitMessage (string) (BETA) - This message will be displayed while the server processes the rest of the script.
 
 botChecker - Activate your bot's monitoring website.
 
