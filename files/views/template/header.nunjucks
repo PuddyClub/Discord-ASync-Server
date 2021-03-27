@@ -1,53 +1,194 @@
-{# The Navbar #}
-<nav id="header" class="navbar navbar-expand-lg navbar-nav thead d-block p-0 w-100 small">
-    <div class="navbase">
-        <button class="navbar-toggler ml-3 mr-3 mt-2 mb-2 border" type="button" data-toggle="collapse" data-target="#navTopPage" aria-controls="navTopPage" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon">
-                <i class="fas fa-ellipsis-v" style="font-size: 23pt; color: #f0f0f0;"></i>
-            </span>
-        </button>
-    </div>
-    <div class="collapse navbar-collapse pl-3 pr-3 pt-2 pb-2 text-white" id="navTopPage">
+<body id="page-top">
 
-        <a class="navbar-brand mb-0 h1" href="/">
-            {{global.name}}
-        </a>
+    {# Page Wrapper #}
+    <div id="wrapper">
 
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0"></ul>
+        {# Sidebar #}
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-        <ul class="nav navbar-nav navbar-right ml-3">
+            {# Sidebar - Brand #}
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/admin/">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-tools"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">{{mainLang.admin_panel}}
+                </div>
+            </a>
 
+            {# Divider #}
+            <hr class="sidebar-divider my-0">
+
+            {# Nav Item - Dashboard #}
             <li class="nav-item">
-                <a class="nav-link" href="/logout?csrfToken={{global.csrftoken.now.uri}}&redirect={{global.url.uri}}">
-                    <i class="fas fa-sign-out-alt"></i>
-                        Sign Out
-                    </a>
+                <a class="nav-link" href="/admin/">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>{{mainLang.dashboard}}</span></a>
+            </li>
+
+            {# Divider #}
+            <hr class="sidebar-divider">
+
+            {# Heading #}
+            <div class="sidebar-heading">
+                {{mainLang.manager}}
+            </div>
+
+            {# Nav Item - Data #}
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/fast_tags">
+                    <i class="fas fa-fw fa-tags"></i>
+                    <span>{{mainLang.fast_tags}}</span></a>
             </li>
 
             <li class="nav-item">
-                <span class="nav-link">
-                    {{global.user.username}}#{{global.user.discriminator}}
-                </span>
+                <a class="nav-link" href="/admin/web_images">
+                    <i class="fas fa-fw fa-bookmark"></i>
+                    <span>{{mainLang.web_images}}</span></a>
             </li>
 
             <li class="nav-item">
-                <a class="btn btn-info" target="_blank" href="https://www.patreon.com/JasminDreasond">
-                    <i class="fab fa-patreon"></i>
-                    Patreon
-                </a>
+                <a class="nav-link" href="/admin/commissions">
+                    <i class="fas fa-fw fa-comments-dollar"></i>
+                    <span>{{mainLang.commission_data}}</span></a>
             </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/email_smtp">
+                    <i class="fas fa-fw fa-mail-bulk"></i>
+                    <span>{{mainLang.email_smtp}}</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/payments">
+                    <i class="far fa-credit-card"></i>
+                    <span>{{mainLang.payments}}</span></a>
+            </li>
+
+            {# Divider #}
+            <hr class="sidebar-divider">
+
+            {# Heading #}
+            <div class="sidebar-heading">
+                {{mainLang.pages}}
+            </div>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/page_about">
+                    <i class="fas fa-pager"></i>
+                    <span>{{global.lang.about}}</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/page_projects">
+                    <i class="fas fa-pager"></i>
+                    <span>{{global.lang.projects}}</span></a>
+            </li>
+
+            {# Divider #}
+            <hr class="sidebar-divider">
+
+            {# Heading #}
+            <div class="sidebar-heading">
+                {{mainLang.images}}
+            </div>
+
+            {# Nav Item - Data #}
+            {# <li class="nav-item">
+                <a class="nav-link" href="/admin/featured_arts">
+                    <i class="fas fa-fw fa-images"></i>
+                    <span>{{mainLang.featured_arts}}</span></a>
+            </li> #}
+
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/gallery">
+                    <i class="fas fa-photo-video"></i>
+                    <span>{{mainLang.art_gallery}}</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/file_upload">
+                    <i class="fas fa-fw fa-file-upload"></i>
+                    <span>{{mainLang.files}}</span></a>
+            </li>
+
+            {# Divider #}
+            <hr class="sidebar-divider">
+
+            {# Heading #}
+            <div class="sidebar-heading">
+                {{mainLang.homepage}}
+            </div>
+
+            {# Nav Item - Data #}
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/home_carousel">
+                    <i class="fas fa-fw fa-list"></i>
+                    <span>{{mainLang.carousel}}</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/home_infos">
+                    <i class="fas fa-fw fa-info-circle"></i>
+                    <span>{{mainLang.infos}}</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/home_cards">
+                    <i class="fas fa-table"></i>
+                    <span>{{mainLang.cards}}</span></a>
+            </li>
+
+            {# Divider #}
+            <hr class="sidebar-divider d-none d-md-block">
+
+            {# Sidebar Toggler (Sidebar) #}
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
 
         </ul>
+        {# End of Sidebar #}
 
-    </div>
-</nav>
+        {# Content Wrapper #}
+        <div id="content-wrapper" class="d-flex flex-column">
 
-<div id="app">
+            {# Main Content #}
+            <div id="content">
 
-    <noscript>
-        <div class="container my-3">
-            <div class="alert alert-danger">
-                Our website will only work correctly using javascript. Please enable the javascript!
-            </div>
-        </div>
-    </noscript>
+                {# Topbar #}
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    {# Sidebar Toggle (Topbar) #}
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    {# Topbar Navbar #}
+                    <ul class="navbar-nav ml-auto">
+
+                        {# Nav Item - User Information #}
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{global.user.username}}#{{global.user.discriminator}}</span>
+                                <img class="img-profile rounded-circle" src="https://cdn.discordapp.com/avatars/{{global.user.id}}/{{global.user.avatar}}?size=64">
+                            </a>
+                            {# Dropdown - User Information #}
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="/">
+                                    <i class="fas fa-home fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    {{mainLang.website}}
+                                </a>
+                                <a class="dropdown-item" href="/logout">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    {{mainLang.logout}}
+                                </a>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </nav>
+                {# End of Topbar #}
+
+                {# Begin Page Content #}
+                <div class="container-fluid">

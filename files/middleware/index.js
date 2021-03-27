@@ -1,6 +1,7 @@
 module.exports = async function (resolve, reject, discordCfg, webCfg, web, app) {
 
     // Nunjucks
+    const express = require('express');
     const path = require('path');
     const nunjucks = require('nunjucks');
     nunjucks.configure(path.join(__dirname, '../views'), {
@@ -9,11 +10,10 @@ module.exports = async function (resolve, reject, discordCfg, webCfg, web, app) 
     });
 
     web.app.set('view engine', 'nunjucks');
+    web.express = express;
 
     // Modules
     const bodyParser = require('body-parser');
-    const readFile = require('@tinypudding/puddy-lib/http/fileCache');
-    const fs = require('fs');
     const interactionEndPoint = require('./interactionEndPoint');
     const homepage = require('./homepage');
     const getGlobal = require('./getGlobal');
@@ -30,16 +30,10 @@ module.exports = async function (resolve, reject, discordCfg, webCfg, web, app) 
         extended: true
     }));
 
-    // Main CSS
-    web.app.get('/css/main.css', (req, res, next) => {
-        return readFile(res, next, {
-            file: fs.readFileSync(path.join(__dirname, '../css/main.css'), 'utf8'),
-            date: { year: 2021, month: 3, day: 26, hour: 14, minute: 00 },
-            timezone: 'America/Sao_Paulo',
-            contentType: 'text/css',
-            fileMaxAge: '2592000000'
-        });
-    });
+    // Files
+    web.app.use(express.static(path.join(__dirname, "../public"), {
+        maxAge: '2592000000' // uses milliseconds per docs
+    }));
 
     // Extra
     if (typeof webCfg.middleware === "function") { await webCfg.middleware(web, app); }

@@ -1,0 +1,472 @@
+/*!
+ * Start Bootstrap - Landing Page v5.0.7 (https://startbootstrap.com/template-overviews/landing-page)
+ * Copyright 2013-2019 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-landing-page/blob/master/LICENSE)
+ */
+
+ body {
+    font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+  
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 700;
+  }
+  
+  .showcase .showcase-text {
+    padding: 3rem;
+  }
+  
+  .showcase .showcase-img {
+    min-height: 30rem;
+    background-size: cover;
+    background-position: center;
+  }
+  
+  @media (min-width: 768px) {
+    .showcase .showcase-text {
+      padding: 7rem;
+    }
+  }
+
+  /* Banner Header */
+.tinybase,
+.tinybase #banner,
+.banner_preview {
+    height: 200px;
+	width: 100%;
+}
+
+.tinybase {
+    padding: 0;
+    overflow: hidden
+}
+
+.tinybase .logo {
+    margin-top: 25px;
+}
+
+#banner,
+.banner_preview {
+    background-size: 100%;
+    background-repeat: repeat;
+    background-position: center
+}
+
+  @media (max-width: 992px) {
+    #banner,
+    .banner_preview {
+        background-size: auto 100%;
+    }
+  }
+
+  /* Footer */
+  
+  footer.footer {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+  
+  /* bg black */
+
+  .bg-black{
+    background-color: rgb(19, 19, 19) !important;
+  }
+
+  /* btn */
+  .btn{
+    border-radius: .0rem;
+  }
+
+  /* Navbar Link */
+  .main-navbar-link{
+    padding: 11px 14px;
+    margin: 5px 21px;
+    display: inline-block;
+    min-width: 140px;
+  }
+
+  /* btn Pink */
+  .btn-pink {
+    color: #fff;
+    background-color: rgb(189, 42, 178);
+  }
+
+  .btn-pink:hover {
+    color: #fff;
+    background-color: #e22cd5;
+  }
+
+  .btn-pink:focus {
+    box-shadow: 0 0 0 0.2rem rgba(249, 31, 183, 0.5);
+  }
+
+  /* NavBar Top Color */
+
+  .btn-top-navbar {
+    color: #1a0501;
+    background-color: #f6f3b6;
+    font-family: Akrobat-Black;
+    font-size: 16pt;
+    font-style: italic;
+    padding: 7px 14px;
+  }
+
+  .btn-top-navbar:hover {
+    color: #1a0501;
+    box-shadow: 0 0 0 0.3rem #ff24ed;
+  }
+
+  .btn-top-navbar:focus {
+    color: #ff24ed;
+    box-shadow: 0 0 0 0.3rem transparent;
+  }
+
+  /* About Page Header */
+
+  @font-face {
+    font-family: Akrobat-Black;
+    src: url('../webfonts/Akrobat-Black.woff');
+  }
+
+  .about-page-header, .about-page-header h1{
+    font-family: Akrobat-Black !important;
+  }
+
+  .about-page-header {
+    background-color: rgb(40, 183, 195);;
+    color: #fff;
+    padding: 15px;
+    border-radius: 5px;
+  }
+
+  .about-page-header a {
+    color: #fff;
+    text-decoration: none !important;
+  }
+
+  .about-page-header a:hover {
+    color: rgb(212, 212, 212);
+    text-decoration: none !important;
+  }
+
+  /* Carousel Caption */
+ /*  .carousel-caption {
+    background-color: rgba(0,0,0, 0.5);
+    width: 100%;
+    left: 0;
+  } */
+  .carousel-caption h5, .carousel-caption p {
+      text-shadow: 2px 0 0 black, -2px 0 0 black, 0 2px 0 black, 0 -2px 0 black, 1px 1px black, -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black;
+  }
+
+  /* Social Icons */
+
+ .btn.btn-social-icon {
+    width: 50px;
+    height: 50px;
+    padding: 0;
+    font-size: 18pt;
+}
+
+.btn.btn-rounded {
+    border-radius: 50px
+}
+
+/* BTN Outline */
+
+.btn-outline-reddit {
+    border: 1px solid #FF4500;
+    color: #FF4500
+}
+
+.btn-outline-reddit:hover {
+    background: rgb(190, 51, 0);
+    color: #ffffff
+}
+
+.btn-outline-tumblr {
+    border: 1px solid #35465c;
+    color: #35465c
+}
+
+.btn-outline-tumblr:hover {
+    background: #202b38;
+    color: #ffffff
+}
+
+.btn-outline-xing {
+    border: 1px solid #026466;
+    color: #026466
+}
+
+.btn-outline-xing:hover {
+    background: #003f41;
+    color: #ffffff
+}
+
+.btn-outline-vk {
+    border: 1px solid #4c75a3;
+    color: #4c75a3
+}
+
+.btn-outline-vk:hover {
+    background: #355170;
+    color: #ffffff
+}
+
+.btn-outline-pinterest {
+    border: 1px solid #E60023;
+    color: #E60023
+}
+
+.btn-outline-pinterest:hover {
+    background: rgb(175, 0, 26);
+    color: #ffffff
+}
+
+.btn-outline-patreon {
+    border: 1px solid #F96854;
+    color: #F96854
+}
+
+.btn-outline-patreon:hover {
+    background: rgb(199, 83, 68);
+    color: #ffffff
+}
+
+.btn-outline-discord {
+    border: 1px solid #7289da;
+    color: #7289da
+}
+
+.btn-outline-discord:hover {
+    background: #495688;
+    color: #ffffff
+}
+
+.btn-outline-twitch {
+    border: 1px solid #6441a5;
+    color: #6441a5
+}
+
+.btn-outline-twitch:hover {
+    background: #422b6d;
+    color: #ffffff
+}
+
+.btn-outline-facebook {
+    border: 1px solid #3b579d;
+    color: #3b579d
+}
+
+.btn-outline-facebook:hover {
+    background: #3b579d;
+    color: #ffffff
+}
+
+.btn-outline-youtube {
+    border: 1px solid #e52d27;
+    color: #e52d27
+}
+
+.btn-outline-youtube:hover {
+    background: #e52d27;
+    color: #ffffff
+}
+
+.btn-outline-twitter {
+    border: 1px solid #2caae1;
+    color: #2caae1
+}
+
+.btn-outline-twitter:hover {
+    background: #2caae1;
+    color: #ffffff
+}
+
+.btn-outline-dribbble {
+    border: 1px solid #ea4c89;
+    color: #ea4c89
+}
+
+.btn-outline-linkedin {
+    border: 1px solid #0177b5;
+    color: #0177b5
+}
+
+.btn-outline-linkedin:hover {
+    background: #0177b5;
+    color: #ffffff
+}
+
+.btn-outline-instagram {
+    border: 1px solid #dc4a38;
+    color: #dc4a38
+}
+
+.btn-outline-instagram:hover {
+    background: #e52d27;
+    color: #ffffff
+}
+
+/* BTN Normal */
+
+.btn-reddit {
+    background: #FF4500;
+    color: #ffffff
+}
+
+.btn-reddit:hover,
+.btn-reddit:focus {
+    background: rgb(190, 51, 0);
+    color: #ffffff
+}
+
+.btn-tumblr {
+    background: #35465c;
+    color: #ffffff
+}
+
+.btn-tumblr:hover,
+.btn-tumblr:focus {
+    background: #202b38;
+    color: #ffffff
+}
+
+.btn-xing {
+    background: #026466;
+    color: #ffffff
+}
+
+.btn-xing:hover,
+.btn-xing:focus {
+    background: #003f41;
+    color: #ffffff
+}
+
+.btn-vk {
+    background: #4c75a3;
+    color: #ffffff
+}
+
+.btn-vk:hover,
+.btn-vk:focus {
+    background: #355170;
+    color: #ffffff
+}
+
+.btn-pinterest {
+    background: #E60023;
+    color: #ffffff
+}
+
+.btn-pinterest:hover,
+.btn-pinterest:focus {
+    background: rgb(175, 0, 26);
+    color: #ffffff
+}
+
+.btn-patreon {
+    background: #F96854;
+    color: #ffffff
+}
+
+.btn-patreon:hover,
+.btn-patreon:focus {
+    background: rgb(199, 83, 68);
+    color: #ffffff
+}
+
+.btn-discord {
+    background: #7289da;
+    color: #ffffff
+}
+
+.btn-discord:hover,
+.btn-discord:focus {
+    background: #495688;
+    color: #ffffff
+}
+
+.btn-twitch {
+    background: #6441a5;
+    color: #ffffff
+}
+
+.btn-twitch:hover,
+.btn-twitch:focus {
+    background: #422b6d;
+    color: #ffffff
+}
+
+.btn-facebook {
+    background: #3b579d;
+    color: #ffffff
+}
+
+.btn-facebook:hover,
+.btn-facebook:focus {
+    background: #2d4278;
+    color: #ffffff
+}
+
+.btn-youtube {
+    background: #e52d27;
+    color: #ffffff
+}
+
+.btn-youtube:hover,
+.btn-youtube:focus {
+    background: #c21d17;
+    color: #ffffff
+}
+
+.btn-twitter {
+    background: #2caae1;
+    color: #ffffff
+}
+
+.btn-twitter:hover,
+.btn-twitter:focus {
+    background: #1b8dbf;
+    color: #ffffff
+}
+
+.btn-dribbble {
+    background: #ea4c89;
+    color: #ffffff
+}
+
+.btn-dribbble:hover,
+.btn-dribbble:focus {
+    background: #e51e6b;
+    color: #ffffff
+}
+
+.btn-linkedin {
+    background: #0177b5;
+    color: #ffffff
+}
+
+.btn-linkedin:hover,
+.btn-linkedin:focus {
+    background: #015682;
+    color: #ffffff
+}
+
+.btn-instagram {
+    background: #dc4a38;
+    color: #ffffff
+}
+
+.btn-instagram:hover,
+.btn-instagram:focus {
+    background: #bf3322;
+    color: #ffffff
+}

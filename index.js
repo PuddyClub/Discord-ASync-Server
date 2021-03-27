@@ -100,14 +100,18 @@ const appModule = {
                                     "'unsafe-inline'",
                                     'https://discord.com/',
                                     'https://*.cloudflare.com/',
-                                    'https://*.typekit.net/'
+                                    'https://*.typekit.net/',
+                                    'https://*.googleapis.com/',
+                                    'https://*.gstatic.com/'
                                 ],
                                 imgSrc: [
                                     "'self' data:",
                                     'https://cdn.discordapp.com/',
                                     'https://discord.com/',
                                     'https://*.cloudflare.com/',
-                                    'https://*.typekit.net/'
+                                    'https://*.typekit.net/',
+                                    'https://*.googleapis.com/',
+                                    'https://*.gstatic.com/'
                                 ]
                             }
                         }

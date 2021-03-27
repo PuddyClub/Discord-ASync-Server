@@ -1,40 +1,30 @@
 </div>
-
-<footer class="page-footer font-small pt-4 clearfix bg-dark text-white" id="footer">
-
-<div class="container-fluid text-center text-md-left">
-
-    <div class="row">
-
-        <div class="col-md-6 mt-md-0 mt-3">
-
-            <center>
-                <img class="img-fluid" src="/img/logo.png" alt="PT"/>
-            </center>
-            <br/>
-
-        </div>
-
-        <div class="col-md-3 mb-md-0 mb-3">
-            <h5>Links</h5>
-            <ul class="list-unstyled">
-            </ul>
-        </div>
-
-        <div class="col-md-3 mb-md-0 mb-3">
-            <h5>Links</h5>
-            <ul class="list-unstyled">
-                <li>
-                    <a href="mailto:tiny@puddy.club">Support Contact</a>
-                </li>
-            </ul>
-        </div>
-
-    </div>
+{# /.container-fluid #}
 
 </div>
+{# End of Main Content #}
 
-<div class="footer-copyright text-center py-3 bg-secondary text-white" id="footer2">
-        © Website {{global.year_footer}} {{global.name}}.
-        </div>
+{# Footer #}
+<footer class="sticky-footer bg-white">
+<div class="container my-auto">
+<div class="copyright text-center my-auto">
+    <span>&copy; {{global.year_footer}} Discord Async Server.</span>
+</div>
+</div>
 </footer>
+{# End of Footer #}
+
+</div>
+{# End of Content Wrapper #}
+
+</div>
+{# End of Page Wrapper #}
+
+{# Scroll to Top Button#}
+<a class="scroll-to-top rounded" href="#page-top">
+<i class="fas fa-angle-up"></i>
+</a>
+
+<script src="/admin/js/sb-admin-2.min.js"></script>
+
+</body>

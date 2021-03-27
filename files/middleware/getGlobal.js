@@ -7,7 +7,8 @@ module.exports = function (web, callback) {
             csrftoken: req.csrfToken,
             hostname: web.cfg.domain,
             botOwner: '152145019296284672',
-            user: req.discord_session.user
+            user: req.discord_session.user,
+            cache_code: 1
         };
 
         // Year Footer
