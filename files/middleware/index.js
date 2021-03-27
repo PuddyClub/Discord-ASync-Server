@@ -16,6 +16,7 @@ module.exports = async function (resolve, reject, discordCfg, webCfg, web, app) 
     const fs = require('fs');
     const interactionEndPoint = require('./interactionEndPoint');
     const homepage = require('./homepage');
+    const getGlobal = require('./getGlobal');
 
     // Create Express App
     app.web.server = require('http').createServer(web.app);
@@ -48,7 +49,7 @@ module.exports = async function (resolve, reject, discordCfg, webCfg, web, app) 
     web.app.get('/privacy', (req, res) => { return res.render('privacy'); });
 
     // Bot Checker
-    if (webCfg.botChecker) { web.app.get('/', web.dsSession({ getUser: true }), (req, res) => { return homepage(req, res, webCfg, web, app); }); }
+    if (webCfg.botChecker) { web.app.get('/', web.dsSession({ getUser: true }), getGlobal(web, (req, res) => { return homepage(req, res, webCfg, web, app); })); }
 
     // Interaction
     if (
