@@ -13,8 +13,10 @@
 {{global.head.js.chart | safe}}
 
 {# CSS #}
+{{global.head.css.bootstrap | safe}}
 {{global.head.css.fontnunito | safe}}
 {{global.head.css.fontawesome | safe}}
+<link href="/admin/css/sb-admin-2.min.css?v={{global.cache_code}}" rel="stylesheet">
 
 {# Script #}
 <script>
