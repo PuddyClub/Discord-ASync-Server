@@ -206,7 +206,18 @@ const appModule = {
                             list: [
                                 { value: 'en', name: 'English' },
                                 { value: 'pt-br', name: 'Português Brasil' }
-                            ]
+                            ],
+
+                            // Loader
+                            loader: function (local, lang) {
+                            
+                                // Get Module
+                                const optionalModule = require('@tinypudding/puddy-lib/get/module');
+                                
+                                // Result
+                                return optionalModule(require('path').join(__dirname ,'.files/lang/' + lang + '/' + local + '.json'));
+                            
+                            },
 
                         },
 
