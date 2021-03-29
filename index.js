@@ -41,10 +41,10 @@ const appModule = {
                     },
 
                     custom: '',
-                    
+
                     // Firebase Settings
                     firebase: {},
-                    
+
                     // Cookie Session Settings
                     cookieSession: {
                         keys: []
@@ -102,10 +102,12 @@ const appModule = {
                     errorPage: require('./files/errorPage'),
 
                     // Website Middleware
-                    middleware: (web) => { return middleware(resolve, reject, tinyCfg.discord, tinyCfg.web, {
-                        css: tinyCfg.css,
-                        js: tinyCfg.js
-                    }, web, app); },
+                    middleware: (web) => {
+                        return middleware(resolve, reject, tinyCfg.discord, tinyCfg.web, {
+                            css: tinyCfg.css,
+                            js: tinyCfg.js
+                        }, web, app);
+                    },
 
                     // config.json
                     cfg: { domain: tinyCfg.domain },
@@ -210,13 +212,19 @@ const appModule = {
 
                             // Loader
                             loader: function (local, lang) {
-                            
+
                                 // Get Module
                                 const optionalModule = require('@tinypudding/puddy-lib/get/module');
-                                
+
                                 // Result
-                                return optionalModule(require('path').join(__dirname ,'./files/lang/' + lang + '/' + local + '.json'));
-                            
+                                return optionalModule(require('path').join(__dirname, './files/lang/' + lang + '/' + local + '.json'));
+
+                            },
+
+                            // Is User
+                            getIsUser: function (req, res) {
+                                if (req.discord_session.user) { return true; }
+                                else { return false; }
                             },
 
                         },
