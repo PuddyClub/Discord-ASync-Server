@@ -8,7 +8,6 @@ module.exports = function (web, fileCfg, callback) {
             url: { normal: req.url, uri: encodeURIComponent(req.url) },
             csrftoken: req.csrfToken,
             hostname: web.cfg.domain,
-            botOwner: '152145019296284672',
             user: req.discord_session.user,
             cache_code: 1,
             head: fileCfg,
