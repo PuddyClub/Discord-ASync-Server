@@ -39,8 +39,8 @@ module.exports = async function (resolve, reject, discordCfg, webCfg, fileCfg, w
     if (typeof webCfg.middleware === "function") { await webCfg.middleware(web, app); }
 
     // Terms
-    web.app.get('/tos', (req, res) => { return res.render('tos'); });
-    web.app.get('/privacy', (req, res) => { return res.render('privacy'); });
+    web.app.get('/tos', getGlobal(web, fileCfg, (req, res) => { return res.render('tos', { global: req.globalItems }); }));
+    web.app.get('/privacy', getGlobal(web, fileCfg, (req, res) => { return res.render('privacy', { global: req.globalItems }); }));
 
     // Bot Checker
     if (webCfg.botChecker) { web.app.get('/', web.dsSession({ getUser: true }), getGlobal(web, fileCfg, (req, res) => { return homepage(req, res, webCfg, web, app); })); }

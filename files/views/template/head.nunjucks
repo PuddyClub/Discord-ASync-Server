@@ -6,15 +6,15 @@
 <meta http-equiv="Content-Script-Type" content="text/javascript">
 
 {# Javascript #}
-{{global.head.js.jquery}}
-{{global.head.js.bootstrap}}
-{{global.head.js.loadingoverlay}}
-{{global.head.js.easing}}
-{{global.head.js.chart}}
+{{global.head.js.jquery | safe}}
+{{global.head.js.bootstrap | safe}}
+{{global.head.js.loadingoverlay | safe}}
+{{global.head.js.easing | safe}}
+{{global.head.js.chart | safe}}
 
 {# CSS #}
-{{global.head.css.fontnunito}}
-{{global.head.css.fontawesome}}
+{{global.head.css.fontnunito | safe}}
+{{global.head.css.fontawesome | safe}}
 
 {# Script #}
 <script>
