@@ -1,4 +1,4 @@
-module.exports = async function (resolve, reject, discordCfg, webCfg, web, app) {
+module.exports = async function (resolve, reject, discordCfg, webCfg, fileCfg, web, app) {
 
     // Nunjucks
     const express = require('express');
@@ -43,7 +43,7 @@ module.exports = async function (resolve, reject, discordCfg, webCfg, web, app) 
     web.app.get('/privacy', (req, res) => { return res.render('privacy'); });
 
     // Bot Checker
-    if (webCfg.botChecker) { web.app.get('/', web.dsSession({ getUser: true }), getGlobal(web, (req, res) => { return homepage(req, res, webCfg, web, app); })); }
+    if (webCfg.botChecker) { web.app.get('/', web.dsSession({ getUser: true }), getGlobal(web, fileCfg, (req, res) => { return homepage(req, res, webCfg, web, app); })); }
 
     // Interaction
     if (

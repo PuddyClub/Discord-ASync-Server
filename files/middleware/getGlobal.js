@@ -1,4 +1,4 @@
-module.exports = function (web, callback) {
+module.exports = function (web, fileCfg, callback) {
     return function (req, res, next) {
 
         // Prepare Global
@@ -8,7 +8,8 @@ module.exports = function (web, callback) {
             hostname: web.cfg.domain,
             botOwner: '152145019296284672',
             user: req.discord_session.user,
-            cache_code: 1
+            cache_code: 1,
+            head: fileCfg,
         };
 
         // Year Footer
