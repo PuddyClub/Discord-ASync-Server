@@ -215,7 +215,7 @@ const appModule = {
                                 const optionalModule = require('@tinypudding/puddy-lib/get/module');
                                 
                                 // Result
-                                return optionalModule(require('path').join(__dirname ,'.files/lang/' + lang + '/' + local + '.json'));
+                                return optionalModule(require('path').join(__dirname ,'./files/lang/' + lang + '/' + local + '.json'));
                             
                             },
 

@@ -3,6 +3,7 @@ module.exports = function (web, fileCfg, callback) {
 
         // Prepare Global
         req.globalItems = {
+            lang: req.i18.getFile('global'),
             i18List: req.i18.getSelectedLang(), 
             i18ClientRequest: req.i18.getClientWeb(),
             url: { normal: req.url, uri: encodeURIComponent(req.url) },
