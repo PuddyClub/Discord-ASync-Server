@@ -11,9 +11,21 @@ module.exports = async function (req, res, webCfg, web, app) {
 
             // Lang
             const lang = req.i18.getFile('homepage');
+
+            // Bots
+            const bots = [];
+            for(const item in app.discord.bots) {
+                bots.push({
+                    username: app.discord.bots[item].bot.user.username,
+                    discriminator: app.discord.bots[item].bot.user.discriminator,
+                    tag: app.discord.bots[item].bot.user.tag,
+                    id: app.discord.bots[item].bot.user.id,
+                    avatar: app.discord.bots[item].bot.user.avatarURL({size: 32})
+                });
+            }
             
             // Render Page
-            res.render('homepage', { global: req.globalItems, lang: lang });
+            res.render('homepage', { global: req.globalItems, lang: lang, bots: bots });
 
         }
 

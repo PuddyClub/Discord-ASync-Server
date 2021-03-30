@@ -34,11 +34,18 @@
             </div>
 
             {# Nav Item - Data #}
-            <li class="nav-item">
-                <a class="nav-link" href="javascript:void(0);">
-                    <i class="fab fa-fw fa-discord"></i>
-                    <span>Test</span></a>
-            </li>
+            {% for bot in bots %}
+
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);">
+                        <i class="fab fa-fw fa-discord"></i>
+                        <span id="ds_bot_{{bot.id}}"><img alt="avatar_{{bot.id}}" class="rounded-circle" height="32" style="height: 32px;" src="{{bot.avatar}}"> {{bot.tag}}</span>
+                    </a>
+                </li>
+
+            {% else %}
+
+            {% endfor %}
 
         </ul>
         {# End of Sidebar #}
