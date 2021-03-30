@@ -6,6 +6,9 @@
         <title>Discord Bot Monitor</title>
 
         {% include "template/head.nunjucks" %}
+        <script>
+            var tinyLang = {{langValues | safe}};
+        </script>
 
     </head>
 
@@ -29,6 +32,10 @@
     {# Page Heading #}
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">{{lang.discord_bot}}</h1>
+    </div>
+
+    <div id="app">
+        <p>{{lang.no_selected_bot}}</p>
     </div>
 
     {% include "template/footer.nunjucks" %}

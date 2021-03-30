@@ -2,5 +2,6 @@
     "info_title": "Panel Control",
     "info": "Bot monitoring and control panel.",
     "discord_bot": "Discord Bots",
-    "page_info": "Choose which bot you want to monitor."
+    "page_info": "Choose which bot you want to monitor.",
+    "no_selected_bot": "Please select a bot."
 }

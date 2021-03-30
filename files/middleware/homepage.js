@@ -25,7 +25,7 @@ module.exports = async function (req, res, webCfg, web, app) {
             }
             
             // Render Page
-            res.render('homepage', { global: req.globalItems, lang: lang, bots: bots });
+            res.render('homepage', { global: req.globalItems, lang: lang, bots: bots, langValues: JSON.stringify(lang) });
 
         }
 
