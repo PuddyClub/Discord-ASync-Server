@@ -105,7 +105,8 @@ const appModule = {
                     middleware: (web) => {
                         return middleware(resolve, reject, tinyCfg.discord, tinyCfg.web, {
                             css: tinyCfg.css,
-                            js: tinyCfg.js
+                            js: tinyCfg.js,
+                            custom: tinyCfg.custom
                         }, web, app);
                     },
 

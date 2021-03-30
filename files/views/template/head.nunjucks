@@ -38,3 +38,4 @@
 </script>
 
 <script src="/js/main.js?v={{global.cache_code}}"></script>
+{{global.head.custom | safe}}
