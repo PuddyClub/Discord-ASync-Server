@@ -3,6 +3,7 @@ module.exports = async function (resolve, reject, discordCfg, webCfg, fileCfg, w
     // Nunjucks
     const express = require('express');
     const path = require('path');
+    const fs = require('fs');
     const nunjucks = require('nunjucks');
     nunjucks.configure(path.join(__dirname, '../views'), {
         autoescape: true,
@@ -37,6 +38,33 @@ module.exports = async function (resolve, reject, discordCfg, webCfg, fileCfg, w
 
     // Extra
     if (typeof webCfg.middleware === "function") { await webCfg.middleware(web, app); }
+
+    // Files
+    const fileAge = '2592000000';
+
+    // Main
+    web.app.get('/js/main.js', function (req, res, next) {
+        return readFile(
+            res, next, {
+            file: fs.readFileSync(path.join(__dirname, '../client/main.js')),
+            date: { year: 2021, month: 3, day: 30, hour: 17, minute: 29 },
+            timezone: 'America/Sao_Paulo',
+            fileMaxAge: fileAge
+        }
+        );
+    });
+
+    // Homepage
+    web.app.get('/js/main.js', function (req, res, next) {
+        return readFile(
+            res, next, {
+            file: fs.readFileSync(path.join(__dirname, '../client/homepage.js')),
+            date: { year: 2021, month: 3, day: 30, hour: 17, minute: 29 },
+            timezone: 'America/Sao_Paulo',
+            fileMaxAge: fileAge
+        }
+        );
+    });
 
     // Terms
     web.app.get('/tos', getGlobal(web, fileCfg, (req, res) => { return res.render('tos', { global: req.globalItems }); }));

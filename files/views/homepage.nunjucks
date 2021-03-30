@@ -6,8 +6,10 @@
         <title>Discord Bot Monitor</title>
 
         {% include "template/head.nunjucks" %}
+        <script src="/socket.io/socket.io.js"></script>
         <script>
             var tinyLang = {{langValues | safe}};
+            var socket = io.connect();
         </script>
 
     </head>
