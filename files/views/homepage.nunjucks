@@ -13,7 +13,7 @@
 
     {# Page Heading #}
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">{{mainLang.dashboard}}</h1>
+        <h1 class="h3 mb-0 text-gray-800">{{global.lang.dashboard}}</h1>
     </div>
 
     {# Info #}
@@ -22,149 +22,13 @@
             {{lang.info_title}}
         </div>
         <div class="card-body">
-            {{lang.info_1}}
-            <br/>
-            {{lang.info_2}}
+            {{lang.info}}
         </div>
     </div>
 
     {# Page Heading #}
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">{{lang.discord_bot}}</h1>
-    </div>
-
-    {# Content Row #}
-    <div class="row">
-
-        {# Earnings (Monthly) Card Example #}
-        <div class="col-xl-4 col-md-6 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{lang.tag}}</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{discordBot.tag}}</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-tags fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        {# Earnings (Monthly) Card Example #}
-        <div class="col-xl-4 col-md-6 mb-4">
-            <div class="card border-left-success shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">{{lang.created_at}}</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{discordBot.createdTimestamp}}</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-business-time fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        {# Pending Requests Card Example #}
-        <div class="col-xl-4 col-md-6 mb-4">
-            <div class="card border-left-warning shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">{{lang.id}}</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{discordBot.id}}</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-id-card fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <br/><br/>
-
-    {# Page Heading #}
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">{{lang.discord_server}}</h1>
-    </div>
-
-    {# Content Row #}
-    <div class="row">
-
-        {# Earnings (Monthly) Card Example #}
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{lang.users}}</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{discordData.users}}</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-users fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        {# Earnings (Monthly) Card Example #}
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-success shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">{{lang.server_name}}</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{discordData.name}}</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fab fa-discord fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        {# Pending Requests Card Example #}
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-info shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">{{lang.created_at}}</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{discordData.createdTimestamp}}</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-business-time fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        {# Pending Requests Card Example #}
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-warning shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">{{lang.region}}</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{discordData.region}}</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-globe fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 
     {% include "template/footer.nunjucks" %}

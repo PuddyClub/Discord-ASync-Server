@@ -1,3 +1,6 @@
 {
-    "mio": "mio"
+    "info_title": "Panel Control",
+    "info": "Bot monitoring and control panel.",
+    "discord_bot": "Discord Bots",
+    "page_info": "Choose which bot you want to monitor."
 }

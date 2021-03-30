@@ -13,7 +13,7 @@ module.exports = async function (req, res, webCfg, web, app) {
             const lang = req.i18.getFile('homepage');
             
             // Render Page
-            res.render('homepage', { global: req.globalItems });
+            res.render('homepage', { global: req.globalItems, lang: lang });
 
         }
 

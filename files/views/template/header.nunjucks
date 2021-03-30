@@ -7,11 +7,11 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             {# Sidebar - Brand #}
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/admin/">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-tools"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">{{mainLang.admin_panel}}
+                <div class="sidebar-brand-text mx-3">{{lang.info_title}}
                 </div>
             </a>
 
@@ -22,7 +22,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="/admin/">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>{{mainLang.dashboard}}</span></a>
+                    <span>{{global.lang.dashboard}}</span></a>
             </li>
 
             {# Divider #}
@@ -30,38 +30,38 @@
 
             {# Heading #}
             <div class="sidebar-heading">
-                {{mainLang.manager}}
+                {{lang.page_info}}
             </div>
 
             {# Nav Item - Data #}
             <li class="nav-item">
                 <a class="nav-link" href="/admin/fast_tags">
                     <i class="fas fa-fw fa-tags"></i>
-                    <span>{{mainLang.fast_tags}}</span></a>
+                    <span>{{global.lang.fast_tags}}</span></a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="/admin/web_images">
                     <i class="fas fa-fw fa-bookmark"></i>
-                    <span>{{mainLang.web_images}}</span></a>
+                    <span>{{global.lang.web_images}}</span></a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="/admin/commissions">
                     <i class="fas fa-fw fa-comments-dollar"></i>
-                    <span>{{mainLang.commission_data}}</span></a>
+                    <span>{{global.lang.commission_data}}</span></a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="/admin/email_smtp">
                     <i class="fas fa-fw fa-mail-bulk"></i>
-                    <span>{{mainLang.email_smtp}}</span></a>
+                    <span>{{global.lang.email_smtp}}</span></a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="/admin/payments">
                     <i class="far fa-credit-card"></i>
-                    <span>{{mainLang.payments}}</span></a>
+                    <span>{{global.lang.payments}}</span></a>
             </li>
 
             {# Divider #}
@@ -69,7 +69,7 @@
 
             {# Heading #}
             <div class="sidebar-heading">
-                {{mainLang.pages}}
+                {{global.lang.pages}}
             </div>
 
             <li class="nav-item">
@@ -89,26 +89,26 @@
 
             {# Heading #}
             <div class="sidebar-heading">
-                {{mainLang.images}}
+                {{global.lang.images}}
             </div>
 
             {# Nav Item - Data #}
             {# <li class="nav-item">
                 <a class="nav-link" href="/admin/featured_arts">
                     <i class="fas fa-fw fa-images"></i>
-                    <span>{{mainLang.featured_arts}}</span></a>
+                    <span>{{global.lang.featured_arts}}</span></a>
             </li> #}
 
             <li class="nav-item">
                 <a class="nav-link" href="/admin/gallery">
                     <i class="fas fa-photo-video"></i>
-                    <span>{{mainLang.art_gallery}}</span></a>
+                    <span>{{global.lang.art_gallery}}</span></a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="/admin/file_upload">
                     <i class="fas fa-fw fa-file-upload"></i>
-                    <span>{{mainLang.files}}</span></a>
+                    <span>{{global.lang.files}}</span></a>
             </li>
 
             {# Divider #}
@@ -116,26 +116,26 @@
 
             {# Heading #}
             <div class="sidebar-heading">
-                {{mainLang.homepage}}
+                {{global.lang.homepage}}
             </div>
 
             {# Nav Item - Data #}
             <li class="nav-item">
                 <a class="nav-link" href="/admin/home_carousel">
                     <i class="fas fa-fw fa-list"></i>
-                    <span>{{mainLang.carousel}}</span></a>
+                    <span>{{global.lang.carousel}}</span></a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="/admin/home_infos">
                     <i class="fas fa-fw fa-info-circle"></i>
-                    <span>{{mainLang.infos}}</span></a>
+                    <span>{{global.lang.infos}}</span></a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="/admin/home_cards">
                     <i class="fas fa-table"></i>
-                    <span>{{mainLang.cards}}</span></a>
+                    <span>{{global.lang.cards}}</span></a>
             </li>
 
             {# Divider #}
@@ -176,11 +176,11 @@
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="/">
                                     <i class="fas fa-home fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    {{mainLang.website}}
+                                    {{global.lang.website}}
                                 </a>
                                 <a class="dropdown-item" href="/logout">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    {{mainLang.logout}}
+                                    {{global.lang.logout}}
                                 </a>
                             </div>
                         </li>
