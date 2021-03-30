@@ -39,7 +39,8 @@
                 <li class="nav-item">
                     <a class="nav-link" href="javascript:void(0);">
                         <i class="fab fa-fw fa-discord"></i>
-                        <span id="ds_bot_{{bot.id}}"><img alt="avatar_{{bot.id}}" class="rounded-circle" height="32" style="height: 32px;" src="{{bot.avatar}}"> {{bot.tag}}</span>
+                        <span id="ds_bot_{{bot.id}}"><img alt="avatar_{{bot.id}}" class="rounded-circle" height="32" style="height: 32px;" src="{{bot.avatar}}">
+                            {{bot.tag}}</span>
                     </a>
                 </li>
 
@@ -75,10 +76,31 @@
                             </a>
                             {# Dropdown - User Information #}
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+
+                                {# Credits #}
+                                <a class="dropdown-item" href="https://startbootstrap.com/theme/sb-admin-2">
+                                    <i class="fas fa-home fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    {{global.lang.credits}}
+                                </a>
+
+                                {# Patreon #}
+                                <a class="dropdown-item" href="https://www.patreon.com/JasminDreasond">
+                                    <i class="fab fa-patreon fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Patreon
+                                </a>
+
+                                {# Patreon #}
+                                <a class="dropdown-item" href="https://ko-fi.com/JasminDreasond">
+                                    <i class="fas fa-mug-hot fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Ko-Fi
+                                </a>
+
+                                {# Logout #}
                                 <a class="dropdown-item" href="/logout">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     {{global.lang.logout}}
                                 </a>
+
                             </div>
                         </li>
 
