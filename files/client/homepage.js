@@ -1,1 +1,6 @@
-var mio = 'mio! :3';
+$(() => {
+
+    // Socket Connection
+    const socket = io.connect();
+
+});

@@ -71,7 +71,25 @@ module.exports = async function (resolve, reject, discordCfg, webCfg, fileCfg, w
     web.app.get('/privacy', getGlobal(web, fileCfg, (req, res) => { return res.render('privacy', { global: req.globalItems }); }));
 
     // Bot Checker
-    if (webCfg.botChecker) { web.app.get('/', web.dsSession({ getUser: true }), getGlobal(web, fileCfg, (req, res) => { return homepage(req, res, webCfg, web, app); })); }
+    if (webCfg.botChecker) {
+
+        // Homepage
+        web.app.get('/', web.dsSession({ getUser: true }), getGlobal(web, fileCfg, (req, res) => { return homepage(req, res, webCfg, web, app); }));
+
+        // Socket IO
+
+        // Cache
+        const ioCache = {};
+        
+        // Anti Flood
+        const socketAntiFlood = require('@tinypudding/puddy-lib/socket.io/antiFlood');
+        socketAntiFlood.install(app.web.io, ioCache);
+
+        // Start
+        const socketListener = require('../socket/main');
+        app.web.io.on("connection", (socket) => { socketAntiFlood.install(app.web.io, ioCache); return socketListener(socket, io, web, app); });
+
+    }
 
     // Interaction
     if (

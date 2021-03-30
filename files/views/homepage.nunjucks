@@ -9,8 +9,8 @@
         <script src="/socket.io/socket.io.js"></script>
         <script>
             var tinyLang = {{langValues | safe}};
-            var socket = io.connect();
         </script>
+        <script src="/js/homepage.js"></script>
 
     </head>
 
