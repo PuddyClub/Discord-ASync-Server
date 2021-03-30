@@ -9,6 +9,9 @@ module.exports = async function (req, res, webCfg, web, app) {
         // Exist
         if (index) {
 
+            // Lang
+            const lang = req.i18.getFile('homepage');
+            
             // Render Page
             res.render('homepage', { global: req.globalItems });
 
