@@ -219,14 +219,14 @@ const appModule = {
                                 // Result
                                 return optionalModule(require('path').join(__dirname, './files/lang/' + lang + '/' + local + '.json'));
 
-                            },
+                            }
 
-                            // Is User
-                            getIsUser: function (req, res) {
-                                if (req.discord_session.user) { return true; }
-                                else { return false; }
-                            },
+                        },
 
+                        // Is User
+                        getIsUser: function (req, res) {
+                            if (req.discord_session.user) { return true; }
+                            else { return false; }
                         },
 
                         // URLs of the module.
