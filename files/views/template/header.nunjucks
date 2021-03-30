@@ -7,7 +7,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             {# Sidebar - Brand #}
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="javascript:void(0);">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-tools"></i>
                 </div>
@@ -20,7 +20,7 @@
 
             {# Nav Item - Dashboard #}
             <li class="nav-item">
-                <a class="nav-link" href="/admin/">
+                <a class="nav-link" href="javascript:void(0);">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>{{global.lang.dashboard}}</span></a>
             </li>
