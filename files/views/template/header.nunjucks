@@ -36,7 +36,7 @@
             {# Nav Item - Data #}
             {% for bot in bots %}
 
-                <li class="nav-item">
+                <li class="nav-item bot_list" style="display: none;">
                     <a class="nav-link" id="ds_bot_{{bot.id}}" href="javascript:void(0);">
                         <i class="fab fa-fw fa-discord"></i>
                         <span><img alt="avatar_{{bot.id}}" class="rounded-circle" height="32" style="height: 32px;" src="{{bot.avatar}}">
