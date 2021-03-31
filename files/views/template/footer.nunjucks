@@ -8,7 +8,7 @@
 <footer class="sticky-footer bg-white">
 <div class="container my-auto">
 <div class="copyright text-center my-auto">
-    <span>&copy; {{global.year_footer}} Discord Async Server.</span>
+    <span>&copy; {{global.year_footer}} <a href="https://github.com/TinyPudding/Discord-ASync-Server" target="_blank">Discord Async Server</a>.</span>
 </div>
 </div>
 </footer>

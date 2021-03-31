@@ -1,5 +1,7 @@
 {
     "dashboard": "Dashboard",
     "logout": "Logout",
-    "credits": "Credits"
+    "theme_credits": "Theme Credits",
+    "tos": "Terms of use",
+    "privacy": "Privacy Policy"
 }
