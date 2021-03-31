@@ -20,17 +20,18 @@ module.exports = function (socket, ioCache, io, session, web, app, soscketUser, 
 
                 // Get the Bot
                 soscketUser.ids[socket.id].bot = item.bot;
-                fn(true);
+                soscketUser.ids[socket.id].room = 'dashboard';
+                fn({ success: true });
 
             }
 
             // Nope
-            else { fn(false); }
+            else { fn({ success: false }); }
 
         }
 
         // Nope
-        else { fn(false); }
+        else { fn({ success: false }); }
 
         // Complete
         return;

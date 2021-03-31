@@ -21,23 +21,20 @@
         <h1 class="h3 mb-0 text-gray-800">{{global.lang.dashboard}}</h1>
     </div>
 
-    {# Info #}
-    <div class="card mb-4">
-        <div class="card-header">
-            {{lang.info_title}}
-        </div>
-        <div class="card-body">
-            {{lang.info}}
-        </div>
-    </div>
-
-    {# Page Heading #}
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">{{lang.discord_bot}}</h1>
-    </div>
-
     <div id="app">
+
+        {# Info #}
+        <div class="card mb-4">
+            <div class="card-header">
+                {{lang.info_title}}
+            </div>
+            <div class="card-body">
+                {{lang.info}}
+            </div>
+        </div>
+
         <p>{{lang.no_selected_bot}}</p>
+        
     </div>
 
     {% include "template/footer.nunjucks" %}

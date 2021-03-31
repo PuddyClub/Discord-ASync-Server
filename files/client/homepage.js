@@ -19,16 +19,14 @@ $(() => {
         // Get Bot ID
         $.LoadingOverlay("show", { background: "rgba(0,0,0, 0.5)" });
         const botID = $(this).attr('id').substring(7);
-        socket.emit('connectDiscordBot', botID, (active) => {
+        socket.emit('connectDiscordBot', botID, (data) => {
 
             // Is Active
-            if (active) {
+            if (data.success && (typeof bot.id !== "string" || botID !== bot.id)) {
 
-                // Check ID
-                if (typeof bot.id !== "string" || botID !== bot.id) {
-                    $('#ds_bot_' + botID).parent().addClass('active').css('pointer-events', 'none');
-                    $('#ds_bot_' + bot.id).parent().removeClass('active').css('pointer-events', '');
-                }
+                // Change Option
+                $('#ds_bot_' + botID).parent().addClass('active').css('pointer-events', 'none');
+                $('#ds_bot_' + bot.id).parent().removeClass('active').css('pointer-events', '');
 
                 // Set new ID
                 bot.id = botID;
