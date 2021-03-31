@@ -122,6 +122,62 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
 
         // Nope
         else { fn({ success: false, error: 'Bot Value not found!' }); }
+        return;
+
+    });
+
+    // Get Guild Emojis
+    socket.on('getDiscordGuilds', function (data, fn) {
+
+        // Exist Bot
+        if (socketUser.ids[socket.id].bot) {
+
+            // Is Object
+            const objType = require('@tinypudding/puddy-lib/get/objType');
+            if (objType(data, 'object')) {
+
+                // Page
+                let pager = 1;
+                if (!isNaN(data.page)) {
+                    pager = data.page;
+                }
+
+                // Per Page
+                let perpage = 20;
+                if (!isNaN(data.perpage) && data.perpage > 0 && data.perpage <= 100) {
+                    perpage = data.perpage;
+                }
+
+                // Pagination
+                const pagination = require('@tinypudding/puddy-lib/get/pagination');
+
+                const paginate = require("paginate-array");
+                const paginateCollection = paginate(Array.from(socketUser.ids[socket.id].bot.guilds.cache.keys()), pager, perpage);
+                const navigator = pagination(paginateCollection.currentPage, paginateCollection.totalPages, '/', 'justify-content-center');
+
+                // Data
+                for (const item in paginateCollection.data) {
+                    paginateCollection.data[item] = socketUser.ids[socket.id].bot.guilds.cache.find(guild => guild.id === paginateCollection.data[item]);
+                    paginateCollection.data[item].theIcon = paginateCollection.data[item].iconURL();
+                }
+
+                // Complete
+                fn({
+                    success: true,
+                    pagination: navigator,
+                    data: paginateCollection.data
+                });
+
+            }
+
+            // Nope
+            else { fn({ success: false, error: 'Invalid Data!' }); }
+
+        }
+
+        // Nope
+        else { fn({ success: false, error: 'Bot Value not found!' }); }
+        return;
 
     });
 
