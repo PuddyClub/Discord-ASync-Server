@@ -1,16 +1,23 @@
+// Start Values
+var socket = null;
+var firstTime = true;
+var user = null;
+var bot = { id: null, log: {} };
+var startApp = function (isReconnect) {
+
+};
+
 $(() => {
 
     // Socket Connection
-    const socket = io.connect();
-    let firstTime = true;
-    let user = null;
-    const bot = { id: null, log: {} };
+    socket = io.connect();
+
     $("html").fadeIn();
     $.LoadingOverlay("show", { background: "rgba(0,0,0, 0.5)" });
 
     // Connected
     socket.on('discordConnected', user => {
-        if (firstTime) { firstTime = false; $.LoadingOverlay('hide'); $('.bot_list').fadeIn(); }
+        if (firstTime) { firstTime = false; $.LoadingOverlay('hide'); $('.bot_list').fadeIn(); startApp(false); }
         user = user;
     });
 
@@ -140,19 +147,22 @@ $(() => {
         if (!firstTime) {
 
             // Exist Bot Selected
+            console.log('start try to emit the ' + bot.id);
             if (bot.id) {
                 socket.emit('connectDiscordBot', bot.id, (data) => {
 
                     // Success
+                    console.log(data);
                     if (data.success) {
 
                         // Exist Guild Selected
+                        console.log(bot);
                         if (bot.guild) {
-                            $.LoadingOverlay("hide");
+                            $.LoadingOverlay("hide"); startApp(true);
                         }
 
                         // Nope
-                        else { $.LoadingOverlay("hide"); }
+                        else { $.LoadingOverlay("hide"); startApp(true); }
 
                     }
 
@@ -162,13 +172,14 @@ $(() => {
                         $('#app').empty().append(
                             $('<center>').text(tinyLang.botNotFound)
                         );
+                        startApp(true);
                     }
 
                 });
             }
 
             // Nope
-            else { $.LoadingOverlay("hide"); }
+            else { $.LoadingOverlay("hide"); startApp(true); }
 
         }
     });
