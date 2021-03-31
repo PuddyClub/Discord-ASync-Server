@@ -123,6 +123,11 @@ $(() => {
     socket.on('dsBot_serverCount', (count) => { $('#server_count #info').text(count); });
     socket.on('dsBot_channelCount', (count) => { $('#channel_count #info').text(count); });
 
+    // Guild Data
+    socket.on('dsBot_guildMemberCount', (count) => { $('# #info').text(count); });
+    socket.on('dsBot_guildEmojiCount', (count) => { $('# #info').text(count); });
+    socket.on('dsBot_guildRoleCount', (count) => { $('# #info').text(count); });
+
     // Logs
     socket.on('dsBot_error', (data) => { return updateLog(data, 'error'); });
     socket.on('dsBot_warn', (data) => { return updateLog(data, 'warn'); });
