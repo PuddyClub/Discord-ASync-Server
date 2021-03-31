@@ -18,8 +18,14 @@ const sendInfo = function (ioCache, where, botID, itemSent) {
 // Update Log
 const updateDiscordLog = function (ioCache, logList, botID, where, itemResult) {
 
+    // Add To Log
+    logList.push(itemResult);
+
+    // Check Log Size
+    if (logList.length > 500) { logList.shift(); }
+
     // Complete
-    return sendInfo(ioCache, 'dsBot_' + where, botID, itemResult);
+    return sendInfo(ioCache, 'dsBot_' + where, botID, { item: itemResult, list: logList });
 
 };
 
