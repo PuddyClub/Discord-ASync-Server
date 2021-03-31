@@ -69,7 +69,7 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
                     socketUser.ids[socket.id].bot.guilds.fetch(guildID).then(guild => {
 
                         // Leave the Guild
-                        return guild.leave().then(g => {
+                        return guild.leave().then(() => {
                             return fn({ success: true });
                         }).catch(err => {
                             return fn({ success: false, error: err.message });
