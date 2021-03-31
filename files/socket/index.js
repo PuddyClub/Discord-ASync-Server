@@ -97,6 +97,34 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
 
     });
 
+    // Get Guild Emojis
+    socket.on('getDiscordGuildEmojis', function (guildID, fn) {
+
+        // Exist Bot
+        if (socketUser.ids[socket.id].bot) {
+
+            // Is Object
+            if (typeof data.guildID === "string" || typeof data.guildID === "number") {
+
+                // Get Guild Emojis
+                socketUser.ids[socket.id].bot.guilds.fetch(guildID).then(guild => {
+                    fn({ success: true, result: guild.emojis.cache });
+                }).catch(err => {
+                    return fn({ success: false, error: err.message });
+                });
+
+            }
+
+            // Nope
+            else { fn({ success: false, error: 'Invalid Guild Value!' }); }
+
+        }
+
+        // Nope
+        else { fn({ success: false, error: 'Bot Value not found!' }); }
+
+    });
+
     // Connect Plugin
     if (typeof pluginSocket === "function") { pluginSocket({ socket, ioCache, io, session, web, app, socketUser, permLevel }); }
 
