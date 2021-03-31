@@ -41,13 +41,14 @@ module.exports = async function (resolve, reject, discordCfg, webCfg, fileCfg, w
     if (typeof webCfg.middleware === "function") { await webCfg.middleware(web, app); }
 
     // Files
+    const readFile = require('@tinypudding/puddy-lib/http/fileCache');
     const fileAge = '2592000000';
 
     // Main
     web.app.get('/js/main.js', function (req, res, next) {
         return readFile(
             res, next, {
-            file: fs.readFileSync(path.join(__dirname, '../client/main.js')),
+            file: fs.readFileSync(path.join(__dirname, '../client/main.js'), 'utf8'),
             date: { year: 2021, month: 3, day: 30, hour: 17, minute: 29 },
             timezone: 'America/Sao_Paulo',
             fileMaxAge: fileAge
@@ -56,10 +57,10 @@ module.exports = async function (resolve, reject, discordCfg, webCfg, fileCfg, w
     });
 
     // Homepage
-    web.app.get('/js/main.js', function (req, res, next) {
+    web.app.get('/js/homepage.js', function (req, res, next) {
         return readFile(
             res, next, {
-            file: fs.readFileSync(path.join(__dirname, '../client/homepage.js')),
+            file: fs.readFileSync(path.join(__dirname, '../client/homepage.js'), 'utf8'),
             date: { year: 2021, month: 3, day: 30, hour: 17, minute: 29 },
             timezone: 'America/Sao_Paulo',
             fileMaxAge: fileAge
@@ -82,13 +83,14 @@ module.exports = async function (resolve, reject, discordCfg, webCfg, fileCfg, w
         // Cache
         const ioCache = {};
 
-        // Anti Flood
+        // Socket IO Script
         const tinySocket = require('@tinypudding/puddy-lib/socket.io');
 
         // Start Socket IO
         const socketListener = require('../socket/main');
+        console.log(web);
         app.web.io.on("connection", (socket) => {
-            tinySocket['cookie-session'](socket, ioCache).then((session) => {
+            tinySocket['cookie-session'](socket, web.cookieSession).then((session) => {
 
                 // Exist Session
                 if (session) {
