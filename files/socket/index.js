@@ -32,6 +32,7 @@ module.exports = function (socket, ioCache, io, session, web, app, soscketUser, 
                 // Connected
                 console.log(soscketUser.ids[socket.id].bot);
                 socket.emit('dsBot_serverCount', soscketUser.ids[socket.id].bot.guilds.cache.size);
+                socket.emit('dsBot_channelCount', soscketUser.ids[socket.id].bot.channels.cache.size);
 
             }
 
