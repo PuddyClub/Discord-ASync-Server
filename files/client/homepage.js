@@ -137,11 +137,44 @@ $(() => {
 
     // Connection
     socket.on("connect", () => {
-        $.LoadingOverlay("hide");
+        if (!firstTime) {
+
+            // Exist Bot Selected
+            if (bot.id) {
+                socket.emit('connectDiscordBot', bot.id, (data) => {
+
+                    // Success
+                    if (data.success) {
+
+                        // Exist Guild Selected
+                        if (bot.guild) {
+                            $.LoadingOverlay("hide");
+                        }
+
+                        // Nope
+                        else { $.LoadingOverlay("hide"); }
+
+                    }
+
+                    // Nope
+                    else {
+                        $.LoadingOverlay("hide");
+                        $('#app').empty().append(
+                            $('<center>').text(tinyLang.botNotFound)
+                        );
+                    }
+
+                });
+            }
+
+            // Nope
+            else { $.LoadingOverlay("hide"); }
+
+        }
     });
 
     socket.on("disconnect", () => {
-        if (!firstTime) { $.LoadingOverlay("show", { background: "rgba(0,0,0, 0.5)", text: tinyLang.reconnecting }); }
+        $.LoadingOverlay("show", { background: "rgba(0,0,0, 0.5)", text: tinyLang.reconnecting });
     });
 
 });
