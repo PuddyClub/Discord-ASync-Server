@@ -5,6 +5,7 @@ $(() => {
     let firstTime = true;
     let user = null;
     const bot = { id: null, log: {} };
+    $("html").fadeIn();
     $.LoadingOverlay("show", { background: "rgba(0,0,0, 0.5)" });
 
     // Connected
@@ -133,5 +134,14 @@ $(() => {
     socket.on('dsBot_warn', (data) => { return updateLog(data, 'warn'); });
     socket.on('dsBot_rateLimit', (data) => { return updateLog(data, 'rateLimit'); });
     socket.on('dsBot_shardError', (data) => { return updateLog(data, 'shardError'); });
+
+    // Connection
+    socket.on("connect", () => {
+        $.LoadingOverlay("hide");
+    });
+
+    socket.on("disconnect", () => {
+        if (!firstTime) { $.LoadingOverlay("show", { background: "rgba(0,0,0, 0.5)", text: tinyLang.reconnecting }); }
+    });
 
 });
