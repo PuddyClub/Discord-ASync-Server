@@ -23,11 +23,15 @@ module.exports = function (socket, ioCache, io, session, web, app, soscketUser, 
                 soscketUser.ids[socket.id].room = 'dashboard';
 
                 // Complete
-                fn({ 
-                    success: true, 
-                    tag: soscketUser.ids[socket.id].bot.user.tag, 
+                fn({
+                    success: true,
+                    tag: soscketUser.ids[socket.id].bot.user.tag,
                     avatar: soscketUser.ids[socket.id].bot.user.avatarURL({ size: 32 })
                 });
+
+                // Connected
+                console.log(soscketUser.ids[socket.id].bot);
+                socket.emit('dsBot_serverCount', soscketUser.ids[socket.id].bot.guilds.cache.size);
 
             }
 
