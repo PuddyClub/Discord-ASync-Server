@@ -21,7 +21,13 @@ module.exports = function (socket, ioCache, io, session, web, app, soscketUser, 
                 // Get the Bot
                 soscketUser.ids[socket.id].bot = item.bot;
                 soscketUser.ids[socket.id].room = 'dashboard';
-                fn({ success: true });
+
+                // Complete
+                fn({ 
+                    success: true, 
+                    tag: soscketUser.ids[socket.id].bot.user.tag, 
+                    avatar: soscketUser.ids[socket.id].bot.user.avatarURL({ size: 32 })
+                });
 
             }
 

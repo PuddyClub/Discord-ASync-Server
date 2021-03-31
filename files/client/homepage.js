@@ -26,6 +26,8 @@ $(() => {
 
                 // Change Option
                 $('#ds_bot_' + botID).parent().addClass('active').css('pointer-events', 'none');
+                $('#ds_bot_' + botID + ' > span > span').text(data.tag);
+                $('#ds_bot_' + botID + ' > span > img').attr('src', data.avatar);
                 $('#ds_bot_' + bot.id).parent().removeClass('active').css('pointer-events', '');
 
                 // Set new ID
