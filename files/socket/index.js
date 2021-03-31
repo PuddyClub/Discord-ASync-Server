@@ -24,7 +24,7 @@ module.exports = function (socket, ioCache, io, session, web, app, soscketUser, 
                 // Get the Bot
                 soscketUser.selectedBot = item.bot;
 
-                fn();
+                fn(true);
             
             }
 
