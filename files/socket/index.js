@@ -2,6 +2,7 @@ module.exports = function (socket, ioCache, io, session, web, app, soscketUser, 
 
     // Discord User Data
     const user = soscketUser.data;
+    soscketUser.permLevel = permLevel;
 
     // Connect Discord Bot
     socket.on('connectDiscordBot', function (botID, fn) {
