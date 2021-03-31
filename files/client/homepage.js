@@ -1,7 +1,7 @@
 // Start Values
 var socket = null;
 var firstTime = true;
-var user = null;
+var dsUser = null;
 var bot = { id: null, log: {} };
 var startApp = function (isReconnect) {
 
@@ -55,7 +55,7 @@ $(() => {
                         );
 
                         startApp(true);
-                        
+
                     }
 
                 });
@@ -67,7 +67,7 @@ $(() => {
         }
 
         // User
-        user = user;
+        dsUser = user;
 
     });
 
