@@ -1,8 +1,8 @@
-module.exports = function (pluginSocket, socket, ioCache, io, session, web, app, soscketUser, permLevel) {
+module.exports = function (pluginSocket, socket, ioCache, io, session, web, app, socketUser, permLevel) {
 
     // Discord User Data
-    const user = soscketUser.data;
-    soscketUser.permLevel = permLevel;
+    const user = socketUser.data;
+    socketUser.permLevel = permLevel;
 
     // Connect Discord Bot
     socket.on('connectDiscordBot', function (botID, fn) {
@@ -15,19 +15,19 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
             if (item) {
 
                 // Get the Bot
-                soscketUser.ids[socket.id].bot = item.bot;
-                soscketUser.ids[socket.id].room = 'dashboard';
+                socketUser.ids[socket.id].bot = item.bot;
+                socketUser.ids[socket.id].room = 'dashboard';
 
                 // Complete
                 fn({
                     success: true,
-                    tag: soscketUser.ids[socket.id].bot.user.tag,
-                    avatar: soscketUser.ids[socket.id].bot.user.avatarURL({ size: 32 })
+                    tag: socketUser.ids[socket.id].bot.user.tag,
+                    avatar: socketUser.ids[socket.id].bot.user.avatarURL({ size: 32 })
                 });
 
                 // Connected
-                socket.emit('dsBot_serverCount', soscketUser.ids[socket.id].bot.guilds.cache.size);
-                socket.emit('dsBot_channelCount', soscketUser.ids[socket.id].bot.channels.cache.size);
+                socket.emit('dsBot_serverCount', socketUser.ids[socket.id].bot.guilds.cache.size);
+                socket.emit('dsBot_channelCount', socketUser.ids[socket.id].bot.channels.cache.size);
 
                 // Send Logs
                 socket.emit('dsBot_error', { item: null, list: item.log.error });
@@ -53,7 +53,38 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
     // Connected
     socket.emit('discordConnected', user);
 
+    // Leave Guild
+    socket.on('leaveDiscordGuild', function (guildID, fn) {
+
+        // Check Permission
+        if (permLevel >= 4) {
+
+            // Is Object
+            if (typeof data.guildID === "string" || typeof data.guildID === "number") {
+
+                // Get Guild
+                socketUser.ids[socket.id].bot.guilds.fetch(guildID).then(guild => {
+
+
+
+                }).catch(err => {
+                    return fn({ success: false, error: err.message });
+                });
+
+            }
+
+            // Nope
+            else { fn({ success: false, error: 'Invalid Guild Value' }); }
+
+        }
+
+        // Nope
+        else { fn({ success: false, error: 'Forbidden!' }); }
+        return;
+
+    });
+
     // Connect Plugin
-    if (typeof pluginSocket === "function") { pluginSocket({ socket, ioCache, io, session, web, app, soscketUser, permLevel }); }
+    if (typeof pluginSocket === "function") { pluginSocket({ socket, ioCache, io, session, web, app, socketUser, permLevel }); }
 
 };
