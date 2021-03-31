@@ -59,22 +59,35 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
         // Check Permission
         if (permLevel >= 4) {
 
-            // Is Object
-            if (typeof data.guildID === "string" || typeof data.guildID === "number") {
+            // Exist Bot
+            if (socketUser.ids[socket.id].bot) {
 
-                // Get Guild
-                socketUser.ids[socket.id].bot.guilds.fetch(guildID).then(guild => {
+                // Is Object
+                if (typeof data.guildID === "string" || typeof data.guildID === "number") {
 
+                    // Get Guild
+                    socketUser.ids[socket.id].bot.guilds.fetch(guildID).then(guild => {
 
+                        // Leave the Guild
+                        return guild.leave().then(g => {
+                            return fn({ success: true });
+                        }).catch(err => {
+                            return fn({ success: false, error: err.message });
+                        });
 
-                }).catch(err => {
-                    return fn({ success: false, error: err.message });
-                });
+                    }).catch(err => {
+                        return fn({ success: false, error: err.message });
+                    });
+
+                }
+
+                // Nope
+                else { fn({ success: false, error: 'Invalid Guild Value!' }); }
 
             }
 
             // Nope
-            else { fn({ success: false, error: 'Invalid Guild Value' }); }
+            else { fn({ success: false, error: 'Bot Value not found!' }); }
 
         }
 
