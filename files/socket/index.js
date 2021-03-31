@@ -3,11 +3,6 @@ module.exports = function (socket, ioCache, io, session, web, app, soscketUser, 
     // Discord User Data
     const user = soscketUser.data;
 
-    // Disconnected
-    socket.on('disconnect', (reason) => {
-        console.log(reason); // "ping timeout"
-    });
-
     // Connect Discord Bot
     socket.on('connectDiscordBot', function (botID, fn) {
 
