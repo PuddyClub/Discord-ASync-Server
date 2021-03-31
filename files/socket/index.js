@@ -3,9 +3,6 @@ module.exports = function (socket, ioCache, io, session, web, app, soscketUser, 
     // Discord User Data
     const user = soscketUser.data;
 
-    // Prepare Functions
-    const getServerCount = require('./get/serverCount');
-
     // Disconnected
     socket.on('disconnect', (reason) => {
         console.log(reason); // "ping timeout"
@@ -19,21 +16,21 @@ module.exports = function (socket, ioCache, io, session, web, app, soscketUser, 
 
             // Get Bot
             const item = app.discord.bots.find(item => item.bot.user.id === botID);
-            if(item) {
+            if (item) {
 
                 // Get the Bot
-                soscketUser.selectedBot = item.bot;
-
+                soscketUser.ids[socket.id].bot = item.bot;
                 fn(true);
-            
+
             }
 
             // Nope
-            else {
-                fn(null);
-            }
+            else { fn(false); }
 
         }
+
+        // Nope
+        else { fn(false); }
 
         // Complete
         return;

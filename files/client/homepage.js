@@ -4,6 +4,7 @@ $(() => {
     const socket = io.connect();
     let firstTime = true;
     let user = null;
+    const bot = { id: null };
     $.LoadingOverlay("show", { background: "rgba(0,0,0, 0.5)" });
 
     // Connected
@@ -16,13 +17,27 @@ $(() => {
     $('[id^="ds_bot_"]').click(function () {
 
         // Get Bot ID
+        $.LoadingOverlay("show", { background: "rgba(0,0,0, 0.5)" });
         const botID = $(this).attr('id').substring(7);
-        socket.emit('connectDiscordBot', botID, (data) => {
+        socket.emit('connectDiscordBot', botID, (active) => {
 
-            /* Quando Carregar. Vamos pegar os dados do bot e colocar um class active aqui e desativar o active do antigo bot. */
+            // Is Active
+            if (active) {
 
-            console.log('Bot Data');
-            console.log(data);
+                // Check ID
+                if (typeof bot.id !== "string" || botID !== bot.id) {
+                    $('#ds_bot_' + botID).parent().addClass('active').css('pointer-events', 'none');
+                    $('#ds_bot_' + bot.id).parent().removeClass('active').css('pointer-events', '');
+                }
+
+                // Set new ID
+                bot.id = botID;
+
+            }
+
+            // Complete
+            $.LoadingOverlay('hide');
+            return;
 
         });
 
