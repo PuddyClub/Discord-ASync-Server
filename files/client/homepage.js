@@ -17,8 +17,54 @@ $(() => {
 
     // Connected
     socket.on('discordConnected', user => {
+
+        // First Time
         if (firstTime) { firstTime = false; $.LoadingOverlay('hide'); $('.bot_list').fadeIn(); startApp(false); }
+
+        // Nope
+        else {
+
+            // Exist Bot Selected
+            if (bot.id) {
+                socket.emit('connectDiscordBot', bot.id, (data) => {
+
+                    // Success
+                    if (data.success) {
+
+                        // Set Bot Name
+                        $('#ds_bot_' + bot.id + ' > span > span').text(data.tag);
+                        $('#ds_bot_' + bot.id + ' > span > img').attr('src', data.avatar);
+
+                        // Exist Guild Selected
+                        if (bot.guild) {
+                            $.LoadingOverlay("hide"); startApp(true);
+                        }
+
+                        // Nope
+                        else { $.LoadingOverlay("hide"); startApp(true); }
+
+                    }
+
+                    // Nope
+                    else {
+                        $.LoadingOverlay("hide");
+                        $('#app').empty().append(
+                            $('<center>').text(tinyLang.botNotFound)
+                        );
+                        startApp(true);
+                    }
+
+                });
+            }
+
+            // Nope
+            else { $.LoadingOverlay("hide"); startApp(true); }
+
+        }
+
+        // User
         user = user;
+
     });
 
     // Tools Creator
@@ -141,48 +187,6 @@ $(() => {
     socket.on('dsBot_warn', (data) => { return updateLog(data, 'warn'); });
     socket.on('dsBot_rateLimit', (data) => { return updateLog(data, 'rateLimit'); });
     socket.on('dsBot_shardError', (data) => { return updateLog(data, 'shardError'); });
-
-    // Connection
-    socket.on("connect", () => {
-        if (!firstTime) {
-
-            // Exist Bot Selected
-            console.log('start try to emit the ' + bot.id);
-            if (bot.id) {
-                socket.emit('connectDiscordBot', bot.id, (data) => {
-
-                    // Success
-                    console.log(data);
-                    if (data.success) {
-
-                        // Exist Guild Selected
-                        console.log(bot);
-                        if (bot.guild) {
-                            $.LoadingOverlay("hide"); startApp(true);
-                        }
-
-                        // Nope
-                        else { $.LoadingOverlay("hide"); startApp(true); }
-
-                    }
-
-                    // Nope
-                    else {
-                        $.LoadingOverlay("hide");
-                        $('#app').empty().append(
-                            $('<center>').text(tinyLang.botNotFound)
-                        );
-                        startApp(true);
-                    }
-
-                });
-            }
-
-            // Nope
-            else { $.LoadingOverlay("hide"); startApp(true); }
-
-        }
-    });
 
     socket.on("disconnect", () => {
         $.LoadingOverlay("show", { background: "rgba(0,0,0, 0.5)", text: tinyLang.reconnecting });
