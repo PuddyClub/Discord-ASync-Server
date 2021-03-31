@@ -88,19 +88,18 @@ module.exports = async function (resolve, reject, discordCfg, webCfg, fileCfg, w
 
         // Start Socket IO
         const socketListener = require('../socket/main');
-        console.log(web);
         app.web.io.on("connection", (socket) => {
             tinySocket['cookie-session'](socket, web.cookieSession).then((session) => {
 
                 // Exist Session
-                if (session) {
+                if (session && session.access_token) {
 
                     // Get Discord Session
-                    return tinySocket.discord(socket, ioCache).then(user => {
+                    return tinySocket.discord(socket, ioCache, session.access_token).then(user => {
 
                         // Verified User
-                        const isVerified = checkUser(user.id);
-                        if (isVerified.permLevel > 0) { return socketListener(socket, ioCache, io, session, web, app, isVerified.permLevel); }
+                        const isVerified = checkUser(user.data.id);
+                        if (isVerified.permLevel > 0) { return socketListener(socket, ioCache, io, session, web, app, user.data, isVerified.permLevel); }
 
                         // Nope
                         else { return socket.disconnect(); }
