@@ -88,6 +88,7 @@ module.exports = async function (resolve, reject, discordCfg, webCfg, fileCfg, w
 
         // Start Socket IO
         const socketListener = require('../socket');
+        require('../socket/discord')(ioCache, app.web.io, app.discord);
         app.web.io.on("connection", (socket) => {
             tinySocket['cookie-session'](socket, web.cookieSession).then((session) => {
 
