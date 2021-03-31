@@ -87,7 +87,7 @@ module.exports = async function (resolve, reject, discordCfg, webCfg, fileCfg, w
         const tinySocket = require('@tinypudding/puddy-lib/socket.io');
 
         // Start Socket IO
-        const socketListener = require('../socket/main');
+        const socketListener = require('../socket');
         app.web.io.on("connection", (socket) => {
             tinySocket['cookie-session'](socket, web.cookieSession).then((session) => {
 
