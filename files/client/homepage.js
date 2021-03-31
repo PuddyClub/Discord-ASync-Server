@@ -100,7 +100,24 @@ $(() => {
     });
 
     // Log Update
-    const updateLog = function (newItem, type) {
+    const updateLog = function (data, type) {
+
+        // Update List
+        if (!bot.log[type]) { bot.log[type] = { new: 0, list: [] }; }
+        if (Array.isArray(data.list)) { bot.log[type].list = data.list; }
+
+        // Exist Item
+        if (data.item) {
+
+            // Add New Value
+            bot.log[type].new++;
+
+        }
+
+        console.log(data, type);
+        
+        // Complete
+        return;
 
     };
 
@@ -109,9 +126,9 @@ $(() => {
     socket.on('dsBot_channelCount', (count) => { $('#channel_count #info').text(count); });
 
     // Logs
-    socket.on('dsBot_error', (data) => { bot.log.error = data.list; return updateLog(data.item, 'error'); });
-    socket.on('dsBot_warn', (data) => { bot.log.warn = data.list; return updateLog(data.item, 'warn'); });
-    socket.on('dsBot_rateLimit', (data) => { bot.log.rateLimit = data.list; return updateLog(data.item, 'rateLimit'); });
-    socket.on('dsBot_shardError', (data) => { bot.log.shardError = data.list; return updateLog(data.item, 'shardError'); });
+    socket.on('dsBot_error', (data) => { return updateLog(data, 'error'); });
+    socket.on('dsBot_warn', (data) => { return updateLog(data, 'warn'); });
+    socket.on('dsBot_rateLimit', (data) => { return updateLog(data, 'rateLimit'); });
+    socket.on('dsBot_shardError', (data) => { return updateLog(data, 'shardError'); });
 
 });
