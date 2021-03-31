@@ -1,4 +1,4 @@
-module.exports = function (socket, ioCache, io, session, web, app, soscketUser, permLevel) {
+module.exports = function (pluginSocket, socket, ioCache, io, session, web, app, soscketUser, permLevel) {
 
     // Discord User Data
     const user = soscketUser.data;
@@ -52,5 +52,8 @@ module.exports = function (socket, ioCache, io, session, web, app, soscketUser, 
 
     // Connected
     socket.emit('discordConnected', user);
+
+    // Connect Plugin
+    if (typeof pluginSocket === "function") { pluginSocket({ socket, ioCache, io, session, web, app, soscketUser, permLevel }); }
 
 };

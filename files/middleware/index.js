@@ -3,6 +3,7 @@ module.exports = async function (resolve, reject, discordCfg, webCfg, fileCfg, w
     // Nunjucks
     const express = require('express');
     const checkUser = require('../checkUser')(app);
+    const objType = require('@tinypudding/puddy-lib/get/objType');
     const path = require('path');
     const fs = require('fs');
     const nunjucks = require('nunjucks');
@@ -38,7 +39,11 @@ module.exports = async function (resolve, reject, discordCfg, webCfg, fileCfg, w
     }));
 
     // Extra
-    if (typeof webCfg.middleware === "function") { await webCfg.middleware(web, app); }
+    let pluginSettings;
+    if (typeof webCfg.middleware === "function") { 
+        pluginSettings = await webCfg.middleware(web, app); 
+        if (!objType(pluginSettings, 'object')) { pluginSettings = {}; } 
+    }
 
     // Files
     const readFile = require('@tinypudding/puddy-lib/http/fileCache');
@@ -100,7 +105,7 @@ module.exports = async function (resolve, reject, discordCfg, webCfg, fileCfg, w
 
                         // Verified User
                         const isVerified = checkUser(user.data.id);
-                        if (isVerified.permLevel > 0) { return socketListener(socket, ioCache, app.web.io, session, web, app, user, isVerified.permLevel); }
+                        if (isVerified.permLevel > 0) { return socketListener(pluginSettings.socket, socket, ioCache, app.web.io, session, web, app, user, isVerified.permLevel); }
 
                         // Nope
                         else { return socket.disconnect(); }
