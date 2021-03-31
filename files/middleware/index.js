@@ -99,7 +99,7 @@ module.exports = async function (resolve, reject, discordCfg, webCfg, fileCfg, w
 
                         // Verified User
                         const isVerified = checkUser(user.data.id);
-                        if (isVerified.permLevel > 0) { return socketListener(socket, ioCache, app.web.io, session, web, app, user.data, isVerified.permLevel); }
+                        if (isVerified.permLevel > 0) { return socketListener(socket, ioCache, app.web.io, session, web, app, user, isVerified.permLevel); }
 
                         // Nope
                         else { return socket.disconnect(); }
