@@ -103,4 +103,10 @@ $(() => {
     socket.on('dsBot_serverCount', (count) => { $('#server_count #info').text(count); });
     socket.on('dsBot_channelCount', (count) => { $('#channel_count #info').text(count); });
 
+    // Logs
+    socket.on('dsBot_error', (data) => { console.error('Bot Error:', data); });
+    socket.on('dsBot_warn', (data) => { console.warn('Bot Warn:', data); });
+    socket.on('dsBot_rateLimit', (data) => { console.warn('Bot Rate Limit:', data); });
+    socket.on('dsBot_shardError', (data) => { console.error('Bot Shard Error:', data); });
+
 });

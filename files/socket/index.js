@@ -30,9 +30,14 @@ module.exports = function (socket, ioCache, io, session, web, app, soscketUser, 
                 });
 
                 // Connected
-                console.log(soscketUser.ids[socket.id].bot);
                 socket.emit('dsBot_serverCount', soscketUser.ids[socket.id].bot.guilds.cache.size);
                 socket.emit('dsBot_channelCount', soscketUser.ids[socket.id].bot.channels.cache.size);
+
+                // Send Logs
+                socket.emit('dsBot_error', { item: null, list: item.log.error });
+                socket.emit('dsBot_warn', { item: null, list: item.log.warn });
+                socket.emit('dsBot_rateLimit', { item: null, list: item.log.rateLimit });
+                socket.emit('dsBot_shardError', { item: null, list: item.log.shardError });
 
             }
 
