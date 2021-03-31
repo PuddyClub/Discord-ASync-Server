@@ -114,8 +114,6 @@ $(() => {
 
         }
 
-        console.log(data, type);
-        
         // Complete
         return;
 
