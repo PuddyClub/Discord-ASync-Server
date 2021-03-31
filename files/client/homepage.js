@@ -47,11 +47,15 @@ $(() => {
 
                     // Nope
                     else {
+                        
                         $.LoadingOverlay("hide");
+                        
                         $('#app').empty().append(
                             $('<center>').text(tinyLang.botNotFound)
                         );
+
                         startApp(true);
+                        
                     }
 
                 });
