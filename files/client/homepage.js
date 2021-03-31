@@ -4,7 +4,7 @@ $(() => {
     const socket = io.connect();
     let firstTime = true;
     let user = null;
-    const bot = { id: null };
+    const bot = { id: null, log: {} };
     $.LoadingOverlay("show", { background: "rgba(0,0,0, 0.5)" });
 
     // Connected
@@ -99,14 +99,19 @@ $(() => {
 
     });
 
+    // Log Update
+    const updateLog = function (newItem, type) {
+
+    };
+
     // Update Info
     socket.on('dsBot_serverCount', (count) => { $('#server_count #info').text(count); });
     socket.on('dsBot_channelCount', (count) => { $('#channel_count #info').text(count); });
 
     // Logs
-    socket.on('dsBot_error', (data) => { console.error('Bot Error:', data); });
-    socket.on('dsBot_warn', (data) => { console.warn('Bot Warn:', data); });
-    socket.on('dsBot_rateLimit', (data) => { console.warn('Bot Rate Limit:', data); });
-    socket.on('dsBot_shardError', (data) => { console.error('Bot Shard Error:', data); });
+    socket.on('dsBot_error', (data) => { bot.log.error = data.list; return updateLog(data.item, 'error'); });
+    socket.on('dsBot_warn', (data) => { bot.log.warn = data.list; return updateLog(data.item, 'warn'); });
+    socket.on('dsBot_rateLimit', (data) => { bot.log.rateLimit = data.list; return updateLog(data.item, 'rateLimit'); });
+    socket.on('dsBot_shardError', (data) => { bot.log.shardError = data.list; return updateLog(data.item, 'shardError'); });
 
 });
