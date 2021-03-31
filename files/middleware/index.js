@@ -2,6 +2,7 @@ module.exports = async function (resolve, reject, discordCfg, webCfg, fileCfg, w
 
     // Nunjucks
     const express = require('express');
+    const checkUser = require('../checkUser')(app);
     const path = require('path');
     const fs = require('fs');
     const nunjucks = require('nunjucks');
@@ -74,20 +75,47 @@ module.exports = async function (resolve, reject, discordCfg, webCfg, fileCfg, w
     if (webCfg.botChecker) {
 
         // Homepage
-        web.app.get('/', web.dsSession({ getUser: true }), getGlobal(web, fileCfg, (req, res) => { return homepage(req, res, webCfg, web, app); }));
+        web.app.get('/', web.dsSession({ getUser: true }), getGlobal(web, fileCfg, (req, res) => { return homepage(req, res, webCfg, web, app, checkUser); }));
 
         // Socket IO
 
         // Cache
         const ioCache = {};
-        
-        // Anti Flood
-        const socketAntiFlood = require('@tinypudding/puddy-lib/socket.io/antiFlood');
-        socketAntiFlood.install(app.web.io, ioCache);
 
-        // Start
+        // Anti Flood
+        const tinySocket = require('@tinypudding/puddy-lib/socket.io');
+
+        // Start Socket IO
         const socketListener = require('../socket/main');
-        app.web.io.on("connection", (socket) => { socketAntiFlood.install(app.web.io, ioCache); return socketListener(socket, io, web, app); });
+        app.web.io.on("connection", (socket) => {
+            tinySocket['cookie-session'](socket, ioCache).then((session) => {
+
+                // Exist Session
+                if (session) {
+
+                    // Get Discord Session
+                    return tinySocket.discord(socket, ioCache).then(user => {
+
+                        // Verified User
+                        const isVerified = checkUser(user.id);
+                        if (isVerified.permLevel > 0) { return socketListener(socket, ioCache, io, session, web, app, isVerified.permLevel); }
+
+                        // Nope
+                        else { return socket.disconnect(); }
+
+
+                    }).catch(err => { return socket.disconnect(); });
+
+                }
+
+                // Nope
+                else {
+                    return socket.disconnect();
+                }
+
+            });
+            return;
+        });
 
     }
 
