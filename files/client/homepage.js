@@ -170,7 +170,7 @@ $(() => {
     $('#select_server').click(function() {
 
         tinyLib.modal({
-            dialog: 'modal-dialog-lg',
+            dialog: 'modal-lg',
             id: 'server-list-modal',
             title: 'Mio',
             body: '',
