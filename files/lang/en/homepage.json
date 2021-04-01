@@ -1,4 +1,5 @@
 {
+    "select_server": "Select Server",
     "botNotFound": "Bot not found.",
     "dashboard": "Dashboard",
     "reconnecting": "Reconnecting...",

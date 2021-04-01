@@ -47,13 +47,19 @@ $(() => {
 
                     // Nope
                     else {
-                        
+
+                        // End Load
                         $.LoadingOverlay("hide");
-                        
+
+                        // Select Server Button
+                        $("#select_server").removeClass('disabled');
+
+                        // Set Message
                         $('#app').empty().append(
                             $('<center>').text(tinyLang.botNotFound)
                         );
 
+                        // Start Plugins
                         startApp(true);
 
                     }
@@ -115,6 +121,9 @@ $(() => {
 
             // Is Active
             if (data.success && (typeof bot.id !== "string" || botID !== bot.id)) {
+
+                // Select Server Button
+                $("#select_server").removeClass('disabled');
 
                 // Change Option
                 $('#ds_bot_' + botID).parent().addClass('active').css('pointer-events', 'none');
