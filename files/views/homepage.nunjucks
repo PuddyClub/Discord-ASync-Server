@@ -22,6 +22,9 @@
         <a id="select_server" href="javascript:void(0);" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm disabled">
             <i class="fas fa-server fa-sm text-white-50"></i> {{lang.select_server}}
         </a>
+        <a id="open_log" href="javascript:void(0);" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <i class="fas fa-bug fa-sm text-white-50"></i> {{lang.open_log}}
+        </a>
     </div>
 
     <div id="app">
