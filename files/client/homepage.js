@@ -166,6 +166,19 @@ $(() => {
 
     });
 
+    // Select Server
+    $('#select_server').click(function() {
+
+        tinyLib.modal({
+            dialog: 'modal-dialog-lg',
+            id: 'server-list-modal',
+            title: 'Mio',
+            body: '',
+            footer: []
+        });
+
+    });
+
     // Log Update
     const updateLog = function (data, type) {
 
