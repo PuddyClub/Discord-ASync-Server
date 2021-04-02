@@ -215,20 +215,53 @@ $(() => {
                     responsive: true,
 
                     // Head
-                    thead: [{
-                        items: [
+                    thead: [
 
-                            // Icon
-                            {
-                                items: [
+                        // Main TR
+                        {
+                            items: [
 
+                                // TDs
+                                {
+                                    items: [
 
+                                        // Icon
+                                        {
+                                            isText: true,
+                                            item: tinyLang.icon
+                                        },
 
-                                ]
-                            }
+                                        // Name
+                                        {
+                                            isText: true,
+                                            item: tinyLang.name
+                                        },
 
-                        ]
-                    }],
+                                        // Region
+                                        {
+                                            isText: true,
+                                            item: tinyLang.region
+                                        },
+
+                                        // Members
+                                        {
+                                            isText: true,
+                                            item: tinyLang.members
+                                        },
+
+                                        // Actions
+                                        {
+                                            isText: true,
+                                            item: tinyLang.actions
+                                        }
+
+                                    ]
+                                }
+
+                            ]
+                        }
+
+                    ],
 
                     // Body
                     tbody: servers
