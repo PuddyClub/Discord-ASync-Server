@@ -37,6 +37,8 @@ tinyLib.button = function (text = '???', type = 'primary', extra) {
 
 };
 
+//tinyLib.paginationCreator = ;
+
 tinyLib.table = function (data) {
 
     // Rest Creation
