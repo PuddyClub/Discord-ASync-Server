@@ -183,14 +183,29 @@ $(() => {
                 console.log(data);
                 // Server List
                 const servers = [];
-                for(const item in data.data) {
+                for (const item in data.data) {
+
+                    // Create TR
+                    servers.push({
+
+                        // TD
+                        items: [
+
+                            // Icon
+                            {
+
+                            }
+
+                        ]
+
+                    });
                     data.data[item].icon;
                     data.data[item].id;
                     data.data[item].members;
                     data.data[item].name;
                     data.data[item].region;
                 }
-                
+
                 // Create Table
                 tinyLib.table({
 
@@ -203,15 +218,20 @@ $(() => {
                     thead: [{
                         items: [
 
+                            // Icon
+                            {
+                                items: [
 
+
+
+                                ]
+                            }
 
                         ]
                     }],
 
                     // Body
-                    tbody: [
-
-                    ]
+                    tbody: servers
 
                 });
 

@@ -50,23 +50,23 @@ tinyLib.table = function (data) {
         for (const tr in data.thead.items) {
 
             // TR
-            const tr = $('<tr>', data.thead.items[tr].options);
+            const trItem = $('<tr>', data.thead.items[tr].options);
             for (const item in data.thead.items[tr].items) {
 
                 // Text
                 if (data.thead.items[tr].items[item].isText) {
-                    tr.append($('<th>', data.thead.items[tr].items[item].options).text(data.thead.items[tr].items[item].item))
+                    trItem.append($('<th>', data.thead.items[tr].items[item].options).text(data.thead.items[tr].items[item].item))
                 }
 
                 // Item
                 else {
-                    tr.append($('<th>', data.thead.items[tr].items[item].options).append(data.thead.items[tr].items[item].item))
+                    trItem.append($('<th>', data.thead.items[tr].items[item].options).append(data.thead.items[tr].items[item].item))
                 }
 
             }
 
             // Insert Item
-            thead.append(tr);
+            thead.append(trItem);
         }
 
         // Body
@@ -74,7 +74,7 @@ tinyLib.table = function (data) {
         for (const tr in data.tbody.items) {
 
             // TR
-            const tr = $('<tr>', data.tbody.items[tr].options);
+            const trItem = $('<tr>', data.tbody.items[tr].options);
             for (const item in data.tbody.items[tr].items) {
 
                 // Is TH
@@ -83,18 +83,19 @@ tinyLib.table = function (data) {
 
                 // Text
                 if (data.tbody.items[tr].items[item].isText) {
-                    tr.append($('<' + type + '>', data.tbody.items[tr].items[item].options).text(data.tbody.items[tr].items[item].item));
+                    trItem.append($('<' + type + '>', data.tbody.items[tr].items[item].options).text(data.tbody.items[tr].items[item].item));
                 }
 
                 // Item
                 else {
-                    tr.append($('<' + type + '>', data.tbody.items[tr].items[item].options).append(data.tbody.items[tr].items[item].item));
+                    trItem.append($('<' + type + '>', data.tbody.items[tr].items[item].options).append(data.tbody.items[tr].items[item].item));
                 }
 
             }
 
             // Insert Item
-            tbody.append(tr);
+            tbody.append(trItem);
+            
         }
 
         // Result
