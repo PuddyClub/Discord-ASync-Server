@@ -183,6 +183,7 @@ $(() => {
                 const paginationCreator = function (pagination) {
 
                     // Items Navigator
+                    console.log(pagination);
                     const next = [];
                     const previous = [];
                     if (pagination.pages > 1) {

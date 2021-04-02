@@ -153,7 +153,7 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
 
                 const paginate = require("paginate-array");
                 const paginateCollection = paginate(Array.from(socketUser.ids[socket.id].bot.guilds.cache.keys()), pager, perpage);
-                const navigator = pagination(paginateCollection.currentPage, paginateCollection.totalPages, '/', 'justify-content-center');
+                const navigator = pagination('page', paginateCollection.currentPage, paginateCollection.totalPages, '/', 'justify-content-center', 'my-2');
 
                 // Data
                 for (const item in paginateCollection.data) {
