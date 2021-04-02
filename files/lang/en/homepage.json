@@ -5,6 +5,7 @@
     "icon": "Icon",
     "region": "region",
     "members": "members",
+    "name": "Name",
     "actions": "actions",
     "confirm_leave": "Are you sure you want to leave this server? This option cannot be undone.",
     "confirm_leave_all": "Are you sure you want to log out of all servers? This option cannot be undone.",
