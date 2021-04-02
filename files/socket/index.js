@@ -157,8 +157,27 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
 
                 // Data
                 for (const item in paginateCollection.data) {
-                    paginateCollection.data[item] = socketUser.ids[socket.id].bot.guilds.cache.find(guild => guild.id === paginateCollection.data[item]);
-                    paginateCollection.data[item].theIcon = paginateCollection.data[item].iconURL();
+
+                    // Guild
+                    const guild = socketUser.ids[socket.id].bot.guilds.cache.find(guild => guild.id === paginateCollection.data[item]);;
+                    
+                    // Prepare Guild Data
+                    paginateCollection.data[item] = {
+
+                        // Icon
+                        icon: guild.iconURL(),
+
+                        // Name
+                        name: guild.name,
+                    
+                        // ID
+                        id: guild.id,
+
+                        // Member Count
+                        members: guild.memberCount
+
+                    };
+
                 }
 
                 // Complete
