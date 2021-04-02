@@ -174,7 +174,10 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
                         id: guild.id,
 
                         // Member Count
-                        members: guild.memberCount
+                        members: guild.memberCount,
+
+                        // Region
+                        region: guild.region
 
                     };
 

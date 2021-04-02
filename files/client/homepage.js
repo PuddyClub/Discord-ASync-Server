@@ -181,10 +181,38 @@ $(() => {
             if (data.success) {
 
                 console.log(data);
+                // Server List
+                const servers = [];
+                for(const item in data.data) {
+                    data.data[item].icon;
+                    data.data[item].id;
+                    data.data[item].members;
+                    data.data[item].name;
+                    data.data[item].region;
+                }
+                
+                // Create Table
                 tinyLib.table({
+
+                    // Info
                     id: 'servers',
                     class: 'table-striped',
-                    responsive: true
+                    responsive: true,
+
+                    // Head
+                    thead: [{
+                        items: [
+
+
+
+                        ]
+                    }],
+
+                    // Body
+                    tbody: [
+
+                    ]
+
                 });
 
             }
