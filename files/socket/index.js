@@ -160,16 +160,18 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
 
                     // Guild
                     const guild = socketUser.ids[socket.id].bot.guilds.cache.find(guild => guild.id === paginateCollection.data[item]);;
-                    
+                    let avatar = guild.iconURL({ size: 32 });
+                    if (!avatar) { avatar = require('@tinypudding/discord-oauth2/get/randomAvatar')(); }
+
                     // Prepare Guild Data
                     paginateCollection.data[item] = {
 
                         // Icon
-                        icon: guild.iconURL(),
+                        icon: avatar,
 
                         // Name
                         name: guild.name,
-                    
+
                         // ID
                         id: guild.id,
 

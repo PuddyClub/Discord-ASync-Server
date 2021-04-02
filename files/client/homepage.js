@@ -192,7 +192,7 @@ $(() => {
 
                             // Icon
                             {
-                                item: $('<img>', { alt: `${data.data[item].id}_icon`, src: data.data[item].icon, height: 50, style: 'height: 50px;' }),
+                                item: $('<img>', { alt: `${data.data[item].id}_icon`, src: data.data[item].icon, height: 32, style: 'height: 32px;' }),
                                 isText: false
                             },
 

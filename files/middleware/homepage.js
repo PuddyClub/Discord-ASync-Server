@@ -12,6 +12,10 @@ module.exports = async function (req, res, webCfg, web, app, checkUser) {
             // Lang
             const lang = req.i18.getFile('homepage');
 
+            // Avatar
+            let avatar = app.discord.bots[item].bot.user.avatarURL({ size: 32 });
+            if (!avatar) { avatar = require('@tinypudding/discord-oauth2/get/randomAvatar')(); }
+
             // Bots
             const bots = [];
             for (const item in app.discord.bots) {
@@ -20,7 +24,7 @@ module.exports = async function (req, res, webCfg, web, app, checkUser) {
                     discriminator: app.discord.bots[item].bot.user.discriminator,
                     tag: app.discord.bots[item].bot.user.tag,
                     id: app.discord.bots[item].bot.user.id,
-                    avatar: app.discord.bots[item].bot.user.avatarURL({ size: 32 })
+                    avatar: avatar
                 });
             }
 
