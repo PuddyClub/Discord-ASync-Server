@@ -180,7 +180,6 @@ $(() => {
             // Success
             if (data.success) {
 
-                console.log(data);
                 // Server List
                 const servers = [];
                 for (const item in data.data) {
@@ -218,13 +217,20 @@ $(() => {
                                 isText: true
                             },
 
+                            // Actions
+                            {
+                                item: 'Test',
+                                isText: true
+                            },
+
                         ]
 
                     });
+
                 }
 
                 // Create Table
-                tinyLib.table({
+                const serverList = tinyLib.table({
 
                     // Info
                     id: 'servers',
@@ -232,57 +238,62 @@ $(() => {
                     responsive: true,
 
                     // Head
-                    thead: [
+                    thead:
+                    {
+                        items: [
 
-                        // Main TR
-                        {
-                            items: [
+                            // TDs
+                            {
+                                items: [
 
-                                // TDs
-                                {
-                                    items: [
+                                    // Icon
+                                    {
+                                        isText: true,
+                                        item: tinyLang.icon
+                                    },
 
-                                        // Icon
-                                        {
-                                            isText: true,
-                                            item: tinyLang.icon
-                                        },
+                                    // Name
+                                    {
+                                        isText: true,
+                                        item: tinyLang.name
+                                    },
 
-                                        // Name
-                                        {
-                                            isText: true,
-                                            item: tinyLang.name
-                                        },
+                                    // Region
+                                    {
+                                        isText: true,
+                                        item: tinyLang.region
+                                    },
 
-                                        // Region
-                                        {
-                                            isText: true,
-                                            item: tinyLang.region
-                                        },
+                                    // Members
+                                    {
+                                        isText: true,
+                                        item: tinyLang.members
+                                    },
 
-                                        // Members
-                                        {
-                                            isText: true,
-                                            item: tinyLang.members
-                                        },
+                                    // Actions
+                                    {
+                                        isText: true,
+                                        item: tinyLang.actions
+                                    }
 
-                                        // Actions
-                                        {
-                                            isText: true,
-                                            item: tinyLang.actions
-                                        }
+                                ]
+                            }
 
-                                    ]
-                                }
-
-                            ]
-                        }
-
-                    ],
+                        ]
+                    },
 
                     // Body
-                    tbody: servers
+                    tbody: { items: servers }
 
+                });
+
+                // Modal
+                tinyLib.modal({
+                    dialog: 'modal-lg',
+                    id: 'server-list-modal',
+                    title: tinyLang.server_list,
+                    body: serverList,
+                    footer: [tinyLib.button(tinyLang.close, 'secondary', { 'data-dismiss': 'modal' })]
                 });
 
             }
