@@ -180,6 +180,80 @@ $(() => {
             // Success
             if (data.success) {
 
+                const paginationCreator = function (pagination) {
+
+                    // Items Navigator
+                    const next = [];
+                    const previous = [];
+                    if (pagination.pages > 1) {
+
+                        // Previous
+                        if (pagination.firstPagination) {
+                            previous.push($('<li>', { class: 'page-item' }).append(
+                                $('<a>', { class: 'page-link', href: pagination.url + '1', 'aria-label': 'Previous' }).append(
+                                    $('<span>', { 'aria-hidden': true }).text('««'),
+                                    $('<span>', { class: 'sr-only' }).text('Previous')
+                                )
+                            ));
+                        }
+
+                        if (pagination.previous) {
+                            previous.push($('<li>', { class: 'page-item' }).append(
+                                $('<a>', { class: 'page-link', href: pagination.url + String(Number(pagination.page) - 1), 'aria-label': 'Previous' }).append(
+                                    $('<span>', { 'aria-hidden': true }).text('«'),
+                                    $('<span>', { class: 'sr-only' }).text('Previous')
+                                )
+                            ));
+                        }
+
+                        // Next
+                        if (pagination.lastPagination) {
+                            next.push($('<li>', { class: 'page-item' }).append(
+                                $('<a>', { class: 'page-link', href: pagination.url + pagination.pages, 'aria-label': 'Next' }).append(
+                                    $('<span>', { 'aria-hidden': true }).text('»»'),
+                                    $('<span>', { class: 'sr-only' }).text('Next')
+                                )
+                            ));
+                        }
+
+                        if (pagination.next) {
+                            next.push($('<li>', { class: 'page-item' }).append(
+                                $('<a>', { class: 'page-link', href: pagination.url + String(Number(pagination.page) + 1), 'aria-label': 'Next' }).append(
+                                    $('<span>', { 'aria-hidden': true }).text('»'),
+                                    $('<span>', { class: 'sr-only' }).text('Next')
+                                )
+                            ));
+                        }
+
+                    }
+
+                    // Items
+                    const items = [];
+                    for (const item in pagination.pagination) {
+
+                        if (pagination.pagination[item] !== pagination.page) {
+                            items.push($('<li>', { class: 'page-item' }).append(
+                                $('<a>', { class: 'page-link', href: pagination.url + String(pagination.pagination[item]) }).text(pagination.pagination[item])
+                            ));
+                        } else {
+                            items.push($('<li>', { class: 'page-item' }).append(
+                                $('<a>', { class: 'page-link active' }).text(pagination.pagination[item])
+                            ));
+                        }
+
+                    }
+
+                    return $('<nav>', { class: pagination.extraClass2 }).append(
+                        $('<ul>', { class: 'pagination m-0 ' + pagination.extraClass }).append(
+                            previous, items, next
+                        )
+                    );
+
+                };
+
+                // Get Pagination
+                const pagination = paginationCreator(data.pagination);
+
                 // Server List
                 const servers = [];
                 for (const item in data.data) {
@@ -292,7 +366,7 @@ $(() => {
                     dialog: 'modal-lg',
                     id: 'server-list-modal',
                     title: tinyLang.server_list,
-                    body: serverList,
+                    body: [pagination, serverList, pagination.clone()],
                     footer: [tinyLib.button(tinyLang.close, 'secondary', { 'data-dismiss': 'modal' })]
                 });
 
