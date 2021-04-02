@@ -193,17 +193,34 @@ $(() => {
 
                             // Icon
                             {
+                                item: $('<img>', { alt: `${data.data[item].id}_icon`, src: data.data[item].icon, height: 50, style: 'height: 50px;' }),
+                                isText: false
+                            },
 
-                            }
+                            // Name
+                            {
+                                item: $('<span>').append(
+                                    $('<div>').text(data.data[item].name),
+                                    $('<small>').text(data.data[item].id),
+                                ),
+                                isText: false
+                            },
+
+                            // Region
+                            {
+                                item: data.data[item].region,
+                                isText: true
+                            },
+
+                            // Members
+                            {
+                                item: data.data[item].members,
+                                isText: true
+                            },
 
                         ]
 
                     });
-                    data.data[item].icon;
-                    data.data[item].id;
-                    data.data[item].members;
-                    data.data[item].name;
-                    data.data[item].region;
                 }
 
                 // Create Table
