@@ -40,7 +40,6 @@ tinyLib.button = function (text = '???', type = 'primary', extra) {
 tinyLib.paginationCreator = function (pagination, callback = null) {
 
     // Items Navigator
-    console.log(pagination);
     const next = [];
     const previous = [];
     if (pagination.pages > 1) {
