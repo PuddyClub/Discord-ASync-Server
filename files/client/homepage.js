@@ -181,6 +181,11 @@ $(() => {
             if (data.success) {
 
                 console.log(data);
+                tinyLib.table({
+                    id: 'servers',
+                    class: 'table-striped',
+                    responsive: true
+                });
 
             }
 

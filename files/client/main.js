@@ -37,6 +37,80 @@ tinyLib.button = function (text = '???', type = 'primary', extra) {
 
 };
 
+tinyLib.table = function (data) {
+
+    // Rest Creation
+    const createTheTable = function () {
+
+        // Table Base
+        const tableBase = $('<table>', { class: 'table ' + data.class, id: data.id });
+
+        // Thead
+        const thead = $('<thead>', data.thead.options);
+        for (const tr in data.thead.items) {
+
+            // TR
+            const tr = $('<tr>', data.thead.items[tr].options);
+            for (const item in data.thead.items[tr].items) {
+
+                // Text
+                if (data.thead.items[tr].items[item].isText) {
+                    tr.append($('<th>', data.thead.items[tr].items[item].options).text(data.thead.items[tr].items[item].item))
+                }
+
+                // Item
+                else {
+                    tr.append($('<th>', data.thead.items[tr].items[item].options).append(data.thead.items[tr].items[item].item))
+                }
+
+            }
+
+            // Insert Item
+            thead.append(tr);
+        }
+
+        // Body
+        const tbody = $('<tbody>', data.tbody.options);
+        for (const tr in data.tbody.items) {
+
+            // TR
+            const tr = $('<tr>', data.tbody.items[tr].options);
+            for (const item in data.tbody.items[tr].items) {
+
+                // Is TH
+                let type = 'td';
+                if (data.tbody.items[tr].items[item].th) { type = 'th'; }
+
+                // Text
+                if (data.tbody.items[tr].items[item].isText) {
+                    tr.append($('<' + type + '>', data.tbody.items[tr].items[item].options).text(data.tbody.items[tr].items[item].item));
+                }
+
+                // Item
+                else {
+                    tr.append($('<' + type + '>', data.tbody.items[tr].items[item].options).append(data.tbody.items[tr].items[item].item));
+                }
+
+            }
+
+            // Insert Item
+            tbody.append(tr);
+        }
+
+        // Result
+        return tableBase.append(thead, tbody);
+
+    };
+
+    // Responsive
+    if (data.responsive) {
+        return $('<div>', { class: 'table-responsive' }).append(createTheTable());
+    } else {
+        return createTheTable();
+    }
+
+};
+
 tinyLib.modal = function (data) {
 
     const modal = $("<div>", { class: "modal fade", id: data.id, tabindex: -1, role: "dialog", }).on('hidden.bs.modal', function (e) {
