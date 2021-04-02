@@ -191,7 +191,7 @@ $(() => {
                         // Previous
                         if (pagination.firstPagination) {
                             previous.push($('<li>', { class: 'page-item' }).append(
-                                $('<a>', { class: 'page-link', href: pagination.url + '1', 'aria-label': 'Previous', page: 1 }).append(
+                                $('<a>', { class: 'page-link', href: pagination.url + '1', 'aria-label': 'Previous', page: 1 }).click(callback).append(
                                     $('<span>', { 'aria-hidden': true }).text('««'),
                                     $('<span>', { class: 'sr-only' }).text('Previous')
                                 )
@@ -200,7 +200,7 @@ $(() => {
 
                         if (pagination.previous) {
                             previous.push($('<li>', { class: 'page-item' }).append(
-                                $('<a>', { class: 'page-link', href: pagination.url + String(Number(pagination.page) - 1), 'aria-label': 'Previous', page: Number(pagination.page) - 1 }).append(
+                                $('<a>', { class: 'page-link', href: pagination.url + String(Number(pagination.page) - 1), 'aria-label': 'Previous', page: Number(pagination.page) - 1 }).click(callback).append(
                                     $('<span>', { 'aria-hidden': true }).text('«'),
                                     $('<span>', { class: 'sr-only' }).text('Previous')
                                 )
@@ -210,7 +210,7 @@ $(() => {
                         // Next
                         if (pagination.lastPagination) {
                             next.push($('<li>', { class: 'page-item' }).append(
-                                $('<a>', { class: 'page-link', href: pagination.url + pagination.pages, 'aria-label': 'Next', page: pagination.pages }).append(
+                                $('<a>', { class: 'page-link', href: pagination.url + pagination.pages, 'aria-label': 'Next', page: pagination.pages }).click(callback).append(
                                     $('<span>', { 'aria-hidden': true }).text('»»'),
                                     $('<span>', { class: 'sr-only' }).text('Next')
                                 )
@@ -219,7 +219,7 @@ $(() => {
 
                         if (pagination.next) {
                             next.push($('<li>', { class: 'page-item' }).append(
-                                $('<a>', { class: 'page-link', href: pagination.url + String(Number(pagination.page) + 1), 'aria-label': 'Next', page: Number(pagination.page) + 1 }).append(
+                                $('<a>', { class: 'page-link', href: pagination.url + String(Number(pagination.page) + 1), 'aria-label': 'Next', page: Number(pagination.page) + 1 }).click(callback).append(
                                     $('<span>', { 'aria-hidden': true }).text('»'),
                                     $('<span>', { class: 'sr-only' }).text('Next')
                                 )
@@ -234,7 +234,7 @@ $(() => {
 
                         if (pagination.pagination[item] !== pagination.page) {
                             items.push($('<li>', { class: 'page-item' }).append(
-                                $('<a>', { class: 'page-link', href: pagination.url + String(pagination.pagination[item]), page: pagination.pagination[item] }).text(pagination.pagination[item])
+                                $('<a>', { class: 'page-link', href: pagination.url + String(pagination.pagination[item]), page: pagination.pagination[item] }).click(callback).text(pagination.pagination[item])
                             ));
                         } else {
                             items.push($('<li>', { class: 'page-item' }).append(
@@ -244,6 +244,7 @@ $(() => {
 
                     }
 
+                    // Complete
                     return $('<nav>', { class: pagination.extraClass2 }).append(
                         $('<ul>', { class: 'pagination m-0 ' + pagination.extraClass }).append(
                             previous, items, next
