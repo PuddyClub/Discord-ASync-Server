@@ -167,14 +167,37 @@ $(() => {
     });
 
     // Select Server
-    $('#select_server').click(function() {
+    $('#select_server').click(function () {
 
-        tinyLib.modal({
-            dialog: 'modal-lg',
-            id: 'server-list-modal',
-            title: 'Mio',
-            body: '',
-            footer: []
+        // Page System
+        const pageSystem = { page: 1, perpage: 50 };
+        $.LoadingOverlay("show", { background: "rgba(0,0,0, 0.5)" });
+        socket.emit('getDiscordGuilds', pageSystem, (data) => {
+
+            // Complete
+            $.LoadingOverlay("hide");
+
+            // Success
+            if (data.success) {
+
+                console.log(data);
+
+            }
+
+            // Fail
+            else {
+
+                // Fail Error Message
+                tinyLib.modal({
+                    dialog: 'modal-lg',
+                    id: 'server-list-modal',
+                    title: 'Error!',
+                    body: data.error,
+                    footer: [tinyLib.button(tinyLang.close, 'secondary', { 'data-dismiss': 'modal' })]
+                });
+
+            }
+
         });
 
     });

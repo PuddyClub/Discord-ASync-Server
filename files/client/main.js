@@ -24,6 +24,19 @@ tinyLib.alert = function (where, alertType, icon, text) {
         );
 };
 
+tinyLib.button = function (text = '???', type = 'primary', extra) {
+
+    // Button Config
+    const buttonConfig = { class: 'btn btn-' + type, type: 'button' };
+
+    // Extra
+    if (extra) { for (const item in extra) { buttonConfig[item] = extra[item]; } }
+
+    // Result
+    return $('<button>', buttonConfig).text(text);
+
+};
+
 tinyLib.modal = function (data) {
 
     const modal = $("<div>", { class: "modal fade", id: data.id, tabindex: -1, role: "dialog", }).on('hidden.bs.modal', function (e) {
