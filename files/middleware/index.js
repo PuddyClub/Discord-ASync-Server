@@ -40,9 +40,9 @@ module.exports = async function (resolve, reject, discordCfg, webCfg, fileCfg, w
 
     // Extra
     let pluginSettings;
-    if (typeof webCfg.middleware === "function") { 
-        pluginSettings = await webCfg.middleware(web, app); 
-        if (!objType(pluginSettings, 'object')) { pluginSettings = {}; } 
+    if (typeof webCfg.middleware === "function") {
+        pluginSettings = await webCfg.middleware(web, app);
+        if (!objType(pluginSettings, 'object')) { pluginSettings = {}; }
     }
 
     // Files
@@ -65,7 +65,9 @@ module.exports = async function (resolve, reject, discordCfg, webCfg, fileCfg, w
     web.app.get('/js/homepage.js', function (req, res, next) {
         return readFile(
             res, next, {
-            file: fs.readFileSync(path.join(__dirname, '../client/homepage.js'), 'utf8'),
+            file: fs.readFileSync(path.join(__dirname, '../client/homepage.js'), 'utf8')
+                .replace('{ { server_list_script } }', fs.readFileSync(path.join(__dirname, '../client/server_list.js'), 'utf8'))
+                .replace('{ { log_update_script } }', fs.readFileSync(path.join(__dirname, '../client/update_log.js'), 'utf8')),
             date: { year: 2021, month: 3, day: 30, hour: 17, minute: 29 },
             timezone: 'America/Sao_Paulo',
             fileMaxAge: fileAge
