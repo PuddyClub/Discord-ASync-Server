@@ -167,167 +167,167 @@ $(() => {
     });
 
     // Select Server
-    $('#select_server').click(function () {
+    // Get Page
+    const getPage = function (data) {
 
-        // Get Page
-        const getPage = function (data) {
+        // Get Pagination
+        const pagination = tinyLib.paginationCreator(data.pagination, function () {
 
-            // Get Pagination
-            const pagination = tinyLib.paginationCreator(data.pagination, function () {
+            // Page
+            $.LoadingOverlay("show", { background: "rgba(0,0,0, 0.5)" });
+            const page = Number($(this).attr('page'));
+            pageSystem.page = page;
 
-                // Page
-                $.LoadingOverlay("show", { background: "rgba(0,0,0, 0.5)" });
-                const page = Number($(this).attr('page'));
-                pageSystem.page = page;
+            // Go to Page
+            socket.emit('getDiscordGuilds', pageSystem, (data) => {
 
-                // Go to Page
-                socket.emit('getDiscordGuilds', pageSystem, (data) => {
+                // Complete
+                $.LoadingOverlay("hide");
+                const resultData = getPage(page);
 
-                    // Complete
-                    $.LoadingOverlay("hide");
-                    const resultData = getPage(page);
+                // Success
+                if (data.success) { $('#server-list-modal .modal-body').empty().append(resultData.pagination, resultData.serverList, resultData.pagination.clone()); }
 
-                    // Success
-                    if (data.success) { $('#server-list-modal .modal-body').empty().append(resultData.pagination, resultData.serverList, resultData.pagination.clone()); }
+                // Fail
+                else {
 
-                    // Fail
-                    else {
+                    // Fail Error Message
+                    tinyLib.modal({
+                        dialog: 'modal-lg',
+                        id: 'server-list-modal',
+                        title: 'Error!',
+                        body: data.error,
+                        footer: [tinyLib.button(tinyLang.close, 'secondary', { 'data-dismiss': 'modal' })]
+                    });
 
-                        // Fail Error Message
-                        tinyLib.modal({
-                            dialog: 'modal-lg',
-                            id: 'server-list-modal',
-                            title: 'Error!',
-                            body: data.error,
-                            footer: [tinyLib.button(tinyLang.close, 'secondary', { 'data-dismiss': 'modal' })]
-                        });
+                }
 
+            });
+
+
+        });
+
+        // Server List
+        const servers = [];
+        for (const item in data.data) {
+
+            // Create TR
+            servers.push({
+
+                // TD
+                items: [
+
+                    // Icon
+                    {
+                        item: $('<img>', { alt: `${data.data[item].id}_icon`, src: data.data[item].icon, height: 32, style: 'height: 32px;' }),
+                        isText: false
+                    },
+
+                    // Name
+                    {
+                        item: $('<span>').append(
+                            $('<div>').text(data.data[item].name),
+                            $('<small>').text(data.data[item].id),
+                        ),
+                        isText: false
+                    },
+
+                    // Region
+                    {
+                        item: data.data[item].region,
+                        isText: true
+                    },
+
+                    // Members
+                    {
+                        item: data.data[item].members,
+                        isText: true
+                    },
+
+                    // Actions
+                    {
+                        item: 'Test',
+                        isText: true
+                    },
+
+                ]
+
+            });
+
+        }
+
+        // Server List
+        const serverList = tinyLib.table({
+
+            // Info
+            id: 'servers',
+            class: 'table-striped',
+            responsive: true,
+
+            // Head
+            thead:
+            {
+                items: [
+
+                    // TDs
+                    {
+                        items: [
+
+                            // Icon
+                            {
+                                isText: true,
+                                item: tinyLang.icon
+                            },
+
+                            // Name
+                            {
+                                isText: true,
+                                item: tinyLang.name
+                            },
+
+                            // Region
+                            {
+                                isText: true,
+                                item: tinyLang.region
+                            },
+
+                            // Members
+                            {
+                                isText: true,
+                                item: tinyLang.members
+                            },
+
+                            // Actions
+                            {
+                                isText: true,
+                                item: tinyLang.actions
+                            }
+
+                        ]
                     }
 
-                });
+                ]
+            },
 
+            // Body
+            tbody: { items: servers }
 
-            });
+        });
 
-            // Server List
-            const servers = [];
-            for (const item in data.data) {
+        // Complete
+        return {
 
-                // Create TR
-                servers.push({
+            // Create Table
+            serverList: serverList,
 
-                    // TD
-                    items: [
-
-                        // Icon
-                        {
-                            item: $('<img>', { alt: `${data.data[item].id}_icon`, src: data.data[item].icon, height: 32, style: 'height: 32px;' }),
-                            isText: false
-                        },
-
-                        // Name
-                        {
-                            item: $('<span>').append(
-                                $('<div>').text(data.data[item].name),
-                                $('<small>').text(data.data[item].id),
-                            ),
-                            isText: false
-                        },
-
-                        // Region
-                        {
-                            item: data.data[item].region,
-                            isText: true
-                        },
-
-                        // Members
-                        {
-                            item: data.data[item].members,
-                            isText: true
-                        },
-
-                        // Actions
-                        {
-                            item: 'Test',
-                            isText: true
-                        },
-
-                    ]
-
-                });
-
-            }
-
-            // Server List
-            const serverList = tinyLib.table({
-
-                // Info
-                id: 'servers',
-                class: 'table-striped',
-                responsive: true,
-
-                // Head
-                thead:
-                {
-                    items: [
-
-                        // TDs
-                        {
-                            items: [
-
-                                // Icon
-                                {
-                                    isText: true,
-                                    item: tinyLang.icon
-                                },
-
-                                // Name
-                                {
-                                    isText: true,
-                                    item: tinyLang.name
-                                },
-
-                                // Region
-                                {
-                                    isText: true,
-                                    item: tinyLang.region
-                                },
-
-                                // Members
-                                {
-                                    isText: true,
-                                    item: tinyLang.members
-                                },
-
-                                // Actions
-                                {
-                                    isText: true,
-                                    item: tinyLang.actions
-                                }
-
-                            ]
-                        }
-
-                    ]
-                },
-
-                // Body
-                tbody: { items: servers }
-
-            });
-
-            // Complete
-            return {
-
-                // Create Table
-                serverList: serverList,
-
-                // Pagination
-                pagination: pagination
-
-            };
+            // Pagination
+            pagination: pagination
 
         };
+
+    };
+
+    $('#select_server').click(function () {
 
         // Page System
         const pageSystem = { page: 1, perpage: 50 };
@@ -390,6 +390,14 @@ $(() => {
         return;
 
     };
+
+    // Socket Auto Update Server List
+    socket.on('dsBot_serverCount', (count) => {
+
+        // Update Number
+        $('#server_count #info').text(count);
+
+    });
 
     // Update Info
     socket.on('dsBot_serverCount', (count) => { $('#server_count #info').text(count); });
