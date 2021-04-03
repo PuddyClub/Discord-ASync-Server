@@ -183,10 +183,13 @@ $(() => {
 
                 // Complete
                 $.LoadingOverlay("hide");
-                const resultData = getPage(page);
 
                 // Success
-                if (data.success) { $('#server-list-modal .modal-body').empty().append(resultData.pagination, resultData.serverList, resultData.pagination.clone()); }
+                if (data.success) {
+                    const resultData = getPage(data);
+                    $('#server-list-modal .modal-body').empty()
+                        .append(resultData.pagination, resultData.serverList, resultData.pagination.clone());
+                }
 
                 // Fail
                 else {
