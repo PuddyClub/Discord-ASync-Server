@@ -1,5 +1,5 @@
 // Select Server Page System
-const pageSystem = { page: 1, perpage: 50 };
+const pageSystem = { page: 1, perpage: 50, menuOn: false };
 
 // Research Server
 const researchServers = function () {
@@ -178,6 +178,7 @@ $('#select_server').click(function () {
 
     // Page System
     pageSystem.page = 1;
+    pageSystem.menuOn = true;
     $.LoadingOverlay("show", { background: "rgba(0,0,0, 0.5)" });
     socket.emit('getDiscordGuilds', pageSystem, (data) => {
 
@@ -195,7 +196,8 @@ $('#select_server').click(function () {
                 id: 'server-list-modal',
                 title: tinyLang.server_list,
                 body: [resultData.pagination, resultData.serverList, resultData.pagination.clone()],
-                footer: [tinyLib.button(tinyLang.close, 'secondary', { 'data-dismiss': 'modal' })]
+                footer: [tinyLib.button(tinyLang.close, 'secondary', { 'data-dismiss': 'modal' })],
+                hidden: function () { pageSystem.menuOn = false; };
             });
 
         }
