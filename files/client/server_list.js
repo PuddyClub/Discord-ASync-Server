@@ -197,7 +197,7 @@ $('#select_server').click(function () {
                 title: tinyLang.server_list,
                 body: [resultData.pagination, resultData.serverList, resultData.pagination.clone()],
                 footer: [tinyLib.button(tinyLang.close, 'secondary', { 'data-dismiss': 'modal' })],
-                hidden: function () { pageSystem.menuOn = false; };
+                hidden: function () { pageSystem.menuOn = false; }
             });
 
         }
