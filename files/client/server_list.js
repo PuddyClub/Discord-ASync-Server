@@ -208,7 +208,7 @@ $('#select_server').click(function () {
             // Fail Error Message
             tinyLib.modal({
                 dialog: 'modal-lg',
-                id: 'server-list-modal',
+                id: 'server-list-modal-error',
                 title: 'Error!',
                 body: data.error,
                 footer: [tinyLib.button(tinyLang.close, 'secondary', { 'data-dismiss': 'modal' })]
@@ -225,5 +225,10 @@ socket.on('dsBot_serverCount', (count) => {
 
     // Update Number
     $('#server_count #info').text(count);
+
+    // Update Server List
+    if ($('#server-list-modal').length > 0) { researchServers(); }
+
+    // Exist #server-list-modal
 
 });
