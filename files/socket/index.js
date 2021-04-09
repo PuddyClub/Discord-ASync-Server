@@ -17,6 +17,7 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
                 // Get the Bot
                 socketUser.ids[socket.id].bot = item.bot;
                 socketUser.ids[socket.id].room = 'dashboard';
+                socketUser.ids[socket.id].guild = null;
 
                 // Complete
                 fn({

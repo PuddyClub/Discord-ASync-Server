@@ -89,6 +89,7 @@ $(() => {
             if (data.success && (typeof bot.id !== "string" || botID !== bot.id)) {
 
                 // Select Server Button
+                bot.guild = null;
                 $("#select_server").removeClass('disabled');
 
                 // Change Option
