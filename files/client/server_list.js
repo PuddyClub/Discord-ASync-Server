@@ -241,3 +241,5 @@ socket.on('dsBot_serverCount', (count) => {
     // Exist #server-list-modal
 
 });
+
+/* Quando o SErverCount é acionado, a gente tem que invocar aqui também uma rechecagem se este servidor ainda é visivel ou não na lista de servidores */
