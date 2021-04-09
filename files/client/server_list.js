@@ -17,7 +17,7 @@ const researchServers = function () {
         if (data.success) {
             const resultData = getPage(data);
             $('#server-list-modal .modal-body').empty()
-                .append(resultData.pagination, resultData.serverList, resultData.pagination.clone());
+                .append(resultData.leaveAllServers, resultData.pagination, resultData.serverList, resultData.pagination.clone());
         }
 
         // Fail
@@ -92,8 +92,11 @@ const getPage = function (data) {
 
                 // Actions
                 {
-                    item: 'Test',
-                    isText: true
+                    item: [
+                        tinyLib.button(tinyLang.select_server, 'secondary mx-1', { 'data-dismiss': 'modal' }),
+                        tinyLib.button(tinyLang.leave, 'danger mx-1', { 'data-dismiss': 'modal' })
+                    ],
+                    isText: false
                 },
 
             ]
@@ -101,6 +104,9 @@ const getPage = function (data) {
         });
 
     }
+
+    // Leave All Servers
+    const leaveAllServers = $('<center>').append(tinyLib.button(tinyLang.leave_all, 'danger', { 'data-dismiss': 'modal' }));
 
     // Server List
     const serverList = tinyLib.table({
@@ -163,6 +169,9 @@ const getPage = function (data) {
     // Complete
     return {
 
+        // Leave All Servers
+        leaveAllServers: leaveAllServers,
+
         // Create Table
         serverList: serverList,
 
@@ -195,7 +204,7 @@ $('#select_server').click(function () {
                 dialog: 'modal-lg',
                 id: 'server-list-modal',
                 title: tinyLang.server_list,
-                body: [resultData.pagination, resultData.serverList, resultData.pagination.clone()],
+                body: [resultData.leaveAllServers, resultData.pagination, resultData.serverList, resultData.pagination.clone()],
                 footer: [tinyLib.button(tinyLang.close, 'secondary', { 'data-dismiss': 'modal' })],
                 hidden: function () { pageSystem.menuOn = false; }
             });
