@@ -267,9 +267,6 @@ $('#select_server').click(function () {
 
         }
 
-        // Update Page Data
-        socket.emit('updateCountPage');
-
     });
 
 });

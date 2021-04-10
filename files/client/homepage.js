@@ -49,7 +49,7 @@ $(() => {
                         }
 
                         // Nope
-                        else { socket.emit('updateCountPage'); ot.guild = null; $.LoadingOverlay("hide"); startApp(true); }
+                        else { socket.emit('updateCountPage'); bot.guild = null; $.LoadingOverlay("hide"); startApp(true); }
 
                     }
 
