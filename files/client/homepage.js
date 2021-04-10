@@ -46,7 +46,7 @@ $(() => {
                         }
 
                         // Nope
-                        else { $.LoadingOverlay("hide"); startApp(true); }
+                        else { bot.guild = null; $.LoadingOverlay("hide"); startApp(true); }
 
                     }
 
@@ -65,6 +65,8 @@ $(() => {
                         );
 
                         // Start Plugins
+                        bot.id = null;
+                        bot.guild = null;
                         startApp(true);
 
                     }
