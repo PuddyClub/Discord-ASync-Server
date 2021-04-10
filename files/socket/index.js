@@ -4,6 +4,24 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
     const user = socketUser.data;
     socketUser.permLevel = permLevel;
 
+    // Connect Discord Bot Guild
+    socket.on('connectDiscordGuild', function (guildID, fn) {
+
+        // Is String
+        if (typeof guildID === "string" || typeof guildID === "number") {
+
+            // Complete
+            fn({
+                success: true,
+            });
+
+        }
+
+        // Nope
+        else { fn({ success: false }); }
+
+    });
+
     // Connect Discord Bot
     socket.on('connectDiscordBot', function (botID, fn) {
 

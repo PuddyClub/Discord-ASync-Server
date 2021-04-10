@@ -93,7 +93,19 @@ const getPage = function (data) {
                 // Actions
                 {
                     item: [
-                        tinyLib.button(tinyLang.select_server, 'secondary mx-1', { 'data-dismiss': 'modal' }),
+                        tinyLib.button(tinyLang.select_server, 'secondary mx-1', { 'data-dismiss': 'modal', id: 'ds_bot_guild_' + data.data[item].id }).click(function () {
+
+                            // Guild ID
+                            const guildID = $(this).attr('id').substring(13);
+
+                            // Connect Guild
+                            socket.emit('connectDiscordGuild', guildID, () => {
+
+                                
+
+                            });
+
+                        }),
                         tinyLib.button(tinyLang.leave, 'danger mx-1', { 'data-dismiss': 'modal' })
                     ],
                     isText: false

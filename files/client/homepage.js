@@ -37,7 +37,12 @@ $(() => {
 
                         // Exist Guild Selected
                         if (bot.guild) {
-                            $.LoadingOverlay("hide"); startApp(true);
+                            socket.emit('connectDiscordGuild', bot.guild, () => {
+
+                                // Complete
+                                $.LoadingOverlay("hide"); startApp(true);
+
+                            });
                         }
 
                         // Nope
