@@ -42,11 +42,14 @@ $(() => {
                                 // Complete
                                 $.LoadingOverlay("hide"); startApp(true);
 
+                                // Update Page Data
+                                socket.emit('updateCountPage');
+
                             });
                         }
 
                         // Nope
-                        else { bot.guild = null; $.LoadingOverlay("hide"); startApp(true); }
+                        else { socket.emit('updateCountPage'); ot.guild = null; $.LoadingOverlay("hide"); startApp(true); }
 
                     }
 
@@ -64,6 +67,9 @@ $(() => {
                             $('<center>').text(tinyLang.botNotFound)
                         );
 
+                        // Update Page Data
+                        socket.emit('updateCountPage');
+
                         // Start Plugins
                         bot.id = null;
                         bot.guild = null;
@@ -75,7 +81,7 @@ $(() => {
             }
 
             // Nope
-            else { $.LoadingOverlay("hide"); startApp(true); }
+            else { socket.emit('updateCountPage'); $.LoadingOverlay("hide"); startApp(true); }
 
         }
 
@@ -131,6 +137,9 @@ $(() => {
                 bot.id = botID;
 
             }
+
+            // Update Page Data
+            socket.emit('updateCountPage');
 
             // Complete
             $.LoadingOverlay('hide');

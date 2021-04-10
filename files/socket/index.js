@@ -24,10 +24,10 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
         }
 
         // Send Logs
-        socket.emit('dsBot_error', { item: null, list: item.log.error });
-        socket.emit('dsBot_warn', { item: null, list: item.log.warn });
-        socket.emit('dsBot_rateLimit', { item: null, list: item.log.rateLimit });
-        socket.emit('dsBot_shardError', { item: null, list: item.log.shardError });
+        socket.emit('dsBot_error', { item: null, list: socketUser.ids[socket.id].log.error });
+        socket.emit('dsBot_warn', { item: null, list: socketUser.ids[socket.id].log.warn });
+        socket.emit('dsBot_rateLimit', { item: null, list: socketUser.ids[socket.id].log.rateLimit });
+        socket.emit('dsBot_shardError', { item: null, list: socketUser.ids[socket.id].log.shardError });
 
     });
 
@@ -77,6 +77,7 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
             if (item) {
 
                 // Get the Bot
+                socketUser.ids[socket.id].log = item.log;
                 socketUser.ids[socket.id].bot = item.bot;
                 socketUser.ids[socket.id].room = 'dashboard';
                 socketUser.ids[socket.id].guild = null;
@@ -95,6 +96,7 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
                 socketUser.ids[socket.id].bot = null; 
                 socketUser.ids[socket.id].room = null;
                 socketUser.ids[socket.id].guild = null;
+                socketUser.ids[socket.id].log = null;
                 fn({ success: false }); 
             }
 
