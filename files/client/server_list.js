@@ -2,7 +2,7 @@
 const pageSystem = { page: 1, perpage: 50, menuOn: false };
 
 // Open Server
-const openServer = (data) => {
+const openServer = (data, isCount) => {
 
     // Complete
     if (data.success) {
@@ -27,7 +27,7 @@ const openServer = (data) => {
     }
 
     // Update Page Data
-    socket.emit('updateCountPage', 'openServer');
+    if (!isCount) { socket.emit('updateCountPage', 'openServer'); }
 
 };
 
@@ -273,17 +273,19 @@ $('#select_server').click(function () {
 
 // Socket Auto Update Server List
 socket.on('dsBot_channelCount', (count) => { $('#channel_count #info').text(count); });
-socket.on('dsBot_serverCount', (count) => {
+socket.on('dsBot_serverCount', (item) => {
 
     // Update Number
-    $('#server_count #info').text(count);
+    $('#server_count #info').text(item.value);
 
     // Update Server List
     if ($('#server-list-modal').length > 0) { researchServers(true); }
 
     // Check Exist Server
     if (bot.guild) {
-        socket.emit('connectDiscordGuild', bot.guild, openServer);
+        socket.emit('connectDiscordGuild', bot.guild, function (data) {
+            return openServer(data, item.isCount);
+        });
     }
 
 });
