@@ -5,20 +5,32 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
     socketUser.permLevel = permLevel;
 
     // Connect Discord Bot Guild
-    socket.on('connectDiscordGuild', function (guildID, fn) {
+    socket.on('connectDiscordGuild', async function (guildID, fn) {
 
         // Is String
         if (typeof guildID === "string" || typeof guildID === "number") {
 
-            // Complete
-            fn({
-                success: true,
-            });
+            // Find Guild
+            const guild = await socketUser.ids[socket.id].bot.guilds.fetch(guildID);
+            if (guild) {
+
+                // Set Guild Value
+                socketUser.ids[socket.id].guild = guildID;
+
+                // Complete
+                return fn({
+                    success: true,
+                });
+
+            }
+
+            // Nope
+            else { return fn({ success: false }); }
 
         }
 
         // Nope
-        else { fn({ success: false }); }
+        else { return fn({ success: false }); }
 
     });
 
