@@ -12,6 +12,7 @@
     "confirm_leave_all": "Are you sure you want to log out of all servers? This option cannot be undone.",
     "confirm_leave_all_1": "Are you sure you want to log out of ALL SERVERS? This option cannot be UNDONE.",
     "confirm_leave_all_2": "Are you sure you??? THIS IS THE LAST WARNING!",
+    "errorGetGuild": "The guild was not found!",
     "open_log": "Open Log",
     "select_server": "Select Server",
     "botNotFound": "Bot not found.",

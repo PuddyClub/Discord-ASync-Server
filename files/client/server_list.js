@@ -2,9 +2,26 @@
 const pageSystem = { page: 1, perpage: 50, menuOn: false };
 
 // Open Server
-const openServer = () => {
+const openServer = (data) => {
 
+    // Complete
+    if (data.success) {
 
+    }
+
+    // Error
+    else {
+
+        // Fail Error Message
+        tinyLib.modal({
+            dialog: 'modal-lg',
+            id: 'server-list-modal',
+            title: 'Error!',
+            body: data.errorGetGuild,
+            footer: [tinyLib.button(tinyLang.close, 'secondary', { 'data-dismiss': 'modal' })]
+        });
+
+    }
 
 };
 
