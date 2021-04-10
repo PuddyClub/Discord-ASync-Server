@@ -43,13 +43,13 @@ $(() => {
                                 $.LoadingOverlay("hide"); startApp(true);
 
                                 // Update Page Data
-                                socket.emit('updateCountPage');
+                                socket.emit('updateCountPage', 'connectDiscordGuild');
 
                             });
                         }
 
                         // Nope
-                        else { socket.emit('updateCountPage'); bot.guild = null; $.LoadingOverlay("hide"); startApp(true); }
+                        else { bot.guild = null; $.LoadingOverlay("hide"); startApp(true); }
 
                     }
 
@@ -67,9 +67,6 @@ $(() => {
                             $('<center>').text(tinyLang.botNotFound)
                         );
 
-                        // Update Page Data
-                        socket.emit('updateCountPage');
-
                         // Start Plugins
                         bot.id = null;
                         bot.guild = null;
@@ -81,7 +78,8 @@ $(() => {
             }
 
             // Nope
-            else { socket.emit('updateCountPage'); $.LoadingOverlay("hide"); startApp(true); }
+            else { $.LoadingOverlay("hide"); startApp(true); }
+            socket.emit('updateCountPage', 'discordConnected');
 
         }
 
@@ -139,7 +137,7 @@ $(() => {
             }
 
             // Update Page Data
-            socket.emit('updateCountPage');
+            socket.emit('updateCountPage', 'connectDiscordBot');
 
             // Complete
             $.LoadingOverlay('hide');

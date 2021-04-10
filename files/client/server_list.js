@@ -27,7 +27,7 @@ const openServer = (data) => {
     }
 
     // Update Page Data
-    socket.emit('updateCountPage');
+    socket.emit('updateCountPage', 'openServer');
 
 };
 
@@ -65,7 +65,7 @@ const researchServers = function () {
         }
 
         // Update Page Data
-        socket.emit('updateCountPage');
+        socket.emit('updateCountPage', 'getDiscordGuilds');
 
     });
 
