@@ -1,6 +1,13 @@
 // Select Server Page System
 const pageSystem = { page: 1, perpage: 50, menuOn: false };
 
+// Open Server
+const openServer = () => {
+
+
+
+};
+
 // Research Server
 const researchServers = function () {
 
@@ -99,11 +106,8 @@ const getPage = function (data) {
                             const guildID = $(this).attr('id').substring(13);
 
                             // Connect Guild
-                            socket.emit('connectDiscordGuild', guildID, () => {
-
-                                
-
-                            });
+                            bot.guild = guildID;
+                            socket.emit('connectDiscordGuild', guildID, openServer);
 
                         }),
                         tinyLib.button(tinyLang.leave, 'danger mx-1', { 'data-dismiss': 'modal' })
@@ -250,8 +254,9 @@ socket.on('dsBot_serverCount', (count) => {
     // Update Server List
     if ($('#server-list-modal').length > 0) { researchServers(); }
 
-    // Exist #server-list-modal
+    // Check Exist Server
+    if (bot.guild) {
+        socket.emit('connectDiscordGuild', bot.guild, openServer);
+    }
 
 });
-
-/* Quando o SErverCount é acionado, a gente tem que invocar aqui também uma rechecagem se este servidor ainda é visivel ou não na lista de servidores */
