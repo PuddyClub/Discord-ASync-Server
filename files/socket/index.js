@@ -5,6 +5,33 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
     socketUser.permLevel = permLevel;
 
     // Connect Discord Bot Guild
+    socket.on('updateCountPage', async function (guildID, fn) {
+
+        // Exist Guild
+        if (socketUser.ids[socket.id].guild) {
+
+            // Connected
+            socket.emit('dsBot_guildMemberCount', guild.memberCount);
+            socket.emit('dsBot_guildRoleCount', guild.roles.cache.size);
+            socket.emit('dsBot_guildEmojiCount', guild.emojis.cache.size);
+
+        }
+
+        // Exist Bot
+        if (socketUser.ids[socket.id].bot) {
+            socket.emit('dsBot_serverCount', socketUser.ids[socket.id].bot.guilds.cache.size);
+            socket.emit('dsBot_channelCount', socketUser.ids[socket.id].bot.channels.cache.size);
+        }
+
+        // Send Logs
+        socket.emit('dsBot_error', { item: null, list: item.log.error });
+        socket.emit('dsBot_warn', { item: null, list: item.log.warn });
+        socket.emit('dsBot_rateLimit', { item: null, list: item.log.rateLimit });
+        socket.emit('dsBot_shardError', { item: null, list: item.log.shardError });
+
+    });
+
+    // Connect Discord Bot Guild
     socket.on('connectDiscordGuild', async function (guildID, fn) {
 
         // Is String
@@ -15,7 +42,7 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
             if (guild) {
 
                 // Set Guild Value
-                socketUser.ids[socket.id].guild = guildID;
+                socketUser.ids[socket.id].guild = guild;
 
                 // Complete
                 fn({
@@ -24,15 +51,10 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
                     icon: guild.iconURL({ size: 32 })
                 });
 
-                // Connected
-                socket.emit('dsBot_guildMemberCount', guild.memberCount);
-                socket.emit('dsBot_guildRoleCount', guild.roles.cache.size);
-                socket.emit('dsBot_guildEmojiCount', guild.emojis.cache.size);
-
             }
 
             // Nope
-            else { fn({ success: false }); }
+            else { socketUser.ids[socket.id].guild = null; fn({ success: false }); }
 
         }
 
@@ -66,20 +88,15 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
                     avatar: socketUser.ids[socket.id].bot.user.avatarURL({ size: 32 })
                 });
 
-                // Connected
-                socket.emit('dsBot_serverCount', socketUser.ids[socket.id].bot.guilds.cache.size);
-                socket.emit('dsBot_channelCount', socketUser.ids[socket.id].bot.channels.cache.size);
-
-                // Send Logs
-                socket.emit('dsBot_error', { item: null, list: item.log.error });
-                socket.emit('dsBot_warn', { item: null, list: item.log.warn });
-                socket.emit('dsBot_rateLimit', { item: null, list: item.log.rateLimit });
-                socket.emit('dsBot_shardError', { item: null, list: item.log.shardError });
-
             }
 
             // Nope
-            else { fn({ success: false }); }
+            else { 
+                socketUser.ids[socket.id].bot = null; 
+                socketUser.ids[socket.id].room = null;
+                socketUser.ids[socket.id].guild = null;
+                fn({ success: false }); 
+            }
 
         }
 
