@@ -7,22 +7,21 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
     // Connect Discord Bot Guild
     socket.on('updateCountPage', function (type) {
 
-        // Update Count Page Type
         console.log(type);
 
         // Exist Guild
         if (socketUser.ids[socket.id].guild) {
 
             // Connected
-            socket.emit('dsBot_guildMemberCount', guild.memberCount);
-            socket.emit('dsBot_guildRoleCount', guild.roles.cache.size);
-            socket.emit('dsBot_guildEmojiCount', guild.emojis.cache.size);
+            socket.emit('dsBot_guildMemberCount', socketUser.ids[socket.id].guild.memberCount);
+            socket.emit('dsBot_guildRoleCount', socketUser.ids[socket.id].guild.roles.cache.size);
+            socket.emit('dsBot_guildEmojiCount', socketUser.ids[socket.id].guild.emojis.cache.size);
 
         }
 
         // Exist Bot
         if (socketUser.ids[socket.id].bot) {
-            socket.emit('dsBot_serverCount', socketUser.ids[socket.id].bot.guilds.cache.size);
+            socket.emit('dsBot_serverCount', { value: socketUser.ids[socket.id].bot.guilds.cache.size, isCount: true });
             socket.emit('dsBot_channelCount', socketUser.ids[socket.id].bot.channels.cache.size);
         }
 
@@ -95,12 +94,12 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
             }
 
             // Nope
-            else { 
-                socketUser.ids[socket.id].bot = null; 
+            else {
+                socketUser.ids[socket.id].bot = null;
                 socketUser.ids[socket.id].room = null;
                 socketUser.ids[socket.id].guild = null;
                 socketUser.ids[socket.id].log = null;
-                fn({ success: false }); 
+                fn({ success: false });
             }
 
         }

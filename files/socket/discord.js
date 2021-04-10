@@ -67,13 +67,13 @@ const startDiscordSocket = function (ioCache, io, data) {
     bot.on('channelDelete', () => { return sendInfo(ioCache, 'dsBot_channelCount', bot.user.id, bot.channels.cache.size); });
 
     // Guild
-    bot.on('guildCreate', () => { return sendInfo(ioCache, 'dsBot_serverCount', bot.user.id, bot.guilds.cache.size); });
-    bot.on('guildDelete', () => { return sendInfo(ioCache, 'dsBot_serverCount', bot.user.id, bot.guilds.cache.size); });
-    
+    bot.on('guildCreate', () => { return sendInfo(ioCache, 'dsBot_serverCount', bot.user.id, { value: bot.guilds.cache.size, isCount: false }); });
+    bot.on('guildDelete', () => { return sendInfo(ioCache, 'dsBot_serverCount', bot.user.id, { value: bot.guilds.cache.size, isCount: false }); });
+
     // Guild Item
     bot.on('guildMemberAdd', (member) => { return sendInfo(ioCache, 'dsBot_guildMemberCount', bot.user.id, member.guild.memberCount, 0, member.guild.id); });
     bot.on('guildMemberRemove', (member) => { return sendInfo(ioCache, 'dsBot_guildMemberCount', bot.user.id, member.guild.memberCount, 0, member.guild.id); });
-    
+
     bot.on('roleCreate', (role) => { return sendInfo(ioCache, 'dsBot_guildRoleCount', bot.user.id, role.guild.roles.cache.size, 0, member.guild.id); });
     bot.on('roleDelete', (role) => { return sendInfo(ioCache, 'dsBot_guildRoleCount', bot.user.id, role.guild.roles.cache.size, 0, member.guild.id); });
 

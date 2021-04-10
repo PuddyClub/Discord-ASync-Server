@@ -272,6 +272,7 @@ $('#select_server').click(function () {
 });
 
 // Socket Auto Update Server List
+socket.on('dsBot_channelCount', (count) => { $('#channel_count #info').text(count); });
 socket.on('dsBot_serverCount', (count) => {
 
     // Update Number

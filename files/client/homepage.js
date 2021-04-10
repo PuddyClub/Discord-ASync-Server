@@ -156,10 +156,6 @@ $(() => {
     // Log Update Script
     { { log_update_script } }
 
-    // Update Info
-    socket.on('dsBot_serverCount', (count) => { $('#server_count #info').text(count); });
-    socket.on('dsBot_channelCount', (count) => { $('#channel_count #info').text(count); });
-
     // Guild Data
     socket.on('dsBot_guildMemberCount', (count) => { console.log('Members: ' + count); });
     socket.on('dsBot_guildEmojiCount', (count) => { console.log('Emojis: ' + count); });
