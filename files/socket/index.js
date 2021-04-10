@@ -24,6 +24,7 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
                     icon: guild.iconURL({ size: 32 })
                 });
 
+                // Connected
                 socket.emit('dsBot_guildMemberCount', guild.memberCount);
                 socket.emit('dsBot_guildRoleCount', guild.roles.cache.size);
                 socket.emit('dsBot_guildEmojiCount', guild.emojis.cache.size);
