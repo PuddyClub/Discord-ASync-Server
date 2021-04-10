@@ -2,13 +2,18 @@
 const pageSystem = { page: 1, perpage: 50, menuOn: false };
 
 // Open Server
-const openServer = (data, isCount) => {
+const openServer = (data, isCount, isSelected) => {
 
     // Complete
     if (data.success) {
 
-        // Data
-        console.log(data);
+        // Is Selected
+        if (isSelected) {
+
+            // Data
+            console.log(data);
+
+        }
 
     }
 
@@ -133,7 +138,9 @@ const getPage = function (data) {
 
                             // Connect Guild
                             bot.guild = guildID;
-                            socket.emit('connectDiscordGuild', guildID, openServer);
+                            socket.emit('connectDiscordGuild', guildID, function (data) {
+                                return openServer(data, false, true);
+                            });
 
                         }),
                         tinyLib.button(tinyLang.leave, 'danger mx-1', { 'data-dismiss': 'modal' })

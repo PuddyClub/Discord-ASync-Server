@@ -7,8 +7,6 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
     // Connect Discord Bot Guild
     socket.on('updateCountPage', function (type) {
 
-        console.log(type);
-
         // Exist Guild
         if (socketUser.ids[socket.id].guild) {
 
