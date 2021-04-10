@@ -5,7 +5,7 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
     socketUser.permLevel = permLevel;
 
     // Connect Discord Bot Guild
-    socket.on('updateCountPage', async function (guildID, fn) {
+    socket.on('updateCountPage', function () {
 
         // Exist Guild
         if (socketUser.ids[socket.id].guild) {

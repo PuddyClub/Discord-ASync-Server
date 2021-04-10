@@ -26,6 +26,9 @@ const openServer = (data) => {
 
     }
 
+    // Update Page Data
+    socket.emit('updateCountPage');
+
 };
 
 // Research Server
@@ -60,6 +63,9 @@ const researchServers = function () {
             });
 
         }
+
+        // Update Page Data
+        socket.emit('updateCountPage');
 
     });
 
@@ -260,6 +266,9 @@ $('#select_server').click(function () {
             });
 
         }
+
+        // Update Page Data
+        socket.emit('updateCountPage');
 
     });
 
