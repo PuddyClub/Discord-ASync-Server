@@ -18,19 +18,28 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
                 socketUser.ids[socket.id].guild = guildID;
 
                 // Complete
-                return fn({
+                fn({
                     success: true,
+                    name: guild.name,
+                    icon: guild.iconURL({ size: 32 })
                 });
+
+                socket.emit('dsBot_guildMemberCount', guild.memberCount);
+                socket.emit('dsBot_guildRoleCount', guild.roles.cache.size);
+                socket.emit('dsBot_guildEmojiCount', guild.emojis.cache.size);
 
             }
 
             // Nope
-            else { return fn({ success: false }); }
+            else { fn({ success: false }); }
 
         }
 
         // Nope
-        else { return fn({ success: false }); }
+        else { fn({ success: false }); }
+
+        // Complete
+        return;
 
     });
 
