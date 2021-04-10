@@ -9,7 +9,7 @@ const sendInfo = function (ioCache, where, botID, itemSent, needPerm = 0, guildI
                 ioCache.users[item].ids[id].bot.user &&
                 ioCache.users[item].ids[id].bot.user.id === botID &&
                 ioCache.users[item].needPerm > needPerm &&
-                (typeof guildID !== "string" || ioCache.users[item].ids[id].selectedGuild === guildID)
+                (typeof guildID !== "string" || ioCache.users[item].ids[id].guild === guildID)
             ) {
                 ioCache.users[item].ids[id].socket.emit(where, itemSent);
             }
