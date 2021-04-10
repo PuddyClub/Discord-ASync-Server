@@ -7,6 +7,9 @@ const openServer = (data) => {
     // Complete
     if (data.success) {
 
+        // Data
+        console.log(data);
+
     }
 
     // Error
