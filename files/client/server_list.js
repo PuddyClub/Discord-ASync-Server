@@ -32,7 +32,7 @@ const openServer = (data) => {
 };
 
 // Research Server
-const researchServers = function () {
+const researchServers = function (isServerCount) {
 
     // Start Loading
     $.LoadingOverlay("show", { background: "rgba(0,0,0, 0.5)" });
@@ -65,7 +65,7 @@ const researchServers = function () {
         }
 
         // Update Page Data
-        socket.emit('updateCountPage', 'getDiscordGuilds');
+        if (!isServerCount) { socket.emit('updateCountPage', 'getDiscordGuilds'); }
 
     });
 
@@ -278,7 +278,7 @@ socket.on('dsBot_serverCount', (count) => {
     $('#server_count #info').text(count);
 
     // Update Server List
-    if ($('#server-list-modal').length > 0) { researchServers(); }
+    if ($('#server-list-modal').length > 0) { researchServers(true); }
 
     // Check Exist Server
     if (bot.guild) {
