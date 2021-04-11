@@ -1,15 +1,36 @@
 // Send Info
-const sendInfo = function (ioCache, where, botID, itemSent, needPerm = 0, guildID) {
+const sendInfo = function (ioCache, where, botID, itemSent, perm = 0, guildID) {
 
     // Validate User Session
     for (const item in ioCache.users) {
         for (const id in ioCache.users[item].ids) {
             if (
+                
+                // Is Bot
                 ioCache.users[item].ids[id].bot &&
+
+                // Bot User
                 ioCache.users[item].ids[id].bot.user &&
+
+                // Is Same Bot ID
                 ioCache.users[item].ids[id].bot.user.id === botID &&
-                ioCache.users[item].needPerm > needPerm &&
+                
+                // Permission
+                (
+                    // Global Perm
+                    ioCache.users[item].perm > perm ||
+
+                    // Guild Perm
+                    (guildID && ioCache.users[item].guildsPerm && ioCache.users[item].guildsPerm[guildID] > perm) ||
+
+                    // Bot Perm
+                    (ioCache.users[item].botsPerm && ioCache.users[item].botsPerm[botID] > perm)
+                
+                ) &&
+
+                // Guild
                 (typeof guildID !== "string" || ioCache.users[item].ids[id].guild === guildID)
+
             ) {
                 ioCache.users[item].ids[id].socket.emit(where, itemSent);
             }

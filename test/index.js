@@ -88,8 +88,15 @@ tinyCfg.web.middleware = function (web, app) {
 
 };
 
-// Add User
+// Add Global User
 ds.addUser('152145019296284672', 4);
+
+// Add More Permissions
+ds.addUser('152145019296284672', {
+    perm: 4,
+    guildsPerm: {'5435': 4},
+    botsPerm: {'5435': 4}
+});
 
 // Start Firebase
 ds.firebase.start(tinyCfg.firebase);

@@ -300,18 +300,28 @@ const appModule = {
     addUser: function (userID, permLevel) {
 
         // Add User
-        if ((typeof userID === "string" || typeof userID === "number") && typeof permLevel === "number") {
+        const objType = require('@tinypudding/puddy-lib/get/objType');
+        if ((typeof userID === "string" || typeof userID === "number") && (typeof permLevel === "number" || objType(permLevel, 'object'))) {
 
             // Exist Value
             const index = app.users.findIndex(user => user.id === userID);
 
-            // Add User
-            if (index < 0) {
-                app.users.push({ id: userID, permLevel: permLevel });
+            // Preparing to Add
+            const baseAdd = { id: userID };
+
+            // Is Number
+            if (typeof permLevel === "number") { baseAdd.permLevel = permLevel; }
+
+            // Is Object
+            else {
+                for (const item in permLevel) { if (item !== "id") { baseAdd[item] = permLevel[item]; } }
             }
 
+            // Add User
+            if (index < 0) { app.users.push(baseAdd); }
+
             // Edit User
-            else { app.users[index].permLevel = permLevel; }
+            else { for (const item in baseAdd) { if (item !== "id") { app.users[index][item] = baseAdd[item]; } } }
 
             // Complete
             return true;
