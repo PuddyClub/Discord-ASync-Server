@@ -88,6 +88,15 @@ tinyCfg.web.middleware = function (web, app) {
 
 };
 
+/* 
+
+1 - Basic Access
+2 - Moderator Access
+3 - Super Moderator Access
+4 - Administrator
+
+*/
+
 // Add Global User
 ds.addUser('152145019296284672', 4);
 
@@ -98,7 +107,7 @@ ds.addUser('152145019296284672', {
     botsPerm: { '5435': 4 }
 });
 
-// Validate User Session Protection
+// Validate User Session. If the new user permission is 0. The user is disconnected.
 ds.validateUserSession('152145019296284672');
 
 // Start Firebase
