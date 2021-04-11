@@ -303,8 +303,6 @@ const appModule = {
         // Validated
         if ((typeof userID === "string" || typeof userID === "number") && ioCache.users && ioCache.users[userID]) {
 
-            // Get IDs
-
             // Guild ID
             let botID;
             if (ioCache.users[userID].bot && ioCache.users[userID].bot.user && ioCache.users[userID].bot.user.id) { botID = ioCache.users[userID].bot.user.id; }
@@ -357,6 +355,7 @@ const appModule = {
 
             // Edit User
             else { for (const item in baseAdd) { if (item !== "id") { app.users[index][item] = baseAdd[item]; } } }
+            if (ioCache.users && ioCache.users[userID]) { ioCache.users[userID].sUser = baseAdd; }
             appModule.validateUserSession(userID);
 
             // Complete
@@ -376,7 +375,10 @@ const appModule = {
         const index = app.users.findIndex(user => user.id === userID);
 
         // Exist User
-        if (index > -1) { app.users.splice(index, 1); appModule.validateUserSession(userID); return true; }
+        if (index > -1) {
+            if (ioCache.users && ioCache.users[userID]) { ioCache.users[userID].sUser = { id: userID, perm: 0 }; }
+            app.users.splice(index, 1); appModule.validateUserSession(userID); return true;
+        }
 
         // Nope
         else { return false; }

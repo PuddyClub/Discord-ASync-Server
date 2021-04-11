@@ -11,13 +11,13 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
         if (
 
             // Global Perm
-            userData.perm > perm ||
+            socketUser.sUser.perm > perm ||
 
             // Guild Perm
-            ((typeof guildID === "string" || typeof guildID === "number") && userData.guildsPerm && userData.guildsPerm[guildID] > perm) ||
+            ((typeof guildID === "string" || typeof guildID === "number") && socketUser.sUser.guildsPerm && socketUser.sUser.guildsPerm[guildID] > perm) ||
 
             // Bot Perm
-            ((typeof botID === "string" || typeof botID === "number") && userData.botsPerm && userData.botsPerm[botID] > perm)
+            ((typeof botID === "string" || typeof botID === "number") && socketUser.sUser.botsPerm && socketUser.sUser.botsPerm[botID] > perm)
 
         ) { return true; }
 
@@ -141,7 +141,7 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
     socket.on('leaveDiscordGuild', function (data, fn) {
 
         // Check Permission
-        if (userData.perm >= 4) {
+        if (socketUser.sUser.perm >= 4) {
 
             // Exist Bot
             if (socketUser.ids[socket.id].bot) {
@@ -332,6 +332,6 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
     });
 
     // Connect Plugin
-    if (typeof pluginSocket === "function") { pluginSocket({ socket, ioCache, io, session, web, app, socketUser, userData }); }
+    if (typeof pluginSocket === "function") { pluginSocket({ socket, ioCache, io, session, web, app, socketUser, userData: socketUser.sUser }); }
 
 };
