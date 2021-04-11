@@ -158,8 +158,8 @@ $(() => {
                         // Channels
                         toolsCreator.cardRow(tinyLang.channels, '???', 'fas fa-th-large', 'info').attr('id', 'channel_count'),
 
-                         // Members
-                         toolsCreator.cardRow(tinyLang.members, '???', 'fas fa-users', 'info', 'col-xl-6 col-md-6 col-lg-6 mb-4').attr('id', 'members'),
+                        // Members
+                        toolsCreator.cardRow(tinyLang.members, '???', 'fas fa-users', 'info', 'col-xl-6 col-md-6 col-lg-6 mb-4').attr('id', 'members'),
 
                         // Creation Date
                         toolsCreator.cardRow(tinyLang.creation_date, '???', 'fas fa-calendar', 'info', 'col-xl-6 col-md-6 col-lg-6 mb-4').attr('id', 'creation_date')
@@ -199,7 +199,7 @@ $(() => {
     socket.on('dsBot_guildEmojiCount', (count) => { $('#guild_info_table #server_id #info').text(count); });
     socket.on('dsBot_guildRoleCount', (count) => { $('#guild_info_table #server_id #info').text(count); });
 
-
+    socket.on('refreshPage', () => { location.reload(); });
     socket.on("disconnect", () => {
         $.LoadingOverlay("show", { background: "rgba(0,0,0, 0.5)", text: tinyLang.reconnecting });
     });
