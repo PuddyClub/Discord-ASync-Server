@@ -152,6 +152,55 @@ const getPage = function (data) {
                             // Guild ID
                             const guildID = $(this).attr('id').substring(13);
 
+                            // Modal
+                            tinyLib.modal({
+                                dialog: 'modal-lg',
+                                id: 'delete-confirm',
+                                title: $('<span>').text(tinyLang.leave),
+                                body: tinyLang.confirm_leave,
+                                footer: [
+                                    tinyLib.button(tinyLang.close, 'secondary', { 'data-dismiss': 'modal' }),
+                                    tinyLib.button(tinyLang.confirm, 'danger', { 'data-dismiss': 'modal' }).click(function () {
+
+                                        socket.emit('leaveDiscordGuild', { guildID: guildID }, function (data) {
+
+                                            // Success
+                                            if (data.success) {
+
+                                                // Modal
+                                                tinyLib.modal({
+                                                    dialog: 'modal-lg',
+                                                    id: 'delete-confirm-success',
+                                                    title: $('<span>').text(tinyLang.leave),
+                                                    body: tinyLang.guild_deleted,
+                                                    footer: [tinyLib.button(tinyLang.close, 'secondary', { 'data-dismiss': 'modal' })],
+                                                    hidden: function () {
+                                                        return $('#ds_bot_' + bot.id).trigger('click');
+                                                    }
+                                                });
+
+                                            }
+
+                                            // Fail
+                                            else {
+
+                                                // Fail Error Message
+                                                tinyLib.modal({
+                                                    dialog: 'modal-lg',
+                                                    id: 'delete-all-confirm-error',
+                                                    title: 'Error!',
+                                                    body: data.error,
+                                                    footer: [tinyLib.button(tinyLang.close, 'secondary', { 'data-dismiss': 'modal' })]
+                                                });
+
+                                            }
+
+                                        });
+
+                                    }),
+                                ]
+                            });
+
                         })
                     ],
                     isText: false
@@ -208,7 +257,7 @@ const getPage = function (data) {
                                                         title: [$('<i>', { class: 'fas fa-radiation-alt mr-2' }), $('<span>').text(tinyLang.leave_all)],
                                                         body: tinyLang.guilds_deleted,
                                                         footer: [tinyLib.button(tinyLang.close, 'secondary', { 'data-dismiss': 'modal' })],
-                                                        hidden: function() {
+                                                        hidden: function () {
                                                             return $('#ds_bot_' + bot.id).trigger('click');
                                                         }
                                                     });
