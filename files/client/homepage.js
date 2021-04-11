@@ -138,7 +138,7 @@ $(() => {
                     $('<h4>').text('Server'),
 
                     // Guild
-                    $('<div>', { id: 'guild_info_table', class: 'row' }).append(
+                    $('<div>', { id: 'guild_info_table', class: 'row', style: 'display: none;' }).append(
 
                         // Server ID
                         toolsCreator.cardRow(tinyLang.id, '???', 'fas fa-id-card-alt', 'primary').attr('id', 'server_id'),

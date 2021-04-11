@@ -7,6 +7,10 @@ const openServer = (data, isCount, isSelected) => {
     // Complete
     if (data.success) {
 
+        // Change ID Number
+        $('#guild_info_table #server_id #info').text(bot.guild);
+        $('#guild_info_table').fadeIn();
+
         // Is Selected
         if (isSelected) {
 
@@ -24,6 +28,7 @@ const openServer = (data, isCount, isSelected) => {
     else {
 
         // Fail Error Message
+        $('#guild_info_table').fadeOut();
         tinyLib.modal({
             dialog: 'modal-lg',
             id: 'server-list-modal',
