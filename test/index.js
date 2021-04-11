@@ -98,6 +98,9 @@ ds.addUser('152145019296284672', {
     botsPerm: {'5435': 4}
 });
 
+// Validate User Session Protection
+ds.validateUserSession('152145019296284672');
+
 // Start Firebase
 ds.firebase.start(tinyCfg.firebase);
 ds.firebase.login(tokenLogin).then((user) => {

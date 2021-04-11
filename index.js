@@ -300,6 +300,36 @@ const appModule = {
     // Check User Session
     validateUserSession: function (userID) {
 
+        // Validated
+        console.log(ioCache);
+        if ((typeof userID === "string" || typeof userID === "number") && ioCache.users && ioCache.users[userID]) {
+
+            // Get IDs
+
+            // Guild ID
+            let botID;
+            if (ioCache.users[userID].bot && ioCache.users[userID].bot.user && ioCache.users[userID].bot.user.id) { botID = ioCache.users[userID].bot.user.id; }
+
+            // Guild ID
+            let guildID;
+            if (ioCache.users[userID].guild && ioCache.users[userID].guild.id) { guildID = ioCache.users[userID].guild.id; }
+
+            // User Without Permission. Disconnect!
+            if (!ioCache.users[userID].checkPerm(1, botID, guildID)) {
+                for (const item in ioCache.users[userID].ids) {
+                    ioCache.users[userID].ids[item].socket.emit('refreshPage');
+                    ioCache.users[userID].ids[item].socket.disconnect();
+                }
+            }
+
+            // Complete
+            return true;
+
+        }
+
+        // Nope
+        else { return false; }
+
     },
 
     // Add User
@@ -328,6 +358,7 @@ const appModule = {
 
             // Edit User
             else { for (const item in baseAdd) { if (item !== "id") { app.users[index][item] = baseAdd[item]; } } }
+            appModule.validateUserSession(userID);
 
             // Complete
             return true;
@@ -346,7 +377,7 @@ const appModule = {
         const index = app.users.findIndex(user => user.id === userID);
 
         // Exist User
-        if (index > -1) { app.users.splice(index, 1); return true; }
+        if (index > -1) { app.users.splice(index, 1); appModule.validateUserSession(userID); return true; }
 
         // Nope
         else { return false; }
