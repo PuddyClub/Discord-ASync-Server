@@ -164,7 +164,7 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
                         // Prepare Module
                         const forPromise = require('for-promise');
                         const guilds = Array.from(socketUser.ids[socket.id].bot.guilds.cache.keys());
-                        forPromise({ data: guilds }, function (index, fn, fn_error) {
+                        forPromise({ data: guilds }, function (item, fn, fn_error) {
 
                             // Leave Guild
                             return leave_guild_action(guilds[item]).then(() => {
