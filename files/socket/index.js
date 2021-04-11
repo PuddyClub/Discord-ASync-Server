@@ -125,19 +125,34 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
                 // Is Object
                 if (typeof data.guildID === "string" || typeof data.guildID === "number") {
 
-                    // Get Guild
-                    socketUser.ids[socket.id].bot.guilds.fetch(guildID).then(guild => {
+                    // One Guild
+                    if (data.guildID !== "all") {
 
-                        // Leave the Guild
-                        return guild.leave().then(() => {
-                            return fn({ success: true });
+                        // Get Guild
+                        socketUser.ids[socket.id].bot.guilds.fetch(guildID).then(guild => {
+
+                            // Leave the Guild
+                            return guild.leave().then(() => {
+                                return fn({ success: true });
+                            }).catch(err => {
+                                return fn({ success: false, error: err.message });
+                            });
+
                         }).catch(err => {
                             return fn({ success: false, error: err.message });
                         });
 
-                    }).catch(err => {
-                        return fn({ success: false, error: err.message });
-                    });
+                    }
+
+                    // All Guilds
+                    else {
+
+                        // Prepare Module
+                        const forPromise = require('for-promise');
+                        const guilds = Array.from(socketUser.ids[socket.id].bot.guilds.cache.keys());
+                        console.log(guilds);
+
+                    }
 
                 }
 

@@ -1,6 +1,7 @@
 {
     "server_list": "Server List",
     "leave": "Leave",
+    "confirm": "Confirm",
     "leave_all": "Leave All",
     "close": "Close",
     "icon": "Icon",
@@ -8,6 +9,8 @@
     "members": "Members",
     "name": "Name",
     "actions": "Actions",
+    "guild_deleted": "Guild removed successfully!!",
+    "guilds_deleted": "Guilds removed successfully!",
     "confirm_leave": "Are you sure you want to leave this server? This option cannot be undone.",
     "confirm_leave_all": "Are you sure you want to log out of all servers? This option cannot be undone.",
     "confirm_leave_all_1": "Are you sure you want to log out of ALL SERVERS? This option cannot be UNDONE.",

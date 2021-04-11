@@ -131,6 +131,8 @@ const getPage = function (data) {
                 // Actions
                 {
                     item: [
+
+                        // Select Server
                         tinyLib.button(tinyLang.select_server, 'secondary mx-1', { 'data-dismiss': 'modal', id: 'ds_bot_guild_' + data.data[item].id }).click(function () {
 
                             // Guild ID
@@ -143,7 +145,14 @@ const getPage = function (data) {
                             });
 
                         }),
-                        tinyLib.button(tinyLang.leave, 'danger mx-1', { 'data-dismiss': 'modal' })
+
+                        // Remove Server
+                        tinyLib.button(tinyLang.leave, 'danger mx-1', { 'data-dismiss': 'modal', id: 'ds_bot_guild_' + data.data[item].id }).click(function () {
+
+                            // Guild ID
+                            const guildID = $(this).attr('id').substring(13);
+
+                        })
                     ],
                     isText: false
                 },
@@ -155,7 +164,87 @@ const getPage = function (data) {
     }
 
     // Leave All Servers
-    const leaveAllServers = $('<center>').append(tinyLib.button(tinyLang.leave_all, 'danger', { 'data-dismiss': 'modal' }));
+    const leaveAllServers = $('<center>').append(tinyLib.button(tinyLang.leave_all, 'danger', { 'data-dismiss': 'modal' })).click(function () {
+
+        // Modal
+        tinyLib.modal({
+            dialog: 'modal-lg',
+            id: 'delete-all-confirm-1',
+            title: [$('<i>', { class: 'fas fa-exclamation-triangle' }), $('<span>').text(tinyLang.leave_all)],
+            body: tinyLang.confirm_leave_all,
+            footer: [
+                tinyLib.button(tinyLang.close, 'secondary', { 'data-dismiss': 'modal' }),
+                tinyLib.button(tinyLang.confirm, 'danger', { 'data-dismiss': 'modal' }).click(function () {
+
+                    // Modal
+                    tinyLib.modal({
+                        dialog: 'modal-lg',
+                        id: 'delete-all-confirm-2',
+                        title: [$('<i>', { class: 'fas fa-exclamation-triangle' }), $('<span>').text(tinyLang.leave_all)],
+                        body: tinyLang.confirm_leave_all_1,
+                        footer: [
+                            tinyLib.button(tinyLang.close, 'secondary', { 'data-dismiss': 'modal' }),
+                            tinyLib.button(tinyLang.confirm, 'danger', { 'data-dismiss': 'modal' }).click(function () {
+
+                                // Modal
+                                tinyLib.modal({
+                                    dialog: 'modal-lg',
+                                    id: 'delete-all-confirm-3',
+                                    title: [$('<i>', { class: 'fas fa-radiation-alt' }), $('<span>').text(tinyLang.leave_all)],
+                                    body: tinyLang.confirm_leave_all_2,
+                                    footer: [
+                                        tinyLib.button(tinyLang.close, 'secondary', { 'data-dismiss': 'modal' }),
+                                        tinyLib.button(tinyLang.confirm, 'danger', { 'data-dismiss': 'modal' }).click(function () {
+
+                                            socket.emit('connectDiscordGuild', guildID, function (data) {
+
+                                                // Success
+                                                if (data.success) {
+
+                                                    // Modal
+                                                    tinyLib.modal({
+                                                        dialog: 'modal-lg',
+                                                        id: 'delete-all-confirm-success',
+                                                        title: [$('<i>', { class: 'fas fa-radiation-alt' }), $('<span>').text(tinyLang.leave_all)],
+                                                        body: tinyLang.guilds_deleted,
+                                                        footer: [tinyLib.button(tinyLang.close, 'secondary', { 'data-dismiss': 'modal' })]
+                                                    });
+
+                                                }
+
+                                                // Fail
+                                                else {
+
+                                                    // Fail Error Message
+                                                    tinyLib.modal({
+                                                        dialog: 'modal-lg',
+                                                        id: 'delete-all-confirm-error',
+                                                        title: 'Error!',
+                                                        body: data.error,
+                                                        footer: [tinyLib.button(tinyLang.close, 'secondary', { 'data-dismiss': 'modal' })]
+                                                    });
+
+                                                }
+
+                                            });
+
+                                        }),
+                                    ]
+                                });
+
+                            }),
+                        ]
+                    });
+
+                }),
+            ]
+        });
+
+        socket.emit('connectDiscordGuild', guildID, function (data) {
+            return openServer(data, false, true);
+        });
+
+    });
 
     // Server List
     const serverList = tinyLib.table({
