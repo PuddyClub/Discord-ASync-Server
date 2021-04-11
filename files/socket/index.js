@@ -4,6 +4,28 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
     const user = socketUser.data;
     socketUser.sUser = userData;
 
+    // Check User Permission
+    socketUser.checkPerm = (perm = 0, botID = null, guildID = null) => {
+
+        // Allowed
+        if (
+
+            // Global Perm
+            userData.perm > perm ||
+
+            // Guild Perm
+            ((typeof guildID === "string" || typeof guildID === "number") && userData.guildsPerm && userData.guildsPerm[guildID] > perm) ||
+
+            // Bot Perm
+            ((typeof botID === "string" || typeof botID === "number") && userData.botsPerm && userData.botsPerm[botID] > perm)
+
+        ) { return true; }
+
+        // Nope
+        else { return false; }
+
+    };
+
     // Connect Discord Bot Guild
     socket.on('updateCountPage', function (type) {
 
