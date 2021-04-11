@@ -301,7 +301,6 @@ const appModule = {
     validateUserSession: function (userID) {
 
         // Validated
-        console.log(ioCache);
         if ((typeof userID === "string" || typeof userID === "number") && ioCache.users && ioCache.users[userID]) {
 
             // Get IDs
