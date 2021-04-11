@@ -1,4 +1,4 @@
-module.exports = async function (resolve, reject, discordCfg, webCfg, fileCfg, web, app) {
+module.exports = async function (resolve, reject, ioCache, discordCfg, webCfg, fileCfg, web, app) {
 
     // Nunjucks
     const express = require('express');
@@ -87,9 +87,6 @@ module.exports = async function (resolve, reject, discordCfg, webCfg, fileCfg, w
         web.app.get('/', web.dsSession({ getUser: true }), getGlobal(web, fileCfg, (req, res) => { return homepage(req, res, webCfg, web, app, checkUser); }));
 
         // Socket IO
-
-        // Cache
-        const ioCache = {};
 
         // Socket IO Script
         const tinySocket = require('@tinypudding/puddy-lib/socket.io');

@@ -6,6 +6,7 @@ const middleware = require('./files/middleware');
 const ON_DEATH = require('death');
 let isDebug = false;
 if (process.argv[2] === "test") { isDebug = true; }
+const ioCache = {};
 
 // App
 const app = { users: [], auth: { login: null }, web: {}, discord: { bots: [], module: require('discord.js') } };
@@ -103,7 +104,7 @@ const appModule = {
 
                     // Website Middleware
                     middleware: (web) => {
-                        return middleware(resolve, reject, tinyCfg.discord, tinyCfg.web, {
+                        return middleware(resolve, reject, ioCache, tinyCfg.discord, tinyCfg.web, {
                             css: tinyCfg.css,
                             js: tinyCfg.js,
                             custom: tinyCfg.custom
@@ -294,6 +295,11 @@ const appModule = {
         const bot = new app.discord.module.Client(cfg);
         app.discord.bots.push({ bot: bot, token: token });
         return bot;
+    },
+
+    // Check User Session
+    validateUserSession: function (userID) {
+
     },
 
     // Add User
