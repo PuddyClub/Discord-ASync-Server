@@ -144,6 +144,7 @@ const getPage = function (data) {
                         tinyLib.button(tinyLang.select_server, 'secondary mx-1', { 'data-dismiss': 'modal', id: 'ds_bot_guild_' + data.data[item].id }).click(function () {
 
                             // Guild ID
+                            $(this).addClass('disabled');
                             const guildID = $(this).attr('id').substring(13);
 
                             // Connect Guild
@@ -158,6 +159,7 @@ const getPage = function (data) {
                         tinyLib.button(tinyLang.leave, 'danger mx-1', { 'data-dismiss': 'modal', id: 'ds_bot_guild_' + data.data[item].id }).click(function () {
 
                             // Guild ID
+                            $(this).addClass('disabled');
                             const guildID = $(this).attr('id').substring(13);
 
                             // Modal
@@ -170,6 +172,7 @@ const getPage = function (data) {
                                     tinyLib.button(tinyLang.close, 'secondary', { 'data-dismiss': 'modal' }),
                                     tinyLib.button(tinyLang.confirm, 'danger', { 'data-dismiss': 'modal' }).click(function () {
 
+                                        $(this).addClass('disabled');
                                         socket.emit('leaveDiscordGuild', { guildID: guildID }, function (data) {
 
                                             // Success
@@ -224,6 +227,7 @@ const getPage = function (data) {
     const leaveAllServers = $('<center>').append(tinyLib.button(tinyLang.leave_all, 'danger', { 'data-dismiss': 'modal' })).click(function () {
 
         // Modal
+        $(this).addClass('disabled');
         tinyLib.modal({
             dialog: 'modal-lg',
             id: 'delete-all-confirm-1',
@@ -234,6 +238,7 @@ const getPage = function (data) {
                 tinyLib.button(tinyLang.confirm, 'danger', { 'data-dismiss': 'modal' }).click(function () {
 
                     // Modal
+                    $(this).addClass('disabled');
                     tinyLib.modal({
                         dialog: 'modal-lg',
                         id: 'delete-all-confirm-2',
@@ -244,6 +249,7 @@ const getPage = function (data) {
                             tinyLib.button(tinyLang.confirm, 'danger', { 'data-dismiss': 'modal' }).click(function () {
 
                                 // Modal
+                                $(this).addClass('disabled');
                                 tinyLib.modal({
                                     dialog: 'modal-lg',
                                     id: 'delete-all-confirm-3',
@@ -253,6 +259,7 @@ const getPage = function (data) {
                                         tinyLib.button(tinyLang.close, 'secondary', { 'data-dismiss': 'modal' }),
                                         tinyLib.button(tinyLang.confirm, 'danger', { 'data-dismiss': 'modal' }).click(function () {
 
+                                            $(this).addClass('disabled');
                                             socket.emit('leaveDiscordGuild', { guildID: 'all' }, function (data) {
 
                                                 // Success
@@ -384,6 +391,7 @@ const getPage = function (data) {
 $('#select_server').click(function () {
 
     // Page System
+    $(this).addClass('disabled');
     pageSystem.page = 1;
     pageSystem.menuOn = true;
     $.LoadingOverlay("show", { background: "rgba(0,0,0, 0.5)" });
@@ -391,6 +399,7 @@ $('#select_server').click(function () {
 
         // Complete
         $.LoadingOverlay("hide");
+        $(this).removeClass('disabled');
 
         // Success
         if (data.success) {
