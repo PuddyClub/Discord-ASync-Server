@@ -13,6 +13,9 @@ const openServer = (data, isCount, isSelected) => {
             // Data
             console.log(data);
 
+            // Complete
+            startGuild(bot.guild, false);
+
         }
 
     }

@@ -3,9 +3,9 @@ var socket = null;
 var firstTime = true;
 var dsUser = null;
 var bot = { id: null, log: {} };
-var startApp = function (isReconnect) {
-
-};
+var startApp = function (isReconnect) { };
+var startBot = function (id, isReconnect) { };
+var startGuild = function (id, isReconnect) { };
 
 $(() => {
 
@@ -34,12 +34,14 @@ $(() => {
                         // Set Bot Name
                         $('#ds_bot_' + bot.id + ' > span > span').text(data.tag);
                         $('#ds_bot_' + bot.id + ' > span > img').attr('src', data.avatar);
+                        startBot(bot.id, true);
 
                         // Exist Guild Selected
                         if (bot.guild) {
-                            socket.emit('connectDiscordGuild', bot.guild, () => {
+                            socket.emit('connectDiscordGuild', bot.guild, (data) => {
 
                                 // Complete
+                                if (data.success) { startGuild(bot.guild, true); }
                                 $.LoadingOverlay("hide"); startApp(true);
 
                                 // Update Page Data
@@ -143,7 +145,7 @@ $(() => {
 
                         // Region
                         toolsCreator.cardRow('Region', '???', 'fas fa-globe-americas', 'info').attr('id', 'server_region'),
-                        
+
                         // Server Name
                         toolsCreator.cardRow('Name', '???', 'fas fa-font', 'info').attr('id', 'server_name'),
 
@@ -165,6 +167,7 @@ $(() => {
 
                 // Set new ID
                 bot.id = botID;
+                startBot(bot.id, false);
 
             }
 
