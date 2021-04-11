@@ -115,6 +115,8 @@ $(() => {
                 $('#dashboard.config-list').addClass('active');
                 $('#app').empty().append(
 
+                    $('<h4>').text('Bot'),
+
                     // Statics
                     $('<div>', { id: 'statistical_table', class: 'row' }).append(
 
@@ -130,6 +132,8 @@ $(() => {
                     ),
 
                     $('<hr/>'),
+
+                    $('<h4>').text('Server'),
 
                     // Guild
                     $('<div>', { id: 'guild_info_table', class: 'row' }).append(
