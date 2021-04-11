@@ -16,17 +16,7 @@ const sendInfo = function (ioCache, where, botID, itemSent, perm = 0, guildID) {
                 ioCache.users[item].ids[id].bot.user.id === botID &&
                 
                 // Permission
-                (
-                    // Global Perm
-                    ioCache.users[item].perm > perm ||
-
-                    // Guild Perm
-                    (guildID && ioCache.users[item].guildsPerm && ioCache.users[item].guildsPerm[guildID] > perm) ||
-
-                    // Bot Perm
-                    (ioCache.users[item].botsPerm && ioCache.users[item].botsPerm[botID] > perm)
-                
-                ) &&
+                ioCache.users[item].checkPerm(perm, botID, guildID) &&
 
                 // Guild
                 (typeof guildID !== "string" || ioCache.users[item].ids[id].guild === guildID)
