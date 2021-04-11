@@ -144,22 +144,25 @@ $(() => {
                         toolsCreator.cardRow(tinyLang.id, '???', 'fas fa-id-card-alt', 'primary').attr('id', 'server_id'),
 
                         // Region
-                        toolsCreator.cardRow('Region', '???', 'fas fa-globe-americas', 'info').attr('id', 'server_region'),
+                        toolsCreator.cardRow(tinyLang.region, '???', 'fas fa-globe-americas', 'info').attr('id', 'server_region'),
 
                         // Server Name
-                        toolsCreator.cardRow('Name', '???', 'fas fa-font', 'info').attr('id', 'server_name'),
+                        toolsCreator.cardRow(tinyLang.name, '???', 'fas fa-font', 'info').attr('id', 'server_name'),
 
                         // Emojis
-                        toolsCreator.cardRow('Emojis', '???', 'far fa-laugh-beam', 'info').attr('id', 'emoji_count'),
+                        toolsCreator.cardRow(tinyLang.emojis, '???', 'far fa-laugh-beam', 'info').attr('id', 'emoji_count'),
 
                         // Roles
-                        toolsCreator.cardRow('Roles', '???', 'fas fa-flag', 'info').attr('id', 'role_count'),
+                        toolsCreator.cardRow(tinyLang.roles, '???', 'fas fa-flag', 'info').attr('id', 'role_count'),
 
                         // Channels
-                        toolsCreator.cardRow('Channels', '???', 'fas fa-th-large', 'info').attr('id', 'channel_count'),
+                        toolsCreator.cardRow(tinyLang.channels, '???', 'fas fa-th-large', 'info').attr('id', 'channel_count'),
 
-                        // Channels
-                        toolsCreator.cardRow('Creation Date', '???', 'fas fa-calendar', 'info', 'col-xl-12 col-md-12 col-lg-12 mb-4').attr('id', 'creation_date')
+                         // Members
+                         toolsCreator.cardRow(tinyLang.members, '???', 'fas fa-users', 'info', 'col-xl-6 col-md-6 col-lg-6 mb-4').attr('id', 'members'),
+
+                        // Creation Date
+                        toolsCreator.cardRow(tinyLang.creation_date, '???', 'fas fa-calendar', 'info', 'col-xl-6 col-md-6 col-lg-6 mb-4').attr('id', 'creation_date')
 
                     )
 
@@ -192,9 +195,9 @@ $(() => {
     { { log_update_script } }
 
     // Guild Data
-    socket.on('dsBot_guildMemberCount', (count) => { console.log('Members: ' + count); });
-    socket.on('dsBot_guildEmojiCount', (count) => { console.log('Emojis: ' + count); });
-    socket.on('dsBot_guildRoleCount', (count) => { console.log('Roles: ' + count); });
+    socket.on('dsBot_guildMemberCount', (count) => { $('#guild_info_table #server_id #info').text(count); });
+    socket.on('dsBot_guildEmojiCount', (count) => { $('#guild_info_table #server_id #info').text(count); });
+    socket.on('dsBot_guildRoleCount', (count) => { $('#guild_info_table #server_id #info').text(count); });
 
 
     socket.on("disconnect", () => {
