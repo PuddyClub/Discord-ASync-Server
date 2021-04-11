@@ -127,7 +127,7 @@ $(() => {
                         toolsCreator.cardRow(tinyLang.servers, '???', 'fas fa-server', 'info').attr('id', 'server_count'),
 
                         // Channels
-                        toolsCreator.cardRow(tinyLang.channels, '???', 'fas fa-th-list', 'info').attr('id', 'channel_count')
+                        toolsCreator.cardRow(tinyLang.channels, '???', 'fas fa-th-list', 'info', 'col-xl-4 col-lg-12 col-md-12 mb-4').attr('id', 'channel_count')
 
                     ),
 
@@ -154,7 +154,10 @@ $(() => {
                         toolsCreator.cardRow('Roles', '???', 'fas fa-flag', 'info').attr('id', 'role_count'),
 
                         // Channels
-                        toolsCreator.cardRow('Channe;s', '???', 'fas fa-th-large', 'info').attr('id', 'channel_count')
+                        toolsCreator.cardRow('Channels', '???', 'fas fa-th-large', 'info').attr('id', 'channel_count'),
+
+                        // Channels
+                        toolsCreator.cardRow('Creation Date', '???', 'fas fa-calendar', 'info', 'col-xl-12 col-md-12 col-lg-12 mb-4').attr('id', 'creation_date')
 
                     )
 
