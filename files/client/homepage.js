@@ -119,7 +119,7 @@ $(() => {
                     $('<div>', { id: 'statistical_table', class: 'row' }).append(
 
                         // Bot ID
-                        toolsCreator.cardRow(tinyLang.bot_id, botID, 'fas fa-robot', 'primary').attr('id', 'bot_id'),
+                        toolsCreator.cardRow(tinyLang.id, botID, 'fas fa-robot', 'primary').attr('id', 'bot_id'),
 
                         // Servers
                         toolsCreator.cardRow(tinyLang.servers, '???', 'fas fa-server', 'info').attr('id', 'server_count'),
@@ -133,7 +133,7 @@ $(() => {
                     $('<div>', { id: 'guild_info_table', class: 'row' }).append(
 
                         // Server ID
-                        toolsCreator.cardRow('Server ID', '???', 'fas fa-id-card-alt', 'primary').attr('id', 'server_id'),
+                        toolsCreator.cardRow('ID', '???', 'fas fa-id-card-alt', 'primary').attr('id', 'server_id'),
 
                         // Region
                         toolsCreator.cardRow('Region', '???', 'fas fa-globe-americas', 'info').attr('id', 'server_region'),

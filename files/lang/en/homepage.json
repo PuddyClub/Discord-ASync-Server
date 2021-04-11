@@ -1,5 +1,5 @@
 {
-    "bot_id": "ID",
+    "id": "ID",
     "servers": "Servers",
     "channels": "Channels",
     "server_list": "Server List",
