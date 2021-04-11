@@ -1,8 +1,8 @@
-module.exports = function (pluginSocket, socket, ioCache, io, session, web, app, socketUser, permLevel) {
+module.exports = function (pluginSocket, socket, ioCache, io, session, web, app, socketUser, userData) {
 
     // Discord User Data
     const user = socketUser.data;
-    socketUser.permLevel = permLevel;
+    socketUser.sUser = userData;
 
     // Connect Discord Bot Guild
     socket.on('updateCountPage', function (type) {
@@ -117,7 +117,7 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
     socket.on('leaveDiscordGuild', function (data, fn) {
 
         // Check Permission
-        if (permLevel >= 4) {
+        if (userData.perm >= 4) {
 
             // Exist Bot
             if (socketUser.ids[socket.id].bot) {
@@ -308,6 +308,6 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
     });
 
     // Connect Plugin
-    if (typeof pluginSocket === "function") { pluginSocket({ socket, ioCache, io, session, web, app, socketUser, permLevel }); }
+    if (typeof pluginSocket === "function") { pluginSocket({ socket, ioCache, io, session, web, app, socketUser, userData }); }
 
 };

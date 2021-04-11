@@ -7,7 +7,7 @@ module.exports = async function (req, res, webCfg, web, app, checkUser) {
         const userVerification = checkUser(req.discord_session.user.id);
 
         // Exist
-        if (userVerification.permLevel > 0) {
+        if (userVerification.perm > 0) {
 
             // Lang
             const lang = req.i18.getFile('homepage');

@@ -310,7 +310,7 @@ const appModule = {
             const baseAdd = { id: userID };
 
             // Is Number
-            if (typeof permLevel === "number") { baseAdd.permLevel = permLevel; }
+            if (typeof permLevel === "number") { baseAdd.perm = permLevel; }
 
             // Is Object
             else {

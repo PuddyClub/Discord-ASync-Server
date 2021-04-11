@@ -8,7 +8,7 @@ module.exports = (app) => {
         if (index) { return index; }
 
         // Nope
-        else { return { id: String(userID), permLevel: 0 }; }
+        else { return { id: String(userID), perm: 0 }; }
 
     };
 };
