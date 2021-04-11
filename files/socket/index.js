@@ -46,10 +46,12 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
         }
 
         // Send Logs
-        socket.emit('dsBot_error', { item: null, list: socketUser.ids[socket.id].log.error });
-        socket.emit('dsBot_warn', { item: null, list: socketUser.ids[socket.id].log.warn });
-        socket.emit('dsBot_rateLimit', { item: null, list: socketUser.ids[socket.id].log.rateLimit });
-        socket.emit('dsBot_shardError', { item: null, list: socketUser.ids[socket.id].log.shardError });
+        if (socketUser.ids[socket.id].log) {
+            socket.emit('dsBot_error', { item: null, list: socketUser.ids[socket.id].log.error });
+            socket.emit('dsBot_warn', { item: null, list: socketUser.ids[socket.id].log.warn });
+            socket.emit('dsBot_rateLimit', { item: null, list: socketUser.ids[socket.id].log.rateLimit });
+            socket.emit('dsBot_shardError', { item: null, list: socketUser.ids[socket.id].log.shardError });
+        }
 
     });
 
