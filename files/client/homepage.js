@@ -129,11 +129,13 @@ $(() => {
 
                     ),
 
+                    $('<hr/>'),
+
                     // Guild
                     $('<div>', { id: 'guild_info_table', class: 'row' }).append(
 
                         // Server ID
-                        toolsCreator.cardRow('ID', '???', 'fas fa-id-card-alt', 'primary').attr('id', 'server_id'),
+                        toolsCreator.cardRow(tinyLang.id, '???', 'fas fa-id-card-alt', 'primary').attr('id', 'server_id'),
 
                         // Region
                         toolsCreator.cardRow('Region', '???', 'fas fa-globe-americas', 'info').attr('id', 'server_region'),
