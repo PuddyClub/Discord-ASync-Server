@@ -118,14 +118,37 @@ $(() => {
                     // Statics
                     $('<div>', { id: 'statistical_table', class: 'row' }).append(
 
-                        // Bot Name
-                        toolsCreator.cardRow('ID', botID, 'fas fa-robot').attr('id', 'bot_id'),
+                        // Bot ID
+                        toolsCreator.cardRow(tinyLang.bot_id, botID, 'fas fa-robot', 'primary').attr('id', 'bot_id'),
 
                         // Servers
-                        toolsCreator.cardRow('Servers', '???', 'fas fa-server', 'info').attr('id', 'server_count'),
+                        toolsCreator.cardRow(tinyLang.servers, '???', 'fas fa-server', 'info').attr('id', 'server_count'),
 
                         // Channels
-                        toolsCreator.cardRow('Channels', '???', 'fas fa-th-list', 'info').attr('id', 'channel_count')
+                        toolsCreator.cardRow(tinyLang.channels, '???', 'fas fa-th-list', 'info').attr('id', 'channel_count')
+
+                    ),
+
+                    // Guild
+                    $('<div>', { id: 'guild_info_table', class: 'row' }).append(
+
+                        // Server ID
+                        toolsCreator.cardRow('Server ID', '???', 'fas fa-id-card-alt', 'primary').attr('id', 'server_id'),
+
+                        // Region
+                        toolsCreator.cardRow('Region', '???', 'fas fa-globe-americas', 'info').attr('id', 'server_region'),
+                        
+                        // Server Name
+                        toolsCreator.cardRow('Name', '???', 'fas fa-font', 'info').attr('id', 'server_name'),
+
+                        // Emojis
+                        toolsCreator.cardRow('Emojis', '???', 'far fa-laugh-beam', 'info').attr('id', 'emoji_count'),
+
+                        // Roles
+                        toolsCreator.cardRow('Roles', '???', 'fas fa-flag', 'info').attr('id', 'role_count'),
+
+                        // Channels
+                        toolsCreator.cardRow('Channe;s', '???', 'fas fa-th-large', 'info').attr('id', 'channel_count')
 
                     )
 

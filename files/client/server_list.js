@@ -420,11 +420,11 @@ $('#select_server').click(function () {
 });
 
 // Socket Auto Update Server List
-socket.on('dsBot_channelCount', (count) => { $('#channel_count #info').text(count); });
+socket.on('dsBot_channelCount', (count) => { $('#statistical_table #channel_count #info').text(count); });
 socket.on('dsBot_serverCount', (item) => {
 
     // Update Number
-    $('#server_count #info').text(item.value);
+    $('#statistical_table #server_count #info').text(item.value);
 
     // Update Server List
     if ($('#server-list-modal').length > 0) { researchServers(true); }

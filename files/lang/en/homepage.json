@@ -1,4 +1,7 @@
 {
+    "bot_id": "ID",
+    "servers": "Servers",
+    "channels": "Channels",
     "server_list": "Server List",
     "leave": "Leave",
     "confirm": "Confirm",
