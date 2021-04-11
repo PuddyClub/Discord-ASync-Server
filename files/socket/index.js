@@ -125,19 +125,33 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
                 // Is Object
                 if (typeof data.guildID === "string" || typeof data.guildID === "number") {
 
+                    // Leave Guild
+                    const leave_guild_action = function (guildID) {
+                        return new Promise(function (resolve, reject) {
+                            return socketUser.ids[socket.id].bot.guilds.fetch(guildID).then(guild => {
+
+                                // Leave the Guild
+                                return guild.leave().then(() => {
+                                    resolve();
+                                    return;
+                                }).catch(err => {
+                                    reject(err);
+                                    return;
+                                });
+
+                            }).catch(err => {
+                                reject(err);
+                                return;
+                            });
+                        });
+                    };
+
                     // One Guild
                     if (data.guildID !== "all") {
 
-                        // Get Guild
-                        socketUser.ids[socket.id].bot.guilds.fetch(guildID).then(guild => {
-
-                            // Leave the Guild
-                            return guild.leave().then(() => {
-                                return fn({ success: true });
-                            }).catch(err => {
-                                return fn({ success: false, error: err.message });
-                            });
-
+                        // Leave Guild
+                        leave_guild_action(data.guildID).then(() => {
+                            return fn({ success: true });
                         }).catch(err => {
                             return fn({ success: false, error: err.message });
                         });
@@ -150,8 +164,20 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
                         // Prepare Module
                         const forPromise = require('for-promise');
                         const guilds = Array.from(socketUser.ids[socket.id].bot.guilds.cache.keys());
-                        console.log(guilds);
-                        return fn({ success: true });
+                        forPromise({ data: guilds }, function (index, fn, fn_error) {
+
+                            // Leave Guild
+                            return leave_guild_action(guilds[item]).then(() => {
+                                return fn();
+                            }).catch(err => {
+                                return fn_error(err);
+                            });
+
+                        }).then(() => {
+                            return fn({ success: true });
+                        }).catch(err => {
+                            return fn({ success: false, error: err.message });
+                        });
 
                     }
 
