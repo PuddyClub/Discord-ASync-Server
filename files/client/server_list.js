@@ -170,7 +170,7 @@ const getPage = function (data) {
         tinyLib.modal({
             dialog: 'modal-lg',
             id: 'delete-all-confirm-1',
-            title: [$('<i>', { class: 'fas fa-exclamation-triangle' }), $('<span>').text(tinyLang.leave_all)],
+            title: [$('<i>', { class: 'fas fa-exclamation-triangle mr-2' }), $('<span>').text(tinyLang.leave_all)],
             body: tinyLang.confirm_leave_all,
             footer: [
                 tinyLib.button(tinyLang.close, 'secondary', { 'data-dismiss': 'modal' }),
@@ -180,7 +180,7 @@ const getPage = function (data) {
                     tinyLib.modal({
                         dialog: 'modal-lg',
                         id: 'delete-all-confirm-2',
-                        title: [$('<i>', { class: 'fas fa-exclamation-triangle' }), $('<span>').text(tinyLang.leave_all)],
+                        title: [$('<i>', { class: 'fas fa-exclamation-triangle mr-2' }), $('<span>').text(tinyLang.leave_all)],
                         body: tinyLang.confirm_leave_all_1,
                         footer: [
                             tinyLib.button(tinyLang.close, 'secondary', { 'data-dismiss': 'modal' }),
@@ -190,13 +190,13 @@ const getPage = function (data) {
                                 tinyLib.modal({
                                     dialog: 'modal-lg',
                                     id: 'delete-all-confirm-3',
-                                    title: [$('<i>', { class: 'fas fa-radiation-alt' }), $('<span>').text(tinyLang.leave_all)],
+                                    title: [$('<i>', { class: 'fas fa-radiation-alt mr-2' }), $('<span>').text(tinyLang.leave_all)],
                                     body: tinyLang.confirm_leave_all_2,
                                     footer: [
                                         tinyLib.button(tinyLang.close, 'secondary', { 'data-dismiss': 'modal' }),
                                         tinyLib.button(tinyLang.confirm, 'danger', { 'data-dismiss': 'modal' }).click(function () {
 
-                                            socket.emit('connectDiscordGuild', guildID, function (data) {
+                                            socket.emit('leaveDiscordGuild', { guildID: 'all' }, function (data) {
 
                                                 // Success
                                                 if (data.success) {
@@ -205,9 +205,12 @@ const getPage = function (data) {
                                                     tinyLib.modal({
                                                         dialog: 'modal-lg',
                                                         id: 'delete-all-confirm-success',
-                                                        title: [$('<i>', { class: 'fas fa-radiation-alt' }), $('<span>').text(tinyLang.leave_all)],
+                                                        title: [$('<i>', { class: 'fas fa-radiation-alt mr-2' }), $('<span>').text(tinyLang.leave_all)],
                                                         body: tinyLang.guilds_deleted,
-                                                        footer: [tinyLib.button(tinyLang.close, 'secondary', { 'data-dismiss': 'modal' })]
+                                                        footer: [tinyLib.button(tinyLang.close, 'secondary', { 'data-dismiss': 'modal' })],
+                                                        hidden: function() {
+                                                            return $('#ds_bot_' + bot.id).trigger('click');
+                                                        }
                                                     });
 
                                                 }

@@ -114,7 +114,7 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
     socket.emit('discordConnected', user);
 
     // Leave Guild
-    socket.on('leaveDiscordGuild', function (guildID, fn) {
+    socket.on('leaveDiscordGuild', function (data, fn) {
 
         // Check Permission
         if (permLevel >= 4) {
@@ -151,6 +151,7 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
                         const forPromise = require('for-promise');
                         const guilds = Array.from(socketUser.ids[socket.id].bot.guilds.cache.keys());
                         console.log(guilds);
+                        return fn({ success: true });
 
                     }
 
