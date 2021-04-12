@@ -59,7 +59,11 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
     socket.on('connectDiscordGuild', async function (guildID, fn) {
 
         // Is String
-        if (typeof guildID === "string" || typeof guildID === "number") {
+        if (
+            socketUser.ids[socket.id].bot && socketUser.ids[socket.id].bot.user && socketUser.ids[socket.id].bot.user.id &&
+            (typeof guildID === "string" || typeof guildID === "number") && 
+            socketUser.checkPerm(2, 'guild', socketUser.ids[socket.id].bot.user.id, guildID)
+        ) {
 
             // Find Guild
             const guild = await socketUser.ids[socket.id].bot.guilds.fetch(guildID);
