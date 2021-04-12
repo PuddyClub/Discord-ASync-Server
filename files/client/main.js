@@ -227,6 +227,7 @@ tinyLib.capitalize = function (text) {
 tinyLib.collapseItem = function (id, data) {
 
     // Prepare Config
+    if (!data.config) { data.config = {}; }
     data.config.href = '#' + id;
     data.config.role = 'button';
     data.config['data-toggle'] = 'collapse';

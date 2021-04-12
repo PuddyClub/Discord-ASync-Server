@@ -405,7 +405,44 @@ $('#select_server').click(function () {
         // Success
         if (data.success) {
 
+            // Result Page
             const resultData = getPage(data);
+
+            // Prepare Search Form
+            const searchForm = tinyLib.collapseItem('searchServersForm',{
+
+                item: $('<form>', { id: 'server-list-search' }).append(
+
+                    // Owner
+                    tinyLib.formGroup('owner', {
+                        label: $('<span>').text(tinyLang.owner)
+                    }),
+
+                    // Name
+                    tinyLib.formGroup('name', {
+                        label: $('<span>').text(tinyLang.name)
+                    }),
+
+                    // Members
+                    tinyLib.formGroup('members', {
+                        label: $('<span>').text(tinyLang.members)
+                    }),
+
+                    // Submit
+                    $('<hr/>'),
+                    tinyLib.button(tinyLang.search, 'secondary', { 'data-dismiss': 'modal', type: 'submit' })
+
+                ).submit(function () {
+
+                    // Test Submit
+                    console.log('Search!');
+
+                    // Block Submit HTML
+                    return false;
+
+                })
+
+            });
 
             // Modal
             tinyLib.modal({
@@ -415,41 +452,13 @@ $('#select_server').click(function () {
                 body: [
 
                     // Search Tools
-                    $('<form>', {id: 'server-list-search'}).append(
-
-                        // Owner
-                        tinyLib.formGroup('owner', {
-                            label: $('<span>').text(tinyLang.owner)
-                        }),
-
-                        // Name
-                        tinyLib.formGroup('name', {
-                            label: $('<span>').text(tinyLang.name)
-                        }),
-
-                        // Members
-                        tinyLib.formGroup('members', {
-                            label: $('<span>').text(tinyLang.members)
-                        }),
-
-                        // Submit
-                        $('<hr/>'),
-                        tinyLib.button(tinyLang.search, 'secondary', { 'data-dismiss': 'modal', type: 'submit' })
-
-                    ).submit(function() {
-
-                        // Test Submit
-                        console.log('Search!');
-
-                        // Block Submit HTML
-                        return false;
-
-                    }),
+                    searchForm.button,
+                    searchForm.item,
 
                     // Server Manager
-                    resultData.leaveAllServers, 
-                    resultData.pagination, 
-                    resultData.serverList, 
+                    resultData.leaveAllServers,
+                    resultData.pagination,
+                    resultData.serverList,
                     resultData.pagination.clone()
 
                 ],
