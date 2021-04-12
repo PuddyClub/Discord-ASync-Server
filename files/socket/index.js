@@ -435,10 +435,6 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
                         try { guildOwner = await guild.members.fetch(guild.ownerID); } catch (err) { guildOwner = null; }
                     }
 
-                    console.log(data.filters.name);
-                    console.log(guild.name.toLowerCase());
-                    console.log(guild.name.toLowerCase().indexOf(data.filters.name.toLowerCase()));
-
                     // Filter
                     if (
 
