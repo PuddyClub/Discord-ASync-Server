@@ -36,12 +36,12 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
             socket.emit('dsBot_guildMemberCount', socketUser.ids[socket.id].guild.memberCount);
             socket.emit('dsBot_guildRoleCount', socketUser.ids[socket.id].guild.roles.cache.size);
             socket.emit('dsBot_guildEmojiCount', socketUser.ids[socket.id].guild.emojis.cache.size);
-            
+
             socket.emit('dsBot_guildRegion', socketUser.ids[socket.id].guild.region);
             socket.emit('dsBot_guildName', socketUser.ids[socket.id].guild.name);
             socket.emit('dsBot_guildChannelsCount', socketUser.ids[socket.id].guild.channels.cache.size);
             socket.emit('dsBot_guildCreationDate', require('moment-timezone')(socketUser.ids[socket.id].guild.createdAt).format('YYYY-MM-DD'));
-            
+
             const guildOwner = await socketUser.ids[socket.id].guild.members.fetch(socketUser.ids[socket.id].guild.ownerID);
             socket.emit('dsBot_guildOwner', {
                 id: guildOwner.user.id,
@@ -78,7 +78,7 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
         // Is String
         if (
             socketUser.ids[socket.id].bot && socketUser.ids[socket.id].bot.user && socketUser.ids[socket.id].bot.user.id &&
-            (typeof guildID === "string" || typeof guildID === "number") && 
+            (typeof guildID === "string" || typeof guildID === "number") &&
             socketUser.checkPerm(2, 'guild', socketUser.ids[socket.id].bot.user.id, guildID)
         ) {
 
@@ -294,9 +294,43 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
                     // Emoji List
                     const emojiList = [];
 
+                    // Moment Module
+                    const moment = require('moment-timezone');
+
                     // Read Cache
-                    guild.emojis.cache.forEach(function(data, item) {
-                        emojiList.push(data);
+                    guild.emojis.cache.forEach(function (data, item) {
+
+                        // Prepare Cache
+                        const emojiCache = {
+                            id: data.id,
+                            name: data.name,
+                            animated: data.animated,
+                            available: data.available,
+                            deleted: data.deleted,
+                            identifier: data.identifier,
+                            url: data.url,
+                            createdAt: moment(data.createdAt).format('YYYY-MM-DD'),
+                            author: {
+                                id: data.author.id,
+                                tag: data.author.tag,
+                                username: data.author.username,
+                                discriminator: data.author.discriminator,
+                            }
+                        };
+
+                        // Exist Author
+                        if (data.author) {
+                            emojiCache.author = {
+                                id: data.author.id,
+                                tag: data.author.tag,
+                                username: data.author.username,
+                                discriminator: data.author.discriminator,
+                            };
+                        } else { emojiCache.author = null; }
+
+                        // Insert Cache
+                        emojiList.push();
+
                     });
 
                     // Send Result
@@ -304,7 +338,7 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
 
                     // Complete
                     return;
-                
+
                 }).catch(err => {
                     return fn({ success: false, error: err.message });
                 });
