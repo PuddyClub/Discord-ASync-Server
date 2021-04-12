@@ -258,7 +258,7 @@ $(() => {
                                         footer: [
 
                                             // Download All
-                                            tinyLib.button(tinyLang.close, 'primary').text(tinyLang.download_all).click(function () {
+                                            tinyLib.button(tinyLang.close, 'primary').text(tinyLang.download_all).click(async function () {
 
                                                 // Prepare ZIP
                                                 const zip = new JSZip();
@@ -270,7 +270,9 @@ $(() => {
                                                 // Insert ZIP Files
 
                                                 // Start Download
-                                                download(zip.generate({type:"blob"}), bot.guild + '.zip', 'application/zip');
+                                                const file = await zip.generateAsync({type:"blob"});
+                                                download(file, bot.guild + '.zip', 'application/zip');
+                                                return;
 
                                             }),
 
