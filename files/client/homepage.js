@@ -187,8 +187,8 @@ $(() => {
 
                                                 // Actions
                                                 {
-                                                    item: [tinyLib.button(tinyLang.download, 'secondary', { href: data.result[item].url, target: '_blank' }, true).prop('download', true).click(function () {
-                                                        $(this)[0].click();
+                                                    item: [tinyLib.button(tinyLang.download, 'secondary', { href: data.result[item].url }, ).click(function () {
+                                                        download($(this).attr('href'));
                                                         return false;
                                                     })],
                                                     isText: false
