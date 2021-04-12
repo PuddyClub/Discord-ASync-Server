@@ -13,7 +13,7 @@
     "emojis": "Emojis",
     "name": "Name",
     "roles": "Roles",
-    "creation_date": "Creation Date",
+    "creation_date": "Creation Date (Year-Month-Day)",
     "actions": "Actions",
     "guild_deleted": "Guild removed successfully!!",
     "guilds_deleted": "Guilds removed successfully!",
