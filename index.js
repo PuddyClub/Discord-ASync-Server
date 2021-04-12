@@ -312,7 +312,7 @@ const appModule = {
             if (ioCache.users[userID].guild && ioCache.users[userID].guild.id) { guildID = ioCache.users[userID].guild.id; }
 
             // User Without Permission. Disconnect!
-            if (!ioCache.users[userID].checkPerm(1, botID, guildID)) {
+            if (!ioCache.users[userID].checkPerm(1, 'general', botID, guildID)) {
                 for (const item in ioCache.users[userID].ids) {
                     ioCache.users[userID].ids[item].socket.emit('refreshPage');
                     ioCache.users[userID].ids[item].socket.disconnect();

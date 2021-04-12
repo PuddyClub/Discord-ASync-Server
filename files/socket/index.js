@@ -5,7 +5,7 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
     socketUser.sUser = userData;
 
     // Check User Permission
-    socketUser.checkPerm = (perm = 0, botID = null, guildID = null) => {
+    socketUser.checkPerm = (perm = 0, type = 'general', botID = null, guildID = null) => {
 
         // Allowed
         if (
@@ -14,10 +14,10 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
             socketUser.sUser.perm > perm ||
 
             // Guild Perm
-            ((typeof guildID === "string" || typeof guildID === "number") && socketUser.sUser.guildsPerm && socketUser.sUser.guildsPerm[guildID] > perm) ||
+            ((typeof guildID === "string" || typeof guildID === "number") && (type === 'guild' || type === 'general') && socketUser.sUser.guildsPerm && socketUser.sUser.guildsPerm[guildID] > perm) ||
 
             // Bot Perm
-            ((typeof botID === "string" || typeof botID === "number") && socketUser.sUser.botsPerm && socketUser.sUser.botsPerm[botID] > perm)
+            ((typeof botID === "string" || typeof botID === "number") && (type === 'bot' || type === 'general') && socketUser.sUser.botsPerm && socketUser.sUser.botsPerm[botID] > perm)
 
         ) { return true; }
 
@@ -94,7 +94,7 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
     socket.on('connectDiscordBot', function (botID, fn) {
 
         // Is String
-        if ((typeof botID === "string" || typeof botID === "number") && socketUser.checkPerm(1, botID)) {
+        if ((typeof botID === "string" || typeof botID === "number") && socketUser.checkPerm(1, 'bot', botID)) {
 
             // Get Bot
             const item = app.discord.bots.find(item => item.bot.user.id === botID);
@@ -144,7 +144,7 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
         if (socketUser.ids[socket.id].bot && socketUser.ids[socket.id].bot.user && socketUser.ids[socket.id].bot.user.id) {
 
             // Exist Bot
-            if (socketUser.checkPerm(4, socketUser.ids[socket.id].bot.user.id)) {
+            if (socketUser.checkPerm(4, 'bot', socketUser.ids[socket.id].bot.user.id)) {
 
                 // Is Object
                 if (data && typeof data.guildID === "string" || typeof data.guildID === "number") {
@@ -228,8 +228,8 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
 
         // Exist Bot
         if (
-            socketUser.ids[socket.id].bot && socketUser.ids[socket.id].bot.user && socketUser.ids[socket.id].bot.user.id && 
-            socketUser.checkPerm(1, socketUser.ids[socket.id].bot.user.id, data.guildID)
+            socketUser.ids[socket.id].bot && socketUser.ids[socket.id].bot.user && socketUser.ids[socket.id].bot.user.id &&
+            socketUser.checkPerm(1, 'guild', socketUser.ids[socket.id].bot.user.id, data.guildID)
         ) {
 
             // Is Object
