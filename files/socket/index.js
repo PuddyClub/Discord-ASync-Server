@@ -427,8 +427,30 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
                 // Create Cache
                 // Array.from(socketUser.ids[socket.id].bot.guilds.cache.keys())
                 const guilds = [];
-                socketUser.ids[socket.id].bot.guilds.cache.forEach(function (data) {
+                socketUser.ids[socket.id].bot.guilds.cache.forEach(function (guild) {
+
+                    // Filter
+                    if(
+
+                        // Members
+                        (data.filters.members < 1 || guild.memberCount <= data.filters.members) &&
+
+                        // Name
+                        (data.filters.name.length < 1 || guild.name.contains(data.filters.name, 1)) &&
+
+                        // Owner
+                        (data.filters.owner.length < 1 || guild.ownerID === data.filters.owner)
+
+                    ) {
+
+                    // Add Guild
                     guilds.push(data);
+
+                }
+
+                    // Complete
+                    return;
+                
                 });
 
                 // Pagination
