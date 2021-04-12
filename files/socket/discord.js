@@ -2,27 +2,29 @@
 const sendInfo = function (ioCache, where, botID, itemSent, perm = 1, guildID, type = 'general') {
 
     // Validate User Session
-    for (const item in ioCache.users) {
-        for (const id in ioCache.users[item].ids) {
-            if (
+    if (ioCache.users) {
+        for (const item in ioCache.users) {
+            for (const id in ioCache.users[item].ids) {
+                if (
 
-                // Is Bot
-                ioCache.users[item].ids[id].bot &&
+                    // Is Bot
+                    ioCache.users[item].ids[id].bot &&
 
-                // Bot User
-                ioCache.users[item].ids[id].bot.user &&
+                    // Bot User
+                    ioCache.users[item].ids[id].bot.user &&
 
-                // Is Same Bot ID
-                ioCache.users[item].ids[id].bot.user.id === botID &&
+                    // Is Same Bot ID
+                    ioCache.users[item].ids[id].bot.user.id === botID &&
 
-                // Permission
-                ioCache.users[item].checkPerm(perm, type, botID, guildID) &&
+                    // Permission
+                    ioCache.users[item].checkPerm(perm, type, botID, guildID) &&
 
-                // Guild
-                (typeof guildID !== "string" || ioCache.users[item].ids[id].guild === guildID)
+                    // Guild
+                    (typeof guildID !== "string" || ioCache.users[item].ids[id].guild.id === guildID)
 
-            ) {
-                ioCache.users[item].ids[id].socket.emit(where, itemSent);
+                ) {
+                    ioCache.users[item].ids[id].socket.emit(where, itemSent);
+                }
             }
         }
     }
@@ -92,7 +94,7 @@ const startDiscordSocket = function (ioCache, io, data) {
         sendInfo(ioCache, 'dsBot_guildName', bot.user.id, guild.name, 2, guild.id, 'guild');
         sendInfo(ioCache, 'dsBot_guildChannelsCount', bot.user.id, guild.channels.cache.size, 2, guild.id, 'guild');
         sendInfo(ioCache, 'dsBot_guildCreationDate', bot.user.id, require('moment-timezone')(guild.createdAt).format('YYYY-MM-DD'), 2, guild.id, 'guild');
-    
+
         // Complete
         return;
 
