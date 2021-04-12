@@ -5,7 +5,7 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
     socketUser.sUser = userData;
 
     // Send Log
-    socketUser.sendLog = function (type, data) {
+    socketUser.sendLog = function (type, isAll = false, data) {
         if (typeof type === "string" && socketUser.checkPerm(4)) {
 
             // Send Log
@@ -32,7 +32,7 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
             if (type === "log") { type = 'info'; }
 
             // Is Bot
-            if (socketUser.ids[socket.id] && socketUser.ids[socket.id].bot && socketUser.ids[socket.id].bot.user && socketUser.ids[socket.id].bot.user.id) {
+            if (!isAll && socketUser.ids[socket.id] && socketUser.ids[socket.id].bot && socketUser.ids[socket.id].bot.user && socketUser.ids[socket.id].bot.user.id) {
                 sendLog(socketUser.ids[socket.id].bot.user.id);
             }
 

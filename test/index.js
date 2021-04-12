@@ -92,13 +92,13 @@ tinyCfg.web.middleware = function (web, app) {
             console.log('User Connected!');
             console.log(i);
 
-            // Send Log
-            i.socketUser.sendLog('info', `User ID ${i.socket.id} is connected!`);            
+            // Send Log to All Bot Logs when the value is true
+            i.socketUser.sendLog('info', true, `User ID ${i.socket.id} is connected!`);            
 
             // Disconnected
             i.socket.on('disconnect', (reason) => {
                 console.log(reason); // "ping timeout"
-                i.socketUser.sendLog('info', `User ID ${i.socket.id} is disconnected! Reason: ${reason}`);
+                i.socketUser.sendLog('info', true, `User ID ${i.socket.id} is disconnected! Reason: ${reason}`);
             });
 
         }
