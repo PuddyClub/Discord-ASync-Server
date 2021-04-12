@@ -172,22 +172,25 @@ $(() => {
 
                                                 // Icon
                                                 {
-                                                    item: $('<img>', { alt: `${data[item].id}_icon`, src: data[item].url, height: 32, style: 'height: 32px;' }),
+                                                    item: $('<img>', { alt: `${data.result[item].id}_icon`, src: data.result[item].url, height: 32, style: 'height: 32px;' }),
                                                     isText: false
                                                 },
 
                                                 // Name
                                                 {
                                                     item: $('<span>').append(
-                                                        $('<div>').text(data[item].name),
-                                                        $('<small>').text(data[item].id),
+                                                        $('<div>').text(data.result[item].name),
+                                                        $('<small>').text(data.result[item].id),
                                                     ),
                                                     isText: false
                                                 },
 
                                                 // Actions
                                                 {
-                                                    item: [tinyLib.button(tinyLang.download, 'secondary', { href: data[item].url }).prop('download', true)],
+                                                    item: [tinyLib.button(tinyLang.download, 'secondary', { href: data.result[item].url, target: '_blank' }, true).prop('download', true).click(function () {
+                                                        $(this)[0].click();
+                                                        return false;
+                                                    })],
                                                     isText: false
                                                 },
 
