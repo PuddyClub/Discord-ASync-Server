@@ -33,8 +33,10 @@ tinyLib.button = function (text = '???', type = 'primary', extra, isURL = false)
     if (extra) { for (const item in extra) { buttonConfig[item] = extra[item]; } }
 
     // Result
-    if (!isURL) { return $('<button>', buttonConfig).text(text); } else { return $('<a>', buttonConfig).text(text); }
-
+    let result;
+    if (!isURL) { result = $('<button>', buttonConfig); } else { result = $('<a>', buttonConfig); }
+    if (typeof text === "string") { result.text(text); } else { result.append(text); }
+    return result;
 
 };
 
@@ -224,6 +226,8 @@ tinyLib.capitalize = function (text) {
     return text.replace(/\b\w/g, function (l) { return l.toUpperCase() });
 };
 
+tinyLib.fontAwesome = function (id, type = 'fas') { return $('<i>', { class: `${type} ${id}` }); };
+
 tinyLib.collapseItem = function (id, data) {
 
     // Prepare Config
@@ -245,6 +249,9 @@ tinyLib.collapseItem = function (id, data) {
 
     // Text
     if (data.text) { button.text(data.text); }
+
+    // HTML
+    if (data.html) { button.append(data.html); }
 
     // Result
     return {

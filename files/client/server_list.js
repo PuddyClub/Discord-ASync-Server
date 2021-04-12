@@ -226,7 +226,7 @@ const getPage = function (data) {
     else { pageSystem.page = 1; }
 
     // Leave All Servers
-    const leaveAllServers = $('<center>').append(tinyLib.button(tinyLang.leave_all, 'danger', { 'data-dismiss': 'modal' })).click(function () {
+    const leaveAllServers = tinyLib.button([tinyLib.fontAwesome('fa-trash', 'fas'), $('<span>', { class: 'ml-2' }).text(tinyLang.leave_all)], 'danger', { 'data-dismiss': 'modal' }).click(function () {
 
         // Modal
         $(this).addClass('disabled');
@@ -409,28 +409,34 @@ $('#select_server').click(function () {
             const resultData = getPage(data);
 
             // Prepare Search Form
-            const searchForm = tinyLib.collapseItem('searchServersForm',{
+            const searchForm = tinyLib.collapseItem('searchServersForm', {
 
+                // Config
+                type: 'button',
+                config: { class: 'btn btn-secondary mr-2' },
+                html: [tinyLib.fontAwesome('fa-search', 'fas'), $('<span>', { class: 'ml-2' }).text(tinyLang.search)],
+
+                // Form
                 item: $('<form>', { id: 'server-list-search' }).append(
-
-                    // Owner
-                    tinyLib.formGroup('owner', {
-                        label: $('<span>').text(tinyLang.owner)
-                    }),
-
-                    // Name
-                    tinyLib.formGroup('name', {
-                        label: $('<span>').text(tinyLang.name)
-                    }),
-
-                    // Members
-                    tinyLib.formGroup('members', {
-                        label: $('<span>').text(tinyLang.members)
-                    }),
+                    /* 
+                                        // Owner
+                                        tinyLib.formGroup('owner', {
+                                            label: $('<span>').text(tinyLang.owner)
+                                        }),
+                    
+                                        // Name
+                                        tinyLib.formGroup('name', {
+                                            label: $('<span>').text(tinyLang.name)
+                                        }),
+                    
+                                        // Members
+                                        tinyLib.formGroup('members', {
+                                            label: $('<span>').text(tinyLang.members)
+                                        }), */
 
                     // Submit
                     $('<hr/>'),
-                    tinyLib.button(tinyLang.search, 'secondary', { 'data-dismiss': 'modal', type: 'submit' })
+                    $('<center>', {class: 'mb-2'}).append(tinyLib.button(tinyLang.search, 'secondary', { 'data-dismiss': 'modal', type: 'submit' }))
 
                 ).submit(function () {
 
@@ -452,11 +458,10 @@ $('#select_server').click(function () {
                 body: [
 
                     // Search Tools
-                    searchForm.button,
                     searchForm.item,
+                    $('<center>').append(searchForm.button, resultData.leaveAllServers),
 
                     // Server Manager
-                    resultData.leaveAllServers,
                     resultData.pagination,
                     resultData.serverList,
                     resultData.pagination.clone()
