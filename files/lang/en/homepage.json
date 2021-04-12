@@ -1,5 +1,7 @@
 {
     "id": "ID",
+    "download_all": "Download All",
+    "download": "Download",
     "guild_owner": "Guild Owner",
     "servers": "Servers",
     "channels": "Channels",

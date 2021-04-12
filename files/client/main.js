@@ -24,7 +24,7 @@ tinyLib.alert = function (where, alertType, icon, text) {
         );
 };
 
-tinyLib.button = function (text = '???', type = 'primary', extra) {
+tinyLib.button = function (text = '???', type = 'primary', extra, isURL = false) {
 
     // Button Config
     const buttonConfig = { class: 'btn btn-' + type, type: 'button' };
@@ -33,7 +33,8 @@ tinyLib.button = function (text = '???', type = 'primary', extra) {
     if (extra) { for (const item in extra) { buttonConfig[item] = extra[item]; } }
 
     // Result
-    return $('<button>', buttonConfig).text(text);
+    if (!isURL) { return $('<button>', buttonConfig).text(text); } else { return $('<a>', buttonConfig).text(text); }
+
 
 };
 
@@ -167,7 +168,7 @@ tinyLib.table = function (data) {
 
             // Insert Item
             tbody.append(trItem);
-            
+
         }
 
         // Result

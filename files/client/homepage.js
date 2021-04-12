@@ -150,11 +150,132 @@ $(() => {
                         toolsCreator.cardRow(tinyLang.name, '???', 'fas fa-font', 'info').attr('id', 'server_name'),
 
                         // Emojis
-                        toolsCreator.cardRow(tinyLang.emojis, $('<a>', {href: 'javascript:void(0);'}).text('???').click(function(){
+                        toolsCreator.cardRow(tinyLang.emojis, $('<a>', { href: 'javascript:void(0);' }).text('???').click(function () {
 
                             socket.emit('getDiscordGuildEmojis', bot.guild, (data) => {
 
-                                console.log(data);
+                                // Success
+                                if (data.success) {
+
+                                    // Prepare Body
+                                    const body = [];
+
+                                    // Read Result
+                                    for (const item in data.result) {
+
+
+                                        // Create TR
+                                        body.push({
+
+                                            // TD
+                                            items: [
+
+                                                // Icon
+                                                {
+                                                    item: $('<img>', { alt: `${data[item].id}_icon`, src: data[item].url, height: 32, style: 'height: 32px;' }),
+                                                    isText: false
+                                                },
+
+                                                // Name
+                                                {
+                                                    item: $('<span>').append(
+                                                        $('<div>').text(data[item].name),
+                                                        $('<small>').text(data[item].id),
+                                                    ),
+                                                    isText: false
+                                                },
+
+                                                // Actions
+                                                {
+                                                    item: [tinyLib.button(tinyLang.download, 'secondary', { href: data[item].url }).prop('download', true)],
+                                                    isText: false
+                                                },
+
+                                            ]
+
+                                        });
+
+                                    }
+
+                                    // Modal
+                                    tinyLib.modal({
+                                        dialog: 'modal-lg',
+                                        id: 'server-list-modal',
+                                        title: tinyLang.emojis,
+                                        body: tinyLib.table({
+
+                                            // Info
+                                            id: 'emojis_list',
+                                            class: 'table-striped',
+                                            responsive: true,
+
+                                            // Head
+                                            thead:
+                                            {
+                                                items: [
+
+                                                    // TDs
+                                                    {
+                                                        items: [
+
+                                                            // Icon
+                                                            {
+                                                                isText: true,
+                                                                item: tinyLang.icon
+                                                            },
+
+                                                            // Name
+                                                            {
+                                                                isText: true,
+                                                                item: tinyLang.name
+                                                            },
+
+                                                            // Actions
+                                                            {
+                                                                isText: true,
+                                                                item: tinyLang.actions
+                                                            }
+
+                                                        ]
+                                                    }
+
+                                                ]
+                                            },
+
+                                            // Body
+                                            tbody: { items: body }
+
+                                        }),
+                                        footer: [
+
+                                            // Download All
+                                            tinyLib.button(tinyLang.close, 'primary').text(tinyLang.download_all).click(function () {
+
+
+
+                                            }),
+
+                                            // Close
+                                            tinyLib.button(tinyLang.close, 'secondary', { 'data-dismiss': 'modal' })
+
+                                        ],
+                                    });
+
+                                }
+
+                                // Fail
+                                else {
+
+                                    // Fail Error Message
+                                    tinyLib.modal({
+                                        dialog: 'modal-lg',
+                                        id: 'server-list-modal-error',
+                                        title: 'Error!',
+                                        body: data.error,
+                                        footer: [tinyLib.button(tinyLang.close, 'secondary', { 'data-dismiss': 'modal' })]
+                                    });
+
+                                }
 
                             });
 
@@ -164,7 +285,7 @@ $(() => {
                         }), 'far fa-laugh-beam', 'info').attr('id', 'emoji_count'),
 
                         // Roles
-                        toolsCreator.cardRow(tinyLang.roles,$('<a>', {href: 'javascript:void(0);'}).text('???').click(function(){
+                        toolsCreator.cardRow(tinyLang.roles, $('<a>', { href: 'javascript:void(0);' }).text('???').click(function () {
 
 
                             // Complete
@@ -173,7 +294,7 @@ $(() => {
                         }), 'fas fa-flag', 'info').attr('id', 'role_count'),
 
                         // Channels
-                        toolsCreator.cardRow(tinyLang.channels, $('<a>', {href: 'javascript:void(0);'}).text('???').click(function(){
+                        toolsCreator.cardRow(tinyLang.channels, $('<a>', { href: 'javascript:void(0);' }).text('???').click(function () {
 
 
                             // Complete
