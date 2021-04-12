@@ -98,127 +98,132 @@ const getPage = function (data) {
 
     // Server List
     const servers = [];
-    for (const item in data.data) {
+    if (data.data.length > 0) {
+        for (const item in data.data) {
 
-        // Create TR
-        servers.push({
+            // Create TR
+            servers.push({
 
-            // TD
-            items: [
+                // TD
+                items: [
 
-                // Icon
-                {
-                    item: $('<img>', { alt: `${data.data[item].id}_icon`, src: data.data[item].icon, height: 32, style: 'height: 32px;' }),
-                    isText: false
-                },
+                    // Icon
+                    {
+                        item: $('<img>', { alt: `${data.data[item].id}_icon`, src: data.data[item].icon, height: 32, style: 'height: 32px;' }),
+                        isText: false
+                    },
 
-                // Name
-                {
-                    item: $('<span>').append(
-                        $('<div>').text(data.data[item].name),
-                        $('<small>').text(data.data[item].id),
-                    ),
-                    isText: false
-                },
+                    // Name
+                    {
+                        item: $('<span>').append(
+                            $('<div>').text(data.data[item].name),
+                            $('<small>').text(data.data[item].id),
+                        ),
+                        isText: false
+                    },
 
-                // Region
-                {
-                    item: data.data[item].region,
-                    isText: true
-                },
+                    // Region
+                    {
+                        item: data.data[item].region,
+                        isText: true
+                    },
 
-                // Members
-                {
-                    item: data.data[item].members,
-                    isText: true
-                },
+                    // Members
+                    {
+                        item: data.data[item].members,
+                        isText: true
+                    },
 
-                // Actions
-                {
-                    item: [
+                    // Actions
+                    {
+                        item: [
 
-                        // Select Server
-                        tinyLib.button(tinyLang.select_server, 'secondary mx-1', { 'data-dismiss': 'modal', id: 'ds_bot_guild_' + data.data[item].id }).click(function () {
+                            // Select Server
+                            tinyLib.button(tinyLang.select_server, 'secondary mx-1', { 'data-dismiss': 'modal', id: 'ds_bot_guild_' + data.data[item].id }).click(function () {
 
-                            // Guild ID
-                            $(this).addClass('disabled');
-                            const guildID = $(this).attr('id').substring(13);
+                                // Guild ID
+                                $(this).addClass('disabled');
+                                const guildID = $(this).attr('id').substring(13);
 
-                            // Connect Guild
-                            bot.guild = guildID;
-                            socket.emit('connectDiscordGuild', guildID, function (data) {
-                                return openServer(data, false, true);
-                            });
+                                // Connect Guild
+                                bot.guild = guildID;
+                                socket.emit('connectDiscordGuild', guildID, function (data) {
+                                    return openServer(data, false, true);
+                                });
 
-                        }),
+                            }),
 
-                        // Remove Server
-                        tinyLib.button(tinyLang.leave, 'danger mx-1', { 'data-dismiss': 'modal', id: 'ds_bot_guild_' + data.data[item].id }).click(function () {
+                            // Remove Server
+                            tinyLib.button(tinyLang.leave, 'danger mx-1', { 'data-dismiss': 'modal', id: 'ds_bot_guild_' + data.data[item].id }).click(function () {
 
-                            // Guild ID
-                            $(this).addClass('disabled');
-                            const guildID = $(this).attr('id').substring(13);
+                                // Guild ID
+                                $(this).addClass('disabled');
+                                const guildID = $(this).attr('id').substring(13);
 
-                            // Modal
-                            tinyLib.modal({
-                                dialog: 'modal-lg',
-                                id: 'delete-confirm',
-                                title: $('<span>').text(tinyLang.leave),
-                                body: tinyLang.confirm_leave,
-                                footer: [
-                                    tinyLib.button(tinyLang.close, 'secondary', { 'data-dismiss': 'modal' }),
-                                    tinyLib.button(tinyLang.confirm, 'danger', { 'data-dismiss': 'modal' }).click(function () {
+                                // Modal
+                                tinyLib.modal({
+                                    dialog: 'modal-lg',
+                                    id: 'delete-confirm',
+                                    title: $('<span>').text(tinyLang.leave),
+                                    body: tinyLang.confirm_leave,
+                                    footer: [
+                                        tinyLib.button(tinyLang.close, 'secondary', { 'data-dismiss': 'modal' }),
+                                        tinyLib.button(tinyLang.confirm, 'danger', { 'data-dismiss': 'modal' }).click(function () {
 
-                                        $(this).addClass('disabled');
-                                        socket.emit('leaveDiscordGuild', { guildID: guildID }, function (data) {
+                                            $(this).addClass('disabled');
+                                            socket.emit('leaveDiscordGuild', { guildID: guildID }, function (data) {
 
-                                            // Success
-                                            if (data.success) {
+                                                // Success
+                                                if (data.success) {
 
-                                                // Modal
-                                                tinyLib.modal({
-                                                    dialog: 'modal-lg',
-                                                    id: 'delete-confirm-success',
-                                                    title: $('<span>').text(tinyLang.leave),
-                                                    body: tinyLang.guild_deleted,
-                                                    footer: [tinyLib.button(tinyLang.close, 'secondary', { 'data-dismiss': 'modal' })],
-                                                    hidden: function () {
-                                                        return $('#ds_bot_' + bot.id).trigger('click');
-                                                    }
-                                                });
+                                                    // Modal
+                                                    tinyLib.modal({
+                                                        dialog: 'modal-lg',
+                                                        id: 'delete-confirm-success',
+                                                        title: $('<span>').text(tinyLang.leave),
+                                                        body: tinyLang.guild_deleted,
+                                                        footer: [tinyLib.button(tinyLang.close, 'secondary', { 'data-dismiss': 'modal' })],
+                                                        hidden: function () {
+                                                            return $('#ds_bot_' + bot.id).trigger('click');
+                                                        }
+                                                    });
 
-                                            }
+                                                }
 
-                                            // Fail
-                                            else {
+                                                // Fail
+                                                else {
 
-                                                // Fail Error Message
-                                                tinyLib.modal({
-                                                    dialog: 'modal-lg',
-                                                    id: 'delete-all-confirm-error',
-                                                    title: 'Error!',
-                                                    body: data.error,
-                                                    footer: [tinyLib.button(tinyLang.close, 'secondary', { 'data-dismiss': 'modal' })]
-                                                });
+                                                    // Fail Error Message
+                                                    tinyLib.modal({
+                                                        dialog: 'modal-lg',
+                                                        id: 'delete-all-confirm-error',
+                                                        title: 'Error!',
+                                                        body: data.error,
+                                                        footer: [tinyLib.button(tinyLang.close, 'secondary', { 'data-dismiss': 'modal' })]
+                                                    });
 
-                                            }
+                                                }
 
-                                        });
+                                            });
 
-                                    }),
-                                ]
-                            });
+                                        }),
+                                    ]
+                                });
 
-                        })
-                    ],
-                    isText: false
-                },
+                            })
+                        ],
+                        isText: false
+                    },
 
-            ]
+                ]
 
-        });
+            });
+
+        }
 
     }
+
+    else { pageSystem.page = 1; }
 
     // Leave All Servers
     const leaveAllServers = $('<center>').append(tinyLib.button(tinyLang.leave_all, 'danger', { 'data-dismiss': 'modal' })).click(function () {
