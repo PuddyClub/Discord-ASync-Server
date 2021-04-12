@@ -44,7 +44,7 @@ const updateDiscordLog = function (ioCache, logList, botID, where, itemResult) {
     if (logList.length > 500) { logList.shift(); }
 
     // Complete
-    return sendInfo(ioCache, 'dsBot_' + where, botID, { item: itemResult, list: logList });
+    return sendInfo(ioCache, 'dsBot_' + where, botID, { item: itemResult, list: logList }, 4);
 
 };
 
