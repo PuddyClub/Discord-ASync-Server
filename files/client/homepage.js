@@ -159,10 +159,19 @@ $(() => {
 
                                     // Prepare Body
                                     const body = [];
+                                    const downloadList = [];
 
                                     // Read Result
                                     for (const item in data.result) {
 
+                                        // Button
+                                        const downloadButton = tinyLib.button(tinyLang.download, 'secondary', { href: data.result[item].url },).click(function () {
+                                            download($(this).attr('href'));
+                                            return false;
+                                        });
+
+                                        // List
+                                        downloadList.push(downloadButton);
 
                                         // Create TR
                                         body.push({
@@ -187,10 +196,7 @@ $(() => {
 
                                                 // Actions
                                                 {
-                                                    item: [tinyLib.button(tinyLang.download, 'secondary', { href: data.result[item].url }, ).click(function () {
-                                                        download($(this).attr('href'));
-                                                        return false;
-                                                    })],
+                                                    item: [downloadButton],
                                                     isText: false
                                                 },
 
@@ -254,7 +260,17 @@ $(() => {
                                             // Download All
                                             tinyLib.button(tinyLang.close, 'primary').text(tinyLang.download_all).click(function () {
 
+                                                // Prepare ZIP
+                                                const zip = new JSZip();
+                                                const fileURLs = [];
+                                                for (const item in downloadList) {
+                                                    fileURLs.push(downloadList[item].attr('href'));
+                                                }
 
+                                                // Insert ZIP Files
+
+                                                // Start Download
+                                                download(zip.generate({type:"blob"}), bot.guild + '.zip', 'application/zip');
 
                                             }),
 

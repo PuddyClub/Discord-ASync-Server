@@ -9,6 +9,7 @@
 {{global.head.js.jquery | safe}}
 {{global.head.js.bootstrap | safe}}
 {{global.head.js.loadingoverlay | safe}}
+{{global.head.js.jszip | safe}}
 {{global.head.js.downloadjs | safe}}
 {{global.head.js.easing | safe}}
 {{global.head.js.chart | safe}}
