@@ -1,5 +1,5 @@
 // Select Server Page System
-const pageSystem = { page: 1, perpage: 50, menuOn: false };
+const pageSystem = { page: 1, perpage: 50, menuOn: false, filters: { owner: '', name: '', members: 0 } };
 
 // Open Server
 const openServer = (data, isCount, isSelected) => {
@@ -412,7 +412,20 @@ $('#select_server').click(function () {
                 dialog: 'modal-lg',
                 id: 'server-list-modal',
                 title: tinyLang.server_list,
-                body: [resultData.leaveAllServers, resultData.pagination, resultData.serverList, resultData.pagination.clone()],
+                body: [
+
+                    // Search Tools
+                    $('<form>').append(
+
+                    ),
+
+                    // Server Manager
+                    resultData.leaveAllServers, 
+                    resultData.pagination, 
+                    resultData.serverList, 
+                    resultData.pagination.clone()
+
+                ],
                 footer: [tinyLib.button(tinyLang.close, 'secondary', { 'data-dismiss': 'modal' })],
                 hidden: function () { pageSystem.menuOn = false; }
             });

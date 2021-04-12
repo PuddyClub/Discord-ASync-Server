@@ -219,3 +219,95 @@ tinyLib.modal = function (data) {
     }
 
 };
+
+tinyLib.capitalize = function (text) {
+    return text.replace(/\b\w/g, function (l) { return l.toUpperCase() });
+};
+
+tinyLib.formGroup = function (id, data) {
+
+    // Items
+    const result = [];
+    let formName = 'form-group';
+
+    // Normal Input
+    if (data.input !== "checkbox" && data.input !== "radio") {
+
+        // Label
+        if (data.label) {
+            result.push($('<label>', { for: 'exampleInput' + tinyLib.capitalize(id) }).append(data.label));
+        };
+
+        // Default Type
+        if (typeof data.input !== "string") { data.input = 'text'; }
+
+        // Input
+        if (data.input !== "textarea" && data.input !== "select" && data.input !== "range") {
+
+            // Class Item
+            let classItem = 'form-control';
+            if (!data.class.contains('form-control-plaintext')) {
+                classItem += ' ' + data.class;
+            } else {
+                classItem = data.class;
+            }
+
+            // Input Text
+            result.push($('<input>', { type: data.input, class: classItem, id: 'exampleInput' + tinyLib.capitalize(id), 'aria-describedby': id + 'Help' }).prop('readonly', data.readonly).val(data.value));
+
+        }
+
+        // Range
+        else if (data.input === "range") {
+            result.push($('<input>', { type: 'range', min: data.min, max: data.max, step: data.step, class: 'form-control-range ' + data.class, id: 'exampleInput' + tinyLib.capitalize(id), 'aria-describedby': id + 'Help' }).prop('readonly', data.readonly).val(data.value));
+        }
+
+        // Textarea
+        else if (data.input === "textarea") {
+            result.push($('<textarea>', { rows: data.rows, class: 'form-control ' + data.class, id: 'exampleInput' + tinyLib.capitalize(id), 'aria-describedby': id + 'Help' }).prop('readonly', data.readonly).text(data.value));
+        }
+
+        // Select
+        else if (data.input === "select") {
+
+            // Options List
+            const options = [];
+            for (const item in data.options) {
+                options.push($('<option>', { value: data.options[item].value, class: data.options[item].class }).prop('selected', data.options[item].selected).text(data.options[item].name));
+            }
+
+            // Insert Result
+            result.push($('<select>', { class: 'form-control ' + data.class, id: 'exampleInput' + tinyLib.capitalize(id), 'aria-describedby': id + 'Help' }).prop('multiple', data.multiple).prop('readonly', data.readonly).append(options).val(data.value));
+
+        }
+
+    }
+
+    // Checkbox
+    else {
+
+        // Name
+        formName += ' form-check';
+
+        // Inline
+        if (data.inline) { formName += ' form-check-inline'; }
+
+        // Input
+        result.push($('<input>', { name: data.name, type: checkbox, class: 'form-check-input ' + data.class, id: 'exampleCheck' + tinyLib.capitalize(id), 'aria-describedby': id + 'Help' }).prop('checked', data.checked));
+
+        // Label
+        if (data.label) {
+            result.push($('<label>', { for: 'exampleCheck' + tinyLib.capitalize(id) }).append(data.label));
+        };
+
+    }
+
+    // Help
+    if (data.help) {
+        result.push($('<small>', { id: id + 'Help' }).append(data.help));
+    };
+
+    // Result
+    return $('<div>', { class: formName, id: 'formGroupBase_' + id }).append(result);
+
+};
