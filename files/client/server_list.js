@@ -415,9 +415,36 @@ $('#select_server').click(function () {
                 body: [
 
                     // Search Tools
-                    $('<form>').append(
+                    $('<form>', {id: 'server-list-search'}).append(
 
-                    ),
+                        // Owner
+                        tinyLib.formGroup('owner', {
+                            label: $('<span>').text(tinyLang.owner)
+                        }),
+
+                        // Name
+                        tinyLib.formGroup('name', {
+                            label: $('<span>').text(tinyLang.name)
+                        }),
+
+                        // Members
+                        tinyLib.formGroup('members', {
+                            label: $('<span>').text(tinyLang.members)
+                        }),
+
+                        // Submit
+                        $('<hr/>'),
+                        tinyLib.button(tinyLang.search, 'secondary', { 'data-dismiss': 'modal', type: 'submit' })
+
+                    ).submit(function() {
+
+                        // Test Submit
+                        console.log('Search!');
+
+                        // Block Submit HTML
+                        return false;
+
+                    }),
 
                     // Server Manager
                     resultData.leaveAllServers, 

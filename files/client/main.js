@@ -224,6 +224,35 @@ tinyLib.capitalize = function (text) {
     return text.replace(/\b\w/g, function (l) { return l.toUpperCase() });
 };
 
+tinyLib.collapseItem = function (id, data) {
+
+    // Prepare Config
+    data.config.href = '#' + id;
+    data.config.role = 'button';
+    data.config['data-toggle'] = 'collapse';
+    data.config['aria-controls'] = id;
+    if (!data.config['aria-expanded']) { data.config['aria-expanded'] = false; }
+
+    // Button
+    const button = $('<' + data.type + '>', data.config);
+
+    // Collapse Item
+    const collapseItem = $('<div>', { class: 'collapse ' + data.class, id: id }).append(data.item);
+
+    // Value
+    if (data.value) { button.val(data.value); }
+
+    // Text
+    if (data.text) { button.text(data.text); }
+
+    // Result
+    return {
+        button: button,
+        item: collapseItem
+    };
+
+};
+
 tinyLib.formGroup = function (id, data) {
 
     // Items
