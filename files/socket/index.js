@@ -32,7 +32,7 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
             if (type === "log") { type = 'info'; }
 
             // Is Bot
-            if (socketUser.ids[socket.id].bot && socketUser.ids[socket.id].bot.user && socketUser.ids[socket.id].bot.user.id) {
+            if (socketUser.ids[socket.id] && socketUser.ids[socket.id].bot && socketUser.ids[socket.id].bot.user && socketUser.ids[socket.id].bot.user.id) {
                 sendLog(socketUser.ids[socket.id].bot.user.id);
             }
 
