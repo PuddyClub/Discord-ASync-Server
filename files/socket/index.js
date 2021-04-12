@@ -435,6 +435,10 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
                         try { guildOwner = await guild.members.fetch(guild.ownerID); } catch (err) { guildOwner = null; }
                     }
 
+                    console.log(data.filters.name);
+                    console.log(guild.name.toLowerCase());
+                    console.log(guild.name.toLowerCase().indexOf(data.filters.name.toLowerCase()));
+
                     // Filter
                     if (
 
@@ -442,16 +446,26 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
                         (data.filters.members < 1 || guild.memberCount <= data.filters.members) &&
 
                         // Name
-                        (data.filters.name.length < 1 || guild.name.contains(data.filters.name, 1)) &&
+                        (data.filters.name.length < 1 || (
+                            typeof guild.name === "string" &&
+                            guild.name.toLowerCase().indexOf(data.filters.name.toLowerCase()) > -1
+                        )) &&
 
                         // Owner
                         (!guildOwner || (
 
                             // Exist Nickname
-                            (typeof guildOwner.nickname === "string" && guildOwner.nickname.contains(data.filters.owner, 1)) ||
+                            (
+                                typeof guildOwner.nickname === "string" &&
+                                guildOwner.nickname.toLowerCase().indexOf(data.filters.owner.toLowerCase()) > -1
+                            ) ||
 
                             // Exist User
-                            (guildOwner.user && typeof guildOwner.user.tag === "string" && guildOwner.user.tag.contains(data.filters.owner, 1)) ||
+                            (
+                                guildOwner.user &&
+                                typeof guildOwner.user.tag === "string" &&
+                                guildOwner.user.tag.toLowerCase().indexOf(data.filters.owner.toLowerCase()) > -1
+                            ) ||
 
                             // Is Same ID
                             guild.ownerID === data.filters.owner
