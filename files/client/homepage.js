@@ -150,13 +150,36 @@ $(() => {
                         toolsCreator.cardRow(tinyLang.name, '???', 'fas fa-font', 'info').attr('id', 'server_name'),
 
                         // Emojis
-                        toolsCreator.cardRow(tinyLang.emojis, $('<a>', {href: 'javascript:void(0);'}).text('???'), 'far fa-laugh-beam', 'info').attr('id', 'emoji_count'),
+                        toolsCreator.cardRow(tinyLang.emojis, $('<a>', {href: 'javascript:void(0);'}).text('???').click(function(){
+
+                            socket.emit('getDiscordGuildEmojis', bot.guild, (data) => {
+
+                                console.log(data);
+
+                            });
+
+                            // Complete
+                            return false;
+
+                        }), 'far fa-laugh-beam', 'info').attr('id', 'emoji_count'),
 
                         // Roles
-                        toolsCreator.cardRow(tinyLang.roles,$('<a>', {href: 'javascript:void(0);'}).text('???'), 'fas fa-flag', 'info').attr('id', 'role_count'),
+                        toolsCreator.cardRow(tinyLang.roles,$('<a>', {href: 'javascript:void(0);'}).text('???').click(function(){
+
+
+                            // Complete
+                            return false;
+
+                        }), 'fas fa-flag', 'info').attr('id', 'role_count'),
 
                         // Channels
-                        toolsCreator.cardRow(tinyLang.channels, $('<a>', {href: 'javascript:void(0);'}).text('???'), 'fas fa-th-large', 'info').attr('id', 'channel_count'),
+                        toolsCreator.cardRow(tinyLang.channels, $('<a>', {href: 'javascript:void(0);'}).text('???').click(function(){
+
+
+                            // Complete
+                            return false;
+
+                        }), 'fas fa-th-large', 'info').attr('id', 'channel_count'),
 
                         // Guild Owner
                         toolsCreator.cardRow(tinyLang.guild_owner, '???', 'fas fa-user-tie', 'info').attr('id', 'guild_owner_name'),

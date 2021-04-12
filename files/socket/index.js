@@ -250,7 +250,7 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
         // Exist Bot
         if (
             socketUser.ids[socket.id].bot && socketUser.ids[socket.id].bot.user && socketUser.ids[socket.id].bot.user.id &&
-            socketUser.checkPerm(2, 'guild', socketUser.ids[socket.id].bot.user.id, data.guildID)
+            socketUser.checkPerm(2, 'guild', socketUser.ids[socket.id].bot.user.id, guildID)
         ) {
 
         }
@@ -266,7 +266,7 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
         // Exist Bot
         if (
             socketUser.ids[socket.id].bot && socketUser.ids[socket.id].bot.user && socketUser.ids[socket.id].bot.user.id &&
-            socketUser.checkPerm(2, 'guild', socketUser.ids[socket.id].bot.user.id, data.guildID)
+            socketUser.checkPerm(2, 'guild', socketUser.ids[socket.id].bot.user.id, guildID)
         ) {
 
         }
@@ -282,7 +282,7 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
         // Exist Bot
         if (
             socketUser.ids[socket.id].bot && socketUser.ids[socket.id].bot.user && socketUser.ids[socket.id].bot.user.id &&
-            socketUser.checkPerm(2, 'guild', socketUser.ids[socket.id].bot.user.id, data.guildID)
+            socketUser.checkPerm(2, 'guild', socketUser.ids[socket.id].bot.user.id, guildID)
         ) {
 
             // Is Object
