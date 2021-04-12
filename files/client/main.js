@@ -241,44 +241,57 @@ tinyLib.formGroup = function (id, data) {
         // Default Type
         if (typeof data.input !== "string") { data.input = 'text'; }
 
-        // Input
-        if (data.input !== "textarea" && data.input !== "select" && data.input !== "range") {
+        // Insert Input
+        const insertInput = function (data) {
 
-            // Class Item
-            let classItem = 'form-control';
-            if (!data.class.contains('form-control-plaintext')) {
-                classItem += ' ' + data.class;
-            } else {
-                classItem = data.class;
+            // Input
+            if (data.input !== "textarea" && data.input !== "select" && data.input !== "range") {
+
+                // Class Item
+                let classItem = 'form-control';
+                if (!data.class.contains('form-control-plaintext')) {
+                    classItem += ' ' + data.class;
+                } else {
+                    classItem = data.class;
+                }
+
+                // Input Text
+                result.push($('<input>', { placeholder: data.placeholder, type: data.input, class: classItem, id: 'exampleInput' + tinyLib.capitalize(id), 'aria-describedby': id + 'Help' }).prop('readonly', data.readonly).val(data.value));
+
             }
 
-            // Input Text
-            result.push($('<input>', { type: data.input, class: classItem, id: 'exampleInput' + tinyLib.capitalize(id), 'aria-describedby': id + 'Help' }).prop('readonly', data.readonly).val(data.value));
-
-        }
-
-        // Range
-        else if (data.input === "range") {
-            result.push($('<input>', { type: 'range', min: data.min, max: data.max, step: data.step, class: 'form-control-range ' + data.class, id: 'exampleInput' + tinyLib.capitalize(id), 'aria-describedby': id + 'Help' }).prop('readonly', data.readonly).val(data.value));
-        }
-
-        // Textarea
-        else if (data.input === "textarea") {
-            result.push($('<textarea>', { rows: data.rows, class: 'form-control ' + data.class, id: 'exampleInput' + tinyLib.capitalize(id), 'aria-describedby': id + 'Help' }).prop('readonly', data.readonly).text(data.value));
-        }
-
-        // Select
-        else if (data.input === "select") {
-
-            // Options List
-            const options = [];
-            for (const item in data.options) {
-                options.push($('<option>', { value: data.options[item].value, class: data.options[item].class }).prop('selected', data.options[item].selected).text(data.options[item].name));
+            // Range
+            else if (data.input === "range") {
+                result.push($('<input>', { type: 'range', min: data.min, max: data.max, step: data.step, class: 'form-control-range ' + data.class, id: 'exampleInput' + tinyLib.capitalize(id), 'aria-describedby': id + 'Help' }).prop('readonly', data.readonly).val(data.value));
             }
 
-            // Insert Result
-            result.push($('<select>', { class: 'form-control ' + data.class, id: 'exampleInput' + tinyLib.capitalize(id), 'aria-describedby': id + 'Help' }).prop('multiple', data.multiple).prop('readonly', data.readonly).append(options).val(data.value));
+            // Textarea
+            else if (data.input === "textarea") {
+                result.push($('<textarea>', { rows: data.rows, class: 'form-control ' + data.class, id: 'exampleInput' + tinyLib.capitalize(id), 'aria-describedby': id + 'Help' }).prop('readonly', data.readonly).text(data.value));
+            }
 
+            // Select
+            else if (data.input === "select") {
+
+                // Options List
+                const options = [];
+                for (const item in data.options) {
+                    options.push($('<option>', { value: data.options[item].value, class: data.options[item].class }).prop('selected', data.options[item].selected).text(data.options[item].name));
+                }
+
+                // Insert Result
+                result.push($('<select>', { class: 'form-control ' + data.class, id: 'exampleInput' + tinyLib.capitalize(id), 'aria-describedby': id + 'Help' }).prop('multiple', data.multiple).prop('readonly', data.readonly).append(options).val(data.value));
+
+            }
+
+        };
+
+        // Nope Group
+        if (!Array.isArray(data.group)) { insertInput(data); }
+
+        // Group
+        else {
+            
         }
 
     }
