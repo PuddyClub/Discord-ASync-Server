@@ -94,7 +94,7 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
     socket.on('connectDiscordBot', function (botID, fn) {
 
         // Is String
-        if (typeof botID === "string" || typeof botID === "number") {
+        if ((typeof botID === "string" || typeof botID === "number") && socketUser.checkPerm(1, botID)) {
 
             // Get Bot
             const item = app.discord.bots.find(item => item.bot.user.id === botID);
@@ -141,13 +141,13 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
     socket.on('leaveDiscordGuild', function (data, fn) {
 
         // Check Permission
-        if (socketUser.sUser.perm >= 4) {
+        if (socketUser.ids[socket.id].bot && socketUser.ids[socket.id].bot.user && socketUser.ids[socket.id].bot.user.id) {
 
             // Exist Bot
-            if (socketUser.ids[socket.id].bot) {
+            if (socketUser.checkPerm(4, socketUser.ids[socket.id].bot.user.id)) {
 
                 // Is Object
-                if (typeof data.guildID === "string" || typeof data.guildID === "number") {
+                if (data && typeof data.guildID === "string" || typeof data.guildID === "number") {
 
                     // Leave Guild
                     const leave_guild_action = function (guildID) {
@@ -213,12 +213,12 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
             }
 
             // Nope
-            else { fn({ success: false, error: 'Bot Value not found!' }); }
+            else { fn({ success: false, error: 'Forbidden!' }); }
 
         }
 
         // Nope
-        else { fn({ success: false, error: 'Forbidden!' }); }
+        else { fn({ success: false, error: 'Bot Value not found!' }); }
         return;
 
     });
@@ -227,10 +227,13 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
     socket.on('getDiscordGuildEmojis', function (guildID, fn) {
 
         // Exist Bot
-        if (socketUser.ids[socket.id].bot) {
+        if (
+            socketUser.ids[socket.id].bot && socketUser.ids[socket.id].bot.user && socketUser.ids[socket.id].bot.user.id && 
+            socketUser.checkPerm(1, socketUser.ids[socket.id].bot.user.id, data.guildID)
+        ) {
 
             // Is Object
-            if (typeof data.guildID === "string" || typeof data.guildID === "number") {
+            if (typeof guildID === "string" || typeof guildID === "number") {
 
                 // Get Guild Emojis
                 socketUser.ids[socket.id].bot.guilds.fetch(guildID).then(guild => {
