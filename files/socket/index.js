@@ -94,7 +94,7 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
     socket.on('connectDiscordBot', function (botID, fn) {
 
         // Is String
-        if ((typeof botID === "string" || typeof botID === "number") && socketUser.checkPerm(1, 'bot', botID)) {
+        if ((typeof botID === "string" || typeof botID === "number") && socketUser.checkPerm(2, 'bot', botID)) {
 
             // Get Bot
             const item = app.discord.bots.find(item => item.bot.user.id === botID);
@@ -229,7 +229,7 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
         // Exist Bot
         if (
             socketUser.ids[socket.id].bot && socketUser.ids[socket.id].bot.user && socketUser.ids[socket.id].bot.user.id &&
-            socketUser.checkPerm(1, 'guild', socketUser.ids[socket.id].bot.user.id, data.guildID)
+            socketUser.checkPerm(2, 'guild', socketUser.ids[socket.id].bot.user.id, data.guildID)
         ) {
 
             // Is Object
