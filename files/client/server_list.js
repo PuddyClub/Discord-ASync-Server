@@ -389,7 +389,6 @@ $('#select_server').click(function () {
 
     // Page System
     $(this).addClass('disabled');
-    pageSystem.page = 1;
     pageSystem.menuOn = true;
     $.LoadingOverlay("show", { background: "rgba(0,0,0, 0.5)" });
     socket.emit('getDiscordGuilds', pageSystem, (data) => {
