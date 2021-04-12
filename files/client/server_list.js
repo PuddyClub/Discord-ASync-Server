@@ -454,9 +454,24 @@ $('#select_server').click(function () {
                     // Prevent Default
                     e.preventDefault();
 
+                    // Values
+                    let owner = $('#server-list-search #formGroupBase_owner > input').val();
+                    let name = $('#server-list-search #formGroupBase_name > input').val();
+                    let members = Number($('#server-list-search #formGroupBase_members > input').val());
+
+                    // Validator
+                    if (members < Number($('#server-list-search #formGroupBase_members > input').attr('min'))) { members = 0; }
+                    if (typeof owner !== "string") { owner = ''; }
+                    if (typeof name !== "string") { name = ''; }
+
+                    // Install Values
+                    pageSystem.filters.owner = owner;
+                    pageSystem.filters.name = name;
+                    pageSystem.filters.members = members;
 
                     // Block Submit HTML
                     $('#server-list-modal').modal('hide');
+                    $('#select_server').trigger('click');
                     return false;
 
                 })
