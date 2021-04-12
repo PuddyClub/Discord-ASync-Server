@@ -12,7 +12,7 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
             const sendLog = function (botID) {
 
                 // Get Discord App
-                const botData = app.discord.bots.find(tbot => tbot.bot.user.id === botID);
+                const botData = app.discord.bots.find(tbot => tbot.bot && tbot.bot.user && tbot.bot.user.id === botID);
                 if (botData && botData.log && botData.log[type]) {
 
                     // Add To Log
