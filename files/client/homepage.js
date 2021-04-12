@@ -319,7 +319,7 @@ $(() => {
 
                                                     // Start Download
                                                     const file = await zip.generateAsync({ type: "blob" });
-                                                    download(file, bot.guild + '.zip', 'application/zip');
+                                                    download(file, 'guild_emojis_' + bot.guild + '.zip', 'application/zip');
                                                     $.LoadingOverlay('hide');
                                                     return;
 
