@@ -297,11 +297,36 @@ tinyLib.formGroup = function (id, data) {
 
         // Group
         else {
+
+            // Base
+            const groupBase = $('<div>', { class: 'input-group ' + data.class });
+
+            // Get Group Values
             for (const item in data.group) {
 
-                const input = insertInput(data.group[item], true);
+                // Get Input
+                let input = null;
+
+                // Normal
+                if (data.group[item].input) {
+                    input = insertInput(data.group[item].input, true);
+                }
+
+                // Group Item
+                else if (typeof data.group[item].text !== "undefined") {
+                    input = $('<div>', { class: 'input-group-' + data.group[item].class }).append(
+                        $('<div>', { class: 'input-group-text' }).append(data.group[item].text)
+                    );
+                }
+
+                // Insert Input
+                groupBase.append(input);
 
             }
+
+            // Group Base
+            result.push(groupBase);
+
         }
 
     }
