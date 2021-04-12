@@ -282,8 +282,9 @@ $(() => {
                                                         else {
 
                                                             const m = fileURLs[item].match(/.*\/(.+?)\./);
+                                                            const fe = fileURLs[item].split('.').pop();
                                                             if (m && m.length > 1) {
-                                                                zip.file(m[1], data, { binary: true });
+                                                                zip.file(m[1] + '.' + fe, data, { binary: true });
                                                             }
                                                             fn();
 
