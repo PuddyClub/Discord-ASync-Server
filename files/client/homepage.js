@@ -166,8 +166,33 @@ $(() => {
                                     for (const item in data.result) {
 
                                         // Button
-                                        const downloadButton = tinyLib.button(tinyLang.download, 'secondary', { href: data.result[item].url },).click(function () {
-                                            download($(this).attr('href'));
+                                        const downloadButton = tinyLib.button(tinyLang.download, 'secondary', { href: data.result[item].url, name: data.result[item].name }).click(function () {
+                                            $.LoadingOverlay("show", { background: "rgba(0,0,0, 0.5)" });
+                                            const emojiName = $(this).attr('name');
+                                            const emojiURL = $(this).attr('href');
+                                            JSZipUtils.getBinaryContent(emojiURL, function (err, data) {
+
+                                                // End
+                                                $.LoadingOverlay('hide');
+
+                                                // Error
+                                                if (err) {
+                                                    tinyLib.modal({
+                                                        dialog: 'modal-lg',
+                                                        id: 'emoji-download-list-error',
+                                                        title: 'Error!',
+                                                        body: err.message,
+                                                        footer: [tinyLib.button(tinyLang.close, 'secondary', { 'data-dismiss': 'modal' })]
+                                                    });
+                                                }
+
+                                                // Nope 
+                                                else {
+                                                    const fe = emojiURL.split('.').pop();
+                                                    download(data, emojiName + '.' + fe, 'image/' + fe);
+                                                }
+
+                                            });
                                             return false;
                                         });
 
@@ -265,14 +290,14 @@ $(() => {
                                                 const zip = new JSZip();
                                                 const fileURLs = [];
                                                 for (const item in downloadList) {
-                                                    fileURLs.push(downloadList[item].attr('href'));
+                                                    fileURLs.push({ href: downloadList[item].attr('href'), name: downloadList[item].attr('name') });
                                                 }
 
                                                 // Insert ZIP Files
                                                 $.LoadingOverlay("show", { background: "rgba(0,0,0, 0.5)" });
                                                 forPromise({ data: fileURLs }, function (item, fn, fn_error) {
 
-                                                    return JSZipUtils.getBinaryContent(fileURLs[item], function (err, data) {
+                                                    return JSZipUtils.getBinaryContent(fileURLs[item].href, function (err, data) {
 
                                                         // Error
                                                         if (err) {
@@ -282,11 +307,8 @@ $(() => {
                                                         // Nope 
                                                         else {
 
-                                                            const m = fileURLs[item].match(/.*\/(.+?)\./);
-                                                            const fe = fileURLs[item].split('.').pop();
-                                                            if (m && m.length > 1) {
-                                                                zip.file(m[1] + '.' + fe, data, { binary: true });
-                                                            }
+                                                            const fe = fileURLs[item].href.split('.').pop();
+                                                            zip.file(fileURLs[item].name + '.' + fe, data, { binary: true });
                                                             fn();
 
                                                         }
