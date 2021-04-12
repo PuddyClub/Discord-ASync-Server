@@ -4,6 +4,22 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
     const user = socketUser.data;
     socketUser.sUser = userData;
 
+    // Send Log
+    socketUser.sendLog = function (type, data) {
+        if (socketUser.ids[socket.id].log[type]) {
+
+            // Add To Log
+            socketUser.ids[socket.id].log[type].push(data);
+
+            // Check Log Size
+            if (socketUser.ids[socket.id].log[type].length > 500) { socketUser.ids[socket.id].log[type].shift(); }
+
+            // Complete
+            //return sendInfo(ioCache, 'dsBot_' + type, socketUser.ids[socket.id].bot.user.id, { item: data, list: socketUser.ids[socket.id].log[type] }, 4);
+
+        }
+    };
+
     // Check User Permission
     socketUser.checkPerm = (perm = 0, type = 'general', botID = null, guildID = null) => {
 
