@@ -92,7 +92,6 @@ const startDiscordSocket = function (ioCache, io, data) {
         // Send Guild Data
         sendInfo(ioCache, 'dsBot_guildRegion', bot.user.id, guild.region, 2, guild.id, 'guild');
         sendInfo(ioCache, 'dsBot_guildName', bot.user.id, guild.name, 2, guild.id, 'guild');
-        sendInfo(ioCache, 'dsBot_guildChannelsCount', bot.user.id, guild.channels.cache.size, 2, guild.id, 'guild');
         sendInfo(ioCache, 'dsBot_guildCreationDate', bot.user.id, require('moment-timezone')(guild.createdAt).format('YYYY-MM-DD'), 2, guild.id, 'guild');
 
         // Complete
@@ -110,6 +109,9 @@ const startDiscordSocket = function (ioCache, io, data) {
 
     bot.on('roleCreate', (role) => { return sendInfo(ioCache, 'dsBot_guildRoleCount', bot.user.id, role.guild.roles.cache.size, 2, role.guild.id, 'guild'); });
     bot.on('roleDelete', (role) => { return sendInfo(ioCache, 'dsBot_guildRoleCount', bot.user.id, role.guild.roles.cache.size, 2, role.guild.id, 'guild'); });
+
+    bot.on('channelCreate', (channel) => { return sendInfo(ioCache, 'dsBot_guildChannelsCount', bot.user.id, channel.guild.channels.cache.size, 2, channel.guild.id, 'guild'); });
+    bot.on('channelDelete', (channel) => { return sendInfo(ioCache, 'dsBot_guildChannelsCount', bot.user.id, channel.guild.channels.cache.size, 2, channel.guild.id, 'guild'); });
 
     bot.on('emojiCreate', (emoji) => { return sendInfo(ioCache, 'dsBot_guildEmojiCount', bot.user.id, emoji.guild.emojis.cache.size, 2, emoji.guild.id, 'guild'); });
     bot.on('emojiDelete', (emoji) => { return sendInfo(ioCache, 'dsBot_guildEmojiCount', bot.user.id, emoji.guild.emojis.cache.size, 2, emoji.guild.id, 'guild'); });
