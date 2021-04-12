@@ -290,7 +290,21 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
 
                 // Get Guild Emojis
                 socketUser.ids[socket.id].bot.guilds.fetch(guildID).then(guild => {
-                    fn({ success: true, result: guild.emojis.cache });
+
+                    // Emoji List
+                    const emojiList = [];
+
+                    // Read Cache
+                    guild.emojis.cache.forEach(function(data, item) {
+                        emojiList.push(data);
+                    });
+
+                    // Send Result
+                    fn({ success: true, result: emojiList });
+
+                    // Complete
+                    return;
+                
                 }).catch(err => {
                     return fn({ success: false, error: err.message });
                 });
