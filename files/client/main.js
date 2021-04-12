@@ -242,7 +242,10 @@ tinyLib.formGroup = function (id, data) {
         if (typeof data.input !== "string") { data.input = 'text'; }
 
         // Insert Input
-        const insertInput = function (data) {
+        const insertInput = function (data, isReturn = false) {
+
+            // Input
+            let input;
 
             // Input
             if (data.input !== "textarea" && data.input !== "select" && data.input !== "range") {
@@ -256,18 +259,18 @@ tinyLib.formGroup = function (id, data) {
                 }
 
                 // Input Text
-                result.push($('<input>', { placeholder: data.placeholder, type: data.input, class: classItem, id: 'exampleInput' + tinyLib.capitalize(id), 'aria-describedby': id + 'Help' }).prop('readonly', data.readonly).val(data.value));
+                input = $('<input>', { placeholder: data.placeholder, type: data.input, class: classItem, id: 'exampleInput' + tinyLib.capitalize(id), 'aria-describedby': id + 'Help' }).prop('readonly', data.readonly).val(data.value);
 
             }
 
             // Range
             else if (data.input === "range") {
-                result.push($('<input>', { type: 'range', min: data.min, max: data.max, step: data.step, class: 'form-control-range ' + data.class, id: 'exampleInput' + tinyLib.capitalize(id), 'aria-describedby': id + 'Help' }).prop('readonly', data.readonly).val(data.value));
+                input = $('<input>', { type: 'range', min: data.min, max: data.max, step: data.step, class: 'form-control-range ' + data.class, id: 'exampleInput' + tinyLib.capitalize(id), 'aria-describedby': id + 'Help' }).prop('readonly', data.readonly).val(data.value);
             }
 
             // Textarea
             else if (data.input === "textarea") {
-                result.push($('<textarea>', { rows: data.rows, class: 'form-control ' + data.class, id: 'exampleInput' + tinyLib.capitalize(id), 'aria-describedby': id + 'Help' }).prop('readonly', data.readonly).text(data.value));
+                input = $('<textarea>', { rows: data.rows, class: 'form-control ' + data.class, id: 'exampleInput' + tinyLib.capitalize(id), 'aria-describedby': id + 'Help' }).prop('readonly', data.readonly).text(data.value);
             }
 
             // Select
@@ -280,9 +283,12 @@ tinyLib.formGroup = function (id, data) {
                 }
 
                 // Insert Result
-                result.push($('<select>', { class: 'form-control ' + data.class, id: 'exampleInput' + tinyLib.capitalize(id), 'aria-describedby': id + 'Help' }).prop('multiple', data.multiple).prop('readonly', data.readonly).append(options).val(data.value));
+                input = $('<select>', { class: 'form-control ' + data.class, id: 'exampleInput' + tinyLib.capitalize(id), 'aria-describedby': id + 'Help' }).prop('multiple', data.multiple).prop('readonly', data.readonly).append(options).val(data.value);
 
             }
+
+            // Return Data
+            if (!isReturn) { result.push(input); return; } else { return input; }
 
         };
 
@@ -291,7 +297,11 @@ tinyLib.formGroup = function (id, data) {
 
         // Group
         else {
-            
+            for (const item in data.group) {
+
+                const input = insertInput(data.group[item], true);
+
+            }
         }
 
     }
