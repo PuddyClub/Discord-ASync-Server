@@ -364,7 +364,7 @@ $(() => {
                             // Complete
                             return false;
 
-                        }), 'fas fa-th-large', 'info').attr('id', 'channel_count'),
+                        }), 'fas fa-th-list', 'info').attr('id', 'channel_count'),
 
                         // Guild Owner
                         toolsCreator.cardRow(tinyLang.guild_owner, '???', 'fas fa-user-tie', 'info').attr('id', 'guild_owner_name'),
