@@ -418,25 +418,32 @@ $('#select_server').click(function () {
 
                 // Form
                 item: $('<form>', { id: 'server-list-search' }).append(
-                    /* 
-                                        // Owner
-                                        tinyLib.formGroup('owner', {
-                                            label: $('<span>').text(tinyLang.owner)
-                                        }),
-                    
-                                        // Name
-                                        tinyLib.formGroup('name', {
-                                            label: $('<span>').text(tinyLang.name)
-                                        }),
-                    
-                                        // Members
-                                        tinyLib.formGroup('members', {
-                                            label: $('<span>').text(tinyLang.members)
-                                        }), */
+
+                    // Owner
+                    tinyLib.formGroup('owner', {
+                        label: $('<span>').text(tinyLang.owner),
+                        input: 'text',
+                        value: pageSystem.filters.owner
+                    }),
+
+                    // Name
+                    tinyLib.formGroup('name', {
+                        label: $('<span>').text(tinyLang.name),
+                        input: 'text',
+                        value: pageSystem.filters.name
+                    }),
+
+                    // Members
+                    tinyLib.formGroup('members', {
+                        label: $('<span>').text(tinyLang.members),
+                        input: 'number',
+                        min: 0,
+                        value: pageSystem.filters.members
+                    }),
 
                     // Submit
                     $('<hr/>'),
-                    $('<center>', {class: 'mb-2'}).append(tinyLib.button(tinyLang.search, 'secondary', { 'data-dismiss': 'modal', type: 'submit' }))
+                    $('<center>', { class: 'mb-2' }).append(tinyLib.button(tinyLang.search, 'secondary', { 'data-dismiss': 'modal', type: 'submit' }))
 
                 ).submit(function () {
 

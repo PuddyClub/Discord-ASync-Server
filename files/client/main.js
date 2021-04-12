@@ -289,14 +289,28 @@ tinyLib.formGroup = function (id, data) {
 
                 // Class Item
                 let classItem = 'form-control';
-                if (!data.class.contains('form-control-plaintext')) {
+                if (typeof data.class !== "string" || !data.class.contains('form-control-plaintext')) {
                     classItem += ' ' + data.class;
                 } else {
                     classItem = data.class;
                 }
 
                 // Input Text
-                input = $('<input>', { placeholder: data.placeholder, type: data.input, class: classItem, id: 'exampleInput' + tinyLib.capitalize(id), 'aria-describedby': id + 'Help' }).prop('readonly', data.readonly).val(data.value);
+                input = $('<input>', { placeholder: data.placeholder, min: data.min, max: data.max, type: data.input, class: classItem, id: 'exampleInput' + tinyLib.capitalize(id), 'aria-describedby': id + 'Help' }).change(function () {
+
+                    // Exist Min
+                    if ($(this).attr('min')) {
+                        const min = Number($(this).attr('min'));
+                        if (Number($(this).val()) < min) { $(this).val(min); }
+                    }
+
+                    // Exist Max
+                    if ($(this).attr('max')) {
+                        const max = Number($(this).attr('max'));
+                        if (Number($(this).val()) > max) { $(this).val(max); }
+                    }
+
+                }).prop('readonly', data.readonly).val(data.value);
 
             }
 
