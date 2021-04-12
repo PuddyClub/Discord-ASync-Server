@@ -419,27 +419,31 @@ $('#select_server').click(function () {
                 // Form
                 item: $('<form>', { id: 'server-list-search' }).append(
 
-                    // Owner
-                    tinyLib.formGroup('owner', {
-                        label: $('<span>').text(tinyLang.owner),
-                        input: 'text',
-                        value: pageSystem.filters.owner
-                    }),
+                    $('<div>', { class: 'row' }).append(
 
-                    // Name
-                    tinyLib.formGroup('name', {
-                        label: $('<span>').text(tinyLang.name),
-                        input: 'text',
-                        value: pageSystem.filters.name
-                    }),
+                        // Owner
+                        $('<div>', { class: 'col-xl-4 col-md-6 mb-4' }).append(tinyLib.formGroup('owner', {
+                            label: $('<span>').text(tinyLang.owner),
+                            input: 'text',
+                            value: pageSystem.filters.owner
+                        })),
 
-                    // Members
-                    tinyLib.formGroup('members', {
-                        label: $('<span>').text(tinyLang.members),
-                        input: 'number',
-                        min: 0,
-                        value: pageSystem.filters.members
-                    }),
+                        // Name
+                        $('<div>', { class: 'col-xl-4 col-md-6 mb-4' }).append(tinyLib.formGroup('name', {
+                            label: $('<span>').text(tinyLang.name),
+                            input: 'text',
+                            value: pageSystem.filters.name
+                        })),
+
+                        // Members
+                        $('<div>', { class: 'col-xl-4 col-md-12 mb-4' }).append(tinyLib.formGroup('members', {
+                            label: $('<span>').text(tinyLang.members),
+                            input: 'number',
+                            min: 0,
+                            value: pageSystem.filters.members
+                        })),
+
+                    ),
 
                     // Submit
                     $('<hr/>'),
