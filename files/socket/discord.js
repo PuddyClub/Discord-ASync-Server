@@ -106,11 +106,11 @@ const startDiscordSocket = function (ioCache, io, data) {
     bot.on('guildMemberAdd', (member) => { return sendInfo(ioCache, 'dsBot_guildMemberCount', bot.user.id, member.guild.memberCount, 2, member.guild.id, 'guild'); });
     bot.on('guildMemberRemove', (member) => { return sendInfo(ioCache, 'dsBot_guildMemberCount', bot.user.id, member.guild.memberCount, 2, member.guild.id, 'guild'); });
 
-    bot.on('roleCreate', (role) => { return sendInfo(ioCache, 'dsBot_guildRoleCount', bot.user.id, role.guild.roles.cache.size, 2, member.guild.id, 'guild'); });
-    bot.on('roleDelete', (role) => { return sendInfo(ioCache, 'dsBot_guildRoleCount', bot.user.id, role.guild.roles.cache.size, 2, member.guild.id, 'guild'); });
+    bot.on('roleCreate', (role) => { return sendInfo(ioCache, 'dsBot_guildRoleCount', bot.user.id, role.guild.roles.cache.size, 2, role.guild.id, 'guild'); });
+    bot.on('roleDelete', (role) => { return sendInfo(ioCache, 'dsBot_guildRoleCount', bot.user.id, role.guild.roles.cache.size, 2, role.guild.id, 'guild'); });
 
-    bot.on('emojiCreate', (emoji) => { return sendInfo(ioCache, 'dsBot_guildEmojiCount', bot.user.id, emoji.guild.emojis.cache.size, 2, member.guild.id, 'guild'); });
-    bot.on('emojiDelete', (emoji) => { return sendInfo(ioCache, 'dsBot_guildEmojiCount', bot.user.id, emoji.guild.emojis.cache.size, 2, member.guild.id, 'guild'); });
+    bot.on('emojiCreate', (emoji) => { return sendInfo(ioCache, 'dsBot_guildEmojiCount', bot.user.id, emoji.guild.emojis.cache.size, 2, emoji.guild.id, 'guild'); });
+    bot.on('emojiDelete', (emoji) => { return sendInfo(ioCache, 'dsBot_guildEmojiCount', bot.user.id, emoji.guild.emojis.cache.size, 2, emoji.guild.id, 'guild'); });
 
     // Complete
     return;
