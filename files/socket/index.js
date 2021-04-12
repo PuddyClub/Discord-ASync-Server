@@ -7,19 +7,44 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
     // Send Log
     socketUser.sendLog = function (type, data) {
         if (typeof type === "string" && socketUser.checkPerm(4)) {
+
+            // Send Log
+            const sendLog = function (botID) {
+
+                // Get Discord App
+                const botData = app.discord.bots.find(tbot => tbot.bot.user.id === botID);
+                if (botData && botData.log && botData.log[type]) {
+
+                    // Add To Log
+                    botData.log[type].push(data);
+
+                    // Check Log Size
+                    if (botData.log[type].length > 500) { botData.log[type].shift(); }
+
+                    // Complete
+                    socket.emit('dsBot_' + type, { item: data, list: botData.log[type] });
+
+                }
+
+            };
+
+            // Type Log Fix
             if (type === "log") { type = 'info'; }
-            if (socketUser.ids[socket.id].log[type]) {
 
-                // Add To Log
-                socketUser.ids[socket.id].log[type].push(data);
-
-                // Check Log Size
-                if (socketUser.ids[socket.id].log[type].length > 500) { socketUser.ids[socket.id].log[type].shift(); }
-
-                // Complete
-                socket.emit('dsBot_' + type, { item: data, list: socketUser.ids[socket.id].log[type] });
-
+            // Is Bot
+            if (socketUser.ids[socket.id].bot && socketUser.ids[socket.id].bot.user && socketUser.ids[socket.id].bot.user.id) {
+                sendLog(socketUser.ids[socket.id].bot.user.id);
             }
+
+            // Nope
+            else {
+                for (const item in app.discord.bots) {
+                    if (app.discord.bots[item].bot && app.discord.bots[item].bot.user && app.discord.bots[item].bot.user.id) {
+                        sendLog(app.discord.bots[item].bot.user.id);
+                    }
+                }
+            }
+
         }
     };
 
@@ -30,13 +55,13 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
         if (
 
             // Global Perm
-            socketUser.sUser.perm > perm ||
+            socketUser.sUser.perm >= perm ||
 
             // Guild Perm
-            ((typeof guildID === "string" || typeof guildID === "number") && (type === 'guild' || type === 'general') && socketUser.sUser.guildsPerm && socketUser.sUser.guildsPerm[guildID] > perm) ||
+            ((typeof guildID === "string" || typeof guildID === "number") && (type === 'guild' || type === 'general') && socketUser.sUser.guildsPerm && socketUser.sUser.guildsPerm[guildID] >= perm) ||
 
             // Bot Perm
-            ((typeof botID === "string" || typeof botID === "number") && (type === 'bot' || type === 'general') && socketUser.sUser.botsPerm && socketUser.sUser.botsPerm[botID] > perm)
+            ((typeof botID === "string" || typeof botID === "number") && (type === 'bot' || type === 'general') && socketUser.sUser.botsPerm && socketUser.sUser.botsPerm[botID] >= perm)
 
         ) { return true; }
 
