@@ -165,7 +165,7 @@ $(() => {
                         toolsCreator.cardRow(tinyLang.members, '???', 'fas fa-users', 'info').attr('id', 'members_count'),
 
                         // Creation Date
-                        toolsCreator.cardRow(tinyLang.creation_date, '???', 'fas fa-calendar').attr('id', 'creation_date')
+                        toolsCreator.cardRow(tinyLang.creation_date, '???', 'fas fa-calendar', 'info').attr('id', 'creation_date')
 
                     )
 
