@@ -447,14 +447,16 @@ $('#select_server').click(function () {
 
                     // Submit
                     $('<hr/>'),
-                    $('<center>', { class: 'mb-2' }).append(tinyLib.button(tinyLang.search, 'secondary', { 'data-dismiss': 'modal', type: 'submit' }))
+                    $('<center>', { class: 'mb-2' }).append(tinyLib.button(tinyLang.search, 'secondary', { type: 'submit' }))
 
-                ).submit(function () {
+                ).submit(function (e) {
 
-                    // Test Submit
-                    console.log('Search!');
+                    // Prevent Default
+                    e.preventDefault();
+
 
                     // Block Submit HTML
+                    $('#server-list-modal').modal('hide');
                     return false;
 
                 })
