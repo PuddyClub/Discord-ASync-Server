@@ -323,7 +323,7 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
                         } else { emojiCache.author = null; }
 
                         // Insert Cache
-                        emojiList.push();
+                        emojiList.push(emojiCache);
 
                     });
 
