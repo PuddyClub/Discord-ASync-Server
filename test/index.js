@@ -88,12 +88,17 @@ tinyCfg.web.middleware = function (web, app) {
         // Socket Plugin
         socket: function (i) {
 
+            // User Connected
             console.log('User Connected!');
             console.log(i);
+
+            // Send Log
+            i.socketUser.sendLog('info', `User ID ${socket.id} is connected!`);            
 
             // Disconnected
             i.socket.on('disconnect', (reason) => {
                 console.log(reason); // "ping timeout"
+                i.socketUser.sendLog('info', `User ID ${socket.id} is disconnected!`);
             });
 
         }
