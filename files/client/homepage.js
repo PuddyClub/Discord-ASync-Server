@@ -150,13 +150,13 @@ $(() => {
                         toolsCreator.cardRow(tinyLang.name, '???', 'fas fa-font', 'info').attr('id', 'server_name'),
 
                         // Emojis
-                        toolsCreator.cardRow(tinyLang.emojis, '???', 'far fa-laugh-beam', 'info').attr('id', 'emoji_count'),
+                        toolsCreator.cardRow(tinyLang.emojis, $('<a>', {href: 'javascript:void(0);'}).text('???'), 'far fa-laugh-beam', 'info').attr('id', 'emoji_count'),
 
                         // Roles
-                        toolsCreator.cardRow(tinyLang.roles, '???', 'fas fa-flag', 'info').attr('id', 'role_count'),
+                        toolsCreator.cardRow(tinyLang.roles,$('<a>', {href: 'javascript:void(0);'}).text('???'), 'fas fa-flag', 'info').attr('id', 'role_count'),
 
                         // Channels
-                        toolsCreator.cardRow(tinyLang.channels, '???', 'fas fa-th-large', 'info').attr('id', 'channel_count'),
+                        toolsCreator.cardRow(tinyLang.channels, $('<a>', {href: 'javascript:void(0);'}).text('???'), 'fas fa-th-large', 'info').attr('id', 'channel_count'),
 
                         // Guild Owner
                         toolsCreator.cardRow(tinyLang.guild_owner, '???', 'fas fa-user-tie', 'info').attr('id', 'guild_owner_name'),
@@ -199,11 +199,11 @@ $(() => {
 
     // Guild Data
     socket.on('dsBot_guildMemberCount', (count) => { $('#guild_info_table #members_count #info').text(count); });
-    socket.on('dsBot_guildEmojiCount', (count) => { $('#guild_info_table #emoji_count #info').text(count); });
-    socket.on('dsBot_guildRoleCount', (count) => { $('#guild_info_table #role_count #info').text(count); });
+    socket.on('dsBot_guildEmojiCount', (count) => { $('#guild_info_table #emoji_count #info > a').text(count); });
+    socket.on('dsBot_guildRoleCount', (count) => { $('#guild_info_table #role_count #info > a').text(count); });
     socket.on('dsBot_guildRegion', (count) => { $('#guild_info_table #server_region #info').text(count); });
     socket.on('dsBot_guildName', (count) => { $('#guild_info_table #server_name #info').text(count); });
-    socket.on('dsBot_guildChannelsCount', (count) => { $('#guild_info_table #channel_count #info').text(count); });
+    socket.on('dsBot_guildChannelsCount', (count) => { $('#guild_info_table #channel_count #info > a').text(count); });
     socket.on('dsBot_guildCreationDate', (count) => { $('#guild_info_table #creation_date #info').text(count); });
 
     socket.on('dsBot_guildOwner', (user) => {
