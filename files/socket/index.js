@@ -309,13 +309,7 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
                             deleted: data.deleted,
                             identifier: data.identifier,
                             url: data.url,
-                            createdAt: moment(data.createdAt).format('YYYY-MM-DD'),
-                            author: {
-                                id: data.author.id,
-                                tag: data.author.tag,
-                                username: data.author.username,
-                                discriminator: data.author.discriminator,
-                            }
+                            createdAt: moment(data.createdAt).format('YYYY-MM-DD')
                         };
 
                         // Exist Author
