@@ -430,7 +430,6 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
                 await Promise.all(socketUser.ids[socket.id].bot.guilds.cache.map(async (guild) => {
 
                     // Get Guild Owner
-                    console.log(guild);
                     let guildOwner = null;
                     if (data.filters.owner.length > 0) {
                         try { guildOwner = await guild.members.fetch(guild.ownerID); } catch (err) { guildOwner = null; }
@@ -446,7 +445,18 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
                         (data.filters.name.length < 1 || guild.name.contains(data.filters.name, 1)) &&
 
                         // Owner
-                        (data.filters.owner.length < 1 || guild.ownerID === data.filters.owner)
+                        (!guildOwner || (
+
+                            // Exist Nickname
+                            (typeof guildOwner.nickname === "string" && guildOwner.nickname.contains(data.filters.owner, 1)) ||
+
+                            // Exist User
+                            (guildOwner.user && typeof guildOwner.user.tag === "string" && guildOwner.user.tag.contains(data.filters.owner, 1)) ||
+
+                            // Is Same ID
+                            guild.ownerID === data.filters.owner
+
+                        ))
 
                     ) {
 
