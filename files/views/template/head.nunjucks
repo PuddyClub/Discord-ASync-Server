@@ -14,6 +14,7 @@
 {{global.head.js.downloadjs | safe}}
 {{global.head.js.easing | safe}}
 {{global.head.js.chart | safe}}
+<script src="/js/forPromise.js?v={{global.cache_code}}"></script>
 
 {# CSS #}
 {{global.head.css.bootstrap | safe}}

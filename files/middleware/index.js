@@ -49,6 +49,18 @@ module.exports = async function (resolve, reject, ioCache, discordCfg, webCfg, f
     const readFile = require('@tinypudding/puddy-lib/http/fileCache');
     const fileAge = '2592000000';
 
+    // For Promise
+    web.app.get('/js/forPromise.js', function (req, res, next) {
+        return readFile(
+            res, next, {
+            file: require('for-promise/getBrowserVersion')(),
+            date: { year: 2021, month: 3, day: 30, hour: 17, minute: 29 },
+            timezone: 'America/Sao_Paulo',
+            fileMaxAge: fileAge
+        }
+        );
+    });
+
     // Main
     web.app.get('/js/main.js', function (req, res, next) {
         return readFile(

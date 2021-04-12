@@ -209,7 +209,7 @@ $(() => {
                                     // Modal
                                     tinyLib.modal({
                                         dialog: 'modal-lg',
-                                        id: 'server-list-modal',
+                                        id: 'emoji-download-list',
                                         title: tinyLang.emojis,
                                         body: tinyLib.table({
 
@@ -258,7 +258,7 @@ $(() => {
                                         footer: [
 
                                             // Download All
-                                            tinyLib.button(tinyLang.close, 'primary').text(tinyLang.download_all).click(async function () {
+                                            tinyLib.button(tinyLang.close, 'primary').text(tinyLang.download_all).click(function () {
 
                                                 // Prepare ZIP
                                                 const zip = new JSZip();
@@ -268,10 +268,51 @@ $(() => {
                                                 }
 
                                                 // Insert ZIP Files
+                                                $.LoadingOverlay("show", { background: "rgba(0,0,0, 0.5)" });
+                                                forPromise({ data: fileURLs }, function (item, fn, fn_error) {
 
-                                                // Start Download
-                                                const file = await zip.generateAsync({type:"blob"});
-                                                download(file, bot.guild + '.zip', 'application/zip');
+                                                    return JSZipUtils.getBinaryContent(fileURLs[item], function (err, data) {
+
+                                                        // Error
+                                                        if (err) {
+                                                            fn_error(err); // or handle the error
+                                                        }
+
+                                                        // Nope 
+                                                        else {
+
+                                                            const m = fileURLs[item].match(/.*\/(.+?)\./);
+                                                            if (m && m.length > 1) {
+                                                                zip.file(m[1], data, { binary: true });
+                                                            }
+                                                            fn();
+
+                                                        }
+
+                                                    });
+
+                                                }).then(async () => {
+
+                                                    // Start Download
+                                                    const file = await zip.generateAsync({ type: "blob" });
+                                                    download(file, bot.guild + '.zip', 'application/zip');
+                                                    $.LoadingOverlay('hide');
+                                                    return;
+
+                                                }).catch(err => {
+
+                                                    // Fail Error Message
+                                                    $.LoadingOverlay('hide');
+                                                    tinyLib.modal({
+                                                        dialog: 'modal-lg',
+                                                        id: 'emoji-download-list-error',
+                                                        title: 'Error!',
+                                                        body: err.message,
+                                                        footer: [tinyLib.button(tinyLang.close, 'secondary', { 'data-dismiss': 'modal' })]
+                                                    });
+
+                                                });
+
                                                 return;
 
                                             }),
@@ -290,7 +331,7 @@ $(() => {
                                     // Fail Error Message
                                     tinyLib.modal({
                                         dialog: 'modal-lg',
-                                        id: 'server-list-modal-error',
+                                        id: 'emoji-download-list-error',
                                         title: 'Error!',
                                         body: data.error,
                                         footer: [tinyLib.button(tinyLang.close, 'secondary', { 'data-dismiss': 'modal' })]
