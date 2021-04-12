@@ -14,9 +14,6 @@ const openServer = (data, isCount, isSelected) => {
         // Is Selected
         if (isSelected) {
 
-            // Data
-            console.log(data);
-
             // Complete
             startGuild(bot.guild, false);
 
