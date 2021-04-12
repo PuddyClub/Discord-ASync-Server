@@ -158,11 +158,14 @@ $(() => {
                         // Channels
                         toolsCreator.cardRow(tinyLang.channels, '???', 'fas fa-th-large', 'info').attr('id', 'channel_count'),
 
+                        // Guild Owner
+                        toolsCreator.cardRow(tinyLang.guild_owner, '???', 'fas fa-user-tie', 'info').attr('id', 'guild_owner_name'),
+
                         // Members
-                        toolsCreator.cardRow(tinyLang.members, '???', 'fas fa-users', 'info', 'col-xl-6 col-md-6 col-lg-6 mb-4').attr('id', 'members_count'),
+                        toolsCreator.cardRow(tinyLang.members, '???', 'fas fa-users', 'info').attr('id', 'members_count'),
 
                         // Creation Date
-                        toolsCreator.cardRow(tinyLang.creation_date, '???', 'fas fa-calendar', 'info', 'col-xl-6 col-md-6 col-lg-6 mb-4').attr('id', 'creation_date')
+                        toolsCreator.cardRow(tinyLang.creation_date, '???', 'fas fa-calendar').attr('id', 'creation_date')
 
                     )
 
@@ -203,7 +206,11 @@ $(() => {
     socket.on('dsBot_guildChannelsCount', (count) => { $('#guild_info_table #channel_count #info').text(count); });
     socket.on('dsBot_guildCreationDate', (count) => { $('#guild_info_table #creation_date #info').text(count); });
 
-    socket.on('dsBot_guildOwner', (user) => { console.log(user); });
+    socket.on('dsBot_guildOwner', (user) => {
+        $('#guild_info_table #guild_owner_name #info').empty().append(
+            $('<span>').text(user.tag), ' ', $('<small>').text(user.id)
+        );
+    });
 
     socket.on('refreshPage', () => { location.reload(); });
     socket.on("disconnect", () => {

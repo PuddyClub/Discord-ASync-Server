@@ -1,5 +1,6 @@
 {
     "id": "ID",
+    "guild_owner": "Guild Owner",
     "servers": "Servers",
     "channels": "Channels",
     "server_list": "Server List",
