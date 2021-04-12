@@ -343,7 +343,7 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
                     const moment = require('moment-timezone');
 
                     // Read Cache
-                    guild.emojis.cache.forEach(function (data, item) {
+                    guild.emojis.cache.forEach(function (data) {
 
                         // Prepare Cache
                         const emojiCache = {
@@ -424,18 +424,25 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
                     perpage = data.perpage;
                 }
 
+                // Create Cache
+                // Array.from(socketUser.ids[socket.id].bot.guilds.cache.keys())
+                const guilds = [];
+                socketUser.ids[socket.id].bot.guilds.cache.forEach(function (data) {
+                    guilds.push(data);
+                });
+
                 // Pagination
                 const pagination = require('@tinypudding/puddy-lib/get/pagination');
 
                 const paginate = require("paginate-array");
-                const paginateCollection = paginate(Array.from(socketUser.ids[socket.id].bot.guilds.cache.keys()), pager, perpage);
+                const paginateCollection = paginate(guilds, pager, perpage);
                 const navigator = pagination('page', paginateCollection.currentPage, paginateCollection.totalPages, 'javascript:void(0);', 'justify-content-center', 'my-2');
 
                 // Data
                 for (const item in paginateCollection.data) {
 
                     // Guild
-                    const guild = socketUser.ids[socket.id].bot.guilds.cache.find(guild => guild.id === paginateCollection.data[item]);;
+                    const guild = paginateCollection.data[item];
                     let avatar = guild.iconURL({ size: 32 });
                     if (!avatar) { avatar = require('@tinypudding/discord-oauth2/get/randomAvatar')(); }
 
