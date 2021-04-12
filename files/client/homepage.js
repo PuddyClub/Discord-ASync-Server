@@ -6,6 +6,7 @@ var bot = { id: null, log: {} };
 var startApp = function (isReconnect) { };
 var startBot = function (id, isReconnect) { };
 var startGuild = function (id, isReconnect) { };
+var receiveLog = function(type, isNew, data) {};
 
 $(() => {
 

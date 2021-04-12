@@ -6,12 +6,17 @@ const updateLog = function (data, type) {
     if (Array.isArray(data.list)) { bot.log[type].list = data.list; }
 
     // Exist Item
+    let isNew = false;
     if (data.item) {
 
         // Add New Value
         bot.log[type].new++;
+        isNew = true;
 
     }
+
+    // Receive Log Plugin
+    receiveLog(type, isNew, bot.log[type]);
 
     // Complete
     return;
