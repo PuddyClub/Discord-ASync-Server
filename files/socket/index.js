@@ -6,7 +6,7 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
 
     // Send Log
     socketUser.sendLog = function (type, data) {
-        if (typeof type === "string") {
+        if (typeof type === "string" && socketUser.checkPerm(4)) {
             if (type === "log") { type = 'info'; }
             if (socketUser.ids[socket.id].log[type]) {
 
@@ -17,7 +17,7 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
                 if (socketUser.ids[socket.id].log[type].length > 500) { socketUser.ids[socket.id].log[type].shift(); }
 
                 // Complete
-                //return sendInfo(ioCache, 'dsBot_' + type, socketUser.ids[socket.id].bot.user.id, { item: data, list: socketUser.ids[socket.id].log[type] }, 4);
+                socket.emit('dsBot_' + type, { item: data, list: socketUser.ids[socket.id].log[type] });
 
             }
         }
