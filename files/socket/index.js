@@ -36,6 +36,11 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
             socket.emit('dsBot_guildMemberCount', socketUser.ids[socket.id].guild.memberCount);
             socket.emit('dsBot_guildRoleCount', socketUser.ids[socket.id].guild.roles.cache.size);
             socket.emit('dsBot_guildEmojiCount', socketUser.ids[socket.id].guild.emojis.cache.size);
+            
+            socket.emit('dsBot_guildRegion', socketUser.ids[socket.id].guild.region);
+            socket.emit('dsBot_guildName', socketUser.ids[socket.id].guild.name);
+            socket.emit('dsBot_guildChannelsCount', socketUser.ids[socket.id].guild.channels.cache.size);
+            socket.emit('dsBot_guildCreationDate', require('moment-timezone')(socketUser.ids[socket.id].guild.createdAt).format('YYYY-MM-DD'));
 
         }
 

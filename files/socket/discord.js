@@ -86,6 +86,12 @@ const startDiscordSocket = function (ioCache, io, data) {
 
         // Update Guild Count
         sendInfo(ioCache, 'dsBot_guildMemberCount', bot.user.id, guild.memberCount, 2, guild.id, 'guild');
+
+        // Send Guild Data
+        sendInfo(ioCache, 'dsBot_guildRegion', bot.user.id, guild.region, 2, guild.id, 'guild');
+        sendInfo(ioCache, 'dsBot_guildName', bot.user.id, guild.name, 2, guild.id, 'guild');
+        sendInfo(ioCache, 'dsBot_guildChannelsCount', bot.user.id, guild.channels.cache.size, 2, guild.id, 'guild');
+        sendInfo(ioCache, 'dsBot_guildCreationDate', bot.user.id, require('moment-timezone')(guild.createdAt).format('YYYY-MM-DD'), 2, guild.id, 'guild');
     
         // Complete
         return;
