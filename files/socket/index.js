@@ -396,7 +396,7 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
     });
 
     // Get Guild Emojis
-    socket.on('getDiscordGuilds', function (data, fn) {
+    socket.on('getDiscordGuilds', async function (data, fn) {
 
         // Exist Bot
         if (socketUser.ids[socket.id].bot) {
@@ -427,10 +427,17 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
                 // Create Cache
                 // Array.from(socketUser.ids[socket.id].bot.guilds.cache.keys())
                 const guilds = [];
-                socketUser.ids[socket.id].bot.guilds.cache.forEach(function (guild) {
+                await Promise.all(socketUser.ids[socket.id].bot.guilds.cache.map(async (guild) => {
+
+                    // Get Guild Owner
+                    console.log(guild);
+                    let guildOwner = null;
+                    if (data.filters.owner.length > 0) {
+                        try { guildOwner = await guild.members.fetch(guild.ownerID); } catch (err) { guildOwner = null; }
+                    }
 
                     // Filter
-                    if(
+                    if (
 
                         // Members
                         (data.filters.members < 1 || guild.memberCount <= data.filters.members) &&
@@ -443,15 +450,15 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
 
                     ) {
 
-                    // Add Guild
-                    guilds.push(data);
+                        // Add Guild
+                        guilds.push(guild);
 
-                }
+                    }
 
                     // Complete
                     return;
-                
-                });
+
+                }));
 
                 // Pagination
                 const pagination = require('@tinypudding/puddy-lib/get/pagination');
