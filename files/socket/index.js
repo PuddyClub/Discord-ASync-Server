@@ -232,6 +232,38 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
 
     });
 
+    // Get Guild Channels
+    socket.on('getDiscordGuildChannels', function (guildID, fn) {
+
+        // Exist Bot
+        if (
+            socketUser.ids[socket.id].bot && socketUser.ids[socket.id].bot.user && socketUser.ids[socket.id].bot.user.id &&
+            socketUser.checkPerm(2, 'guild', socketUser.ids[socket.id].bot.user.id, data.guildID)
+        ) {
+
+        }
+
+        // Nope
+        else { fn({ success: false, error: 'Bot Value not found!' }); }
+
+    });
+
+    // Get Guild Roles
+    socket.on('getDiscordGuildRoles', function (guildID, fn) {
+
+        // Exist Bot
+        if (
+            socketUser.ids[socket.id].bot && socketUser.ids[socket.id].bot.user && socketUser.ids[socket.id].bot.user.id &&
+            socketUser.checkPerm(2, 'guild', socketUser.ids[socket.id].bot.user.id, data.guildID)
+        ) {
+
+        }
+
+        // Nope
+        else { fn({ success: false, error: 'Bot Value not found!' }); }
+
+    });
+
     // Get Guild Emojis
     socket.on('getDiscordGuildEmojis', function (guildID, fn) {
 
