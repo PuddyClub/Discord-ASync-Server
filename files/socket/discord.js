@@ -57,6 +57,9 @@ const startDiscordSocket = function (ioCache, io, data) {
     // Create Log
     data.log = {};
 
+    // Create Info
+    data.log.info = [];
+
     // Create Error
     data.log.error = [];
 

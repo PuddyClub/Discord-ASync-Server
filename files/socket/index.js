@@ -81,6 +81,7 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
             socket.emit('dsBot_warn', { item: null, list: socketUser.ids[socket.id].log.warn });
             socket.emit('dsBot_rateLimit', { item: null, list: socketUser.ids[socket.id].log.rateLimit });
             socket.emit('dsBot_shardError', { item: null, list: socketUser.ids[socket.id].log.shardError });
+            socket.emit('dsBot_info', { item: null, list: socketUser.ids[socket.id].log.info });
         }
 
         // Complete
