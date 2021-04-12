@@ -203,6 +203,8 @@ $(() => {
     socket.on('dsBot_guildChannelsCount', (count) => { $('#guild_info_table #channel_count #info').text(count); });
     socket.on('dsBot_guildCreationDate', (count) => { $('#guild_info_table #creation_date #info').text(count); });
 
+    socket.on('dsBot_guildOwner', (user) => { console.log(user); });
+
     socket.on('refreshPage', () => { location.reload(); });
     socket.on("disconnect", () => {
         $.LoadingOverlay("show", { background: "rgba(0,0,0, 0.5)", text: tinyLang.reconnecting });

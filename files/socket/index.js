@@ -27,7 +27,7 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
     };
 
     // Connect Discord Bot Guild
-    socket.on('updateCountPage', function (type) {
+    socket.on('updateCountPage', async function (type) {
 
         // Exist Guild
         if (socketUser.ids[socket.id].guild) {
@@ -41,6 +41,15 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
             socket.emit('dsBot_guildName', socketUser.ids[socket.id].guild.name);
             socket.emit('dsBot_guildChannelsCount', socketUser.ids[socket.id].guild.channels.cache.size);
             socket.emit('dsBot_guildCreationDate', require('moment-timezone')(socketUser.ids[socket.id].guild.createdAt).format('YYYY-MM-DD'));
+            
+            const guildOwner = await socketUser.ids[socket.id].guild.members.fetch(socketUser.ids[socket.id].guild.ownerID);
+            socket.emit('dsBot_guildOwner', {
+                id: guildOwner.user.id,
+                tag: guildOwner.user.tag,
+                username: guildOwner.user.username,
+                nickname: guildOwner.nickname,
+                discriminator: guildOwner.user.discriminator
+            });
 
         }
 
@@ -57,6 +66,9 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
             socket.emit('dsBot_rateLimit', { item: null, list: socketUser.ids[socket.id].log.rateLimit });
             socket.emit('dsBot_shardError', { item: null, list: socketUser.ids[socket.id].log.shardError });
         }
+
+        // Complete
+        return;
 
     });
 

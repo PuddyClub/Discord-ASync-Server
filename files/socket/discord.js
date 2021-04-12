@@ -84,7 +84,7 @@ const startDiscordSocket = function (ioCache, io, data) {
     bot.on('guildDelete', () => { return sendInfo(ioCache, 'dsBot_serverCount', bot.user.id, { value: bot.guilds.cache.size, isCount: false }); });
 
     // Guild Item
-    const updateGuildData = (guild) => {
+    const updateGuildData = async (guild) => {
 
         // Update Guild Count
         sendInfo(ioCache, 'dsBot_guildMemberCount', bot.user.id, guild.memberCount, 2, guild.id, 'guild');
@@ -93,6 +93,15 @@ const startDiscordSocket = function (ioCache, io, data) {
         sendInfo(ioCache, 'dsBot_guildRegion', bot.user.id, guild.region, 2, guild.id, 'guild');
         sendInfo(ioCache, 'dsBot_guildName', bot.user.id, guild.name, 2, guild.id, 'guild');
         sendInfo(ioCache, 'dsBot_guildCreationDate', bot.user.id, require('moment-timezone')(guild.createdAt).format('YYYY-MM-DD'), 2, guild.id, 'guild');
+        
+        const guildOwner = await guild.members.fetch(guild.ownerID);
+        sendInfo(ioCache, 'dsBot_guildOwner', bot.user.id, {
+            id: guildOwner.user.id,
+            tag: guildOwner.user.tag,
+            username: guildOwner.user.username,
+            nickname: guildOwner.nickname,
+            discriminator: guildOwner.user.discriminator
+        }, 2, guild.id, 'guild');
 
         // Complete
         return;
