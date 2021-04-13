@@ -314,10 +314,18 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
                     guild.channels.cache.forEach(function (data) {
 
                         // Prepare Cache
-                        console.log(data);
                         const channelCache = {
                             id: data.id,
                             name: data.name,
+                            type: data.type,
+                            nsfw: data.nsfw,
+                            parentID: data.parentID,
+                            rateLimitPerUser: data.rateLimitPerUser,
+                            topic: data.topic,
+                            position: data.position,
+                            rawPosition: data.rawPosition,
+                            viewable: data.viewable,
+                            deleted: data.deleted,
                             createdAt: moment(data.createdAt).format('YYYY-MM-DD')
                         };
 
@@ -374,10 +382,17 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
                     guild.roles.cache.forEach(function (data) {
 
                         // Prepare Cache
-                        console.log(data);
                         const roleCache = {
                             id: data.id,
+                            deleted: data.deleted,
+                            color: data.color,
+                            hexColor: data.hexColor,
                             name: data.name,
+                            hoist: data.hoist,
+                            mentionable: data.mentionable,
+                            permissions: data.permissions,
+                            position: data.position,
+                            rawPosition: data.rawPosition,
                             createdAt: moment(data.createdAt).format('YYYY-MM-DD')
                         };
 
