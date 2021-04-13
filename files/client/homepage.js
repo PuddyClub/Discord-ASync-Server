@@ -372,10 +372,33 @@ $(() => {
 
                         // Roles
                         toolsCreator.cardRow(tinyLang.roles, $('<a>', { href: 'javascript:void(0);' }).text('???').click(function () {
-                            
+
+                            $.LoadingOverlay("show", { background: "rgba(0,0,0, 0.5)" });
                             socket.emit('getDiscordGuildRoles', bot.guild, (data) => {
 
-                                console.log(data);
+                                // Remove Loading
+                                $.LoadingOverlay("hide");
+
+                                // Success
+                                if (data.success) {
+
+                                    console.log(data);
+
+                                }
+
+                                // Fail
+                                else {
+
+                                    // Fail Error Message
+                                    tinyLib.modal({
+                                        dialog: 'modal-lg',
+                                        id: 'emoji-download-list-error',
+                                        title: 'Error!',
+                                        body: data.error,
+                                        footer: [tinyLib.button(tinyLang.close, 'secondary', { 'data-dismiss': 'modal' })]
+                                    });
+
+                                }
 
                             });
 
@@ -387,9 +410,32 @@ $(() => {
                         // Channels
                         toolsCreator.cardRow(tinyLang.channels, $('<a>', { href: 'javascript:void(0);' }).text('???').click(function () {
 
+                            $.LoadingOverlay("show", { background: "rgba(0,0,0, 0.5)" });
                             socket.emit('getDiscordGuildChannels', bot.guild, (data) => {
 
-                                console.log(data);
+                                // Remove Loading
+                                $.LoadingOverlay("hide");
+
+                                // Success
+                                if (data.success) {
+
+                                    console.log(data);
+
+                                }
+
+                                // Fail
+                                else {
+
+                                    // Fail Error Message
+                                    tinyLib.modal({
+                                        dialog: 'modal-lg',
+                                        id: 'emoji-download-list-error',
+                                        title: 'Error!',
+                                        body: data.error,
+                                        footer: [tinyLib.button(tinyLang.close, 'secondary', { 'data-dismiss': 'modal' })]
+                                    });
+
+                                }
 
                             });
 
