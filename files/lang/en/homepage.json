@@ -3,6 +3,7 @@
     "store": "Store",
     "text": "Text",
     "dm": "DM",
+    "topic": "topic",
     "voice": "Voice",
     "unknown": "Unknown",
     "no_category": "No Category",

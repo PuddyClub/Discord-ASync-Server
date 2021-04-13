@@ -104,7 +104,34 @@ if (data.success) {
                 const body = [];
                 for (const citem in groups[item].items[itemsOrder[ctype]]) {
 
-                    console.log(groups[item].items[itemsOrder[ctype]][citem]);
+                    // New Item
+                    const newItem = { items: [] };
+
+                    // Item
+                    const channel = groups[item].items[itemsOrder[ctype]][citem];
+
+                    // Is Visible
+                    let isVisible;
+                    if (channel.viewable) {
+                        isVisible = tinyLib.fontAwesome('fa-eye', 'fas');
+                    }
+
+                    // Nope
+                    else {
+                        isVisible = tinyLib.fontAwesome('fa-eye-slash', 'fas');
+                    }
+
+                    // Add Item
+                    newItem.items.push({
+                        item: $('<span>').append(
+                            $('<div>').text(channel.name).append(isVisible.addClass('ml-2')),
+                            $('<small>').text(channel.id),
+                        ),
+                        isText: false
+                    });
+
+                    // Add to Body
+                    body.push(newItem);
 
                 }
 
@@ -115,7 +142,7 @@ if (data.success) {
                 items.push(tinyLib.table({
 
                     // Info
-                    id: 'channels_items_' + itemsOrder[ctype] +'_list',
+                    id: 'channels_items_' + itemsOrder[ctype] + '_list',
                     class: 'table-striped',
                     responsive: true,
 
