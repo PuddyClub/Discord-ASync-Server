@@ -159,7 +159,7 @@ if (data.success) {
                 else { typeChannelIcon = tinyLib.fontAwesome('fa-question-circle', 'fas'); }
 
                 // Add Item Type
-                items.push($('<h5>').text(tinyLang[itemsOrder[ctype]]).prepend(typeChannelIcon.addClass('ml-2')));
+                items.push($('<h5>').text(tinyLang[itemsOrder[ctype]]).prepend(typeChannelIcon.addClass('mr-2')));
 
                 // Create Table of Channel Type
                 items.push(tinyLib.table({
@@ -269,6 +269,9 @@ if (data.success) {
         body: mainTable,
         footer: [tinyLib.button(tinyLang.close, 'secondary', { 'data-dismiss': 'modal' })]
     });
+
+    $('#channel-list .modal-lg').css('max-width', '95%');
+    $('#channel-list').css('background-color', 'rgba(0,0,0,0.8)');
 
 }
 
