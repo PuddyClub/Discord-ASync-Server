@@ -80,6 +80,7 @@ module.exports = async function (resolve, reject, ioCache, discordCfg, webCfg, f
             file: fs.readFileSync(path.join(__dirname, '../client/homepage.js'), 'utf8')
                 .replace('{ { server_list_script } }', fs.readFileSync(path.join(__dirname, '../client/server_list.js'), 'utf8'))
                 .replace('{ { log_update_script } }', fs.readFileSync(path.join(__dirname, '../client/update_log.js'), 'utf8'))
+                .replace('{ { connection } }', fs.readFileSync(path.join(__dirname, '../client/connection.js'), 'utf8'))
                 .replace('{ { tools_script } }', fs.readFileSync(path.join(__dirname, '../client/toolsCreator.js'), 'utf8')),
             date: { year: 2021, month: 3, day: 30, hour: 17, minute: 29 },
             timezone: 'America/Sao_Paulo',
