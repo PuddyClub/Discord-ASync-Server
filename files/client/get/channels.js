@@ -128,10 +128,22 @@ if (data.success) {
                             {
                                 items: [
 
-                                    // Info
+                                    // Nmme
                                     {
                                         isText: true,
                                         item: tinyLang.name
+                                    },
+
+                                    // Created At
+                                    {
+                                        isText: true,
+                                        item: tinyLang.topic
+                                    },
+
+                                    // Created At
+                                    {
+                                        isText: true,
+                                        item: tinyLang.creation_date
                                     }
 
                                 ]
