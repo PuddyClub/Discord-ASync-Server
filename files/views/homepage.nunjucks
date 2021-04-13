@@ -35,7 +35,7 @@
                 {{lang.info_title}}
             </div>
             <div class="card-body">
-                {{lang.info}}
+                {{lang.info_details}}
             </div>
         </div>
 
