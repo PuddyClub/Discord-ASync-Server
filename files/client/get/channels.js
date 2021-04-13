@@ -9,7 +9,7 @@ if (data.success) {
     const body = [];
 
     // Prepare Groups
-    const groups = [{ id: 0, position: -1, name: '', items: {} }];
+    const groups = [{ id: 0, position: -1, items: {} }];
     for (const item in data.result) {
         if (data.result[item].type !== "category") {
 
