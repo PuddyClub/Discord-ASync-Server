@@ -109,7 +109,7 @@ if (data.success) {
                 }
 
                 // Add Item Type
-                items.push($('<h4>').text(tinyLang[itemsOrder[ctype]]));
+                items.push($('<h5>').text(tinyLang[itemsOrder[ctype]]));
 
                 // Create Table of Channel Type
                 items.push(tinyLib.table({
