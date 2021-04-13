@@ -33,6 +33,8 @@ $(() => {
     socket.on('dsBot_guildName', (count) => { $('#guild_info_table #server_name #info').text(count); });
     socket.on('dsBot_guildChannelsCount', (count) => { $('#guild_info_table #channel_count #info > a').text(count); });
     socket.on('dsBot_guildCreationDate', (count) => { $('#guild_info_table #creation_date #info').text(count); });
+    
+    socket.on('dsBot_guildFeatures', (features) => { console.log(features); });
 
     socket.on('dsBot_guildOwner', (user) => {
         $('#guild_info_table #guild_owner_name #info').empty().append(
