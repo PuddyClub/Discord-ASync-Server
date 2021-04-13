@@ -5,6 +5,9 @@ $.LoadingOverlay("hide");
 // Success
 if (data.success) {
 
+    // Items Order
+    const itemsOrder = ['news', 'store', 'text', 'dm', 'voice', 'unknown'];
+
     // Prepare Groups
     const groups = [{ id: 0, position: -1, items: {} }];
     for (const item in data.result) {
@@ -93,7 +96,6 @@ if (data.success) {
         }
 
         // Prepare Items
-        const itemsOrder = ['news', 'store', 'text', 'dm', 'voice', 'unknown'];
         const items = [];
 
         // Read Channels
@@ -109,6 +111,7 @@ if (data.success) {
 
                     // Item
                     const channel = groups[item].items[itemsOrder[ctype]][citem];
+                    console.log(channel);
 
                     // Is Visible
                     let isVisible;
@@ -119,6 +122,17 @@ if (data.success) {
                     // Nope
                     else {
                         isVisible = tinyLib.fontAwesome('fa-eye-slash', 'fas');
+                    }
+
+                    // Is NSFW
+                    let isNSFW;
+                    if (channel.nsfw) {
+                        isNSFW = tinyLib.fontAwesome('fa-eye', 'fas');
+                    }
+
+                    // Nope
+                    else {
+                        isNSFW = tinyLib.fontAwesome('fa-eye-slash', 'fas');
                     }
 
                     // Add Item
@@ -135,8 +149,17 @@ if (data.success) {
 
                 }
 
+                // Icons
+                let typeChannelIcon;
+                if (itemsOrder[ctype] === 'news') { typeChannelIcon = tinyLib.fontAwesome('fa-bullhorn', 'fas'); }
+                else if (itemsOrder[ctype] === 'store') { typeChannelIcon = tinyLib.fontAwesome('fa-store', 'fas'); }
+                else if (itemsOrder[ctype] === 'text') { typeChannelIcon = tinyLib.fontAwesome('fa-hashtag', 'fas'); }
+                else if (itemsOrder[ctype] === 'dm') { typeChannelIcon = tinyLib.fontAwesome('fa-envelope', 'fas'); }
+                else if (itemsOrder[ctype] === 'voice') { typeChannelIcon = tinyLib.fontAwesome('fa-volume-up', 'fas'); }
+                else { typeChannelIcon = tinyLib.fontAwesome('fa-question-circle', 'fas'); }
+
                 // Add Item Type
-                items.push($('<h5>').text(tinyLang[itemsOrder[ctype]]));
+                items.push($('<h5>').text(tinyLang[itemsOrder[ctype]]).prepend(typeChannelIcon.addClass('ml-2')));
 
                 // Create Table of Channel Type
                 items.push(tinyLib.table({
