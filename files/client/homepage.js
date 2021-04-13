@@ -372,7 +372,12 @@ $(() => {
 
                         // Roles
                         toolsCreator.cardRow(tinyLang.roles, $('<a>', { href: 'javascript:void(0);' }).text('???').click(function () {
+                            
+                            socket.emit('getDiscordGuildRoles', bot.guild, (data) => {
 
+                                console.log(data);
+
+                            });
 
                             // Complete
                             return false;
@@ -382,6 +387,11 @@ $(() => {
                         // Channels
                         toolsCreator.cardRow(tinyLang.channels, $('<a>', { href: 'javascript:void(0);' }).text('???').click(function () {
 
+                            socket.emit('getDiscordGuildChannels', bot.guild, (data) => {
+
+                                console.log(data);
+
+                            });
 
                             // Complete
                             return false;
