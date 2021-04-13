@@ -298,10 +298,54 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
             socketUser.checkPerm(2, 'guild', socketUser.ids[socket.id].bot.user.id, guildID)
         ) {
 
+            // Is Object
+            if (typeof guildID === "string" || typeof guildID === "number") {
+
+                // Get Guild Emojis
+                socketUser.ids[socket.id].bot.guilds.fetch(guildID).then(guild => {
+
+                    // Emoji List
+                    const channelList = [];
+
+                    // Moment Module
+                    const moment = require('moment-timezone');
+
+                    // Read Cache
+                    guild.channels.cache.forEach(function (data) {
+
+                        // Prepare Cache
+                        console.log(data);
+                        const channelCache = {
+                            id: data.id,
+                            name: data.name,
+                            createdAt: moment(data.createdAt).format('YYYY-MM-DD')
+                        };
+
+                        // Insert Cache
+                        channelList.push(channelCache);
+
+                    });
+
+                    // Send Result
+                    fn({ success: true, result: channelList });
+
+                    // Complete
+                    return;
+
+                }).catch(err => {
+                    return fn({ success: false, error: err.message });
+                });
+
+            }
+
+            // Nope
+            else { fn({ success: false, error: 'Invalid Guild Value!' }); }
+
         }
 
         // Nope
         else { fn({ success: false, error: 'Bot Value not found!' }); }
+        return;
 
     });
 
@@ -314,10 +358,54 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
             socketUser.checkPerm(2, 'guild', socketUser.ids[socket.id].bot.user.id, guildID)
         ) {
 
+            // Is Object
+            if (typeof guildID === "string" || typeof guildID === "number") {
+
+                // Get Guild Emojis
+                socketUser.ids[socket.id].bot.guilds.fetch(guildID).then(guild => {
+
+                    // Emoji List
+                    const roleList = [];
+
+                    // Moment Module
+                    const moment = require('moment-timezone');
+
+                    // Read Cache
+                    guild.roles.cache.forEach(function (data) {
+
+                        // Prepare Cache
+                        console.log(data);
+                        const roleCache = {
+                            id: data.id,
+                            name: data.name,
+                            createdAt: moment(data.createdAt).format('YYYY-MM-DD')
+                        };
+
+                        // Insert Cache
+                        roleList.push(roleCache);
+
+                    });
+
+                    // Send Result
+                    fn({ success: true, result: roleList });
+
+                    // Complete
+                    return;
+
+                }).catch(err => {
+                    return fn({ success: false, error: err.message });
+                });
+
+            }
+
+            // Nope
+            else { fn({ success: false, error: 'Invalid Guild Value!' }); }
+
         }
 
         // Nope
         else { fn({ success: false, error: 'Bot Value not found!' }); }
+        return;
 
     });
 
