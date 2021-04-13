@@ -614,7 +614,10 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
                         members: guild.memberCount,
 
                         // Region
-                        region: guild.region
+                        region: guild.region,
+
+                        // Features
+                        features: guild.features
 
                     };
 
