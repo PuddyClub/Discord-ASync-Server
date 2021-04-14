@@ -11,21 +11,23 @@ if (data.success) {
     // Read Data
     for (const item in data.result) {
 
+        console.log(data.result[item]);
+
         // New Item
         const newItem = { items: [] };
 
         // Is Deleted
         let isDeleted;
-        if (data.result.deleted) {
+        if (data.result[item].deleted) {
             isDeleted = tinyLib.fontAwesome('fa-trash', 'fas').addClass('ml-2').attr('title', tinyLang.deleted).tooltip();
         }
 
         // Add Name
         newItem.items.push({
             item: $('<span>').append(
-                $('<div>').text(data.result.name)
+                $('<div>').text(data.result[item].name)
                     .append(isDeleted),
-                $('<small>').text(data.result.id),
+                $('<small>').text(data.result[item].id),
             ),
             isText: false
         });
