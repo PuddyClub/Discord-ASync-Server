@@ -142,7 +142,7 @@ if (data.success) {
                         isDeleted = tinyLib.fontAwesome('fa-trash', 'fas').addClass('ml-2').attr('title', tinyLang.deleted).tooltip();
                     }
 
-                    // Add Item
+                    // Add Name
                     newItem.items.push({
                         item: $('<span>').append(
                             $('<div>').text(channel.name)
@@ -150,6 +150,18 @@ if (data.success) {
                             $('<small>').text(channel.id),
                         ),
                         isText: false
+                    });
+
+                    // Add Topic
+                    newItem.items.push({
+                        item: channel.topic,
+                        isText: true
+                    });
+
+                    // Add Date
+                    newItem.items.push({
+                        item: channel.createdAt,
+                        isText: true
                     });
 
                     // Add to Body
