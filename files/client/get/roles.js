@@ -8,7 +8,32 @@ if (data.success) {
     // Prepare Body
     const body = [];
 
-    console.log(data);
+    // Read Data
+    for (const item in data.result) {
+
+        // New Item
+        const newItem = { items: [] };
+
+        // Is Deleted
+        let isDeleted;
+        if (data.result.deleted) {
+            isDeleted = tinyLib.fontAwesome('fa-trash', 'fas').addClass('ml-2').attr('title', tinyLang.deleted).tooltip();
+        }
+
+        // Add Name
+        newItem.items.push({
+            item: $('<span>').append(
+                $('<div>').text(data.result.name)
+                    .append(isDeleted),
+                $('<small>').text(data.result.id),
+            ),
+            isText: false
+        });
+
+        // Add to Body
+        body.push(newItem);
+
+    }
 
     // Modal
     tinyLib.modal({
