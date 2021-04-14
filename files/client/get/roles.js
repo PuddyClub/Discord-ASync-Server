@@ -31,6 +31,12 @@ if (data.success) {
             isMentionable = tinyLib.fontAwesome('fa-quote-right', 'fas').addClass('ml-2').attr('title', tinyLang.mentionable).tooltip();
         }
 
+        // Is Hoist
+        let isHoist;
+        if (data.result[item].hoist) {
+            isHoist = tinyLib.fontAwesome('fa-user-tag', 'fas').addClass('ml-2').attr('title', tinyLang.hoist).tooltip();
+        }
+
         // Role Color
         const roleColor = tinyLib.fontAwesome('fa-circle', 'fas').css({ color: data.result[item].hexColor, cursor: 'pointer' }).attr('title', data.result[item].hexColor).attr('data-clipboard-text', data.result[item].hexColor).addClass('ml-2')
             .mouseenter(function () {
@@ -49,7 +55,7 @@ if (data.success) {
         newItem.items.push({
             item: $('<span>').append(
                 $('<div>').text(data.result[item].name)
-                    .append(roleColor, isMentionable, isDeleted),
+                    .append(roleColor, isMentionable, isHoist, isDeleted),
                 $('<small>').text(data.result[item].id),
             ),
             isText: false
