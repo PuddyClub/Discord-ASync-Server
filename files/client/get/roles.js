@@ -32,6 +32,8 @@ if (data.success) {
             })
             .click(function () {
                 $(this).css('filter', 'brightness(130%)');
+                const tinyThis = this;
+                setTimeout(function () { $(tinyThis).css('filter', ''); }, 500)
             })
             .mouseleave(function () {
                 $(this).css('filter', '');
