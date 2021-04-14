@@ -43,7 +43,7 @@ $('[id^="ds_bot_"]').click(function () {
 
                 $('<hr/>'),
 
-                $('<h4>').text('Server'),
+                $('<h4>').text('Server').append($('<small>', { id: 'server-selected-features' })),
 
                 // Guild
                 $('<div>', { id: 'guild_info_table', class: 'row', style: 'display: none;' }).append(
