@@ -25,11 +25,20 @@ if (data.success) {
             isDeleted = tinyLib.fontAwesome('fa-trash', 'fas').addClass('ml-2').attr('title', tinyLang.deleted).tooltip();
         }
 
+        // Role Color
+        const roleColor = tinyLib.fontAwesome('fa-circle', 'fas').css({ color: data.result[item].hexColor, cursor: 'pointer' }).attr('title', data.result[item].hexColor).attr('data-clipboard-text', data.result[item].hexColor).addClass('ml-2')
+            .mouseenter(function () {
+                $(this).css('filter', 'brightness(110%)');
+            })
+            .mouseleave(function () {
+                $(this).css('filter', '');
+            }).tooltip();
+
         // Add Name
         newItem.items.push({
             item: $('<span>').append(
                 $('<div>').text(data.result[item].name)
-                    .append(isDeleted),
+                    .append(roleColor, isDeleted),
                 $('<small>').text(data.result[item].id),
             ),
             isText: false
@@ -88,6 +97,21 @@ if (data.success) {
 
     $('#role-list .modal-lg').css('max-width', '95%');
     $('#role-list').css('background-color', 'rgba(0,0,0,0.8)');
+
+    var clipboard = new ClipboardJS('.fa-circle');
+
+    clipboard.on('success', function (e) {
+        console.info('Action:', e.action);
+        console.info('Text:', e.text);
+        console.info('Trigger:', e.trigger);
+
+        e.clearSelection();
+    });
+
+    clipboard.on('error', function (e) {
+        console.error('Action:', e.action);
+        console.error('Trigger:', e.trigger);
+    });
 
 }
 

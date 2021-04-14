@@ -6,6 +6,7 @@
 <meta http-equiv="Content-Script-Type" content="text/javascript">
 
 {# Javascript #}
+{{global.head.js.clipboardjs | safe}}
 {{global.head.js.jquery | safe}}
 {{global.head.js.bootstrap | safe}}
 {{global.head.js.loadingoverlay | safe}}
