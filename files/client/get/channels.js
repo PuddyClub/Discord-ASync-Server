@@ -130,7 +130,7 @@ if (data.success) {
                         isNSFW = tinyLib.fontAwesome('fa-fire', 'fas').addClass('ml-2').attr('title', tinyLang.nsfw).tooltip();
                     }
 
-                    // Is NSFW
+                    // Is Deleted
                     let isDeleted;
                     if (channel.deleted) {
                         isDeleted = tinyLib.fontAwesome('fa-trash', 'fas').addClass('ml-2').attr('title', tinyLang.deleted).tooltip();
