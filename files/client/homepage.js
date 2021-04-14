@@ -10,6 +10,10 @@ var receiveLog = function (type, isNew, data) { };
 
 $(() => {
 
+    // Group Short
+    const sortPositions = function (a, b) { return a.position < b.position ? -1 : a.position > b.position ? 1 : 0; };
+    const sortPositionsReverse = function (a, b) { return a.position > b.position ? -1 : a.position < b.position ? 1 : 0; };
+
     // Connection
     { { connection } }
 

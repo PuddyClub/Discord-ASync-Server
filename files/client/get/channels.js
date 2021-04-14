@@ -46,7 +46,6 @@ if (data.success) {
     }
 
     // Sort Groups
-    const sortPositions = function (a, b) { return a.position < b.position ? -1 : a.position > b.position ? 1 : 0; };
     groups.sort(sortPositions);
 
     // Main Table

@@ -8,6 +8,9 @@ if (data.success) {
     // Prepare Body
     const body = [];
 
+    // Sort Result
+    data.result.sort(sortPositionsReverse);
+
     // Read Data
     for (const item in data.result) {
 
