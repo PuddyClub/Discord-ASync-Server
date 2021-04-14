@@ -25,6 +25,12 @@ if (data.success) {
             isDeleted = tinyLib.fontAwesome('fa-trash', 'fas').addClass('ml-2').attr('title', tinyLang.deleted).tooltip();
         }
 
+        // Is Mentionable
+        let isMentionable;
+        if (data.result[item].mentionable) {
+            isMentionable = tinyLib.fontAwesome('fa-quote-right', 'fas').addClass('ml-2').attr('title', tinyLang.mentionable).tooltip();
+        }
+
         // Role Color
         const roleColor = tinyLib.fontAwesome('fa-circle', 'fas').css({ color: data.result[item].hexColor, cursor: 'pointer' }).attr('title', data.result[item].hexColor).attr('data-clipboard-text', data.result[item].hexColor).addClass('ml-2')
             .mouseenter(function () {
@@ -43,10 +49,16 @@ if (data.success) {
         newItem.items.push({
             item: $('<span>').append(
                 $('<div>').text(data.result[item].name)
-                    .append(roleColor, isDeleted),
+                    .append(roleColor, isMentionable, isDeleted),
                 $('<small>').text(data.result[item].id),
             ),
             isText: false
+        });
+
+        // Add Created At Date
+        newItem.items.push({
+            item: data.result[item].createdAt,
+            isText: true
         });
 
         // Add to Body
@@ -81,10 +93,10 @@ if (data.success) {
                                 item: tinyLang.name
                             },
 
-                            // Actions
+                            // Created At
                             {
                                 isText: true,
-                                item: tinyLang.actions
+                                item: tinyLang.creation_date
                             }
 
                         ]
