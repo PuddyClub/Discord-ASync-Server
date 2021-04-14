@@ -1,1 +1,10 @@
-privacy
+All information collected by this application is the sole responsibility of the server owner.
+The collected data of this application is not shared with any third party services.
+
+Any modification of this application through Plugins is not responsible for the creator of this application. 
+Installing third-party plugins is entirely the responsibility of whoever is developing the server.
+
+This application monitors all the possibilities that the Discord API authorizes to provide the application via discord.js (https://discord.js.org/).
+
+The application makes use of cookies to store the all data of your token of your Discord session using Discord oAuth2.
+The token is used to validate your identity and protect access to the administrative page of the website.
