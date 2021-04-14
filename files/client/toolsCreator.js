@@ -1,6 +1,64 @@
 // Tools Creator
 const toolsCreator = {
 
+    // Features Icons
+    featuresIcon: function (features) {
+
+        // Result
+        const result = [];
+
+        // Read Features List
+        if (Array.isArray(features)) {
+            for (const item in features) {
+                if (typeof features[item] === "string") {
+
+                    // Convert Item
+                    features[item] = features[item].toUpperCase();
+
+                    // Commerce
+                    if (features[item] === 'COMMERCE') {
+                        result.push(tinyLib.fontAwesome('fa-store', 'fas').attr('title', tinyLang.commerce));
+                    }
+
+                    // Commerce
+                    if (features[item] === 'COMMUNITY') {
+                        result.push(tinyLib.fontAwesome('fa-users', 'fas').attr('title', tinyLang.community));
+                    }
+
+                    // Commerce
+                    if (features[item] === 'DISCOVERABLE') {
+                        result.push(tinyLib.fontAwesome('fa-globe', 'fas').attr('title', tinyLang.discoverable));
+                    }
+
+                    // Commerce
+                    if (features[item] === 'NEWS') {
+                        result.push(tinyLib.fontAwesome('fa-bullhorn', 'fas').attr('title', tinyLang.news));
+                    }
+
+                    // Commerce
+                    if (features[item] === 'PARTNERED') {
+                        result.push(tinyLib.fontAwesome('fa-infinity', 'fas').attr('title', tinyLang.partnered));
+                    }
+
+                    // Commerce
+                    if (features[item] === 'VERIFIED') {
+                        result.push(tinyLib.fontAwesome('fa-certificate', 'fas').attr('title', tinyLang.verified));
+                    }
+
+                    // Commerce
+                    if (features[item] === 'VIP_REGIONS') {
+                        result.push(tinyLib.fontAwesome('fa-star', 'fas').attr('title', tinyLang.vip_regions));
+                    }
+
+                }
+            }
+        }
+
+        // Complete
+        return result;
+
+    },
+
     // Card Row
     cardRow: function (title = 'Example', info = '???', icon = 'fas fa-question', color = 'primary', size = 'col-xl-4 col-md-6 mb-4') {
 

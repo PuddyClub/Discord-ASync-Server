@@ -1,4 +1,10 @@
 {
+    "vip_regions": "VIP Regions",
+    "verified": "Verified",
+    "partnered": "Partnered",
+    "discoverable": "Discoverable",
+    "community": "Community",
+    "commerce": "Commerce",
     "news": "News",
     "store": "Store",
     "text": "Text",

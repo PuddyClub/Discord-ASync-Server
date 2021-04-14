@@ -101,6 +101,10 @@ const getPage = function (data) {
     if (data.data.length > 0) {
         for (const item in data.data) {
 
+            // Features
+            const features = [];
+            console.log(data.data[item]);
+
             // Create TR
             servers.push({
 
@@ -116,7 +120,7 @@ const getPage = function (data) {
                     // Name
                     {
                         item: $('<span>').append(
-                            $('<div>').text(data.data[item].name),
+                            $('<div>').text(data.data[item].name).append(features),
                             $('<small>').text(data.data[item].id),
                         ),
                         isText: false
