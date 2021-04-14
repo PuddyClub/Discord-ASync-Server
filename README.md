@@ -53,6 +53,8 @@ You will need to create a JSON file to configure your server.
     "web": {
       "slashCommandListener": {
         "enabled": true,
+        "function": "",
+        "token": "",
         "id": "",
         "waitMessage": "Loading your message..."
       },
@@ -61,7 +63,6 @@ You will need to create a JSON file to configure your server.
     "localhost": "localhost:3000",
     "domain": "",
     "crypto": "",
-    "token": "",
     "tokenURL": ""
   }
   ```
@@ -85,6 +86,8 @@ slashCommandListener.id (string) (BETA) - Special security ID of your URL that w
 
 slashCommandListener.waitMessage (string) (BETA) - This message will be displayed while the server processes the rest of the script.
 
+slashCommandListener.token (String) (BETA) - Security token of your Firebase server that is receiving the interactions.
+
 botChecker - Activate your bot's monitoring website.
 
 ### localhost (String)
@@ -95,6 +98,3 @@ Domain name of your server.
 
 ### crypto (String)
 Crypto Key. Enter a value that is at least 32 characters long.
-
-### token (String)
-Security token of your Firebase server that is receiving the interactions.

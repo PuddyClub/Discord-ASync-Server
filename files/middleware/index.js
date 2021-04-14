@@ -3,23 +3,26 @@ module.exports = async function (resolve, reject, ioCache, discordCfg, webCfg, f
     // Nunjucks
     const express = require('express');
     const checkUser = require('../checkUser')(app);
-    const objType = require('@tinypudding/puddy-lib/get/objType');
-    const path = require('path');
-    const fs = require('fs');
-    const nunjucks = require('nunjucks');
-    nunjucks.configure(path.join(__dirname, '../views'), {
-        autoescape: true,
-        express: web.app
-    });
+    let path;
+    let fs;
+    let nunjucks;
 
-    web.app.set('view engine', 'nunjucks');
+    if (webCfg.botChecker) {
+        path = require('path');
+        fs = require('fs');
+        nunjucks = require('nunjucks');
+        nunjucks.configure(path.join(__dirname, '../views'), {
+            autoescape: true,
+            express: web.app
+        });
+        web.app.set('view engine', 'nunjucks');
+    }
+
     web.express = express;
 
     // Modules
     const bodyParser = require('body-parser');
     const interactionEndPoint = require('./interactionEndPoint');
-    const homepage = require('./homepage');
-    const getGlobal = require('./getGlobal');
 
     // Create Express App
     app.web.server = require('http').createServer(web.app);
@@ -33,72 +36,77 @@ module.exports = async function (resolve, reject, ioCache, discordCfg, webCfg, f
         extended: true
     }));
 
-    // Files
-    web.app.use(express.static(path.join(__dirname, "../public"), {
-        maxAge: '2592000000' // uses milliseconds per docs
-    }));
-
-    // Extra
-    let pluginSettings;
-    if (typeof webCfg.middleware === "function") {
-        pluginSettings = await webCfg.middleware(web, app);
-        if (!objType(pluginSettings, 'object')) { pluginSettings = {}; }
-    }
-
-    // Files
-    const readFile = require('@tinypudding/puddy-lib/http/fileCache');
-    const fileAge = '2592000000';
-
-    // For Promise
-    web.app.get('/js/forPromise.js', function (req, res, next) {
-        return readFile(
-            res, next, {
-            file: require('for-promise/getBrowserVersion')(),
-            date: { year: 2021, month: 3, day: 30, hour: 17, minute: 29 },
-            timezone: 'America/Sao_Paulo',
-            fileMaxAge: fileAge
-        }
-        );
-    });
-
-    // Main
-    web.app.get('/js/main.js', function (req, res, next) {
-        return readFile(
-            res, next, {
-            file: fs.readFileSync(path.join(__dirname, '../client/main.js'), 'utf8'),
-            date: { year: 2021, month: 3, day: 30, hour: 17, minute: 29 },
-            timezone: 'America/Sao_Paulo',
-            fileMaxAge: fileAge
-        }
-        );
-    });
-
-    // Homepage
-    web.app.get('/js/homepage.js', function (req, res, next) {
-        return readFile(
-            res, next, {
-            file: fs.readFileSync(path.join(__dirname, '../client/homepage.js'), 'utf8')
-                .replace('{ { server_list_script } }', fs.readFileSync(path.join(__dirname, '../client/server_list.js'), 'utf8'))
-                .replace('{ { log_update_script } }', fs.readFileSync(path.join(__dirname, '../client/update_log.js'), 'utf8'))
-                .replace('{ { connection } }', fs.readFileSync(path.join(__dirname, '../client/connection.js'), 'utf8'))
-                .replace('{ { select_bot } }', fs.readFileSync(path.join(__dirname, '../client/select_bot.js'), 'utf8'))
-                .replace('{ { get_emojis } }', fs.readFileSync(path.join(__dirname, '../client/get/emojis.js'), 'utf8'))
-                .replace('{ { get_roles } }', fs.readFileSync(path.join(__dirname, '../client/get/roles.js'), 'utf8'))
-                .replace('{ { get_channels } }', fs.readFileSync(path.join(__dirname, '../client/get/channels.js'), 'utf8'))
-                .replace('{ { tools_script } }', fs.readFileSync(path.join(__dirname, '../client/toolsCreator.js'), 'utf8')),
-            date: { year: 2021, month: 3, day: 30, hour: 17, minute: 29 },
-            timezone: 'America/Sao_Paulo',
-            fileMaxAge: fileAge
-        }
-        );
-    });
-
-    // Terms
-    web.app.get('/tos', getGlobal(web, fileCfg, (req, res) => { return res.render('tos', { global: req.globalItems }); }));
-    web.app.get('/privacy', getGlobal(web, fileCfg, (req, res) => { return res.render('privacy', { global: req.globalItems }); }));
-
     // Bot Checker
     if (webCfg.botChecker) {
+
+        // Modules
+        const homepage = require('./homepage');
+        const getGlobal = require('./getGlobal');
+        const objType = require('@tinypudding/puddy-lib/get/objType');
+
+        // Files
+        web.app.use(express.static(path.join(__dirname, "../public"), {
+            maxAge: '2592000000' // uses milliseconds per docs
+        }));
+
+        // Extra
+        let pluginSettings;
+        if (typeof webCfg.middleware === "function") {
+            pluginSettings = await webCfg.middleware(web, app);
+            if (!objType(pluginSettings, 'object')) { pluginSettings = {}; }
+        }
+
+        // Files
+        const readFile = require('@tinypudding/puddy-lib/http/fileCache');
+        const fileAge = '2592000000';
+
+        // For Promise
+        web.app.get('/js/forPromise.js', function (req, res, next) {
+            return readFile(
+                res, next, {
+                file: require('for-promise/getBrowserVersion')(),
+                date: { year: 2021, month: 3, day: 30, hour: 17, minute: 29 },
+                timezone: 'America/Sao_Paulo',
+                fileMaxAge: fileAge
+            }
+            );
+        });
+
+        // Main
+        web.app.get('/js/main.js', function (req, res, next) {
+            return readFile(
+                res, next, {
+                file: fs.readFileSync(path.join(__dirname, '../client/main.js'), 'utf8'),
+                date: { year: 2021, month: 3, day: 30, hour: 17, minute: 29 },
+                timezone: 'America/Sao_Paulo',
+                fileMaxAge: fileAge
+            }
+            );
+        });
+
+        // Homepage
+        web.app.get('/js/homepage.js', function (req, res, next) {
+            return readFile(
+                res, next, {
+                file: fs.readFileSync(path.join(__dirname, '../client/homepage.js'), 'utf8')
+                    .replace('{ { server_list_script } }', fs.readFileSync(path.join(__dirname, '../client/server_list.js'), 'utf8'))
+                    .replace('{ { log_update_script } }', fs.readFileSync(path.join(__dirname, '../client/update_log.js'), 'utf8'))
+                    .replace('{ { connection } }', fs.readFileSync(path.join(__dirname, '../client/connection.js'), 'utf8'))
+                    .replace('{ { select_bot } }', fs.readFileSync(path.join(__dirname, '../client/select_bot.js'), 'utf8'))
+                    .replace('{ { get_emojis } }', fs.readFileSync(path.join(__dirname, '../client/get/emojis.js'), 'utf8'))
+                    .replace('{ { get_roles } }', fs.readFileSync(path.join(__dirname, '../client/get/roles.js'), 'utf8'))
+                    .replace('{ { get_channels } }', fs.readFileSync(path.join(__dirname, '../client/get/channels.js'), 'utf8'))
+                    .replace('{ { tools_script } }', fs.readFileSync(path.join(__dirname, '../client/toolsCreator.js'), 'utf8')),
+                date: { year: 2021, month: 3, day: 30, hour: 17, minute: 29 },
+                timezone: 'America/Sao_Paulo',
+                fileMaxAge: fileAge
+            }
+            );
+        });
+
+        // Terms
+        web.app.get('/tos', getGlobal(web, fileCfg, (req, res) => { return res.render('tos', { global: req.globalItems }); }));
+        web.app.get('/privacy', getGlobal(web, fileCfg, (req, res) => { return res.render('privacy', { global: req.globalItems }); }));
 
         // Homepage
         web.app.get('/', web.dsSession({ getUser: true }), getGlobal(web, fileCfg, (req, res) => { return homepage(req, res, webCfg, web, app, checkUser); }));
