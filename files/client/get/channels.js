@@ -65,12 +65,18 @@ if (data.success) {
         // Is Visible
         let isVisible;
         if (groups[item].viewable) {
-            isVisible = tinyLib.fontAwesome('fa-eye', 'fas');
+            isVisible = tinyLib.fontAwesome('fa-eye', 'fas').attr('title', tinyLang.viewable).tooltip();
         }
 
         // Nope
         else {
-            isVisible = tinyLib.fontAwesome('fa-eye-slash', 'fas');
+            isVisible = tinyLib.fontAwesome('fa-eye-slash', 'fas').attr('title', tinyLang.not_viewable).tooltip();
+        }
+
+        // Is Deleted
+        let isDeleted;
+        if (groups[item].deleted) {
+            isDeleted = tinyLib.fontAwesome('fa-trash', 'fas').addClass('ml-2').attr('title', tinyLang.deleted).tooltip();
         }
 
         // New Item
@@ -80,7 +86,7 @@ if (data.success) {
         if (item > 0) {
             newItem.items.push({
                 item: $('<span>').append(
-                    $('<div>').text(groups[item].name).append(isVisible.addClass('ml-2')),
+                    $('<div>').text(groups[item].name).append(isVisible.addClass('ml-2'), isDeleted),
                     $('<small>').text(groups[item].id),
                 ),
                 isText: false
