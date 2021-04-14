@@ -127,15 +127,20 @@ if (data.success) {
                     // Is NSFW
                     let isNSFW;
                     if (channel.nsfw) {
-                        isNSFW = tinyLib.fontAwesome('fa-eye', 'fas').addClass('ml-2').attr('title', tinyLang.nsfw).tooltip();
+                        isNSFW = tinyLib.fontAwesome('fa-fire', 'fas').addClass('ml-2').attr('title', tinyLang.nsfw).tooltip();
+                    }
+
+                    // Is NSFW
+                    let isDeleted;
+                    if (channel.deleted) {
+                        isDeleted = tinyLib.fontAwesome('fa-trash', 'fas').addClass('ml-2').attr('title', tinyLang.deleted).tooltip();
                     }
 
                     // Add Item
                     newItem.items.push({
                         item: $('<span>').append(
                             $('<div>').text(channel.name)
-                            .append(isVisible.addClass('ml-2'))
-                            .append(isNSFW),
+                                .append(isVisible.addClass('ml-2'), isNSFW, isDeleted),
                             $('<small>').text(channel.id),
                         ),
                         isText: false
