@@ -116,29 +116,26 @@ if (data.success) {
                     // Is Visible
                     let isVisible;
                     if (channel.viewable) {
-                        isVisible = tinyLib.fontAwesome('fa-eye', 'fas');
+                        isVisible = tinyLib.fontAwesome('fa-eye', 'fas').attr('title', tinyLang.viewable).tooltip();
                     }
 
                     // Nope
                     else {
-                        isVisible = tinyLib.fontAwesome('fa-eye-slash', 'fas');
+                        isVisible = tinyLib.fontAwesome('fa-eye-slash', 'fas').attr('title', tinyLang.not_viewable).tooltip();
                     }
 
                     // Is NSFW
                     let isNSFW;
                     if (channel.nsfw) {
-                        isNSFW = tinyLib.fontAwesome('fa-eye', 'fas');
-                    }
-
-                    // Nope
-                    else {
-                        isNSFW = tinyLib.fontAwesome('fa-eye-slash', 'fas');
+                        isNSFW = tinyLib.fontAwesome('fa-eye', 'fas').attr('title', tinyLang.nsfw).tooltip();
                     }
 
                     // Add Item
                     newItem.items.push({
                         item: $('<span>').append(
-                            $('<div>').text(channel.name).append(isVisible.addClass('ml-2')),
+                            $('<div>').text(channel.name)
+                            .append(isVisible.addClass('ml-2'))
+                            .append(isNSFW.addClass('ml-2')),
                             $('<small>').text(channel.id),
                         ),
                         isText: false

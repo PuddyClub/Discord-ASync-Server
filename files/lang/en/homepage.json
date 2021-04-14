@@ -1,4 +1,8 @@
 {
+    "nsfw": "NSFW",
+    "sfw": "SFW",
+    "viewable": "Viewable",
+    "not_viewable": "Not Viewable",
     "vip_regions": "VIP Regions",
     "verified": "Verified",
     "partnered": "Partnered",

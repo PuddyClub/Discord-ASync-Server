@@ -17,37 +17,37 @@ const toolsCreator = {
 
                     // Commerce
                     if (features[item] === 'COMMERCE') {
-                        result.push(tinyLib.fontAwesome('fa-store', 'fas').attr('title', tinyLang.commerce).addClass(className));
+                        result.push(tinyLib.fontAwesome('fa-store', 'fas').attr('title', tinyLang.commerce).addClass(className).tooltip());
                     }
 
                     // Commerce
                     if (features[item] === 'COMMUNITY') {
-                        result.push(tinyLib.fontAwesome('fa-users', 'fas').attr('title', tinyLang.community).addClass(className));
+                        result.push(tinyLib.fontAwesome('fa-users', 'fas').attr('title', tinyLang.community).addClass(className).tooltip());
                     }
 
                     // Commerce
                     if (features[item] === 'DISCOVERABLE') {
-                        result.push(tinyLib.fontAwesome('fa-globe', 'fas').attr('title', tinyLang.discoverable).addClass(className));
+                        result.push(tinyLib.fontAwesome('fa-globe', 'fas').attr('title', tinyLang.discoverable).addClass(className).tooltip());
                     }
 
                     // Commerce
                     if (features[item] === 'NEWS') {
-                        result.push(tinyLib.fontAwesome('fa-bullhorn', 'fas').attr('title', tinyLang.news).addClass(className));
+                        result.push(tinyLib.fontAwesome('fa-bullhorn', 'fas').attr('title', tinyLang.news).addClass(className).tooltip());
                     }
 
                     // Commerce
                     if (features[item] === 'PARTNERED') {
-                        result.push(tinyLib.fontAwesome('fa-infinity', 'fas').attr('title', tinyLang.partnered).addClass(className));
+                        result.push(tinyLib.fontAwesome('fa-infinity', 'fas').attr('title', tinyLang.partnered).addClass(className).tooltip());
                     }
 
                     // Commerce
                     if (features[item] === 'VERIFIED') {
-                        result.push(tinyLib.fontAwesome('fa-certificate', 'fas').attr('title', tinyLang.verified).addClass(className));
+                        result.push(tinyLib.fontAwesome('fa-certificate', 'fas').attr('title', tinyLang.verified).addClass(className).tooltip());
                     }
 
                     // Commerce
                     if (features[item] === 'VIP_REGIONS') {
-                        result.push(tinyLib.fontAwesome('fa-star', 'fas').attr('title', tinyLang.vip_regions).addClass(className));
+                        result.push(tinyLib.fontAwesome('fa-star', 'fas').attr('title', tinyLang.vip_regions).addClass(className).tooltip());
                     }
 
                 }
