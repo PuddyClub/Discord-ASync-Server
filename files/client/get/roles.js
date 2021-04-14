@@ -118,9 +118,6 @@ if (data.success) {
         footer: [tinyLib.button(tinyLang.close, 'secondary', { 'data-dismiss': 'modal' })]
     });
 
-    $('#role-list .modal-lg').css('max-width', '95%');
-    $('#role-list').css('background-color', 'rgba(0,0,0,0.8)');
-
     var clipboard = new ClipboardJS('.fa-circle');
 
     clipboard.on('success', function (e) {

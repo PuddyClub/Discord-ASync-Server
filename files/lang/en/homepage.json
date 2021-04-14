@@ -37,6 +37,7 @@
     "icon": "Icon",
     "region": "Region",
     "members": "Members",
+    "min_members": "Min Members",
     "emojis": "Emojis",
     "name": "Name",
     "roles": "Roles",

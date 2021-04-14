@@ -437,7 +437,7 @@ $('#select_server').click(function () {
 
                         // Members
                         $('<div>', { class: 'col-xl-4 col-md-12 mb-4' }).append(tinyLib.formGroup('members', {
-                            label: $('<span>').text(tinyLang.members),
+                            label: $('<span>').text(tinyLang.min_members),
                             input: 'number',
                             min: 0,
                             value: pageSystem.filters.members
