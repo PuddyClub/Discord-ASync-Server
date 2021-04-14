@@ -186,7 +186,7 @@ if (data.success) {
 
                     // Info
                     id: 'channels_items_' + itemsOrder[ctype] + '_list',
-                    class: 'table-striped',
+                    class: 'table-hover table-bordered',
                     responsive: true,
 
                     // Head
@@ -246,7 +246,7 @@ if (data.success) {
 
         // Info
         id: 'channels_list',
-        class: 'table-striped',
+        class: 'table-bordered',
         responsive: true,
 
         // Head

@@ -85,7 +85,7 @@ if (data.success) {
 
             // Info
             id: 'emojis_list',
-            class: 'table-striped',
+            class: 'table-hover table-bordered',
             responsive: true,
 
             // Head

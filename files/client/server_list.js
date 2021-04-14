@@ -320,7 +320,7 @@ const getPage = function (data) {
 
         // Info
         id: 'servers',
-        class: 'table-striped',
+        class: 'table-hover table-striped',
         responsive: true,
 
         // Head
