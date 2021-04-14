@@ -30,6 +30,9 @@ if (data.success) {
             .mouseenter(function () {
                 $(this).css('filter', 'brightness(110%)');
             })
+            .click(function () {
+                $(this).css('filter', 'brightness(130%)');
+            })
             .mouseleave(function () {
                 $(this).css('filter', '');
             }).tooltip();
