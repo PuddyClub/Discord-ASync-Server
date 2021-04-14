@@ -62,8 +62,7 @@ You will need to create a JSON file to configure your server.
     },
     "localhost": "localhost:3000",
     "domain": "",
-    "crypto": "",
-    "tokenURL": ""
+    "crypto": ""
   }
   ```
 
@@ -98,3 +97,8 @@ Domain name of your server.
 
 ### crypto (String)
 Crypto Key. Enter a value that is at least 32 characters long.
+
+<hr/>
+
+## File Example
+you can find a file in the path "/test/index.js". This file contains an example on how to write the code to use the module.

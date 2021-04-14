@@ -1,0 +1,41 @@
+{
+  "firebase": {
+    "apiKey": "",
+    "databaseURL": "",
+    "projectId": "",
+    "appId": ""
+  },
+  "cookieSession": {
+    "keys": [
+      "",
+      ""
+    ]
+  },
+  "discord": {
+    "apps": {
+      "test-bot": {
+        "client_id": "",
+        "public_key": "",
+        "waitMessage": "Loading your message..."
+      }
+    },
+    "auth": {
+      "client_id": "",
+      "client_secret": ""
+    }
+  },
+  "web": {
+    "slashCommandListener": {
+      "enabled": true,
+      "function": "",
+      "id": "",
+      "token": ""
+    },
+    "botChecker": true
+  },
+  "localhost": "localhost:3000",
+  "domain": "example.com",
+  "crypto": "",
+  "tokenURL": "",
+  "testBot": ""
+}

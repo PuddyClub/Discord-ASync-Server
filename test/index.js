@@ -1,4 +1,4 @@
-// Tiny Config
+/* Load the Config File. You can see the example file in config_example.json */
 const tinyCfg = require('./config.json');
 const fetch = require('@tinypudding/puddy-lib/http/fetch/json');
 tinyCfg.testMode = true;
