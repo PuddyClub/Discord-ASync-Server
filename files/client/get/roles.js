@@ -86,8 +86,8 @@ if (data.success) {
         footer: [tinyLib.button(tinyLang.close, 'secondary', { 'data-dismiss': 'modal' })]
     });
 
-    $('#channel-list .modal-lg').css('max-width', '95%');
-    $('#channel-list').css('background-color', 'rgba(0,0,0,0.8)');
+    $('#role-list .modal-lg').css('max-width', '95%');
+    $('#role-list').css('background-color', 'rgba(0,0,0,0.8)');
 
 }
 
