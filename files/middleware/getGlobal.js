@@ -3,9 +3,6 @@ module.exports = function (web, fileCfg, callback) {
 
         // Prepare Global
         req.globalItems = {
-            lang: req.i18.getFile('global'),
-            i18List: req.i18.getSelectedLang(),
-            i18ClientRequest: req.i18.getClientWeb(),
             url: { normal: req.url, uri: encodeURIComponent(req.url) },
             csrftoken: req.csrfToken,
             hostname: web.cfg.domain,
@@ -16,6 +13,11 @@ module.exports = function (web, fileCfg, callback) {
 
         // Get Date
         try {
+
+            // Prepare i18
+            req.globalItems.lang = req.i18.getFile('global');
+            req.globalItems.i18List = req.i18.getSelectedLang();
+            req.globalItems.i18ClientRequest = req.i18.getClientWeb();
 
             // Year Footer
             req.globalItems.year_footer = req.utc_clock.now.year();
