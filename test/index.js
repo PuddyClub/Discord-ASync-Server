@@ -1,9 +1,16 @@
 /* Load the Config File. You can see the example file in config_example.json */
 const tinyCfg = require('./config.json');
 const fetch = require('@tinypudding/puddy-lib/http/fetch/json');
+
+// Enable the Test Mode. You may encounter some unstable features if you activate the test mode.
 tinyCfg.testMode = true;
 
-// Files
+/* 
+
+    Static Files. You can create new static files using the express module.
+    The path values of these files must be entered here.
+
+*/
 tinyCfg.js = {
     'clipboardjs': `<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js" integrity="sha512-sIqUEnRn31BgngPmHt2JenzleDDsXwYO+iyvQ46Mw6RL+udAUZj2n/u/PGY80NxRxynO7R9xIGx5LEzw4INWJQ==" crossorigin="anonymous"></script>`,
     'jsziputils': `<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip-utils/0.1.0/jszip-utils.min.js" integrity="sha512-3WaCYjK/lQuL0dVIRt1thLXr84Z/4Yppka6u40yEJT1QulYm9pCxguF6r8V84ndP5K03koI9hV1+zo/bUbgMtA==" crossorigin="anonymous"></script>`,
@@ -22,6 +29,7 @@ tinyCfg.css = {
     'fontawesome': `<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />`,
 };
 
+/* Custom HEAD Tags */
 tinyCfg.custom = `
 <script>
 $(() => {
@@ -35,10 +43,31 @@ receiveLog = function (type, isNew, data) {
 </script>
 `;
 
-// Get Module
+/* 
+
+    Get Module
+    Correct Code: const ds = require('@tinypudding/discord-firebase-async-server');
+
+*/
 const ds = require('../index');
 
-// Get Token
+
+/* 
+
+    Get Firebase Login Token.
+    You need to create a secure URL on your Firebase server to obtain the token to log in to your server.
+    Your script inside the Firebase Server should be returned like the example below.
+
+    firebase.auth().createCustomToken('example_user_uid').then((customToken) => {
+        return res.json({ token: customToken });
+    }).catch(async (err) => {
+        await logger.error('ERROR CREATE DISCORD ROOT TOKEN:', err);
+        return error_page(res, 500, err.message);
+    });
+
+    When you get the Token value, use the callback "resolve(data.token);" to send the token into the app.
+
+*/
 const tokenLogin = function () {
     return new Promise((resolve, reject) => {
         fetch(tinyCfg.tokenURL, {
@@ -49,19 +78,30 @@ const tokenLogin = function () {
     });
 };
 
-// Starting
+// Starting App...
 console.log('Starting App! Getting the Firebase Token...');
 
-// Add Bot
+/* 
+
+    This script will add your bot to the application and return the Discord.JS Client.
+  
+    The first value is the bot token.
+    The second value is the object inserted inside the method "bot.login();", which will be activated automatically when you start the application server.
+    
+    Examploe: bot.login({ autoReconnect: true });
+
+*/
 const bot = ds.addBot(tinyCfg.testBot, { autoReconnect: true });
+
+/* Example code of bot.on() from Discord.JS */
 bot.on('ready', (event) => {
 
-    // Welcome
+    // Welcome Message when the bot start.
     console.log(`Discord Logged in as ${bot.user.tag}!`);
 
 });
 
-// onAuthStateChanged
+// This method will be activated when Firebase is connected.
 ds.firebase.onAuthStateChanged((data => {
 
     // is User
@@ -77,11 +117,18 @@ ds.firebase.onAuthStateChanged((data => {
 
 }));
 
-// Middleware
+/* 
+
+    If you are looking to develop custom plugins, you can insert everything here.
+
+*/
 tinyCfg.web.middleware = function (web, app) {
 
     // Warn
-    console.log('Starting Middleware...');
+    console.group('Starting Middleware...');
+    console.log(web);
+    console.log(app);
+    console.groupEnd();
 
     /// Complete
     return {
@@ -90,8 +137,9 @@ tinyCfg.web.middleware = function (web, app) {
         socket: function (i) {
 
             // User Connected
-            console.log('User Connected!');
+            console.group('User Connected!');
             console.log(i);
+            console.groupEnd();
 
             // Send Log to All Bot Logs when the value is true
             i.socketUser.sendLog('info', true, `User ID ${i.socket.id} is connected!`);            
@@ -110,6 +158,8 @@ tinyCfg.web.middleware = function (web, app) {
 
 /* 
 
+Add a User to the Permission List
+
 1 - Basic Access
 2 - Moderator Access
 3 - Super Moderator Access
@@ -122,9 +172,17 @@ ds.addUser('152145019296284672', 4);
 
 // Add More Permissions
 ds.addUser('152145019296284672', {
+
+    // Global Permission
     perm: 4,
-    guildsPerm: { '5435': 4 },
-    botsPerm: { '5435': 4 }
+
+    // Guild Permission
+    guildsPerm: { 'guild_id': 4 },
+
+    // Bot Permission
+    botsPerm: { 'bot_id': 4 }
+
+
 });
 
 // Validate User Session. If the new user permission is 0. The user is disconnected.
@@ -149,8 +207,5 @@ ds.firebase.login(tokenLogin).then((user) => {
         });
 
     });
-
-    // Complete
-    return;
 
 }).catch(err => { console.error(err); return; });
