@@ -136,6 +136,30 @@ tinyCfg.web.middleware = function (web, app) {
         // Socket Plugin
         socket: function (i) {
 
+            /* 
+            
+            i.socket = Socket User from socket.io
+            i.ioCache = Socket.IO cache from application
+            i.session = User Session from module "cookie-session"
+            i.socketUser = User Cache from "i.ioCache"
+            
+            */
+
+            /* 
+            
+            i.socketUser.checkPerm(4, 'general', botID, guildID);
+            This method is used to check the user's permission within the application.
+
+            The first value is the permission number you are looking to verify.
+            
+            The second value is the priority level you are trying to use for this permission.
+            The global value will always be allowed if it is found.
+            If you want to allow only one bot, use the value "bot". (Always use a number greater than 1)
+            If you want to allow only one guild, use the value "guild". (Always use a number greater than 1)
+            If you are looking to obtain a permission value that is at any priority type, use the value "general".   
+            
+            */
+
             // User Connected
             console.group('User Connected!');
             console.log(i);
