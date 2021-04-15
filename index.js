@@ -71,6 +71,7 @@ const appModule = {
                             id: "",
                             token: ""
                         },
+                        homepageRedirect: '/login',
                         botChecker: false
                     },
 

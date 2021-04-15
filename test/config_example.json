@@ -31,6 +31,7 @@
       "id": "",
       "token": ""
     },
+    "homepageRedirect": "https://example.com/",
     "botChecker": true
   },
   "localhost": "localhost:3000",

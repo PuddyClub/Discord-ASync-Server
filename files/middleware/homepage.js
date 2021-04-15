@@ -42,7 +42,7 @@ module.exports = async function (req, res, webCfg, web, app, checkUser) {
     }
 
     // Nope
-    else { res.redirect('/login') };
+    else { webCfgres.redirect(webCfg.homepageRedirect); };
 
     // Complete
     return;
