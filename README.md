@@ -102,5 +102,23 @@ Crypto Key. Enter a value that is at least 32 characters long.
 
 <hr/>
 
+##  Slash Command Listener
+If you have activated the Slash Command Listener, your server will activate a URL to use in your Discord's Slash Command webhook.
+This URL will send a response to the Discord and allow your Firebase server to do the rest of the work.
+
+### ID
+The value "slashCommandListener.id" used in your config file.
+
+### Domain
+The domain from the value "domain".
+
+### Bot ID
+This is the ID of your bot that you defined in the app settings. Example: The Bot ID of the object path of "cfg.discord.apps.test" is "test".
+
+### Your URL
+https://{domain}/interactions/endpoint?id={ID}&bot={bot-id}
+
+<hr/>
+
 ## File Example
 you can find a file in the path "/test/index.js". This file contains an example on how to write the code to use the module.
