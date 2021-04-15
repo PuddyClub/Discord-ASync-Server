@@ -544,7 +544,8 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
                     if (
 
                         // Members
-                        (data.filters.members < 1 || guild.memberCount <= data.filters.members) &&
+                        (data.filters.members < 1 || guild.memberCount >= data.filters.members) &&
+                        (data.filters.max_members < 1 || guild.memberCount <= data.filters.max_members) &&
 
                         // Name
                         (data.filters.name.length < 1 || (
