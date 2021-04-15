@@ -37,12 +37,18 @@ module.exports = async function (req, res, webCfg, web, app, checkUser) {
         }
 
         // Nope
-        else { res.render('invalid_user', { global: req.globalItems }); }
+        else {
+            if (typeof webCfg.invalidUser !== 'function') {
+                res.render('invalid_user', { global: req.globalItems });
+            } else {
+                webCfg.invalidUser(req, res, { webCfg, web, app, checkUser });
+            }
+        }
 
     }
 
     // Nope
-    else { webCfgres.redirect(webCfg.homepageRedirect); };
+    else { res.redirect(webCfg.homepageRedirect); };
 
     // Complete
     return;
