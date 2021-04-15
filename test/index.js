@@ -124,7 +124,21 @@ ds.firebase.onAuthStateChanged((data => {
 */
 tinyCfg.web.middleware = function (web, app) {
 
-    // Warn
+    /* 
+    
+        Startomg the Plugin....
+
+        app.firebase = Firebase Module started.
+        app.users = Users Perm List
+
+        app.discord.bots = Bots Installed in the app.
+        app.discord.module = Discord.JS Module
+        
+        app.web.io = Socket.IO Server
+        app.web.root = Express App
+        app.web.server = HTTP Module from NodeJS
+    
+    */
     console.group('Starting Middleware...');
     console.log(web);
     console.log(app);
@@ -138,7 +152,7 @@ tinyCfg.web.middleware = function (web, app) {
 
             /* 
             
-            i.io = Socket.IO Module
+            i.io = Socket.IO Server
             i.socket = Socket User from socket.io
             i.ioCache = Socket.IO cache from application
             i.session = User Session from module "cookie-session"
