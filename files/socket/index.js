@@ -543,6 +543,9 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
                     // Filter
                     if (
 
+                        // Permission
+                        socketUser.checkPerm(2, 'guild', socketUser.ids[socket.id].bot.user.id, guild.id) &&
+
                         // Members
                         (data.filters.members < 1 || guild.memberCount >= data.filters.members) &&
                         (data.filters.max_members < 1 || guild.memberCount <= data.filters.max_members) &&
