@@ -114,6 +114,20 @@ $('[id^="ds_bot_"]').click(function () {
 
         }
 
+        // Nope
+        else {
+
+            // Fail Error Message
+            tinyLib.modal({
+                dialog: 'modal-lg',
+                id: 'no-permission',
+                title: tinyLang.permission_error,
+                body: tiny.tinyLang.no_permission_message,
+                footer: [tinyLib.button(tinyLang.close, 'secondary', { 'data-dismiss': 'modal' })]
+            });
+
+        }
+
         // Update Page Data
         socket.emit('updateCountPage', 'connectDiscordBot');
 

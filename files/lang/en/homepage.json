@@ -1,4 +1,6 @@
 {
+    "permission_error": "Forbidden",
+    "no_permission_message": "You are not allowed to do this!",
     "max_members": "Max Members",
     "hoist": "Hoist",
     "mentionable": "Mentionable",
