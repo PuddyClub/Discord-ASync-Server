@@ -5,6 +5,7 @@
 
         <title>Discord Bot Monitor</title>
 
+        {% include "template/head_basic.nunjucks" %}
         {% include "template/head.nunjucks" %}
         <script src="/socket.io/socket.io.js"></script>
         <script>

@@ -30,6 +30,12 @@ module.exports = async function (resolve, reject, ioCache, discordCfg, webCfg, f
     // bot Checker
     if (webCfg.botChecker) { app.web.io = require('socket.io')(app.web.server); }
 
+    // No Index
+    web.app.use((req, res, next) => {
+        res.setHeader('X-Robots-Tag', 'noindex');
+        return next();
+    })
+
     // Body Parser
     web.app.use(bodyParser.json());
     web.app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
@@ -77,6 +83,19 @@ module.exports = async function (resolve, reject, ioCache, discordCfg, webCfg, f
             return readFile(
                 res, next, {
                 file: fs.readFileSync(path.join(__dirname, '../client/main.js'), 'utf8'),
+                date: { year: 2021, month: 3, day: 30, hour: 17, minute: 29 },
+                timezone: 'America/Sao_Paulo',
+                fileMaxAge: fileAge
+            }
+            );
+        });
+
+        // Robots
+        web.app.get('/robots.txt', function (req, res, next) {
+            return readFile(
+                res, next, {
+                contentType: 'text/plain',
+                file: fs.readFileSync(path.join(__dirname, '../client/robots.txt'), 'utf8'),
                 date: { year: 2021, month: 3, day: 30, hour: 17, minute: 29 },
                 timezone: 'America/Sao_Paulo',
                 fileMaxAge: fileAge

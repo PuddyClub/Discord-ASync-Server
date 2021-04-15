@@ -4,6 +4,7 @@
     <head>
 
         <title>Privacy Policy</title>
+        {% include "template/head_basic.nunjucks" %}
         {{global.head.css.bootstrap | safe}}
         {{global.head.css.fontawesome | safe}}
 
