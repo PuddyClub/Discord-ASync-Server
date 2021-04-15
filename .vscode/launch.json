@@ -13,6 +13,12 @@
             ],
             "program": "${workspaceFolder}\\test\\index.js",
             "args": ["test"]
+        },
+        {
+            "command": "npm publish --access public",
+            "name": "NPM Publish",
+            "request": "launch",
+            "type": "node-terminal"
         }
     ]
 }
