@@ -14,8 +14,6 @@ if (data.success) {
     // Read Data
     for (const item in data.result) {
 
-        console.log(data.result[item]);
-
         // New Item
         const newItem = { items: [] };
 

@@ -116,7 +116,6 @@ if (data.success) {
 
                     // Item
                     const channel = groups[item].items[itemsOrder[ctype]][citem];
-                    console.log(channel);
 
                     // Is Visible
                     let isVisible;
