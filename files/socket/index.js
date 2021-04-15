@@ -512,9 +512,10 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
                 // Validator
                 if (objType(data.filters, 'object')) {
                     if (data.filters.members < 0) { data.filters.members = 0; }
+                    if (data.filters.max_members < 0) { data.filters.max_members = 0; }
                     if (typeof data.filters.owner !== "string") { data.filters.owner = ''; }
                     if (typeof data.filters.name !== "string") { data.filters.name = ''; }
-                } else { data.filters = { owner: '', name: '', members: 0 }; }
+                } else { data.filters = { owner: '', name: '', members: 0, max_members: 0 }; }
 
                 // Page
                 let pager = 1;

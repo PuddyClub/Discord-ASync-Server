@@ -1,5 +1,5 @@
 // Select Server Page System
-const pageSystem = { page: 1, perpage: 50, menuOn: false, filters: { owner: '', name: '', members: 0 } };
+const pageSystem = { page: 1, perpage: 50, menuOn: false, filters: { owner: '', name: '', members: 0, max_members: 0 } };
 
 // Open Server
 const openServer = (data, isCount, isSelected) => {
@@ -422,25 +422,31 @@ $('#select_server').click(function () {
                     $('<div>', { class: 'row' }).append(
 
                         // Owner
-                        $('<div>', { class: 'col-xl-4 col-md-6 mb-4' }).append(tinyLib.formGroup('owner', {
+                        $('<div>', { class: 'col-xl-6 col-md-6 mb-6' }).append(tinyLib.formGroup('owner', {
                             label: $('<span>').text(tinyLang.owner),
                             input: 'text',
                             value: pageSystem.filters.owner
                         })),
 
                         // Name
-                        $('<div>', { class: 'col-xl-4 col-md-6 mb-4' }).append(tinyLib.formGroup('name', {
+                        $('<div>', { class: 'col-xl-6 col-md-6 mb-6' }).append(tinyLib.formGroup('name', {
                             label: $('<span>').text(tinyLang.name),
                             input: 'text',
                             value: pageSystem.filters.name
                         })),
 
                         // Members
-                        $('<div>', { class: 'col-xl-4 col-md-12 mb-4' }).append(tinyLib.formGroup('members', {
+                        $('<div>', { class: 'col-xl-6 col-md-12 mb-6' }).append(tinyLib.formGroup('members', {
                             label: $('<span>').text(tinyLang.min_members),
                             input: 'number',
                             min: 0,
                             value: pageSystem.filters.members
+                        })),
+                        $('<div>', { class: 'col-xl-6 col-md-12 mb-6' }).append(tinyLib.formGroup('max_members', {
+                            label: $('<span>').text(tinyLang.max_members),
+                            input: 'number',
+                            min: 0,
+                            value: pageSystem.filters.max_members
                         })),
 
                     ),
@@ -458,9 +464,11 @@ $('#select_server').click(function () {
                     let owner = $('#server-list-search #formGroupBase_owner > input').val();
                     let name = $('#server-list-search #formGroupBase_name > input').val();
                     let members = Number($('#server-list-search #formGroupBase_members > input').val());
+                    let max_members = Number($('#server-list-search #formGroupBase_max_members > input').val());
 
                     // Validator
                     if (members < Number($('#server-list-search #formGroupBase_members > input').attr('min'))) { members = 0; }
+                    if (max_members < Number($('#server-list-search #formGroupBase_members > input').attr('min'))) { max_members = 0; }
                     if (typeof owner !== "string") { owner = ''; }
                     if (typeof name !== "string") { name = ''; }
 
@@ -468,6 +476,7 @@ $('#select_server').click(function () {
                     pageSystem.filters.owner = owner;
                     pageSystem.filters.name = name;
                     pageSystem.filters.members = members;
+                    pageSystem.filters.max_members = max_members;
 
                     // Block Submit HTML
                     $('#server-list-modal').modal('hide');
