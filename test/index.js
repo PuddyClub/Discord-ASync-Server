@@ -206,6 +206,25 @@ tinyCfg.web.middleware = function (web, app) {
 
 /* 
 
+    This is the Invalid User Request.
+    You can find the same values as in the example above. The values are within the "data".
+
+*/
+
+tinyCfg.web.invalidUser = (req, res, data) => {
+
+    // Invalid User!
+    console.group('Invalid user!');
+    console.log(data);
+    console.groupEnd();
+
+    // Complete Request
+    res.render('invalid_user', { global: req.globalItems });
+
+};
+
+/* 
+
 Add a User to the Permission List
 
 1 - Basic Access
