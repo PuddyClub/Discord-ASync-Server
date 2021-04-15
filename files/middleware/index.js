@@ -54,7 +54,7 @@ module.exports = async function (resolve, reject, ioCache, discordCfg, webCfg, f
         if (typeof webCfg.middleware === "function") {
             pluginSettings = await webCfg.middleware(web, app);
             if (!objType(pluginSettings, 'object')) { pluginSettings = {}; }
-        }
+        } else { pluginSettings = {}; }
 
         // Files
         const readFile = require('@tinypudding/puddy-lib/http/fileCache');
