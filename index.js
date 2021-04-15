@@ -169,10 +169,7 @@ const appModule = {
                         domainValidator: {
 
                             // Domain Validator
-                            domain: tinyCfg.domain,
-
-                            // Static Path Protector
-                            staticPath: ['/css/', '/img/', '/js/', '/sound/', '/webfonts/']
+                            domain: tinyCfg.domain
 
                         }
 
