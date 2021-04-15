@@ -128,6 +128,12 @@ tinyCfg.web.middleware = function (web, app) {
     
         Startomg the Plugin....
 
+        web.app = Express App (Same Express app from the value "app.web.root")
+        web.cfg = App Config
+        web.cookieSession = The "cookie-session" module to insert inside the Express App
+        web.dsSession = The "@tinypudding/discord-oauth2" module to insert inside the Express App
+        web.express = The Express Module
+
         app.firebase = Firebase Module started.
         app.users = Users Perm List
 
