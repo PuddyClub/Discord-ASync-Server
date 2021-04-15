@@ -138,10 +138,14 @@ tinyCfg.web.middleware = function (web, app) {
 
             /* 
             
+            i.io = Socket.IO Module
             i.socket = Socket User from socket.io
             i.ioCache = Socket.IO cache from application
             i.session = User Session from module "cookie-session"
             i.socketUser = User Cache from "i.ioCache"
+            i.userData = The Permission Cache used by i.checkPerm();
+
+            i.web.cfg = Some Application Configs
             
             */
 
