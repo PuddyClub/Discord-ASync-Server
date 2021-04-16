@@ -34,13 +34,7 @@ module.exports = async function (resolve, reject, ioCache, discordCfg, webCfg, f
     web.app.use((req, res, next) => {
         res.setHeader('X-Robots-Tag', 'noindex');
         return next();
-    })
-
-    // Body Parser
-    web.app.use(bodyParser.json());
-    web.app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
-        extended: true
-    }));
+    });
 
     // Bot Checker
     if (webCfg.botChecker) {
@@ -179,7 +173,7 @@ module.exports = async function (resolve, reject, ioCache, discordCfg, webCfg, f
     ) {
 
         // Insert Interactions Endpoint
-        web.app.all('/interactions/endpoint', (req, res) => {
+        web.app.post('/interactions/endpoint', bodyParser.text({ type: '*/*' }), (req, res) => {
             return interactionEndPoint(req, res, webCfg.slashCommandListener, app.firebase, discordCfg.apps);
         });
 
