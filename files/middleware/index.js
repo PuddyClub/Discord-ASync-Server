@@ -174,7 +174,7 @@ module.exports = async function (resolve, reject, ioCache, discordCfg, webCfg, f
 
         // Insert Interactions Endpoint
         web.app.post('/interactions/endpoint', bodyParser.text({ type: '*/*' }), (req, res) => {
-            return interactionEndPoint(req, res, webCfg.slashCommandListener, app.firebase, discordCfg.apps);
+            return interactionEndPoint(req, res, webCfg.slashCommandListener, { root: app.firebase }, discordCfg.apps);
         });
 
     }
