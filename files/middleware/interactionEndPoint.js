@@ -46,9 +46,11 @@ module.exports = function (req, res, cfg, firebase, discordApps) {
 
                 // Convert Data
                 if (typeof req.rawBody !== "string") { try { req.rawBody = JSON.stringify(req.rawBody); } catch (err) { console.error('Error Raw Body!'); console.error(err); req.rawBody = ''; } }
-                if (typeof req.body === "string") { try { req.body = JSON.parse(req.body); } catch (err) { console.error('Error Body!'); console.error(err); req.body = {}; } }
 
             }
+
+            // Fix Body
+            if (typeof req.body === "string") { try { req.body = JSON.parse(req.body); } catch (err) { console.error('Error Body!'); console.error(err); req.body = {}; } }
 
             return interactionsEndpoint(req, res, discordApps[req.query.bot].waitMessage).err((err) => {
                 console.error(err);
