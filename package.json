@@ -1,6 +1,6 @@
 {
   "name": "@tinypudding/discord-firebase-async-server",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "System for synchronizing Discord Bots with the Firebase.",
   "main": "index.js",
   "scripts": {},
