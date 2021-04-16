@@ -33,7 +33,7 @@ module.exports = function (req, res, cfg, firebase, discordApps) {
 
                 // Insert Body Here
                 req.rawBody = req.body;
-                if (typeof req.rawBody !== "string") { try { req.rawBody = JSON.stringify(req.rawBody); } catch (err) { req.rawBody = ''; } }
+                if (typeof req.rawBody !== "string") { try { req.rawBody = JSON.stringify(req.rawBody); } catch (err) { console.error(err); req.rawBody = ''; } }
 
             }
 
