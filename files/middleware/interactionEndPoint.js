@@ -28,6 +28,15 @@ module.exports = function (req, res, cfg, firebase, discordApps) {
                 });
             }
 
+            // Fix Raw
+            if (typeof req.rawBody !== "string" && typeof req.body !== "undefined") {
+
+                // Insert Body Here
+                req.rawBody = req.body;
+                if (typeof req.rawBody !== "string") { try { req.rawBody = JSON.stringify(req.rawBody); } catch (err) { req.rawBody = ''; } }
+
+            }
+
             return interactionsEndpoint(req, res, discordApps[req.query.bot].waitMessage).err((err) => {
                 console.error(err);
             });
