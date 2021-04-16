@@ -24,7 +24,11 @@ module.exports = function (req, res, cfg, firebase, discordApps) {
 
                         // Console Error
                         console.error('Firebase-Discord-Interactions ERROR!');
-                        console.error({ code: code, message: message, body: { normal: req.body, raw: req.rawBody } });
+                        const errorMEssage = { code: code, message: message, body: { normal: req.body, raw: req.rawBody } };
+
+                        if (!cfg.objString) { console.error(errorMEssage); } else {
+                            console.error(JSON.stringify(errorMEssage, null, 2));
+                        }
 
                         // Send Error HTTP
                         if (req) {
@@ -45,12 +49,30 @@ module.exports = function (req, res, cfg, firebase, discordApps) {
                 req.rawBody = clone(req.body);
 
                 // Convert Data
-                if (typeof req.rawBody !== "string") { try { req.rawBody = JSON.stringify(req.rawBody); } catch (err) { console.error('Error Raw Body!'); console.error(err); req.rawBody = ''; } }
+                if (typeof req.rawBody !== "string") { try { req.rawBody = JSON.stringify(req.rawBody); } catch (err) { 
+                    
+                    console.error('Error Raw Body!'); 
+                    if (!cfg.objString) { console.error(err); } else {
+                        console.error(JSON.stringify(err, null, 2));
+                    }
+                    
+                    req.rawBody = '';
+
+                } }
 
             }
 
             // Fix Body
-            if (typeof req.body === "string") { try { req.body = JSON.parse(req.body); } catch (err) { console.error('Error Body!'); console.error(err); req.body = {}; } }
+            if (typeof req.body === "string") { try { req.body = JSON.parse(req.body); } catch (err) {
+                
+                console.error('Error Body!'); 
+                if (!cfg.objString) { console.error(err); } else {
+                    console.error(JSON.stringify(err, null, 2));
+                }
+                
+                req.body = {}; 
+                
+                } }
 
             return interactionsEndpoint(req, res, discordApps[req.query.bot].waitMessage).err((err) => {
                 console.error('Firebase-Discord-Interactions Server ERROR!');
