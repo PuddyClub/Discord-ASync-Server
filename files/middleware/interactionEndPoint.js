@@ -24,7 +24,7 @@ module.exports = function (req, res, cfg, firebase, discordApps) {
 
                         // Console Error
                         console.error('Firebase-Discord-Interactions ERROR!');
-                        console.error({ code, message });
+                        console.error({ code: code, message: message, body: { normal: req.body, raw: req.rawBody } });
 
                         // Send Error HTTP
                         if (req) {
@@ -41,8 +41,12 @@ module.exports = function (req, res, cfg, firebase, discordApps) {
             if (typeof req.rawBody !== "string" && typeof req.body !== "undefined") {
 
                 // Insert Body Here
-                req.rawBody = req.body;
-                if (typeof req.rawBody !== "string") { try { req.rawBody = JSON.stringify(req.rawBody); } catch (err) { console.error(err); req.rawBody = ''; } }
+                const clone = require('clone');
+                req.rawBody = clone(req.body);
+
+                // Convert Data
+                if (typeof req.rawBody !== "string") { try { req.rawBody = JSON.stringify(req.rawBody); } catch (err) { console.error('Error Raw Body!'); console.error(err); req.rawBody = ''; } }
+                if (typeof req.body === "string") { try { req.body = JSON.parse(req.body); } catch (err) { console.error('Error Body!'); console.error(err); req.body = {}; } }
 
             }
 
