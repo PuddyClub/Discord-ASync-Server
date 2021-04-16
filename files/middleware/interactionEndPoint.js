@@ -17,6 +17,7 @@ module.exports = function (req, res, cfg, firebase, discordApps) {
             // Prepare Module
             if (!interactionsEndpoint) {
                 interactionsEndpoint = firebaseEndPoint({
+                    debug: cfg.debug,
                     firebase: firebase,
                     app: discordApps,
                     errorCallback: function (req, res, code, message) {
@@ -34,7 +35,7 @@ module.exports = function (req, res, cfg, firebase, discordApps) {
         }
 
         // Nope
-        else { errorPage.send(res, 404); }
+        else { console.error('Bot not found.'); errorPage.send(res, 404); }
 
     }
 
