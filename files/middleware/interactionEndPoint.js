@@ -53,7 +53,9 @@ module.exports = function (req, res, cfg, firebase, discordApps) {
             if (typeof req.body === "string") { try { req.body = JSON.parse(req.body); } catch (err) { console.error('Error Body!'); console.error(err); req.body = {}; } }
 
             return interactionsEndpoint(req, res, discordApps[req.query.bot].waitMessage).err((err) => {
+                console.error('Firebase-Discord-Interactions Server ERROR!');
                 console.error(err);
+                return;
             });
 
         }
