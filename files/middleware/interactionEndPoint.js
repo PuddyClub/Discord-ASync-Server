@@ -17,6 +17,7 @@ module.exports = function (req, res, cfg, firebase, discordApps) {
             // Prepare Module
             if (!interactionsEndpoint) {
                 interactionsEndpoint = firebaseEndPoint({
+                    objString: cfg.objString,
                     debug: cfg.debug,
                     firebase: firebase,
                     app: discordApps,
