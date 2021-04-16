@@ -21,8 +21,17 @@ module.exports = function (req, res, cfg, firebase, discordApps) {
                     firebase: firebase,
                     app: discordApps,
                     errorCallback: function (req, res, code, message) {
-                        res.status(code);
-                        return res.json({ code: code, message: message });
+
+                        // Console Error
+                        console.error('Firebase-Discord-Interactions ERROR!');
+                        console.error({ code, message });
+
+                        // Send Error HTTP
+                        if (req) {
+                            res.status(code);
+                            return res.json({ code: code, message: message });
+                        } else { return; }
+
                     },
                     varNames: { bot: 'bot' }
                 });
