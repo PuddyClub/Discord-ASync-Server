@@ -81,6 +81,8 @@ Choose which module features you want to activate.
 
 homepageRedirect (String) - Choose a page where the user will be redirected when trying to access the domain. Changing this value, you will have to log in to the website using the path "/login".
 
+slashCommandListener.objString (Boolean) - The data shown on the console will be a string instead of an Object.
+
 slashCommandListener.enabled (Boolean) (BETA) - Activate a special URL to receive your bot's interactions via your Firebase server.
 
 slashCommandListener.id (string) (BETA) - Special security ID of your URL that will be read by the Discord Interaction API Webhook.
