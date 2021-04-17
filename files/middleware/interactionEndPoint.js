@@ -80,25 +80,44 @@ module.exports = function (req, res, cfg, firebase, discordApps) {
                 }
             }
 
+            // Send Error Console
+            const sendErrorConsole = function (type, err) {
+
+                // Prepare Error Message
+                let errorMessage = type + ' Firebase-Discord-Interactions Server ERROR!';
+                if (err && typeof err !== "string" && typeof err.message === "string") { errorMessage += ' ' + err.message; }
+
+                // No String
+                if (typeof err !== "string") {
+
+                    // Print Errors
+                    console.error(errorMessage);
+                    console.error(err);
+
+                }
+
+                // String
+                else { console.error(errorMessage + ' ' + err); }
+
+                return;
+
+            };
+
             // Send Command
             return interactionsEndpoint(req, res, discordApps[req.query.bot].waitMessage).then(function (data) {
 
+                // Error Message
                 if (!data.success) {
-                    let errorMessage = 'Firebase-Discord-Interactions Server ERROR!';
-                    if (data.error && typeof data.error.message === "string") { errorMessage += ' ' + data.error.message; }
-                    console.error(errorMessage);
-                    console.error(data.error);
+                    if (data.error) { sendErrorConsole('(THEN 1)', data.error); }
+                    if (data.data) { sendErrorConsole('(THEN 2)', data.data); }
                 }
 
                 return;
 
-            }).catch((err) => {
-                let errorMessage = 'Firebase-Discord-Interactions Server ERROR!';
-                if (err && typeof err.message === "string") { errorMessage += ' ' + err.message; }
-                console.error(errorMessage);
-                console.error(err);
-                return;
-            });
+            })
+
+                // Error
+                .catch((err) => { return sendErrorConsole('(CATCH)', err); });
 
         }
 
