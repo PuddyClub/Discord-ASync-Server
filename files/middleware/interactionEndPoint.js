@@ -82,16 +82,20 @@ module.exports = function (req, res, cfg, firebase, discordApps) {
 
             // Send Command
             return interactionsEndpoint(req, res, discordApps[req.query.bot].waitMessage).then(function (data) {
-                
+
                 if (!data.success) {
-                    console.error('Firebase-Discord-Interactions Server ERROR!');
+                    let errorMessage = 'Firebase-Discord-Interactions Server ERROR!';
+                    if (data.error && typeof data.error.message === "string") { errorMessage += ' ' + data.error.message; }
+                    console.error(errorMessage);
                     console.error(data.error);
                 }
-                
+
                 return;
 
             }).catch((err) => {
-                console.error('Firebase-Discord-Interactions Server ERROR!');
+                let errorMessage = 'Firebase-Discord-Interactions Server ERROR!';
+                if (err && typeof err.message === "string") { errorMessage += ' ' + err.message; }
+                console.error(errorMessage);
                 console.error(err);
                 return;
             });
