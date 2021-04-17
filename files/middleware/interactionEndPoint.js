@@ -107,6 +107,7 @@ module.exports = function (req, res, cfg, firebase, discordApps) {
             return interactionsEndpoint(req, res, discordApps[req.query.bot].waitMessage).then(function (data) {
 
                 // Error Message
+                console.log(data);
                 if (!data.success) {
                     if (data.error) { sendErrorConsole('(THEN 1)', data.error); }
                     if (data.data) { sendErrorConsole('(THEN 2)', data.data); }
