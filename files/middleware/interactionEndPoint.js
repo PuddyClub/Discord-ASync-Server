@@ -7,6 +7,7 @@ module.exports = function (req, res, cfg, firebase, discordApps) {
 
     // Get Error Page
     const errorPage = require('@tinypudding/puddy-lib/http/HTTP-1.0');
+    const objType = require('@tinypudding/puddy-lib/get/objType');
 
     // Verify Interaction ID
     if (typeof req.query.id === "string" && req.query.id === cfg.id) {
@@ -104,14 +105,21 @@ module.exports = function (req, res, cfg, firebase, discordApps) {
             };
 
             // Send Command
-            return interactionsEndpoint(req, res, discordApps[req.query.bot].waitMessage).then(function (data) {
+            return interactionsEndpoint(req, res, discordApps[req.query.bot].waitMessage).then(function (item) {
 
-                // Error Message
-                console.log(data);
-                if (!data.success) {
-                    if (data.error) { sendErrorConsole('(THEN 1)', data.error); }
-                    if (data.data) { sendErrorConsole('(THEN 2)', data.data); }
-                }
+                // Exist Data
+                if (objType(item, 'object') && objType(item.data, 'object')) {
+
+                    // Error Message
+                    if (!item.data.success) {
+                        if (item.data.error) { sendErrorConsole('(THEN 1)', item.data.error); }
+                        if (item.data.data) { sendErrorConsole('(THEN 2)', item.data.data); }
+                    }
+
+                } 
+                
+                // No Data
+                else { sendErrorConsole('(NULL)', 'No Data'); }
 
                 return;
 
