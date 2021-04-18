@@ -81,7 +81,7 @@ Choose which module features you want to activate.
 
 homepageRedirect (String) - Choose a page where the user will be redirected when trying to access the domain. Changing this value, you will have to log in to the website using the path "/login".
 
-slashCommandListener.function (String) - Name of the function you are hosting within Firebase via the module path "@tinypudding/firebase-discord-interactions/functionListener/firebaseCallback/client.js". This function will receive the request received by the URL of slashCommandListener.
+slashCommandListener.function (String) - Name of the function you are hosting within Firebase via the module path "@tinypudding/firebase-discord-interactions/functionListener/firebaseCallback/server". This function will receive the request received by the URL of slashCommandListener.
 
 slashCommandListener.objString (Boolean) - The data shown on the console will be a string instead of an Object.
 
