@@ -9,7 +9,7 @@ if (process.argv[2] === "test") { isDebug = true; }
 const ioCache = {};
 
 // App
-const app = { users: [], auth: { login: null }, web: {}, discord: { firstTime: true, bots: [], module: require('discord.js'), moduleVersion: require('discord.js/package.json') } };
+const app = { users: [], auth: { login: null }, web: {}, discord: { firstTime: true, bots: [], module: require('discord.js') } };
 const appModule = {
 
     // Express
@@ -296,7 +296,11 @@ const appModule = {
     // Add Bots
     addBot: function (token, cfg = {}) {
 
-        if (app.discord.firstTime) { app.discord.firstTime = false; console.log(`Starting "Discord.JS"... (Version - ${app.discord.moduleVersion.version})`); }
+        // First Time
+        if (app.discord.firstTime) { 
+            app.discord.firstTime = false; 
+            console.log(`Starting "Discord.JS"... (Version - ${app.discord.module.version})`); 
+        }
 
         // Add Bot
         const bot = new app.discord.module.Client(cfg);
