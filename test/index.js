@@ -255,8 +255,10 @@ ds.addUser('152145019296284672', {
 // Validate User Session. If the new user permission is 0. The user is disconnected.
 ds.validateUserSession('152145019296284672');
 
-// Start Firebase
-ds.firebase.start(tinyCfg.firebase);
+// Start Firebase and get Firebase Module
+const firebase = ds.firebase.start(tinyCfg.firebase);
+
+// Login Firebase
 ds.firebase.login(tokenLogin).then((user) => {
 
     /* user value is the value returned from login with custom token */
