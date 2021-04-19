@@ -9,7 +9,7 @@ if (process.argv[2] === "test") { isDebug = true; }
 const ioCache = {};
 
 // App
-const app = { users: [], auth: { login: null }, web: {}, discord: { bots: [], module: require('discord.js') } };
+const app = { users: [], auth: { login: null }, web: {}, discord: { firstTime: true, bots: [], module: require('discord.js'), moduleVersion: require('discord.js/package.json') } };
 const appModule = {
 
     // Express
@@ -295,9 +295,14 @@ const appModule = {
 
     // Add Bots
     addBot: function (token, cfg = {}) {
+
+        if (app.discord.firstTime) { app.discord.firstTime = false; console.log(`Starting "Discord.JS"... (Version - ${app.discord.moduleVersion.version})`); }
+
+        // Add Bot
         const bot = new app.discord.module.Client(cfg);
         app.discord.bots.push({ bot: bot, token: token });
         return bot;
+
     },
 
     // Check User Session
@@ -490,8 +495,62 @@ ON_DEATH(async function (signal, err) {
     console.log(`Closing App: ${signal}`);
     if (err) { console.error(err); }
 
+    // Close Web Server
+    console.log(`Closing "Socket.IO"...`);
+    await new Promise(function (resolve) {
+
+        // Try Close the Server
+        try {
+            app.web.io.close(() => {
+                return resolve();
+            });
+        } catch (err) {
+            console.error(err);
+            resolve();
+        }
+
+        // Complete
+        return;
+
+    });
+    console.log(`"Socket.IO" closed!`);
+
+    // Close Web Server
+    console.log(`Closing "Express"...`);
+    await new Promise(function (resolve) {
+
+        // Try Close the Server
+        try {
+            app.web.server.close(() => {
+                return resolve();
+            });
+        } catch (err) {
+            console.error(err);
+            resolve();
+        }
+
+        // Complete
+        return;
+
+    });
+    console.log(`"Express" closed!`);
+
+    // Close Bots
+    console.log(`Closing "Discord.JS"...`);
+    if (app && app.discord && Array.isArray(app.discord.bots)) {
+        for (const item in app.discord.bots) {
+            try { await app.discord.bots[item].bot.destroy(); } catch (err) { console.error(err); }
+        }
+    }
+    console.log(`"Discord.JS" closed!`);
+
     // Close Firebase Connection
+    console.log(`Closing "Firebase"...`);
     try { await firebase.auth().signOut(); } catch (err) { console.error(err); }
+    console.log(`"Firebase" closed!`);
+
+    // Complete
+    console.log(`Server closed successfully!`);
     return;
 
 });
