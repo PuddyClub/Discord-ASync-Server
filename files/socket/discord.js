@@ -22,7 +22,7 @@ const sendInfo = function (ioCache, where, botID, itemSent, perm = 1, guildID, t
                     // Guild
                     (typeof guildID !== "string" || (
                         ioCache.users[item].ids[id].guild && 
-                        (typeof ioCache.users[item].ids[id].guild.id === "string" || ioCache.users[item].ids[id].guild.id === "number") &&
+                        (typeof ioCache.users[item].ids[id].guild.id === "string" || typeof ioCache.users[item].ids[id].guild.id === "number") &&
                         ioCache.users[item].ids[id].guild.id === guildID
                     ))
 
