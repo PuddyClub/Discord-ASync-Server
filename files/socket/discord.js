@@ -93,6 +93,7 @@ const startDiscordSocket = function (ioCache, io, data) {
     // Guild Item
     const updateGuildData = async (guild) => {
 
+        // Exist Guild
         if (guild) {
 
             // Update Guild Count
@@ -125,17 +126,17 @@ const startDiscordSocket = function (ioCache, io, data) {
 
     // Rest Guild
 
-    bot.on('guildMemberAdd', (member) => { sendInfo(ioCache, 'dsBot_guildMemberCount', bot.user.id, member.guild.memberCount, 2, member.guild.id, 'guild'); return; });
-    bot.on('guildMemberRemove', (member) => { sendInfo(ioCache, 'dsBot_guildMemberCount', bot.user.id, member.guild.memberCount, 2, member.guild.id, 'guild'); return; });
+    bot.on('guildMemberAdd', (member) => { if (member.guild) { sendInfo(ioCache, 'dsBot_guildMemberCount', bot.user.id, member.guild.memberCount, 2, member.guild.id, 'guild'); } return; });
+    bot.on('guildMemberRemove', (member) => { if (member.guild) { sendInfo(ioCache, 'dsBot_guildMemberCount', bot.user.id, member.guild.memberCount, 2, member.guild.id, 'guild'); } return; });
 
-    bot.on('roleCreate', (role) => { sendInfo(ioCache, 'dsBot_guildRoleCount', bot.user.id, role.guild.roles.cache.size, 2, role.guild.id, 'guild'); return; });
-    bot.on('roleDelete', (role) => { sendInfo(ioCache, 'dsBot_guildRoleCount', bot.user.id, role.guild.roles.cache.size, 2, role.guild.id, 'guild'); return; });
+    bot.on('roleCreate', (role) => { if (role.guild) { sendInfo(ioCache, 'dsBot_guildRoleCount', bot.user.id, role.guild.roles.cache.size, 2, role.guild.id, 'guild'); } return; });
+    bot.on('roleDelete', (role) => { if (role.guild) { sendInfo(ioCache, 'dsBot_guildRoleCount', bot.user.id, role.guild.roles.cache.size, 2, role.guild.id, 'guild'); } return; });
 
-    bot.on('channelCreate', (channel) => { sendInfo(ioCache, 'dsBot_guildChannelsCount', bot.user.id, channel.guild.channels.cache.size, 2, channel.guild.id, 'guild'); return; });
-    bot.on('channelDelete', (channel) => { sendInfo(ioCache, 'dsBot_guildChannelsCount', bot.user.id, channel.guild.channels.cache.size, 2, channel.guild.id, 'guild'); return; });
+    bot.on('channelCreate', (channel) => { if (channel.guild) { sendInfo(ioCache, 'dsBot_guildChannelsCount', bot.user.id, channel.guild.channels.cache.size, 2, channel.guild.id, 'guild'); } return; });
+    bot.on('channelDelete', (channel) => { if (channel.guild) { sendInfo(ioCache, 'dsBot_guildChannelsCount', bot.user.id, channel.guild.channels.cache.size, 2, channel.guild.id, 'guild'); } return; });
 
-    bot.on('emojiCreate', (emoji) => { sendInfo(ioCache, 'dsBot_guildEmojiCount', bot.user.id, emoji.guild.emojis.cache.size, 2, emoji.guild.id, 'guild'); return; });
-    bot.on('emojiDelete', (emoji) => { sendInfo(ioCache, 'dsBot_guildEmojiCount', bot.user.id, emoji.guild.emojis.cache.size, 2, emoji.guild.id, 'guild'); return; });
+    bot.on('emojiCreate', (emoji) => { if (emoji.guild) { sendInfo(ioCache, 'dsBot_guildEmojiCount', bot.user.id, emoji.guild.emojis.cache.size, 2, emoji.guild.id, 'guild'); } return; });
+    bot.on('emojiDelete', (emoji) => { if (emoji.guild) { sendInfo(ioCache, 'dsBot_guildEmojiCount', bot.user.id, emoji.guild.emojis.cache.size, 2, emoji.guild.id, 'guild'); } return; });
 
     // Complete
     return;
