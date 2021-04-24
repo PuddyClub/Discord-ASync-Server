@@ -20,7 +20,7 @@ const sendInfo = function (ioCache, where, botID, itemSent, perm = 1, guildID, t
                     ioCache.users[item].checkPerm(perm, type, botID, guildID) &&
 
                     // Guild
-                    (typeof guildID !== "string" || ioCache.users[item].ids[id].guild.id === guildID)
+                    (typeof guildID !== "string" || (ioCache.users[item].ids[id].guild && ioCache.users[item].ids[id].guild.id === guildID))
 
                 ) {
                     ioCache.users[item].ids[id].socket.emit(where, itemSent);
