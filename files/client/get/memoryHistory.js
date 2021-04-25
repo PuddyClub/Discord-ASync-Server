@@ -1,5 +1,5 @@
 // Cache
-website.memoryCache = { usedMem: [], freeMem: [], totalMem: [], time: [], timeORIGINAL: [], now: null, logUsing: null, logCanvas: null, chart: null };
+website.memoryCache = { n: { usedMem: [], freeMem: [], totalMem: [] }, t: { usedMem: [], freeMem: [], totalMem: [] }, time: [], timeORIGINAL: [], now: null, logUsing: null, logCanvas: null, chart: null };
 
 // Get Memory Cache
 const getMemoryCacheValue = function (items) {
@@ -228,8 +228,6 @@ $('[id="openHistoryLog"]').click(function () {
 // Memory Server
 socket.on("machineMemory", (data) => {
 
-    console.log(data);
-
     // Update Page
     $("#usedMemory").text(data.usedMem.value);
     $("#freeMemory").text(data.freeMem.value);
@@ -241,6 +239,9 @@ socket.on("machineMemory", (data) => {
     if (Array.isArray(data.history.n.usedMem)) { website.memoryCache.n.usedMem = data.history.n.usedMem; }
     if (Array.isArray(data.history.n.freeMem)) { website.memoryCache.n.freeMem = data.history.n.freeMem; }
     if (Array.isArray(data.history.n.totalMem)) { website.memoryCache.n.totalMem = data.history.n.totalMem; }
+    if (Array.isArray(data.history.t.usedMem)) { website.memoryCache.n.usedMem = data.history.t.usedMem; }
+    if (Array.isArray(data.history.t.freeMem)) { website.memoryCache.n.freeMem = data.history.t.freeMem; }
+    if (Array.isArray(data.history.t.totalMem)) { website.memoryCache.n.totalMem = data.history.t.totalMem; }
 
     // Insert Time
     if (Array.isArray(data.history.time)) {
