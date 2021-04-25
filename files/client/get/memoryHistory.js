@@ -9,33 +9,64 @@ const updateMemoryCacheData = function () {
 
         // Create Canvas
         if (!memoryCacheHistory.chart) {
+
+            // Labels
+            const labels = [];
+            for (let i = 0; i < memoryCacheHistory.totalMem.length; i++) {
+                labels.push('');
+            }
+
+            // Color Opacity
+            const colorOpacity = {
+                usedMemory: 0.4,
+                freeMemory: 0.4,
+                totalMemory: 0.4
+            };
+
+            colorOpacity[memoryCacheHistory.logUsing] = 0.7;
+            
+            // Create Chart
             const ctx = memoryCacheHistory.logCanvas[0].getContext('2d');
             memoryCacheHistory.chart = new Chart(ctx, {
                 responsive: true,
-                type: 'bar',
+                type: 'line',
                 data: {
-                    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                    datasets: [{
-                        label: '# of Votes',
-                        data: [12, 19, 3, 5, 2, 3],
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)'
-                        ],
-                        borderWidth: 1
-                    }]
+                    labels: labels,
+                    datasets: [
+                        /* {
+                            label: tinyLang.total_memory,
+                            data: memoryCacheHistory.totalMem,
+                            backgroundColor: [
+                                'rgba(54, 162, 235, ' + colorOpacity.totalMemory + ')'
+                            ],
+                            borderColor: [
+                                'rgba(54, 162, 235, 1)'
+                            ],
+                            borderWidth: 1
+                        }, */
+                        {
+                            label: tinyLang.free_memory,
+                            data: memoryCacheHistory.freeMem,
+                            backgroundColor: [
+                                'rgba(97, 255, 123, ' + colorOpacity.freeMemory + ')'
+                            ],
+                            borderColor: [
+                                'rgba(132, 255, 66, 1)'
+                            ],
+                            borderWidth: 1
+                        },
+                        {
+                            label: tinyLang.used_memory,
+                            data: memoryCacheHistory.usedMem,
+                            backgroundColor: [
+                                'rgba(255, 99, 132, ' + colorOpacity.usedMemory + ')'
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)'
+                            ],
+                            borderWidth: 1
+                        }
+                    ]
                 },
                 options: {
                     scales: {

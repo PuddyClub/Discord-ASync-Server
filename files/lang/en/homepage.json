@@ -1,4 +1,7 @@
 {
+    "total_memory": "Total Memory",
+    "used_memory": "Used Memory",
+    "free_memory": "Free Memory",
     "usedMemory_history_title": "History - Used Memory",
     "freeMemory_history_title": "History - Free Memory",
     "totalMemory_history_title": "History - Total Memory",

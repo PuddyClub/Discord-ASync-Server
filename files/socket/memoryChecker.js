@@ -7,6 +7,7 @@ module.exports = (ioCache, cfg) => {
         let startInterval = false;
         let os;
         let prettyBytes;
+        let moment;
 
         // Fix Rate
         if (
@@ -18,7 +19,7 @@ module.exports = (ioCache, cfg) => {
 
         // History
         const memoryHistory = {
-            items: { totalMem: [], freeMem: [], usedMem: [] }, add: function (value, where) {
+            items: { totalMem: [], freeMem: [], usedMem: [], time: [] }, add: function (value, where) {
 
                 // Is Number
                 if (typeof value === "number" && typeof where === "string" && Array.isArray(memoryHistory.items[where])) {
@@ -45,6 +46,7 @@ module.exports = (ioCache, cfg) => {
         try {
 
             // Modules
+            moment = require('moment-timezone');
             os = require('os');
             prettyBytes = require('pretty-bytes');
 
@@ -84,11 +86,15 @@ module.exports = (ioCache, cfg) => {
                             usedMem: { number: memoryUsage.rss }
                         };
 
+                        // Get Time
+                        tinyValue.time = moment.utc().toISOString();
+
                         // Add History
                         if (cfg.historyLimit > 0) {
                             memoryHistory.add(totalmem, 'totalMem');
                             memoryHistory.add(freemem, 'freeMem');
                             memoryHistory.add(memoryUsage.rss, 'usedMem');
+                            memoryHistory.add(tinyValue.time, 'time');
                             tinyValue.history = memoryHistory.items;
                         }
 
