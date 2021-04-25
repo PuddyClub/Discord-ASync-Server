@@ -9,6 +9,7 @@
 {{global.head.js.easing | safe}}
 {{global.head.js.chart | safe}}
 {{global.head.js.momentjs | safe}}
+{{global.head.js.objecthash | safe}}
 <script src="/js/forPromise.js?v={{global.cache_code}}"></script>
 
 {# CSS #}
