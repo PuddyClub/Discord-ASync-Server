@@ -8,6 +8,7 @@ module.exports = (ioCache, cfg) => {
         let os;
         let prettyBytes;
         let moment;
+        let objType;
 
         // Fix Rate
         if (
@@ -25,7 +26,7 @@ module.exports = (ioCache, cfg) => {
             }, add: function (value, where) {
 
                 // Is Number
-                if ((typeof value === "number" || typeof value === "string") && typeof where === "string" && Array.isArray(memoryHistory.items.n[where])) {
+                if ((typeof value === "number" || objType(value, 'object')) && typeof where === "string" && Array.isArray(memoryHistory.items.n[where])) {
 
                     // Add Value
                     memoryHistory.items.n[where].push(value);
@@ -54,6 +55,7 @@ module.exports = (ioCache, cfg) => {
             moment = require('moment-timezone');
             os = require('os');
             prettyBytes = require('pretty-bytes');
+            objType = require('@tinypudding/puddy-lib/get/objType');
 
             // Allow Start
             startInterval = true;
@@ -92,7 +94,7 @@ module.exports = (ioCache, cfg) => {
                         };
 
                         // Get Time
-                        tinyValue.time = moment.utc().toJSON();
+                        tinyValue.time = moment.utc().toObject();
 
                         // Add History
                         if (cfg.historyLimit > 0) {

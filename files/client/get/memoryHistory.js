@@ -1,21 +1,6 @@
 // Cache
 website.memoryCache = { n: { usedMem: [], freeMem: [], totalMem: [] }, t: { usedMem: [], freeMem: [], totalMem: [] }, time: [], timeORIGINAL: [], now: null, logUsing: null, logCanvas: null, chart: null };
 
-// Get Memory Cache
-const getMemoryCacheValue = function (items) {
-
-    // Get Values
-    for (const item in items) {
-        if (typeof items[item] === "number") {
-            items[item] = { x: items[item], time: website.memoryCache.time[item] };
-        }
-    }
-
-    // Complete
-    return;
-
-};
-
 // Update Chart JS
 const updateMemoryCacheData = function () {
 
@@ -51,11 +36,6 @@ const updateMemoryCacheData = function () {
             colorOpacity[website.memoryCache.logUsing] = 0.7;
             borderOpacity[website.memoryCache.logUsing] = 3;
 
-            // Fix Values
-            getMemoryCacheValue(website.memoryCache.n.totalMem);
-            getMemoryCacheValue(website.memoryCache.n.freeMem);
-            getMemoryCacheValue(website.memoryCache.n.usedMem);
-
             // Create Chart
             const ctx = website.memoryCache.logCanvas[0].getContext('2d');
             website.memoryCache.chart = new Chart(ctx, {
@@ -87,14 +67,14 @@ const updateMemoryCacheData = function () {
 
                     tooltips: {
                         callbacks: {
-                            /* label: function (context) {
-                                console.log(context);
+                            label: function (c) {
+                                //console.log(c);
                                 return 'Value';
                             },
-                            title: function (context) {
-                                console.log(context);
-                                return 'Date';
-                            } */
+                            title: function (c) {
+                                console.log(c);
+                                return website.memoryCache.time[c[0].index];
+                            }
                         }
                     }
 
@@ -109,7 +89,7 @@ const updateMemoryCacheData = function () {
                         {
                             hidden: showTotalMemory,
                             label: tinyLang.total_memory,
-                            data: website.memoryCache.n.totalMem.map(o => o.x),
+                            data: website.memoryCache.n.totalMem,
                             backgroundColor: [
                                 'rgba(54, 162, 235, ' + colorOpacity.totalMemory + ')'
                             ],
@@ -122,7 +102,7 @@ const updateMemoryCacheData = function () {
                         // Free Memory
                         {
                             label: tinyLang.free_memory,
-                            data: website.memoryCache.n.freeMem.map(o => o.x),
+                            data: website.memoryCache.n.freeMem,
                             backgroundColor: [
                                 'rgba(97, 255, 123, ' + colorOpacity.freeMemory + ')'
                             ],
@@ -135,7 +115,7 @@ const updateMemoryCacheData = function () {
                         // Used Memory
                         {
                             label: tinyLang.used_memory,
-                            data: website.memoryCache.n.usedMem.map(o => o.x),
+                            data: website.memoryCache.n.usedMem,
                             backgroundColor: [
                                 'rgba(255, 99, 132, ' + colorOpacity.usedMemory + ')'
                             ],
@@ -154,18 +134,13 @@ const updateMemoryCacheData = function () {
         // Update
         else {
 
-            // Fix Values
-            getMemoryCacheValue(website.memoryCache.n.totalMem);
-            getMemoryCacheValue(website.memoryCache.n.freeMem);
-            getMemoryCacheValue(website.memoryCache.n.usedMem);
-
             // Read Datasets
             const used_memory = website.memoryCache.chart.data.datasets.find(dataset => dataset.label === tinyLang.used_memory);
-            if (used_memory) { used_memory.data = website.memoryCache.n.usedMem.map(o => o.x); }
+            if (used_memory) { used_memory.data = website.memoryCache.n.usedMem; }
             const freeMemory = website.memoryCache.chart.data.datasets.find(dataset => dataset.label === tinyLang.free_memory);
-            if (freeMemory) { freeMemory.data = website.memoryCache.n.freeMem.map(o => o.x); }
+            if (freeMemory) { freeMemory.data = website.memoryCache.n.freeMem; }
             const totalMem = website.memoryCache.chart.data.datasets.find(dataset => dataset.label === tinyLang.total_memory);
-            if (totalMem) { totalMem.data = website.memoryCache.n.totalMem.map(o => o.x); }
+            if (totalMem) { totalMem.data = website.memoryCache.n.totalMem; }
 
             // Update Now
             website.memoryCache.chart.update();
