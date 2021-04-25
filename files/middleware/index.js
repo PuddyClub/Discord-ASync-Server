@@ -119,7 +119,7 @@ module.exports = async function (resolve, reject, ioCache, discordCfg, webCfg, f
                     .replace('{ { get_channels } }', fs.readFileSync(path.join(__dirname, '../client/get/channels.js'), 'utf8'))
                     .replace('{ { tools_script } }', fs.readFileSync(path.join(__dirname, '../client/toolsCreator.js'), 'utf8'))
                     .replace('{ { memory_history } }', fs.readFileSync(path.join(__dirname, '../client/get/memoryHistory.js'), 'utf8'))
-                    .replace('/* var objType = { { obj_type } }; */', objType.toString()),
+                    .replace('var objType;', `var objType = ${objType.toString()};`),
                 date: { year: 2021, month: 3, day: 30, hour: 17, minute: 29 },
                 timezone: 'America/Sao_Paulo',
                 fileMaxAge: fileAge

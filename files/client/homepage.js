@@ -7,8 +7,7 @@ var startApp = function (isReconnect) { };
 var startBot = function (id, isReconnect) { };
 var startGuild = function (id, isReconnect) { };
 var receiveLog = function (type, isNew, data) { };
-
-/* var objType = { { obj_type } }; */
+var objType;
 
 $(() => {
 
