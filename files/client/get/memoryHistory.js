@@ -5,8 +5,8 @@ const getMemoryCacheValie = function (items) {
 
     // Get Values
     for (const item in items) {
-        if(typeof items[item] === "number") {
-            items[item]
+        if (typeof items[item] === "number") {
+            items[item];
         }
     }
 
@@ -23,6 +23,10 @@ const updateMemoryCacheData = function () {
 
         // Create Canvas
         if (!website.memoryCache.chart) {
+
+            // Show Total Memory
+            let showTotalMemory = true;
+            if (website.memoryCache.logUsing === "totalMemory") { showTotalMemory = false; }
 
             // Labels
             const labels = [];
@@ -62,6 +66,7 @@ const updateMemoryCacheData = function () {
 
                         // Total Memory
                         {
+                            hidden: showTotalMemory,
                             label: tinyLang.total_memory,
                             data: website.memoryCache.totalMem,
                             backgroundColor: [
