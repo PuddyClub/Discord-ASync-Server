@@ -84,24 +84,24 @@ const updateMemoryCacheData = function () {
                         yAxes: [{
                             ticks: {
                                 beginAtZero: true,
-                                callback: function (value) {
+                                /* callback: function (value) {
                                     console.log(value);
                                     return 'Value';
-                                }
+                                } */
                             }
                         }]
                     },
 
                     tooltips: {
                         callbacks: {
-                            label: function (context) {
+                            /* label: function (context) {
                                 console.log(context);
                                 return 'Value';
                             },
                             title: function (context) {
                                 console.log(context);
                                 return 'Date';
-                            }
+                            } */
                         }
                     },
 
@@ -239,9 +239,9 @@ socket.on("machineMemory", (data) => {
     if (Array.isArray(data.history.n.usedMem)) { website.memoryCache.n.usedMem = data.history.n.usedMem; }
     if (Array.isArray(data.history.n.freeMem)) { website.memoryCache.n.freeMem = data.history.n.freeMem; }
     if (Array.isArray(data.history.n.totalMem)) { website.memoryCache.n.totalMem = data.history.n.totalMem; }
-    if (Array.isArray(data.history.t.usedMem)) { website.memoryCache.n.usedMem = data.history.t.usedMem; }
-    if (Array.isArray(data.history.t.freeMem)) { website.memoryCache.n.freeMem = data.history.t.freeMem; }
-    if (Array.isArray(data.history.t.totalMem)) { website.memoryCache.n.totalMem = data.history.t.totalMem; }
+    if (Array.isArray(data.history.t.usedMem)) { website.memoryCache.t.usedMem = data.history.t.usedMem; }
+    if (Array.isArray(data.history.t.freeMem)) { website.memoryCache.t.freeMem = data.history.t.freeMem; }
+    if (Array.isArray(data.history.t.totalMem)) { website.memoryCache.t.totalMem = data.history.t.totalMem; }
 
     // Insert Time
     if (Array.isArray(data.history.time)) {
