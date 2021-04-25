@@ -53,7 +53,7 @@ module.exports = (ioCache, cfg) => {
                         // Convert
                         if (typeof tinyValue.totalMem.number === "number") { tinyValue.totalMem.value = prettyBytes(totalmem); }
                         if (typeof tinyValue.freeMem.number === "number") { tinyValue.freeMem.value = prettyBytes(freemem); }
-                        if (typeof tinyValue.used.number === "number") { tinyValue.used.value = prettyBytes(memoryUsage.rss); }
+                        if (typeof tinyValue.usedMem.number === "number") { tinyValue.usedMem.value = prettyBytes(memoryUsage.rss); }
 
                         // Send Result
                         for (const userID in ioCache.users) {
