@@ -24,43 +24,66 @@ module.exports = (ioCache, cfg) => {
             startInterval = false;
         }
 
+        // Starting Memory Checker
         if (startInterval) {
+            
+            console.log('Memory Checker Started!');
+
+            // Interval
             let intervalCPU = setInterval(function () {
 
-                // Try
-                try {
+                // Check Cache
+                if (ioCache && ioCache.users) {
 
-                    // Get Memory Usage
-                    const memoryUsage = process.memoryUsage();
-                    const totalmem = os.totalmem();
-                    const freemem = os.freemem();
+                    // Try
+                    try {
 
-                    // Memory Value
-                    const tinyValue = {
-                        totalMem: { number: totalmem },
-                        freeMem: { number: freemem },
-                        used: { number: memoryUsage.rss }
-                    };
+                        // Get Memory Usage
+                        const memoryUsage = process.memoryUsage();
+                        const totalmem = os.totalmem();
+                        const freemem = os.freemem();
 
-                    // Convert
-                    if (typeof tinyValue.totalMem.number === "number") { tinyValue.totalMem.value = prettyBytes(totalmem); }
-                    if (typeof tinyValue.freeMem.number === "number") { tinyValue.freeMem.value = prettyBytes(freemem); }
-                    if (typeof tinyValue.used.number === "number") { tinyValue.used.value = prettyBytes(memoryUsage.rss); }
+                        // Memory Value
+                        const tinyValue = {
+                            totalMem: { number: totalmem },
+                            freeMem: { number: freemem },
+                            used: { number: memoryUsage.rss }
+                        };
 
+                        // Convert
+                        if (typeof tinyValue.totalMem.number === "number") { tinyValue.totalMem.value = prettyBytes(totalmem); }
+                        if (typeof tinyValue.freeMem.number === "number") { tinyValue.freeMem.value = prettyBytes(freemem); }
+                        if (typeof tinyValue.used.number === "number") { tinyValue.used.value = prettyBytes(memoryUsage.rss); }
 
+                        // Send Result
+                        for (const userID in ioCache.users) {
+                            if (ioCache.users[userID].ids) {
+                                for (const id in ioCache.users[userID].ids) {
+                                    if(ioCache.users[userID].ids[id].socket) {
+                                        ioCache.users[userID].ids[id].socket.emit('machineMemory', tinyValue); 
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+
+                    // Fail
+                    catch (err) {
+
+                        // Error
+                        console.error(err);
+                        clearInterval(intervalCPU);
+
+                    }
 
                 }
 
-                // Fail
-                catch (err) {
-
-                    // Error
-                    console.error(err);
-                    clearInterval(intervalCPU);
-
-                }
+                // Complete
+                return;
 
             }, cfg.interval);
+            
         }
 
     }
