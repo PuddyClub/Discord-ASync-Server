@@ -1,18 +1,18 @@
 // Cache
-const memoryCacheHistory = { usedMem: [], freeMem: [], totalMem: [], time: [], timeORIGINAL: [], now: null, logUsing: null, logCanvas: null, chart: null };
+website.memoryCache = { usedMem: [], freeMem: [], totalMem: [], time: [], timeORIGINAL: [], now: null, logUsing: null, logCanvas: null, chart: null };
 
 // Update Chart JS
 const updateMemoryCacheData = function () {
 
     // Exist Log
-    if (memoryCacheHistory.logUsing) {
+    if (website.memoryCache.logUsing) {
 
         // Create Canvas
-        if (!memoryCacheHistory.chart) {
+        if (!website.memoryCache.chart) {
 
             // Labels
             const labels = [];
-            for (let i = 0; i < memoryCacheHistory.totalMem.length; i++) {
+            for (let i = 0; i < website.memoryCache.totalMem.length; i++) {
                 labels.push('');
             }
 
@@ -23,11 +23,11 @@ const updateMemoryCacheData = function () {
                 totalMemory: 0.4
             };
 
-            colorOpacity[memoryCacheHistory.logUsing] = 0.7;
+            colorOpacity[website.memoryCache.logUsing] = 0.7;
 
             // Create Chart
-            const ctx = memoryCacheHistory.logCanvas[0].getContext('2d');
-            memoryCacheHistory.chart = new Chart(ctx, {
+            const ctx = website.memoryCache.logCanvas[0].getContext('2d');
+            website.memoryCache.chart = new Chart(ctx, {
                 responsive: true,
                 type: 'line',
                 data: {
@@ -35,7 +35,7 @@ const updateMemoryCacheData = function () {
                     datasets: [
                         /* {
                             label: tinyLang.total_memory,
-                            data: memoryCacheHistory.totalMem,
+                            data: website.memoryCache.totalMem,
                             backgroundColor: [
                                 'rgba(54, 162, 235, ' + colorOpacity.totalMemory + ')'
                             ],
@@ -46,7 +46,7 @@ const updateMemoryCacheData = function () {
                         }, */
                         {
                             label: tinyLang.free_memory,
-                            data: memoryCacheHistory.freeMem,
+                            data: website.memoryCache.freeMem,
                             backgroundColor: [
                                 'rgba(97, 255, 123, ' + colorOpacity.freeMemory + ')'
                             ],
@@ -57,7 +57,7 @@ const updateMemoryCacheData = function () {
                         },
                         {
                             label: tinyLang.used_memory,
-                            data: memoryCacheHistory.usedMem,
+                            data: website.memoryCache.usedMem,
                             backgroundColor: [
                                 'rgba(255, 99, 132, ' + colorOpacity.usedMemory + ')'
                             ],
@@ -83,14 +83,14 @@ const updateMemoryCacheData = function () {
         else {
 
             // Update Now
-            memoryCacheHistory.chart.update();
+            website.memoryCache.chart.update();
 
         }
 
     }
 
     // Complete
-    return console.log(memoryCacheHistory);
+    return console.log(website.memoryCache);
 
 };
 
@@ -99,8 +99,8 @@ $('[id="openHistoryLog"]').click(function () {
 
     // Get ID
     const id = $(this).find('span').attr('id');
-    memoryCacheHistory.logUsing = id;
-    memoryCacheHistory.logCanvas = $('<canvas>').css({ height: '50%', width: '90%' });
+    website.memoryCache.logUsing = id;
+    website.memoryCache.logCanvas = $('<canvas>').css({ height: '50%', width: '90%' });
 
     // Protection Click
     $('[id="openHistoryLog"]').css('pointer-events', 'none');
@@ -111,13 +111,13 @@ $('[id="openHistoryLog"]').click(function () {
         dialog: 'modal-lg',
         id: id + '-log-panel',
         title: tinyLang[id + '_history_title'],
-        body: $('<center>').append(memoryCacheHistory.logCanvas),
+        body: $('<center>').append(website.memoryCache.logCanvas),
         hidden: function () {
-            memoryCacheHistory.chart.destroy();
-            memoryCacheHistory.logCanvas.remove();
-            memoryCacheHistory.logUsing = null;
-            memoryCacheHistory.logCanvas = null;
-            memoryCacheHistory.chart = null;
+            website.memoryCache.chart.destroy();
+            website.memoryCache.logCanvas.remove();
+            website.memoryCache.logUsing = null;
+            website.memoryCache.logCanvas = null;
+            website.memoryCache.chart = null;
             return;
         },
         footer: [tinyLib.button(tinyLang.close, 'secondary', { 'data-dismiss': 'modal' })]
@@ -137,23 +137,23 @@ socket.on("machineMemory", (data) => {
     $("#totalMemory").text(data.totalMem.value);
 
     // Update Values
-    memoryCacheHistory.now = moment(data.time);
-    if (Array.isArray(data.history.usedMem)) { memoryCacheHistory.usedMem = data.history.usedMem; }
-    if (Array.isArray(data.history.freeMem)) { memoryCacheHistory.freeMem = data.history.freeMem; }
-    if (Array.isArray(data.history.totalMem)) { memoryCacheHistory.totalMem = data.history.totalMem; }
+    website.memoryCache.now = moment(data.time);
+    if (Array.isArray(data.history.usedMem)) { website.memoryCache.usedMem = data.history.usedMem; }
+    if (Array.isArray(data.history.freeMem)) { website.memoryCache.freeMem = data.history.freeMem; }
+    if (Array.isArray(data.history.totalMem)) { website.memoryCache.totalMem = data.history.totalMem; }
 
     // Insert Time
     if (Array.isArray(data.history.time)) {
 
         // Insert Values
         for (const item in data.history.time) {
-            if (!memoryCacheHistory.time[item] || memoryCacheHistory.timeORIGINAL[item] !== data.history.time[item]) {
-                memoryCacheHistory.time.push(moment(data.history.time));
+            if (!website.memoryCache.time[item] || website.memoryCache.timeORIGINAL[item] !== data.history.time[item]) {
+                website.memoryCache.time.push(moment(data.history.time));
             }
         }
 
         // Insert New Original
-        memoryCacheHistory.timeORIGINAL = data.history.time;
+        website.memoryCache.timeORIGINAL = data.history.time;
 
     }
 
