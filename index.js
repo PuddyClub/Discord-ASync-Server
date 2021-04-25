@@ -137,7 +137,8 @@ const appModule = {
                                     'https://*.cloudflare.com/',
                                     'https://*.typekit.net/',
                                     'https://*.googleapis.com/',
-                                    'https://*.gstatic.com/'
+                                    'https://*.gstatic.com/',
+                                    'https://cdn.jsdelivr.net/'
                                 ],
                                 fontSrc: [
                                     "'self'",
@@ -148,7 +149,8 @@ const appModule = {
                                     'https://*.typekit.net/',
                                     'https://*.googleapis.com/',
                                     'https://*.gstatic.com/',
-                                    'data:'
+                                    'data:',
+                                    'https://cdn.jsdelivr.net/'
                                 ],
                                 imgSrc: [
                                     "'self' data:",
@@ -157,7 +159,8 @@ const appModule = {
                                     'https://*.cloudflare.com/',
                                     'https://*.typekit.net/',
                                     'https://*.googleapis.com/',
-                                    'https://*.gstatic.com/'
+                                    'https://*.gstatic.com/',
+                                    'https://cdn.jsdelivr.net/'
                                 ]
                             }
                         }
