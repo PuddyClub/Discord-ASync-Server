@@ -123,8 +123,6 @@ $('[id="openHistoryLog"]').click(function () {
         footer: [tinyLib.button(tinyLang.close, 'secondary', { 'data-dismiss': 'modal' })]
     });
 
-
-
     // Auto Update
     updateMemoryCacheData();
 
