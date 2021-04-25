@@ -1,6 +1,42 @@
 // Cache
 website.memoryCache = { n: { usedMem: [], freeMem: [], totalMem: [] }, t: { usedMem: [], freeMem: [], totalMem: [] }, time: [], timeORIGINAL: [], now: null, logUsing: null, logCanvas: null, chart: null };
 
+// Value Search
+const memoryValueSearch = function (c) {
+
+    // Start Search
+    const label = website.memoryCache.chart.data.datasets[c.datasetIndex].label;
+    let searchResult;
+    let resultIs = null;
+
+    console.log(c);
+    searchResult = website.memoryCache.n.totalMem.find(item => item === c.yLabel);
+    if (searchResult) {
+        resultIs = 'totalMem';
+    } else { 
+        searchResult = website.memoryCache.n.freeMem.find(item => item === c.yLabel); 
+        if (searchResult) {
+            resultIs = 'freeMem';
+        } else { 
+            searchResult = website.memoryCache.n.usedMem.find(item => item=== c.yLabel); 
+            if (searchResult) {
+                resultIs = 'usedMem';
+            }
+        }
+    }
+
+    // Found
+    console.log(resultIs);
+    if(searchResult && typeof website.memoryCache.t[resultIs][c.index] === "string") {
+        console.log(website.memoryCache.t[resultIs][c.index]);
+        return website.memoryCache.t[resultIs][c.index];
+    } 
+    
+    // Nothing
+    else { return '???'; }
+
+};
+
 // Update Chart JS
 const updateMemoryCacheData = function () {
 
@@ -67,40 +103,7 @@ const updateMemoryCacheData = function () {
 
                     tooltips: {
                         callbacks: {
-                            label: function (c) {
-
-                                // Start Search
-                                const label = website.memoryCache.chart.data.datasets[c.datasetIndex].label;
-                                let searchResult;
-                                let resultIs = null;
-
-                                console.log(c);
-                                searchResult = website.memoryCache.n.totalMem.find(item => item === c.yLabel);
-                                if (searchResult) {
-                                    resultIs = 'totalMem';
-                                } else { 
-                                    searchResult = website.memoryCache.n.freeMem.find(item => item === c.yLabel); 
-                                    if (searchResult) {
-                                        resultIs = 'freeMem';
-                                    } else { 
-                                        searchResult = website.memoryCache.n.usedMem.find(item => item=== c.yLabel); 
-                                        if (searchResult) {
-                                            resultIs = 'usedMem';
-                                        }
-                                    }
-                                }
-
-                                // Found
-                                console.log(resultIs);
-                                if(searchResult && typeof website.memoryCache.t[resultIs][c.index] === "string") {
-                                    console.log(website.memoryCache.t[resultIs][c.index]);
-                                    return website.memoryCache.t[resultIs][c.index];
-                                } 
-                                
-                                // Nothing
-                                else { return '???'; }
-
-                            },
+                            label: memoryValueSearch,
                             title: function (c) {
                                 return website.memoryCache.time[c[0].index];
                             }
