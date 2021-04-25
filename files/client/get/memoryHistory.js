@@ -68,13 +68,6 @@ const updateMemoryCacheData = function () {
                 // Options
                 options: {
 
-                    legend: {
-                        display: true,
-                        labels: {
-                            color: 'rgb(255, 99, 132)'
-                        }
-                    },
-
                     // Scales
                     scales: {
                         y: { beginAtZero: true },
@@ -103,11 +96,6 @@ const updateMemoryCacheData = function () {
                                 return 'Date';
                             } */
                         }
-                    },
-
-                    // Parsing
-                    parsing: {
-                        yAxisKey: 'value'
                     }
 
                 },
@@ -244,17 +232,17 @@ socket.on("machineMemory", (data) => {
     if (Array.isArray(data.history.t.totalMem)) { website.memoryCache.t.totalMem = data.history.t.totalMem; }
 
     // Insert Time
-    if (Array.isArray(data.history.time)) {
+    if (Array.isArray(data.history.n.time)) {
 
         // Insert Values
-        for (const item in data.history.time) {
-            if (!website.memoryCache.time[item] || website.memoryCache.timeORIGINAL[item] !== data.history.time[item]) {
+        for (const item in data.history.n.time) {
+            if (!website.memoryCache.time[item] || website.memoryCache.timeORIGINAL[item] !== data.history.n.time[item]) {
                 website.memoryCache.time.push(moment(website.memoryCache.time[item]).format('dddd, MMMM Do YYYY, HH:mm:ss'));
             }
         }
 
         // Insert New Original
-        website.memoryCache.timeORIGINAL = data.history.time;
+        website.memoryCache.timeORIGINAL = data.history.n.time;
 
     }
 
