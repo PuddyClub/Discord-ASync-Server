@@ -1,7 +1,7 @@
 // Cache
 website.memoryCache = { usedMem: [], freeMem: [], totalMem: [], time: [], timeORIGINAL: [], now: null, logUsing: null, logCanvas: null, chart: null };
 
-// Get Memory Cacjr
+// Get Memory Cache
 const getMemoryCacheValue = function (items) {
 
     // Get Values
