@@ -1,4 +1,7 @@
 {
+    "usedMemory_history_title": "History - Used Memory",
+    "freeMemory_history_title": "History - Free Memory",
+    "totalMemory_history_title": "History - Total Memory",
     "permission_error": "Forbidden",
     "no_permission_message": "You are not allowed to do this!",
     "max_members": "Max Members",

@@ -1,4 +1,5 @@
-const memoryCacheHistory = { usedMem: [], freeMem: [], totalMem: [] };
+// Cache
+const memoryCacheHistory = { usedMem: [], freeMem: [], totalMem: [], logUsing: null };
 
 // Update Chart JS
 const updateMemoryCacheData = function () {
@@ -13,7 +14,24 @@ $('[id="openHistoryLog"]').click(function () {
 
     // Get ID
     const id = $(this).find('span').attr('id');
-    console.log(id);
+    memoryCacheHistory.logUsing = id;
+
+    // Protection Click
+    $('[id="openHistoryLog"]').addClass('disabled');
+    setTimeout(function () { $('[id="openHistoryLog"]').removeClass('disabled'); }, 500);
+
+    // Modal
+    tinyLib.modal({
+        dialog: 'modal-lg',
+        id: id + '-log-panel',
+        title: tinyLang[id + '_history_title'],
+        body: '',
+        hidden: function () { memoryCacheHistory.logUsing = null; },
+        footer: [tinyLib.button(tinyLang.close, 'secondary', { 'data-dismiss': 'modal' })]
+    });
+
+    // Auto Update
+    updateMemoryCacheData();
 
 });
 
@@ -30,5 +48,5 @@ socket.on("machineMemory", (data) => {
     if (Array.isArray(data.history.freeMem)) { memoryCacheHistory.freeMem = data.history.freeMem; }
     if (Array.isArray(data.history.totalMem)) { memoryCacheHistory.totalMem = data.history.totalMem; }
     updateMemoryCacheData();
-    
+
 });
