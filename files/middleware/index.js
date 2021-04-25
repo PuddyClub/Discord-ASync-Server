@@ -28,7 +28,15 @@ module.exports = async function (resolve, reject, ioCache, discordCfg, webCfg, f
     app.web.server = require('http').createServer(web.app);
 
     // bot Checker
-    if (webCfg.botChecker) { app.web.io = require('socket.io')(app.web.server); }
+    if (webCfg.botChecker) {
+
+        // Start IO Server
+        app.web.io = require('socket.io')(app.web.server);
+
+        // Memory Checker
+        require('../socket/memoryChecker')(ioCache, webCfg.memoryChecker);
+
+    }
 
     // No Index
     web.app.use((req, res, next) => {

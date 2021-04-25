@@ -32,7 +32,10 @@
       "token": ""
     },
     "homepageRedirect": "https://example.com/",
-    "botChecker": true
+    "botChecker": true,
+    "memoryChecker": {
+      "interval": 5000
+    }
   },
   "localhost": "localhost:3000",
   "domain": "example.com",

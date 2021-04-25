@@ -58,7 +58,10 @@ You will need to create a JSON file to configure your server.
         "id": "",
         "waitMessage": "Loading your message..."
       },
-      "botChecker": true
+      "botChecker": true,
+      "memoryChecker": {
+        "interval": 5000
+      }
     },
     "localhost": "localhost:3000",
     "domain": "",
@@ -94,6 +97,8 @@ slashCommandListener.waitMessage (string) - This message will be displayed while
 slashCommandListener.token (String) - Security token of your Firebase server that is receiving the interactions.
 
 botChecker - Activate your bot's monitoring website.
+
+memoryChecker.interval - Interval time to send the application's memory usage update. Setting a null value will disable the functionality.
 
 ### localhost (String)
 Localhost domain that will be used in your server test.

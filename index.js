@@ -72,7 +72,10 @@ const appModule = {
                             token: ""
                         },
                         homepageRedirect: '/login',
-                        botChecker: false
+                        botChecker: false,
+                        memoryChecker: {
+                            interval: 5000
+                        },
                     },
 
                     // Other Settings
@@ -297,9 +300,9 @@ const appModule = {
     addBot: function (token, cfg = {}) {
 
         // First Time
-        if (app.discord.firstTime) { 
-            app.discord.firstTime = false; 
-            console.log(`Starting "Discord.JS"... (Version - ${app.discord.module.version})`); 
+        if (app.discord.firstTime) {
+            app.discord.firstTime = false;
+            console.log(`Starting "Discord.JS"... (Version - ${app.discord.module.version})`);
         }
 
         // Add Bot
