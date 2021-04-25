@@ -1,11 +1,18 @@
 // Cache
-const memoryCacheHistory = { usedMem: [], freeMem: [], totalMem: [], logUsing: null };
+const memoryCacheHistory = { usedMem: [], freeMem: [], totalMem: [], logUsing: null, logCanvas: null };
 
 // Update Chart JS
 const updateMemoryCacheData = function () {
 
-    // Test
-    console.log(memoryCacheHistory);
+    // Exist Log
+    if (memoryCacheHistory.logUsing) {
+
+        
+
+    }
+
+    // Complete
+    return console.log(memoryCacheHistory);;
 
 };
 
@@ -15,6 +22,7 @@ $('[id="openHistoryLog"]').click(function () {
     // Get ID
     const id = $(this).find('span').attr('id');
     memoryCacheHistory.logUsing = id;
+    memoryCacheHistory.logCanvas = $('<canvas>').css({ height: '50%', width: '90%' });
 
     // Protection Click
     $('[id="openHistoryLog"]').css('pointer-events', 'none');
@@ -25,8 +33,8 @@ $('[id="openHistoryLog"]').click(function () {
         dialog: 'modal-lg',
         id: id + '-log-panel',
         title: tinyLang[id + '_history_title'],
-        body: '',
-        hidden: function () { memoryCacheHistory.logUsing = null; },
+        body: $('<center>').append(memoryCacheHistory.logCanvas),
+        hidden: function () { memoryCacheHistory.logUsing = null; memoryCacheHistory.logCanvas.remove(); memoryCacheHistory.logCanvas = null; },
         footer: [tinyLib.button(tinyLang.close, 'secondary', { 'data-dismiss': 'modal' })]
     });
 
