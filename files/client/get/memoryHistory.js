@@ -17,8 +17,8 @@ $('[id="openHistoryLog"]').click(function () {
     memoryCacheHistory.logUsing = id;
 
     // Protection Click
-    $('[id="openHistoryLog"]').addClass('disabled');
-    setTimeout(function () { $('[id="openHistoryLog"]').removeClass('disabled'); }, 500);
+    $('[id="openHistoryLog"]').css('pointer-events', 'none');
+    setTimeout(function () { $('[id="openHistoryLog"]').css('pointer-events', ''); }, 500);
 
     // Modal
     tinyLib.modal({

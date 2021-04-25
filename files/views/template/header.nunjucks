@@ -44,7 +44,7 @@
                 {% if global.allowMemoryHistory === false %}
                     <script>
                         setTimeout(function () {
-                            $('[id="openHistoryLog"]').off('click');
+                            $('[id="openHistoryLog"]').off('click').css('pointer-events', 'none');
                         }, 500);
                     </script>
                 {% endif %}
