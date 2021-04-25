@@ -1,6 +1,21 @@
 // Cache
 website.memoryCache = { usedMem: [], freeMem: [], totalMem: [], time: [], timeORIGINAL: [], now: null, logUsing: null, logCanvas: null, chart: null };
 
+const getMemoryCacheValie = function (items) {
+
+    // Result
+    const result = [];
+
+    // Get Values
+    for (const item in items) {
+        result.push(items[item]);
+    }
+
+    // Complete
+    return result;
+
+};
+
 // Update Chart JS
 const updateMemoryCacheData = function () {
 
@@ -22,7 +37,13 @@ const updateMemoryCacheData = function () {
                 freeMemory: 0.4
             };
 
+            const borderOpacity = {
+                usedMemory: 1,
+                freeMemory: 1
+            };
+
             colorOpacity[website.memoryCache.logUsing] = 0.7;
+            borderOpacity[website.memoryCache.logUsing] = 3;
 
             // Create Chart
             const ctx = website.memoryCache.logCanvas[0].getContext('2d');
@@ -34,25 +55,25 @@ const updateMemoryCacheData = function () {
                     datasets: [
                         {
                             label: tinyLang.free_memory,
-                            data: website.memoryCache.freeMem,
+                            data: getMemoryCacheValie(website.memoryCache.freeMem),
                             backgroundColor: [
                                 'rgba(97, 255, 123, ' + colorOpacity.freeMemory + ')'
                             ],
                             borderColor: [
                                 'rgba(132, 255, 66, 1)'
                             ],
-                            borderWidth: 1
+                            borderWidth: borderOpacity.freeMemory
                         },
                         {
                             label: tinyLang.used_memory,
-                            data: website.memoryCache.usedMem,
+                            data: getMemoryCacheValie(website.memoryCache.usedMem),
                             backgroundColor: [
                                 'rgba(255, 99, 132, ' + colorOpacity.usedMemory + ')'
                             ],
                             borderColor: [
                                 'rgba(255, 99, 132, 1)'
                             ],
-                            borderWidth: 1
+                            borderWidth: borderOpacity.usedMemory
                         }
                     ]
                 },
