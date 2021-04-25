@@ -1,5 +1,5 @@
 // Cache
-const memoryCacheHistory = { usedMem: [], freeMem: [], totalMem: [], time: [], now: null, logUsing: null, logCanvas: null, chart: null };
+const memoryCacheHistory = { usedMem: [], freeMem: [], totalMem: [], time: [], timeORIGINAL: [], now: null, logUsing: null, logCanvas: null, chart: null };
 
 // Update Chart JS
 const updateMemoryCacheData = function () {
@@ -24,7 +24,7 @@ const updateMemoryCacheData = function () {
             };
 
             colorOpacity[memoryCacheHistory.logUsing] = 0.7;
-            
+
             // Create Chart
             const ctx = memoryCacheHistory.logCanvas[0].getContext('2d');
             memoryCacheHistory.chart = new Chart(ctx, {
@@ -139,11 +139,27 @@ socket.on("machineMemory", (data) => {
     $("#totalMemory").text(data.totalMem.value);
 
     // Update Values
-    memoryCacheHistory.now = data.time;
+    memoryCacheHistory.now = moment(data.time);
     if (Array.isArray(data.history.usedMem)) { memoryCacheHistory.usedMem = data.history.usedMem; }
     if (Array.isArray(data.history.freeMem)) { memoryCacheHistory.freeMem = data.history.freeMem; }
     if (Array.isArray(data.history.totalMem)) { memoryCacheHistory.totalMem = data.history.totalMem; }
-    if (Array.isArray(data.history.time)) { memoryCacheHistory.time = data.history.time; }
+
+    // Insert Time
+    if (Array.isArray(data.history.time)) {
+
+        // Insert Values
+        for (const item in data.history.time) {
+            if (!memoryCacheHistory.time[item] || memoryCacheHistory.timeORIGINAL[item] !== data.history.time[item]) {
+                memoryCacheHistory.time.push(moment(data.history.time));
+            }
+        }
+
+        // Insert New Original
+        memoryCacheHistory.timeORIGINAL = data.history.time;
+
+    }
+
+    // Complete
     return updateMemoryCacheData();
 
 });
