@@ -8,6 +8,40 @@ module.exports = (ioCache, cfg) => {
         let os;
         let prettyBytes;
 
+        // Fix Rate
+        if (
+            typeof cfg.historyLimit !== "number" ||
+            isNaN(cfg.historyLimit) ||
+            !isFinite(cfg.historyLimit) ||
+            cfg.historyLimit < 0
+        ) { cfg.historyLimit = 100; }
+
+        // History
+        const memoryHistory = {
+            items: { totalMem: [], freeMem: [], usedMem: [] }, add: function (value, where) {
+
+                // Is Number
+                if (typeof value === "number" && typeof where === "string" && Array.isArray(memoryHistory.items[where])) {
+
+                    // Add Value
+                    memoryHistory.items[where].push(value);
+
+                    // Validator
+                    if (memoryHistory.items[where].length > cfg.historyLimit) {
+                        memoryHistory.item.shift()
+                    }
+
+                    // Complete
+                    return true
+
+                }
+
+                // Nope
+                else { return false; }
+
+            }
+        };
+
         try {
 
             // Modules
@@ -26,7 +60,7 @@ module.exports = (ioCache, cfg) => {
 
         // Starting Memory Checker
         if (startInterval) {
-            
+
             console.log('Memory Checker Started!');
 
             // Interval
@@ -50,6 +84,14 @@ module.exports = (ioCache, cfg) => {
                             usedMem: { number: memoryUsage.rss }
                         };
 
+                        // Add History
+                        if (cfg.historyLimit > 0) {
+                            memoryHistory.add(totalmem, 'totalMem');
+                            memoryHistory.add(freemem, 'freeMem');
+                            memoryHistory.add(memoryUsage.rss, 'usedMem');
+                            tinyValue.history = memoryHistory.items;
+                        }
+
                         // Convert
                         if (typeof tinyValue.totalMem.number === "number") { tinyValue.totalMem.value = prettyBytes(totalmem); }
                         if (typeof tinyValue.freeMem.number === "number") { tinyValue.freeMem.value = prettyBytes(freemem); }
@@ -59,8 +101,8 @@ module.exports = (ioCache, cfg) => {
                         for (const userID in ioCache.users) {
                             if (ioCache.users[userID].ids) {
                                 for (const id in ioCache.users[userID].ids) {
-                                    if(ioCache.users[userID].ids[id].socket) {
-                                        ioCache.users[userID].ids[id].socket.emit('machineMemory', tinyValue); 
+                                    if (ioCache.users[userID].ids[id].socket) {
+                                        ioCache.users[userID].ids[id].socket.emit('machineMemory', tinyValue);
                                     }
                                 }
                             }
@@ -83,7 +125,7 @@ module.exports = (ioCache, cfg) => {
                 return;
 
             }, cfg.interval);
-            
+
         }
 
     }

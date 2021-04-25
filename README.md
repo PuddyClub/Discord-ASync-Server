@@ -60,7 +60,8 @@ You will need to create a JSON file to configure your server.
       },
       "botChecker": true,
       "memoryChecker": {
-        "interval": 5000
+        "interval": 5000,
+        "historyLimit": 5000
       }
     },
     "localhost": "localhost:3000",
@@ -99,6 +100,8 @@ slashCommandListener.token (String) - Security token of your Firebase server tha
 botChecker - Activate your bot's monitoring website.
 
 memoryChecker.interval - Interval time to send the application's memory usage update. Setting a null value will disable the functionality.
+
+memoryChecker.historyLimit - Limit of memory logging. Set 0 to disable.
 
 ### localhost (String)
 Localhost domain that will be used in your server test.

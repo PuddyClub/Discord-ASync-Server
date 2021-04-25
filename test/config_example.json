@@ -34,7 +34,8 @@
     "homepageRedirect": "https://example.com/",
     "botChecker": true,
     "memoryChecker": {
-      "interval": 5000
+      "interval": 5000,
+      "historyLimit": 5000
     }
   },
   "localhost": "localhost:3000",

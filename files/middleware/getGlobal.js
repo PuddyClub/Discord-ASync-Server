@@ -9,7 +9,8 @@ module.exports = function (web, fileCfg, memoryChecker, callback) {
             user: req.discord_session.user,
             cache_code: 1,
             head: fileCfg,
-            existMemoryInterval: (memoryChecker && typeof memoryChecker.interval === "number")
+            existMemoryInterval: (memoryChecker && typeof memoryChecker.interval === "number"),
+            allowMemoryHistory: (memoryChecker && typeof memoryChecker.historyLimit === "number" && memoryChecker.historyLimit > 0)
         };
 
         // Get Date
