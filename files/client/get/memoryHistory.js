@@ -1,5 +1,5 @@
 // Cache
-const memoryCacheHistory = { usedMem: [], freeMem: [], totalMem: [], logUsing: null, logCanvas: null, chart: null };
+const memoryCacheHistory = { usedMem: [], freeMem: [], totalMem: [], time: [], now: null, logUsing: null, logCanvas: null, chart: null };
 
 // Update Chart JS
 const updateMemoryCacheData = function () {
@@ -139,9 +139,11 @@ socket.on("machineMemory", (data) => {
     $("#totalMemory").text(data.totalMem.value);
 
     // Update Values
+    memoryCacheHistory.now = data.time;
     if (Array.isArray(data.history.usedMem)) { memoryCacheHistory.usedMem = data.history.usedMem; }
     if (Array.isArray(data.history.freeMem)) { memoryCacheHistory.freeMem = data.history.freeMem; }
     if (Array.isArray(data.history.totalMem)) { memoryCacheHistory.totalMem = data.history.totalMem; }
-    updateMemoryCacheData();
+    if (Array.isArray(data.history.time)) { memoryCacheHistory.time = data.history.time; }
+    return updateMemoryCacheData();
 
 });

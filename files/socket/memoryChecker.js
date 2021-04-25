@@ -22,7 +22,7 @@ module.exports = (ioCache, cfg) => {
             items: { totalMem: [], freeMem: [], usedMem: [], time: [] }, add: function (value, where) {
 
                 // Is Number
-                if (typeof value === "number" && typeof where === "string" && Array.isArray(memoryHistory.items[where])) {
+                if ((typeof value === "number" || typeof value === "string") && typeof where === "string" && Array.isArray(memoryHistory.items[where])) {
 
                     // Add Value
                     memoryHistory.items[where].push(value);
