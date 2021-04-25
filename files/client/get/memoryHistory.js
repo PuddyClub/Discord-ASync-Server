@@ -11,6 +11,7 @@ const updateMemoryCacheData = function () {
         if (!memoryCacheHistory.chart) {
             const ctx = memoryCacheHistory.logCanvas[0].getContext('2d');
             memoryCacheHistory.chart = new Chart(ctx, {
+                responsive: true,
                 type: 'bar',
                 data: {
                     labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
