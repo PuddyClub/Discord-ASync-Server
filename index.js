@@ -137,6 +137,17 @@ const appModule = {
                                     'https://*.googleapis.com/',
                                     'https://*.gstatic.com/'
                                 ],
+                                fontSrc: [
+                                    "'self'",
+                                    "'unsafe-inline'",
+                                    'https://cdn.discordapp.com/',
+                                    'https://discord.com/',
+                                    'https://*.cloudflare.com/',
+                                    'https://*.typekit.net/',
+                                    'https://*.googleapis.com/',
+                                    'https://*.gstatic.com/',
+                                    'data:'
+                                ],
                                 imgSrc: [
                                     "'self' data:",
                                     'https://cdn.discordapp.com/',

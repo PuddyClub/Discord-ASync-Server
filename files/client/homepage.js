@@ -45,9 +45,15 @@ $(() => {
         );
     });
 
+    // Actions
     socket.on('refreshPage', () => { location.reload(); });
     socket.on("disconnect", () => {
         $.LoadingOverlay("show", { background: "rgba(0,0,0, 0.5)", text: tinyLang.reconnecting });
+    });
+
+    // Memory Server
+    socket.on("machineMemory", (data) => {
+        console.log(data);
     });
 
 });
