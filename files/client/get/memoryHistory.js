@@ -5,11 +5,11 @@ website.memoryCache = { usedMem: [], freeMem: [], totalMem: [], time: [], timeOR
 const getMemoryCacheValue = function (items) {
 
     // Get Values
-    /* for (const item in items) {
+    for (const item in items) {
         if (typeof items[item] === "number") {
-            //items[item] = { id: website.memoryCache.time[item], nested: { value: items[item] } };
+            items[item] = { x: items[item], time: website.memoryCache.time[item] };
         }
-    } */
+    }
 
     // Complete
     return;
@@ -67,12 +67,38 @@ const updateMemoryCacheData = function () {
 
                 // Options
                 options: {
+
+                    // Scales
                     scales: {
                         y: { beginAtZero: true },
                         xAxes: [{
                             display: false //this will remove all the x-axis grid lines
+                        }],
+                        yAxes: [{
+                            ticks: {
+                              beginAtZero: true
+                            }
                         }]
+                    },
+
+                    tooltips: {
+                        callbacks: {
+                            label: function(context) {
+                                console.log(context);
+                                return 'Value';
+                            },
+                            title: function(context) {
+                                console.log(context);
+                                return 'Date';
+                            }
+                        }
+                    },
+
+                    // Parsing
+                    parsing: {
+                        yAxisKey: 'value'
                     }
+
                 },
 
                 // Data
@@ -84,7 +110,7 @@ const updateMemoryCacheData = function () {
                         {
                             hidden: showTotalMemory,
                             label: tinyLang.total_memory,
-                            data: website.memoryCache.totalMem,
+                            data: website.memoryCache.totalMem.map(o => o.x),
                             backgroundColor: [
                                 'rgba(54, 162, 235, ' + colorOpacity.totalMemory + ')'
                             ],
@@ -97,7 +123,7 @@ const updateMemoryCacheData = function () {
                         // Free Memory
                         {
                             label: tinyLang.free_memory,
-                            data: website.memoryCache.freeMem,
+                            data: website.memoryCache.freeMem.map(o => o.x),
                             backgroundColor: [
                                 'rgba(97, 255, 123, ' + colorOpacity.freeMemory + ')'
                             ],
@@ -110,7 +136,7 @@ const updateMemoryCacheData = function () {
                         // Used Memory
                         {
                             label: tinyLang.used_memory,
-                            data: website.memoryCache.usedMem,
+                            data: website.memoryCache.usedMem.map(o => o.x),
                             backgroundColor: [
                                 'rgba(255, 99, 132, ' + colorOpacity.usedMemory + ')'
                             ],
@@ -136,11 +162,11 @@ const updateMemoryCacheData = function () {
 
             // Read Datasets
             const used_memory = website.memoryCache.chart.data.datasets.find(dataset => dataset.label === tinyLang.used_memory);
-            if (used_memory) { used_memory.data = website.memoryCache.usedMem; }
+            if (used_memory) { used_memory.data = website.memoryCache.usedMem.map(o => o.x); }
             const freeMemory = website.memoryCache.chart.data.datasets.find(dataset => dataset.label === tinyLang.free_memory);
-            if (freeMemory) { freeMemory.data = website.memoryCache.freeMem; }
+            if (freeMemory) { freeMemory.data = website.memoryCache.freeMem.map(o => o.x); }
             const totalMem = website.memoryCache.chart.data.datasets.find(dataset => dataset.label === tinyLang.total_memory);
-            if (totalMem) { totalMem.data = website.memoryCache.totalMem; }
+            if (totalMem) { totalMem.data = website.memoryCache.totalMem.map(o => o.x); }
 
             // Update Now
             website.memoryCache.chart.update();
