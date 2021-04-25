@@ -47,7 +47,7 @@ module.exports = (ioCache, cfg) => {
                         const tinyValue = {
                             totalMem: { number: totalmem },
                             freeMem: { number: freemem },
-                            used: { number: memoryUsage.rss }
+                            usedMem: { number: memoryUsage.rss }
                         };
 
                         // Convert

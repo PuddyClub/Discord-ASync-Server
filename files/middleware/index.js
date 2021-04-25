@@ -126,11 +126,11 @@ module.exports = async function (resolve, reject, ioCache, discordCfg, webCfg, f
         });
 
         // Terms
-        web.app.get('/tos', getGlobal(web, fileCfg, (req, res) => { return res.render('tos', { global: req.globalItems }); }));
-        web.app.get('/privacy', getGlobal(web, fileCfg, (req, res) => { return res.render('privacy', { global: req.globalItems }); }));
+        web.app.get('/tos', getGlobal(web, fileCfg, webCfg.memoryChecker, (req, res) => { return res.render('tos', { global: req.globalItems }); }));
+        web.app.get('/privacy', getGlobal(web, fileCfg, webCfg.memoryChecker, (req, res) => { return res.render('privacy', { global: req.globalItems }); }));
 
         // Homepage
-        web.app.get('/', web.dsSession({ getUser: true }), getGlobal(web, fileCfg, (req, res) => { return homepage(req, res, webCfg, web, app, checkUser); }));
+        web.app.get('/', web.dsSession({ getUser: true }), getGlobal(web, fileCfg, webCfg.memoryChecker, (req, res) => { return homepage(req, res, webCfg, web, app, checkUser); }));
 
         // Socket IO
 

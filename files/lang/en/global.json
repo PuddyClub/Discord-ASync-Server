@@ -3,5 +3,8 @@
     "logout": "Logout",
     "theme_credits": "Theme Credits",
     "tos": "Terms of use",
-    "privacy": "Privacy Policy"
+    "privacy": "Privacy Policy",
+    "usedMemory": "Used Memory:",
+    "freeMemory": "Free Memory:",
+    "totalMemory": "Total Memory:"
 }

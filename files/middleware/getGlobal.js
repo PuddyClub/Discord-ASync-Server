@@ -1,4 +1,4 @@
-module.exports = function (web, fileCfg, callback) {
+module.exports = function (web, fileCfg, memoryChecker, callback) {
     return function (req, res, next) {
 
         // Prepare Global
@@ -9,6 +9,7 @@ module.exports = function (web, fileCfg, callback) {
             user: req.discord_session.user,
             cache_code: 1,
             head: fileCfg,
+            existMemoryInterval: (memoryChecker && typeof memoryChecker.interval === "number")
         };
 
         // Get Date

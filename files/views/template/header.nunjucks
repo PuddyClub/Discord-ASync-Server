@@ -20,9 +20,28 @@
 
             {# Nav Item - Dashboard #}
             <li class="nav-item active config-list" id="dashboard">
+
+                {# Dashboard #}
                 <a class="nav-link" href="javascript:void(0);">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>{{global.lang.dashboard}}</span></a>
+
+                {# Memory Server #}
+                {% if global.existMemoryInterval %}
+                    <a class="nav-link" href="javascript:void(0);">
+                        <i class="fas fa-memory"></i>
+                        {{global.lang.usedMemory}}
+                        <span id="usedMemory">???</span></a>
+                    <a class="nav-link" href="javascript:void(0);">
+                        <i class="fas fa-memory"></i>
+                        {{global.lang.freeMemory}}
+                        <span id="freeMemory">???</span></a>
+                    <a class="nav-link" href="javascript:void(0);">
+                        <i class="fas fa-memory"></i>
+                        {{global.lang.totalMemory}}
+                        <span id="totalMemory">???</span></a>
+                {% endif %}
+
             </li>
 
             {# Divider #}
