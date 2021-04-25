@@ -19,8 +19,7 @@ const updateMemoryCacheData = function () {
             // Color Opacity
             const colorOpacity = {
                 usedMemory: 0.4,
-                freeMemory: 0.4,
-                totalMemory: 0.4
+                freeMemory: 0.4
             };
 
             colorOpacity[website.memoryCache.logUsing] = 0.7;
@@ -33,17 +32,6 @@ const updateMemoryCacheData = function () {
                 data: {
                     labels: labels,
                     datasets: [
-                        /* {
-                            label: tinyLang.total_memory,
-                            data: website.memoryCache.totalMem,
-                            backgroundColor: [
-                                'rgba(54, 162, 235, ' + colorOpacity.totalMemory + ')'
-                            ],
-                            borderColor: [
-                                'rgba(54, 162, 235, 1)'
-                            ],
-                            borderWidth: 1
-                        }, */
                         {
                             label: tinyLang.free_memory,
                             data: website.memoryCache.freeMem,
@@ -135,6 +123,7 @@ socket.on("machineMemory", (data) => {
     $("#usedMemory").text(data.usedMem.value);
     $("#freeMemory").text(data.freeMem.value);
     $("#totalMemory").text(data.totalMem.value);
+    $('[id="openHistoryLog"]').removeClass('disabled');
 
     // Update Values
     website.memoryCache.now = moment(data.time);
