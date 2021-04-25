@@ -87,7 +87,7 @@ module.exports = (ioCache, cfg) => {
                         };
 
                         // Get Time
-                        tinyValue.time = moment.utc().toISOString();
+                        tinyValue.time = moment.utc().toJSON();
 
                         // Add History
                         if (cfg.historyLimit > 0) {
