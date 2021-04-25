@@ -3,16 +3,15 @@ website.memoryCache = { usedMem: [], freeMem: [], totalMem: [], time: [], timeOR
 
 const getMemoryCacheValie = function (items) {
 
-    // Result
-    const result = [];
-
     // Get Values
     for (const item in items) {
-        result.push(items[item]);
+        if(typeof items[item] === "number") {
+            items[item]
+        }
     }
 
     // Complete
-    return result;
+    return;
 
 };
 
@@ -34,16 +33,23 @@ const updateMemoryCacheData = function () {
             // Color Opacity
             const colorOpacity = {
                 usedMemory: 0.4,
-                freeMemory: 0.4
+                freeMemory: 0.4,
+                totalMem: 0.4
             };
 
             const borderOpacity = {
                 usedMemory: 1,
-                freeMemory: 1
+                freeMemory: 1,
+                totalMem: 1
             };
 
             colorOpacity[website.memoryCache.logUsing] = 0.7;
             borderOpacity[website.memoryCache.logUsing] = 3;
+
+            // Fix Values
+            getMemoryCacheValie(website.memoryCache.totalMem);
+            getMemoryCacheValie(website.memoryCache.freeMem);
+            getMemoryCacheValie(website.memoryCache.usedMem);
 
             // Create Chart
             const ctx = website.memoryCache.logCanvas[0].getContext('2d');
@@ -53,9 +59,24 @@ const updateMemoryCacheData = function () {
                 data: {
                     labels: labels,
                     datasets: [
+
+                        // Total Memory
+                        {
+                            label: tinyLang.total_memory,
+                            data: website.memoryCache.totalMem,
+                            backgroundColor: [
+                                'rgba(54, 162, 235, ' + colorOpacity.totalMemory + ')'
+                            ],
+                            borderColor: [
+                                'rgba(54, 162, 235, 1)'
+                            ],
+                            borderWidth: borderOpacity.totalMem
+                        },
+
+                        // Free Memory
                         {
                             label: tinyLang.free_memory,
-                            data: getMemoryCacheValie(website.memoryCache.freeMem),
+                            data: website.memoryCache.freeMem,
                             backgroundColor: [
                                 'rgba(97, 255, 123, ' + colorOpacity.freeMemory + ')'
                             ],
@@ -64,9 +85,11 @@ const updateMemoryCacheData = function () {
                             ],
                             borderWidth: borderOpacity.freeMemory
                         },
+
+                        // Used Memory
                         {
                             label: tinyLang.used_memory,
-                            data: getMemoryCacheValie(website.memoryCache.usedMem),
+                            data: website.memoryCache.usedMem,
                             backgroundColor: [
                                 'rgba(255, 99, 132, ' + colorOpacity.usedMemory + ')'
                             ],
