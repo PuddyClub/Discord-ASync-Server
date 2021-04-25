@@ -29,6 +29,9 @@ $(() => {
     // Log Update Script
     { { log_update_script } }
 
+    // Memory History
+    { { memory_history } }
+
     // Guild Data
     socket.on('dsBot_guildMemberCount', (count) => { $('#guild_info_table #members_count #info').text(count); });
     socket.on('dsBot_guildEmojiCount', (count) => { $('#guild_info_table #emoji_count #info > a').text(count); });
@@ -49,13 +52,6 @@ $(() => {
     socket.on('refreshPage', () => { location.reload(); });
     socket.on("disconnect", () => {
         $.LoadingOverlay("show", { background: "rgba(0,0,0, 0.5)", text: tinyLang.reconnecting });
-    });
-
-    // Memory Server
-    socket.on("machineMemory", (data) => {
-        $("#usedMemory").text(data.usedMem.value);
-        $("#freeMemory").text(data.freeMem.value);
-        $("#totalMemory").text(data.totalMem.value);
     });
 
 });
