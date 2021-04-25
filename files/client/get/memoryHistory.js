@@ -31,7 +31,7 @@ const updateMemoryCacheData = function () {
 
             // Labels
             const labels = [];
-            for (let i = 0; i < website.memoryCache.totalMem.length; i++) {
+            for (let i = 0; i < website.memoryCache.n.totalMem.length; i++) {
                 labels.push('');
             }
 
@@ -52,9 +52,9 @@ const updateMemoryCacheData = function () {
             borderOpacity[website.memoryCache.logUsing] = 3;
 
             // Fix Values
-            getMemoryCacheValue(website.memoryCache.totalMem);
-            getMemoryCacheValue(website.memoryCache.freeMem);
-            getMemoryCacheValue(website.memoryCache.usedMem);
+            getMemoryCacheValue(website.memoryCache.n.totalMem);
+            getMemoryCacheValue(website.memoryCache.n.freeMem);
+            getMemoryCacheValue(website.memoryCache.n.usedMem);
 
             // Create Chart
             const ctx = website.memoryCache.logCanvas[0].getContext('2d');
@@ -121,7 +121,7 @@ const updateMemoryCacheData = function () {
                         {
                             hidden: showTotalMemory,
                             label: tinyLang.total_memory,
-                            data: website.memoryCache.totalMem.map(o => o.x),
+                            data: website.memoryCache.n.totalMem.map(o => o.x),
                             backgroundColor: [
                                 'rgba(54, 162, 235, ' + colorOpacity.totalMemory + ')'
                             ],
@@ -134,7 +134,7 @@ const updateMemoryCacheData = function () {
                         // Free Memory
                         {
                             label: tinyLang.free_memory,
-                            data: website.memoryCache.freeMem.map(o => o.x),
+                            data: website.memoryCache.n.freeMem.map(o => o.x),
                             backgroundColor: [
                                 'rgba(97, 255, 123, ' + colorOpacity.freeMemory + ')'
                             ],
@@ -147,7 +147,7 @@ const updateMemoryCacheData = function () {
                         // Used Memory
                         {
                             label: tinyLang.used_memory,
-                            data: website.memoryCache.usedMem.map(o => o.x),
+                            data: website.memoryCache.n.usedMem.map(o => o.x),
                             backgroundColor: [
                                 'rgba(255, 99, 132, ' + colorOpacity.usedMemory + ')'
                             ],
@@ -167,17 +167,17 @@ const updateMemoryCacheData = function () {
         else {
 
             // Fix Values
-            getMemoryCacheValue(website.memoryCache.totalMem);
-            getMemoryCacheValue(website.memoryCache.freeMem);
-            getMemoryCacheValue(website.memoryCache.usedMem);
+            getMemoryCacheValue(website.memoryCache.n.totalMem);
+            getMemoryCacheValue(website.memoryCache.n.freeMem);
+            getMemoryCacheValue(website.memoryCache.n.usedMem);
 
             // Read Datasets
             const used_memory = website.memoryCache.chart.data.datasets.find(dataset => dataset.label === tinyLang.used_memory);
-            if (used_memory) { used_memory.data = website.memoryCache.usedMem.map(o => o.x); }
+            if (used_memory) { used_memory.data = website.memoryCache.n.usedMem.map(o => o.x); }
             const freeMemory = website.memoryCache.chart.data.datasets.find(dataset => dataset.label === tinyLang.free_memory);
-            if (freeMemory) { freeMemory.data = website.memoryCache.freeMem.map(o => o.x); }
+            if (freeMemory) { freeMemory.data = website.memoryCache.n.freeMem.map(o => o.x); }
             const totalMem = website.memoryCache.chart.data.datasets.find(dataset => dataset.label === tinyLang.total_memory);
-            if (totalMem) { totalMem.data = website.memoryCache.totalMem.map(o => o.x); }
+            if (totalMem) { totalMem.data = website.memoryCache.n.totalMem.map(o => o.x); }
 
             // Update Now
             website.memoryCache.chart.update();
@@ -228,6 +228,8 @@ $('[id="openHistoryLog"]').click(function () {
 // Memory Server
 socket.on("machineMemory", (data) => {
 
+    console.log(data);
+
     // Update Page
     $("#usedMemory").text(data.usedMem.value);
     $("#freeMemory").text(data.freeMem.value);
@@ -236,9 +238,9 @@ socket.on("machineMemory", (data) => {
 
     // Update Values
     website.memoryCache.now = moment(data.time);
-    if (Array.isArray(data.history.usedMem)) { website.memoryCache.usedMem = data.history.usedMem; }
-    if (Array.isArray(data.history.freeMem)) { website.memoryCache.freeMem = data.history.freeMem; }
-    if (Array.isArray(data.history.totalMem)) { website.memoryCache.totalMem = data.history.totalMem; }
+    if (Array.isArray(data.history.n.usedMem)) { website.memoryCache.n.usedMem = data.history.n.usedMem; }
+    if (Array.isArray(data.history.n.freeMem)) { website.memoryCache.n.freeMem = data.history.n.freeMem; }
+    if (Array.isArray(data.history.n.totalMem)) { website.memoryCache.n.totalMem = data.history.n.totalMem; }
 
     // Insert Time
     if (Array.isArray(data.history.time)) {

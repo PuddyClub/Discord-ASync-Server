@@ -19,17 +19,22 @@ module.exports = (ioCache, cfg) => {
 
         // History
         const memoryHistory = {
-            items: { totalMem: [], freeMem: [], usedMem: [], time: [] }, add: function (value, where) {
+            items: {
+                n: { totalMem: [], freeMem: [], usedMem: [], time: [] },
+                t: { totalMem: [], freeMem: [], usedMem: [] }
+            }, add: function (value, where) {
 
                 // Is Number
-                if ((typeof value === "number" || typeof value === "string") && typeof where === "string" && Array.isArray(memoryHistory.items[where])) {
+                if ((typeof value === "number" || typeof value === "string") && typeof where === "string" && Array.isArray(memoryHistory.items.n[where])) {
 
                     // Add Value
-                    memoryHistory.items[where].push(value);
+                    memoryHistory.items.n[where].push(value);
+                    if (typeof value === "number") { memoryHistory.items.t[where].push(prettyBytes(value)); }
 
                     // Validator
-                    if (memoryHistory.items[where].length > cfg.historyLimit) {
-                        memoryHistory.item.shift()
+                    if (memoryHistory.items.n[where].length > cfg.historyLimit) {
+                        memoryHistory.items.n[where].shift();
+                        if (typeof value === "number") { memoryHistory.items.t[where].shift(); }
                     }
 
                     // Complete
