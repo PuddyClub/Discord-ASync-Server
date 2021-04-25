@@ -1,7 +1,8 @@
 // Cache
 website.memoryCache = { usedMem: [], freeMem: [], totalMem: [], time: [], timeORIGINAL: [], now: null, logUsing: null, logCanvas: null, chart: null };
 
-const getMemoryCacheValie = function (items) {
+// Get Memory Cacjr
+const getMemoryCacheValue = function (items) {
 
     // Get Values
     for (const item in items) {
@@ -51,9 +52,9 @@ const updateMemoryCacheData = function () {
             borderOpacity[website.memoryCache.logUsing] = 3;
 
             // Fix Values
-            getMemoryCacheValie(website.memoryCache.totalMem);
-            getMemoryCacheValie(website.memoryCache.freeMem);
-            getMemoryCacheValie(website.memoryCache.usedMem);
+            getMemoryCacheValue(website.memoryCache.totalMem);
+            getMemoryCacheValue(website.memoryCache.freeMem);
+            getMemoryCacheValue(website.memoryCache.usedMem);
 
             // Create Chart
             const ctx = website.memoryCache.logCanvas[0].getContext('2d');
