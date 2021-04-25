@@ -73,7 +73,6 @@ const updateMemoryCacheData = function () {
                                 let searchResult;
                                 let resultIs = null;
 
-                                console.log(c);
                                 searchResult = website.memoryCache.n.totalMem.find(item => item === c.yLabel);
                                 if (searchResult) {
                                     resultIs = 'totalMem';
@@ -90,9 +89,7 @@ const updateMemoryCacheData = function () {
                                 }
 
                                 // Found
-                                console.log(resultIs);
                                 if (searchResult && typeof website.memoryCache.t[resultIs][c.index] === "string") {
-                                    console.log(website.memoryCache.t[resultIs][c.index]);
                                     return website.memoryCache.t[resultIs][c.index];
                                 }
 
@@ -178,7 +175,7 @@ const updateMemoryCacheData = function () {
     }
 
     // Complete
-    return console.log(website.memoryCache);
+    return;
 
 };
 
