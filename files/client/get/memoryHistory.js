@@ -68,6 +68,13 @@ const updateMemoryCacheData = function () {
                 // Options
                 options: {
 
+                    legend: {
+                        display: true,
+                        labels: {
+                            color: 'rgb(255, 99, 132)'
+                        }
+                    },
+
                     // Scales
                     scales: {
                         y: { beginAtZero: true },
@@ -76,18 +83,22 @@ const updateMemoryCacheData = function () {
                         }],
                         yAxes: [{
                             ticks: {
-                              beginAtZero: true
+                                beginAtZero: true,
+                                callback: function (value) {
+                                    console.log(value);
+                                    return 'Value';
+                                }
                             }
                         }]
                     },
 
                     tooltips: {
                         callbacks: {
-                            label: function(context) {
+                            label: function (context) {
                                 console.log(context);
                                 return 'Value';
                             },
-                            title: function(context) {
+                            title: function (context) {
                                 console.log(context);
                                 return 'Date';
                             }
