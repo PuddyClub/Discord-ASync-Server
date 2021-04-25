@@ -212,7 +212,7 @@ socket.on("machineMemory", (data) => {
         // Insert Values
         for (const item in data.history.n.time) {
             if (!website.memoryCache.time[item] || objectHash(website.memoryCache.timeORIGINAL[item]) !== objectHash(data.history.n.time[item])) {
-                website.memoryCache.time.push(moment(website.memoryCache.time[item]).format('dddd, MMMM Do YYYY, HH:mm:ss'));
+                website.memoryCache.time.push(moment(data.history.n.time[item]).format('dddd, MMMM Do YYYY, HH:mm:ss'));
             }
         }
 
