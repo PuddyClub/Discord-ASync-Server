@@ -5,11 +5,11 @@ website.memoryCache = { usedMem: [], freeMem: [], totalMem: [], time: [], timeOR
 const getMemoryCacheValue = function (items) {
 
     // Get Values
-    for (const item in items) {
+    /* for (const item in items) {
         if (typeof items[item] === "number") {
             //items[item] = { id: website.memoryCache.time[item], nested: { value: items[item] } };
         }
-    }
+    } */
 
     // Complete
     return;
@@ -68,11 +68,10 @@ const updateMemoryCacheData = function () {
                 // Options
                 options: {
                     scales: {
-                        y: { beginAtZero: true }
-                    },
-                    parsing: {
-                        xAxisKey: 'id',
-                        yAxisKey: 'nested.value'
+                        y: { beginAtZero: true },
+                        xAxes: [{
+                            display: false //this will remove all the x-axis grid lines
+                        }]
                     }
                 },
 
