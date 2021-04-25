@@ -10,7 +10,8 @@ module.exports = function (web, fileCfg, memoryChecker, callback) {
             cache_code: 1,
             head: fileCfg,
             existMemoryInterval: (memoryChecker && typeof memoryChecker.interval === "number"),
-            allowMemoryHistory: (memoryChecker && typeof memoryChecker.historyLimit === "number" && memoryChecker.historyLimit > 0)
+            allowMemoryHistory: (memoryChecker && typeof memoryChecker.historyLimit === "number" && memoryChecker.historyLimit > 0),
+            memoryChecker: JSON.stringify(memoryChecker),
         };
 
         // Get Date

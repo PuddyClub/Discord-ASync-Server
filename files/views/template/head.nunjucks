@@ -25,6 +25,8 @@
     const discordID = "{{global.user.id}}";
     var website = {
 
+        memoryChecker: {{global.memoryChecker | safe}},
+
         lang: {
             loading_warning: `{{global.lang.loading_warning}}`,
             preview: `{{global.lang.preview}}`,
