@@ -217,8 +217,8 @@ $('[id="openHistoryLog"]').click(function () {
             tinyLib.button(tinyLang.close, 'info').text(buttonPauseMessage).click(function () {
 
                 // Control
-                if (website.memoryCache.chart.paused) { website.memoryCache.chart.paused = false; } else {
-                    website.memoryCache.chart.paused = true;
+                if (website.memoryCache.chart.paused) { $(this).text(tinyLang.pause); website.memoryCache.chart.paused = false; } else {
+                    $(this).text(tinyLang.resume); website.memoryCache.chart.paused = true;
                 }
 
                 // Auto Update
