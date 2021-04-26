@@ -98,6 +98,7 @@ module.exports = (ioCache, cfg) => {
                         ioCache.memHistory.lastRequest.usedMem.number = memoryUsage.rss;
 
                         // Get Time
+                        delete ioCache.memHistory.lastRequest.time;
                         ioCache.memHistory.lastRequest.time = moment.utc().toObject();
 
                         // Add History
@@ -106,7 +107,7 @@ module.exports = (ioCache, cfg) => {
                             ioCache.memHistory.add(freemem, 'freeMem');
                             ioCache.memHistory.add(memoryUsage.rss, 'usedMem');
                             ioCache.memHistory.add(ioCache.memHistory.lastRequest.time, 'time');
-                            ioCache.memHistory.lastRequest.history = ioCache.memHistory.items;
+                            if (!ioCache.memHistory.lastRequest.history) { ioCache.memHistory.lastRequest.history = ioCache.memHistory.items; }
                         }
 
                         // Convert
