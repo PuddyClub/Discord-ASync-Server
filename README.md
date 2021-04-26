@@ -101,7 +101,7 @@ botChecker - Activate your bot's monitoring website.
 
 memoryChecker.interval - Interval time to send the application's memory usage update. Setting a null value will disable the functionality.
 
-memoryChecker.historyLimit - Limit of memory logging. Set 0 to disable.
+memoryChecker.historyLimit - Limit of memory logging. Setting a null value will disable the functionality.
 
 ### localhost (String)
 Localhost domain that will be used in your server test.
