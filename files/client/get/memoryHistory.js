@@ -248,45 +248,53 @@ socket.on("machineMemory", (data) => {
     $("#freeMemory").text(data.freeMem.value);
     $("#totalMemory").text(data.totalMem.value);
     $('[id="openHistoryLog"]').removeClass('disabled');
-
-    // Update Values
     website.memoryCache.time.now = moment.tz(data.time, 'Universal').tz(moment.tz.guess());
-    if (Array.isArray(data.history.n.usedMem)) { website.memoryCache.n.usedMem = data.history.n.usedMem; }
-    if (Array.isArray(data.history.n.freeMem)) { website.memoryCache.n.freeMem = data.history.n.freeMem; }
-    if (Array.isArray(data.history.n.totalMem)) { website.memoryCache.n.totalMem = data.history.n.totalMem; }
-    if (Array.isArray(data.history.t.usedMem)) { website.memoryCache.t.usedMem = data.history.t.usedMem; }
-    if (Array.isArray(data.history.t.freeMem)) { website.memoryCache.t.freeMem = data.history.t.freeMem; }
-    if (Array.isArray(data.history.t.totalMem)) { website.memoryCache.t.totalMem = data.history.t.totalMem; }
 
-    // Insert Time
-    if (Array.isArray(data.history.n.time)) {
+    // History Memory
+    if (website.memoryChecker.historyLimit > -1) {
 
-        // Insert Values
-        for (const item in data.history.n.time) {
-            if (
-                !website.memoryCache.time.data[item] || (
-                    website.memoryCache.time.original[item] && objectHash(website.memoryCache.time.original[item]) !== objectHash(data.history.n.time[item])
-                ) || !website.memoryCache.firstTime
-            ) {
+        // Update Values
+        if (Array.isArray(data.history.n.usedMem)) { website.memoryCache.n.usedMem = data.history.n.usedMem; }
+        if (Array.isArray(data.history.n.freeMem)) { website.memoryCache.n.freeMem = data.history.n.freeMem; }
+        if (Array.isArray(data.history.n.totalMem)) { website.memoryCache.n.totalMem = data.history.n.totalMem; }
+        if (Array.isArray(data.history.t.usedMem)) { website.memoryCache.t.usedMem = data.history.t.usedMem; }
+        if (Array.isArray(data.history.t.freeMem)) { website.memoryCache.t.freeMem = data.history.t.freeMem; }
+        if (Array.isArray(data.history.t.totalMem)) { website.memoryCache.t.totalMem = data.history.t.totalMem; }
 
-                // Insert
-                website.memoryCache.time.data.push(moment.tz(data.history.n.time[item], 'Universal').tz(moment.tz.guess()).format('dddd, MMMM Do YYYY, HH:mm:ss'));
+        // Insert Time
+        if (Array.isArray(data.history.n.time)) {
 
-                // Repeated Value
-                if (website.memoryCache.time.data.length > website.memoryChecker.historyLimit) {
-                    website.memoryCache.time.data.shift();
+            // Insert Values
+            for (const item in data.history.n.time) {
+                if (
+                    !website.memoryCache.time.data[item] || (
+                        website.memoryCache.time.original[item] && objectHash(website.memoryCache.time.original[item]) !== objectHash(data.history.n.time[item])
+                    ) || !website.memoryCache.firstTime
+                ) {
+
+                    // Insert
+                    website.memoryCache.time.data.push(moment.tz(data.history.n.time[item], 'Universal').tz(moment.tz.guess()).format('dddd, MMMM Do YYYY, HH:mm:ss'));
+
+                    // Repeated Value
+                    if (website.memoryCache.time.data.length > website.memoryChecker.historyLimit) {
+                        website.memoryCache.time.data.shift();
+                    }
+
                 }
-
             }
+
+            // Insert New Original
+            website.memoryCache.firstTime = true;
+            website.memoryCache.time.original = data.history.n.time;
+
         }
 
-        // Insert New Original
-        website.memoryCache.firstTime = true;
-        website.memoryCache.time.original = data.history.n.time;
+        // Complete
+        return updateMemoryCacheData();
 
     }
 
-    // Complete
-    return updateMemoryCacheData();
+    // Nope
+    else { return; }
 
 });

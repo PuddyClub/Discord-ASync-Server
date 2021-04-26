@@ -41,6 +41,13 @@
                         {{global.lang.totalMemory}}
                         <span id="totalMemory">???</span></a>
                 </li>
+                {% if global.allowMemoryHistory === false %}
+                    <script>
+                        setTimeout(function () {
+                            $('[id="openHistoryLog"]').css('pointer-events', 'none').off('click');
+                        }, 500);
+                    </script>
+                {% endif %}
             {% endif %}
 
             {# Divider #}

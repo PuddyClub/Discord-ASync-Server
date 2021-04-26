@@ -16,7 +16,7 @@ module.exports = (ioCache, cfg) => {
             isNaN(cfg.historyLimit) ||
             !isFinite(cfg.historyLimit) ||
             cfg.historyLimit < 0
-        ) { cfg.historyLimit = 100; }
+        ) { cfg.historyLimit = -1; }
 
         // History
         const memoryHistory = {
