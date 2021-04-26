@@ -111,6 +111,7 @@ module.exports = (ioCache, cfg) => {
                         if (typeof tinyValue.usedMem.number === "number") { tinyValue.usedMem.value = prettyBytes(memoryUsage.rss); }
 
                         // Send Result
+                        ioCache.memHistory.lastRequest = tinyValue;
                         for (const userID in ioCache.users) {
                             if (ioCache.users[userID].ids) {
                                 for (const id in ioCache.users[userID].ids) {
