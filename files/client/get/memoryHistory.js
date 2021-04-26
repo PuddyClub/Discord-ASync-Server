@@ -90,7 +90,7 @@ const updateMemoryCacheData = function () {
 
                                 // Found
                                 if (searchResult && typeof website.memoryCache.t[resultIs][c.index] === "string") {
-                                    return website.memoryCache.t[resultIs][c.index];
+                                    return label + ' ' + website.memoryCache.t[resultIs][c.index];
                                 }
 
                                 // Nothing
