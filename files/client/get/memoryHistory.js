@@ -14,12 +14,6 @@ const updateMemoryCacheData = function () {
             let showTotalMemory = true;
             if (website.memoryCache.logUsing === "totalMemory") { showTotalMemory = false; }
 
-            // Labels
-            const labels = [];
-            for (let i = 0; i < website.memoryCache.n.totalMem.length; i++) {
-                labels.push('');
-            }
-
             // Color Opacity
             const colorOpacity = {
                 usedMemory: 0.4,
