@@ -3,23 +3,22 @@ website.memoryCache = {
     firstTime: false,
     n: { usedMem: [], freeMem: [], totalMem: [] },
     t: { usedMem: [], freeMem: [], totalMem: [] },
-    time: [], timeORIGINAL: [], now: null,
-    logUsing: null,
-    logCanvas: null, chart: null
+    time: { data: [], original: [], now: null },
+    chart: { data: null, canvas: null, modal: null }
 };
 
 // Update Chart JS
 const updateMemoryCacheData = function () {
 
     // Exist Log
-    if (website.memoryCache.logUsing) {
+    if (website.memoryCache.chart.modal) {
 
         // Create Canvas
-        if (!website.memoryCache.chart) {
+        if (!website.memoryCache.chart.data) {
 
             // Show Total Memory
             let showTotalMemory = true;
-            if (website.memoryCache.logUsing === "totalMemory") { showTotalMemory = false; }
+            if (website.memoryCache.chart.modal === "totalMemory") { showTotalMemory = false; }
 
             // Color Opacity
             const colorOpacity = {
@@ -34,12 +33,12 @@ const updateMemoryCacheData = function () {
                 totalMem: 1
             };
 
-            colorOpacity[website.memoryCache.logUsing] = 0.7;
-            borderOpacity[website.memoryCache.logUsing] = 3;
+            colorOpacity[website.memoryCache.chart.modal] = 0.7;
+            borderOpacity[website.memoryCache.chart.modal] = 3;
 
             // Create Chart
-            const ctx = website.memoryCache.logCanvas[0].getContext('2d');
-            website.memoryCache.chart = new Chart(ctx, {
+            const ctx = website.memoryCache.chart.canvas[0].getContext('2d');
+            website.memoryCache.chart.data = new Chart(ctx, {
 
                 // Config
                 responsive: true,
@@ -70,7 +69,7 @@ const updateMemoryCacheData = function () {
                             label: function (c) {
 
                                 // Start Search
-                                const label = website.memoryCache.chart.data.datasets[c.datasetIndex].label;
+                                const label = website.memoryCache.chart.data.data.datasets[c.datasetIndex].label;
                                 let searchResult;
                                 let resultIs = null;
 
@@ -99,7 +98,7 @@ const updateMemoryCacheData = function () {
 
                             },
                             title: function (c) {
-                                return website.memoryCache.time[c[0].index];
+                                return website.memoryCache.time.data[c[0].index];
                             }
                         }
                     }
@@ -108,7 +107,7 @@ const updateMemoryCacheData = function () {
 
                 // Data
                 data: {
-                    labels: website.memoryCache.time,
+                    labels: website.memoryCache.time.data,
                     datasets: [
 
                         // Total Memory
@@ -161,15 +160,15 @@ const updateMemoryCacheData = function () {
         else {
 
             // Read Datasets
-            const used_memory = website.memoryCache.chart.data.datasets.find(dataset => dataset.label === tinyLang.used_memory);
+            const used_memory = website.memoryCache.chart.data.data.datasets.find(dataset => dataset.label === tinyLang.used_memory);
             if (used_memory) { used_memory.data = website.memoryCache.n.usedMem; }
-            const freeMemory = website.memoryCache.chart.data.datasets.find(dataset => dataset.label === tinyLang.free_memory);
+            const freeMemory = website.memoryCache.chart.data.data.datasets.find(dataset => dataset.label === tinyLang.free_memory);
             if (freeMemory) { freeMemory.data = website.memoryCache.n.freeMem; }
-            const totalMem = website.memoryCache.chart.data.datasets.find(dataset => dataset.label === tinyLang.total_memory);
+            const totalMem = website.memoryCache.chart.data.data.datasets.find(dataset => dataset.label === tinyLang.total_memory);
             if (totalMem) { totalMem.data = website.memoryCache.n.totalMem; }
 
             // Update Now
-            website.memoryCache.chart.update();
+            website.memoryCache.chart.data.update();
 
         }
 
@@ -185,8 +184,8 @@ $('[id="openHistoryLog"]').click(function () {
 
     // Get ID
     const id = $(this).find('span').attr('id');
-    website.memoryCache.logUsing = id;
-    website.memoryCache.logCanvas = $('<canvas>').css({ height: '50%', width: '90%' });
+    website.memoryCache.chart.modal = id;
+    website.memoryCache.chart.canvas = $('<canvas>').css({ height: '50%', width: '90%' });
 
     // Protection Click
     $('[id="openHistoryLog"]').css('pointer-events', 'none');
@@ -197,13 +196,13 @@ $('[id="openHistoryLog"]').click(function () {
         dialog: 'modal-lg',
         id: id + '-log-panel',
         title: tinyLang[id + '_history_title'],
-        body: $('<center>').append(website.memoryCache.logCanvas),
+        body: $('<center>').append(website.memoryCache.chart.canvas),
         hidden: function () {
-            website.memoryCache.chart.destroy();
-            website.memoryCache.logCanvas.remove();
-            website.memoryCache.logUsing = null;
-            website.memoryCache.logCanvas = null;
-            website.memoryCache.chart = null;
+            website.memoryCache.chart.data.destroy();
+            website.memoryCache.chart.canvas.remove();
+            website.memoryCache.chart.modal = null;
+            website.memoryCache.chart.canvas = null;
+            website.memoryCache.chart.data = null;
             return;
         },
         footer: [tinyLib.button(tinyLang.close, 'secondary', { 'data-dismiss': 'modal' })]
@@ -224,7 +223,7 @@ socket.on("machineMemory", (data) => {
     $('[id="openHistoryLog"]').removeClass('disabled');
 
     // Update Values
-    website.memoryCache.now = moment.tz(data.time, 'Universal').tz(moment.tz.guess());
+    website.memoryCache.time.now = moment.tz(data.time, 'Universal').tz(moment.tz.guess());
     if (Array.isArray(data.history.n.usedMem)) { website.memoryCache.n.usedMem = data.history.n.usedMem; }
     if (Array.isArray(data.history.n.freeMem)) { website.memoryCache.n.freeMem = data.history.n.freeMem; }
     if (Array.isArray(data.history.n.totalMem)) { website.memoryCache.n.totalMem = data.history.n.totalMem; }
@@ -238,17 +237,17 @@ socket.on("machineMemory", (data) => {
         // Insert Values
         for (const item in data.history.n.time) {
             if (
-                !website.memoryCache.time[item] || (
-                    website.memoryCache.timeORIGINAL[item] && objectHash(website.memoryCache.timeORIGINAL[item]) !== objectHash(data.history.n.time[item])
+                !website.memoryCache.time.data[item] || (
+                    website.memoryCache.time.original[item] && objectHash(website.memoryCache.time.original[item]) !== objectHash(data.history.n.time[item])
                 ) || !website.memoryCache.firstTime
             ) {
 
                 // Insert
-                website.memoryCache.time.push(moment.tz(data.history.n.time[item], 'Universal').tz(moment.tz.guess()).format('dddd, MMMM Do YYYY, HH:mm:ss'));
+                website.memoryCache.time.data.push(moment.tz(data.history.n.time[item], 'Universal').tz(moment.tz.guess()).format('dddd, MMMM Do YYYY, HH:mm:ss'));
 
                 // Repeated Value
-                if (website.memoryCache.time.length > website.memoryChecker.historyLimit) {
-                    website.memoryCache.time.shift();
+                if (website.memoryCache.time.data.length > website.memoryChecker.historyLimit) {
+                    website.memoryCache.time.data.shift();
                 }
 
             }
@@ -256,7 +255,7 @@ socket.on("machineMemory", (data) => {
 
         // Insert New Original
         website.memoryCache.firstTime = true;
-        website.memoryCache.timeORIGINAL = data.history.n.time;
+        website.memoryCache.time.original = data.history.n.time;
 
     }
 
