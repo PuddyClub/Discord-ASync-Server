@@ -4,7 +4,7 @@ website.memoryCache = {
     n: { usedMem: [], freeMem: [], totalMem: [] },
     t: { usedMem: [], freeMem: [], totalMem: [] },
     time: { data: [], original: [], now: null },
-    chart: { data: null, canvas: null, modal: null }
+    chart: { data: null, canvas: null, modal: null, paused: false }
 };
 
 // Update Chart JS
@@ -168,7 +168,7 @@ const updateMemoryCacheData = function () {
             if (totalMem) { totalMem.data = website.memoryCache.n.totalMem; }
 
             // Update Now
-            website.memoryCache.chart.data.update();
+            if (!website.memoryCache.chart.paused) { website.memoryCache.chart.data.update(); }
 
         }
 
