@@ -87,37 +87,39 @@ module.exports = (ioCache, cfg) => {
                         const totalmem = os.totalmem();
                         const freemem = os.freemem();
 
+                        if (!ioCache.memHistory.lastRequest) { ioCache.memHistory.lastRequest = {}; }
+                        if (!ioCache.memHistory.lastRequest.totalMem) { ioCache.memHistory.lastRequest.totalMem = {}; }
+                        if (!ioCache.memHistory.lastRequest.freeMem) { ioCache.memHistory.lastRequest.freeMem = {}; }
+                        if (!ioCache.memHistory.lastRequest.usedMem) { ioCache.memHistory.lastRequest.usedMem = {}; }
+
                         // Memory Value
-                        const tinyValue = {
-                            totalMem: { number: totalmem },
-                            freeMem: { number: freemem },
-                            usedMem: { number: memoryUsage.rss }
-                        };
+                        ioCache.memHistory.lastRequest.totalMem.number = totalmem;
+                        ioCache.memHistory.lastRequest.freeMem.number = freemem;
+                        ioCache.memHistory.lastRequest.usedMem.number = memoryUsage.rss;
 
                         // Get Time
-                        tinyValue.time = moment.utc().toObject();
+                        ioCache.memHistory.lastRequest.time = moment.utc().toObject();
 
                         // Add History
                         if (cfg.historyLimit > 0) {
                             ioCache.memHistory.add(totalmem, 'totalMem');
                             ioCache.memHistory.add(freemem, 'freeMem');
                             ioCache.memHistory.add(memoryUsage.rss, 'usedMem');
-                            ioCache.memHistory.add(tinyValue.time, 'time');
-                            tinyValue.history = ioCache.memHistory.items;
+                            ioCache.memHistory.add(ioCache.memHistory.lastRequest.time, 'time');
+                            ioCache.memHistory.lastRequest.history = ioCache.memHistory.items;
                         }
 
                         // Convert
-                        if (typeof tinyValue.totalMem.number === "number") { tinyValue.totalMem.value = prettyBytes(totalmem); }
-                        if (typeof tinyValue.freeMem.number === "number") { tinyValue.freeMem.value = prettyBytes(freemem); }
-                        if (typeof tinyValue.usedMem.number === "number") { tinyValue.usedMem.value = prettyBytes(memoryUsage.rss); }
+                        if (typeof ioCache.memHistory.lastRequest.totalMem.number === "number") { ioCache.memHistory.lastRequest.totalMem.value = prettyBytes(totalmem); }
+                        if (typeof ioCache.memHistory.lastRequest.freeMem.number === "number") { ioCache.memHistory.lastRequest.freeMem.value = prettyBytes(freemem); }
+                        if (typeof ioCache.memHistory.lastRequest.usedMem.number === "number") { ioCache.memHistory.lastRequest.usedMem.value = prettyBytes(memoryUsage.rss); }
 
                         // Send Result
-                        ioCache.memHistory.lastRequest = tinyValue;
                         for (const userID in ioCache.users) {
                             if (ioCache.users[userID].ids) {
                                 for (const id in ioCache.users[userID].ids) {
                                     if (ioCache.users[userID].ids[id].socket) {
-                                        ioCache.users[userID].ids[id].socket.emit('machineMemory', tinyValue);
+                                        ioCache.users[userID].ids[id].socket.emit('machineMemory', ioCache.memHistory.lastRequest);
                                     }
                                 }
                             }
