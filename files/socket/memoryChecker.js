@@ -20,6 +20,7 @@ module.exports = (ioCache, cfg) => {
 
         // History
         ioCache.memHistory = {
+            lastRequest: null,
             items: {
                 n: { totalMem: [], freeMem: [], usedMem: [], time: [] },
                 t: { totalMem: [], freeMem: [], usedMem: [] }
@@ -72,8 +73,8 @@ module.exports = (ioCache, cfg) => {
 
             console.log('Memory Checker Started!');
 
-            // Interval
-            let intervalCPU = setInterval(function () {
+            // Set Interval Function
+            const setIntervalFunction = function () {
 
                 // Check Cache
                 if (ioCache && ioCache.users) {
@@ -138,7 +139,11 @@ module.exports = (ioCache, cfg) => {
                 // Complete
                 return;
 
-            }, cfg.interval);
+            };
+
+            // Interval
+            let intervalCPU = setInterval(setIntervalFunction, cfg.interval);
+            setIntervalFunction();
 
         }
 
