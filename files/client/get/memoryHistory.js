@@ -1,5 +1,12 @@
 // Cache
-website.memoryCache = { n: { usedMem: [], freeMem: [], totalMem: [] }, t: { usedMem: [], freeMem: [], totalMem: [] }, time: [], timeORIGINAL: [], now: null, logUsing: null, logCanvas: null, chart: null };
+website.memoryCache = {
+    firstTime: false,
+    n: { usedMem: [], freeMem: [], totalMem: [] },
+    t: { usedMem: [], freeMem: [], totalMem: [] },
+    time: [], timeORIGINAL: [], now: null,
+    logUsing: null,
+    logCanvas: null, chart: null
+};
 
 // Update Chart JS
 const updateMemoryCacheData = function () {
@@ -233,7 +240,7 @@ socket.on("machineMemory", (data) => {
             if (
                 !website.memoryCache.time[item] || (
                     website.memoryCache.timeORIGINAL[item] && objectHash(website.memoryCache.timeORIGINAL[item]) !== objectHash(data.history.n.time[item])
-                ) || !website.memoryChecker.firstTime
+                ) || !website.memoryCache.firstTime
             ) {
 
                 // Insert
@@ -248,7 +255,7 @@ socket.on("machineMemory", (data) => {
         }
 
         // Insert New Original
-        website.memoryChecker.firstTime = true;
+        website.memoryCache.firstTime = true;
         website.memoryCache.timeORIGINAL = data.history.n.time;
 
     }
