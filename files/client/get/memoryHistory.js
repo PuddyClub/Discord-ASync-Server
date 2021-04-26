@@ -237,7 +237,7 @@ socket.on("machineMemory", (data) => {
             ) {
 
                 // Insert
-                website.memoryCache.time.push(moment(data.history.n.time[item]).format('dddd, MMMM Do YYYY, HH:mm:ss'));
+                website.memoryCache.time.push(moment.tz(data.history.n.time[item], 'Universal').tz(moment.tz.guess()).format('dddd, MMMM Do YYYY, HH:mm:ss'));
 
                 // Repeated Value
                 if (website.memoryCache.time.length > website.memoryChecker.historyLimit) {
