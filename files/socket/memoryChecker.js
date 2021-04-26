@@ -19,23 +19,23 @@ module.exports = (ioCache, cfg) => {
         ) { cfg.historyLimit = -1; }
 
         // History
-        const memoryHistory = {
+        ioCache.memHistory = {
             items: {
                 n: { totalMem: [], freeMem: [], usedMem: [], time: [] },
                 t: { totalMem: [], freeMem: [], usedMem: [] }
             }, add: function (value, where) {
 
                 // Is Number
-                if ((typeof value === "number" || objType(value, 'object')) && typeof where === "string" && Array.isArray(memoryHistory.items.n[where])) {
+                if ((typeof value === "number" || objType(value, 'object')) && typeof where === "string" && Array.isArray(ioCache.memHistory.items.n[where])) {
 
                     // Add Value
-                    memoryHistory.items.n[where].push(value);
-                    if (typeof value === "number") { memoryHistory.items.t[where].push(prettyBytes(value)); }
+                    ioCache.memHistory.items.n[where].push(value);
+                    if (typeof value === "number") { ioCache.memHistory.items.t[where].push(prettyBytes(value)); }
 
                     // Validator
-                    if (memoryHistory.items.n[where].length > cfg.historyLimit) {
-                        memoryHistory.items.n[where].shift();
-                        if (typeof value === "number") { memoryHistory.items.t[where].shift(); }
+                    if (ioCache.memHistory.items.n[where].length > cfg.historyLimit) {
+                        ioCache.memHistory.items.n[where].shift();
+                        if (typeof value === "number") { ioCache.memHistory.items.t[where].shift(); }
                     }
 
                     // Complete
@@ -98,11 +98,11 @@ module.exports = (ioCache, cfg) => {
 
                         // Add History
                         if (cfg.historyLimit > 0) {
-                            memoryHistory.add(totalmem, 'totalMem');
-                            memoryHistory.add(freemem, 'freeMem');
-                            memoryHistory.add(memoryUsage.rss, 'usedMem');
-                            memoryHistory.add(tinyValue.time, 'time');
-                            tinyValue.history = memoryHistory.items;
+                            ioCache.memHistory.add(totalmem, 'totalMem');
+                            ioCache.memHistory.add(freemem, 'freeMem');
+                            ioCache.memHistory.add(memoryUsage.rss, 'usedMem');
+                            ioCache.memHistory.add(tinyValue.time, 'time');
+                            tinyValue.history = ioCache.memHistory.items;
                         }
 
                         // Convert
