@@ -230,12 +230,25 @@ socket.on("machineMemory", (data) => {
 
         // Insert Values
         for (const item in data.history.n.time) {
-            if (!website.memoryCache.time[item] || objectHash(website.memoryCache.timeORIGINAL[item]) !== objectHash(data.history.n.time[item])) {
+            if (
+                !website.memoryCache.time[item] || (
+                    website.memoryCache.timeORIGINAL[item] && objectHash(website.memoryCache.timeORIGINAL[item]) !== objectHash(data.history.n.time[item])
+                ) || !website.memoryChecker.firstTime
+            ) {
+
+                // Insert
                 website.memoryCache.time.push(moment(data.history.n.time[item]).format('dddd, MMMM Do YYYY, HH:mm:ss'));
+
+                // Repeated Value
+                if (website.memoryCache.time.length > website.memoryChecker.historyLimit) {
+                    website.memoryCache.time.shift();
+                }
+
             }
         }
 
         // Insert New Original
+        website.memoryChecker.firstTime = true;
         website.memoryCache.timeORIGINAL = data.history.n.time;
 
     }
