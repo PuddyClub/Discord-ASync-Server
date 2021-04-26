@@ -1,4 +1,6 @@
 {
+    "pause": "Pause",
+    "resume": "Resume",
     "total_memory": "Total Memory",
     "used_memory": "Used Memory",
     "free_memory": "Free Memory",

@@ -191,6 +191,12 @@ $('[id="openHistoryLog"]').click(function () {
     $('[id="openHistoryLog"]').css('pointer-events', 'none');
     setTimeout(function () { $('[id="openHistoryLog"]').css('pointer-events', ''); }, 500);
 
+    // Button Pause Message
+    let buttonPauseMessage = '';
+    if (website.memoryCache.chart.paused) { buttonPauseMessage = tinyLang.resume; } else {
+        buttonPauseMessage = tinyLang.pause;
+    }
+
     // Modal
     tinyLib.modal({
         dialog: 'modal-lg',
@@ -205,7 +211,28 @@ $('[id="openHistoryLog"]').click(function () {
             website.memoryCache.chart.data = null;
             return;
         },
-        footer: [tinyLib.button(tinyLang.close, 'secondary', { 'data-dismiss': 'modal' })]
+        footer: [
+
+            // Pause
+            tinyLib.button(tinyLang.close, 'info').text(buttonPauseMessage).click(function () {
+
+                // Control
+                if (website.memoryCache.chart.paused) { website.memoryCache.chart.paused = false; } else {
+                    website.memoryCache.chart.paused = true;
+                }
+
+                // Auto Update
+                updateMemoryCacheData();
+
+                // Complete
+                return;
+
+            }),
+
+            // Close
+            tinyLib.button(tinyLang.close, 'secondary', { 'data-dismiss': 'modal' })
+
+        ]
     });
 
     // Auto Update
