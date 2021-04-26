@@ -217,7 +217,7 @@ socket.on("machineMemory", (data) => {
     $('[id="openHistoryLog"]').removeClass('disabled');
 
     // Update Values
-    website.memoryCache.now = moment(data.time);
+    website.memoryCache.now = moment.tz(data.time, 'Universal').tz(moment.tz.guess());
     if (Array.isArray(data.history.n.usedMem)) { website.memoryCache.n.usedMem = data.history.n.usedMem; }
     if (Array.isArray(data.history.n.freeMem)) { website.memoryCache.n.freeMem = data.history.n.freeMem; }
     if (Array.isArray(data.history.n.totalMem)) { website.memoryCache.n.totalMem = data.history.n.totalMem; }
