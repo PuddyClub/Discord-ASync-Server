@@ -58,7 +58,7 @@ const updateMemoryCacheData = function () {
                             ticks: {
                                 beginAtZero: true,
                                 callback: function (value) {
-                                    return humanFileSize(value);
+                                    return prettyBytes.convert(value);
                                 }
                             }
                         }]
