@@ -649,6 +649,11 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
 
     });
 
+    // Send Memory Cache Last Request
+    if (ioCache.memHistory && ioCache.memHistory.lastRequest) {
+        socket.emit('machineMemory', ioCache.memHistory.lastRequest);
+    }
+
     // Connect Plugin
     if (typeof pluginSocket === "function") { pluginSocket({ socket, ioCache, io, session, web, app, socketUser, userData: socketUser.sUser }); }
 
