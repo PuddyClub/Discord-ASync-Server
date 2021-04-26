@@ -83,7 +83,11 @@ For security reasons, it is recommended that you create an application in Discor
 ### web (Object)
 Choose which module features you want to activate.
 
-homepageRedirect (String) - Choose a page where the user will be redirected when trying to access the domain. Changing this value, you will have to log in to the website using the path "/login".
+### homepageRedirect (String)
+Choose a page where the user will be redirected when trying to access the domain. Changing this value, you will have to log in to the website using the path "/login".
+
+### slashCommandListener (Object)
+Slash Commands server client settings.
 
 slashCommandListener.function (String) - Name of the function you are hosting within Firebase via the module path "@tinypudding/firebase-discord-interactions/functionListener/firebaseCallback/server". This function will receive the request received by the URL of slashCommandListener.
 
@@ -97,7 +101,11 @@ slashCommandListener.waitMessage (string) - This message will be displayed while
 
 slashCommandListener.token (String) - Security token of your Firebase server that is receiving the interactions.
 
-botChecker - Activate your bot's monitoring website.
+### botChecker (Boolean)
+Activate your bot's monitoring website.
+
+### memoryChecker (Object)
+Memory analyzer settings.
 
 memoryChecker.interval - Interval time to send the application's memory usage update. Setting a null value will disable the functionality.
 
