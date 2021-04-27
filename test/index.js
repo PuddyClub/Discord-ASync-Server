@@ -93,7 +93,7 @@ console.log('Starting App! Getting the Firebase Token...');
     Examploe: bot.login({ autoReconnect: true });
 
 */
-const bot = ds.addBot(tinyCfg.testBot, { autoReconnect: true });
+const bot = ds.addBot(tinyCfg.testBot, { autoReconnect: true }, tinyCfg['test-bot-firebase-test']);
 
 /* Example code of bot.on() from Discord.JS */
 bot.on('ready', (event) => {

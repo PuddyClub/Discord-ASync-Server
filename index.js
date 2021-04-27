@@ -314,7 +314,7 @@ const appModule = {
     },
 
     // Add Bots
-    addBot: function (token, cfg = {}) {
+    addBot: function (token, cfg = {}, fbCfg = {}) {
 
         // First Time
         if (app.discord.firstTime) {
@@ -324,7 +324,7 @@ const appModule = {
 
         // Add Bot
         const bot = new app.discord.module.Client(cfg);
-        app.discord.bots.push({ bot: bot, token: token });
+        app.discord.bots.push({ bot: bot, token: token, fbCfg: fbCfg });
         return bot;
 
     },
