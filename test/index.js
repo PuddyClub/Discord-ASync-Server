@@ -90,10 +90,67 @@ console.log('Starting App! Getting the Firebase Token...');
     The first value is the bot token.
     The second value is the object inserted inside the method "bot.login();", which will be activated automatically when you start the application server.
     
-    Examploe: bot.login({ autoReconnect: true });
+    Example: bot.login({ autoReconnect: true });
+
+    You want connect your bot events with your Firebase Server?
+    Choose you bot database and the database path. If you don't choose a path, the database root will be used to store the data.
+    tinyCfg['test-bot-firebase-test'].database = { name: '', path: '' };
 
 */
 const bot = ds.addBot(tinyCfg.testBot, { autoReconnect: true }, tinyCfg['test-bot-firebase-test']);
+
+// Test Events. All events are disabled by default.
+tinyCfg['test-bot-firebase-test'].events = {
+    channelCreate: true,
+    channelDelete: true,
+    channelPinsUpdate: true,
+    channelUpdate: true,
+    debug: true,
+    emojiCreate: true,
+    emojiDelete: true,
+    emojiUpdate: true,
+    error: true,
+    guildBanAdd: true,
+    guildBanRemove: true,
+    guildCreate: true,
+    guildDelete: true,
+    guildIntegrationsUpdate: true,
+    guildMemberAdd: true,
+    guildMemberAvailable: true,
+    guildMemberRemove: true,
+    guildMembersChunk: true,
+    guildMemberSpeaking: true,
+    guildMemberUpdate: true,
+    guildUnavailable: true,
+    guildUpdate: true,
+    invalidated: true,
+    inviteCreate: true,
+    inviteDelete: true,
+    message: true,
+    messageDelete: true,
+    messageDeleteBulk: true,
+    messageReactionAdd: true,
+    messageReactionRemove: true,
+    messageReactionRemoveAll: true,
+    messageReactionRemoveEmoji: true,
+    messageUpdate: true,
+    presenceUpdate: true,
+    rateLimit: true,
+    ready: true,
+    roleCreate: true,
+    roleDelete: true,
+    roleUpdate: true,
+    shardDisconnect: true,
+    shardError: true,
+    shardReady: true,
+    shardReconnecting: true,
+    shardResume: true,
+    typingStart: true,
+    userUpdate: true,
+    voiceStateUpdate: true,
+    warn: true,
+    webhookUpdate: true
+};
 
 /* Example code of bot.on() from Discord.JS */
 bot.on('ready', (event) => {
@@ -192,7 +249,7 @@ tinyCfg.web.middleware = function (web, app) {
             console.groupEnd();
 
             // Send Log to All Bot Logs when the value is true
-            i.socketUser.sendLog('info', true, `User ID ${i.socket.id} is connected!`);            
+            i.socketUser.sendLog('info', true, `User ID ${i.socket.id} is connected!`);
 
             // Disconnected
             i.socket.on('disconnect', (reason) => {

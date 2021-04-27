@@ -8,7 +8,60 @@ module.exports = function (bot, firebase, fbCfg) {
         fbCfg = _.defaultsDeep({}, fbCfg, {
 
             // Database
-            database: ""
+            database: { name: '', path: null },
+
+            // Events
+            events: {
+                channelCreate: false,
+                channelDelete: false,
+                channelPinsUpdate: false,
+                channelUpdate: false,
+                debug: false,
+                emojiCreate: false,
+                emojiDelete: false,
+                emojiUpdate: false,
+                error: false,
+                guildBanAdd: false,
+                guildBanRemove: false,
+                guildCreate: false,
+                guildDelete: false,
+                guildIntegrationsUpdate: false,
+                guildMemberAdd: false,
+                guildMemberAvailable: false,
+                guildMemberRemove: false,
+                guildMembersChunk: false,
+                guildMemberSpeaking: false,
+                guildMemberUpdate: false,
+                guildUnavailable: false,
+                guildUpdate: false,
+                invalidated: false,
+                inviteCreate: false,
+                inviteDelete: false,
+                message: false,
+                messageDelete: false,
+                messageDeleteBulk: false,
+                messageReactionAdd: false,
+                messageReactionRemove: false,
+                messageReactionRemoveAll: false,
+                messageReactionRemoveEmoji: false,
+                messageUpdate: false,
+                presenceUpdate: false,
+                rateLimit: false,
+                ready: false,
+                roleCreate: false,
+                roleDelete: false,
+                roleUpdate: false,
+                shardDisconnect: false,
+                shardError: false,
+                shardReady: false,
+                shardReconnecting: false,
+                shardResume: false,
+                typingStart: false,
+                userUpdate: false,
+                voiceStateUpdate: false,
+                warn: false,
+                webhookUpdate: false
+            }
 
         });
 
