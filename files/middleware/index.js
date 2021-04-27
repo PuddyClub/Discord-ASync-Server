@@ -193,10 +193,19 @@ module.exports = async function (resolve, reject, ioCache, discordCfg, webCfg, f
     // Load Bots and Start the Website
     if (app.discord.bots && app.discord.bots.length > 0) {
 
+        // Get Firebase
+        const firebaseDiscord = require('./firebase');
+
+        // For Promise
         require('for-promise')({ data: app.discord.bots }, function (i, fn, fn_error) {
 
             // Complete
-            app.discord.bots[i].bot.login(app.discord.bots[i].token).then(() => { return fn(); }).catch(err => { return fn_error(err); });
+            firebaseDiscord(app.discord.bots[i].bot, app.firebase, discordCfg.firebase).then(() => {
+
+                app.discord.bots[i].bot.login(app.discord.bots[i].token).then(() => { return fn(); }).catch(err => { return fn_error(err); });
+                return;
+
+            }).catch(err => { return fn_error(err); });
             return;
 
         }).then(() => {
