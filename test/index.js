@@ -92,12 +92,33 @@ console.log('Starting App! Getting the Firebase Token...');
     
     Example: bot.login({ autoReconnect: true });
 
+    ================================================================
+
+    tinyCfg['test-bot-firebase-test'] - It is just an example of how to configure the Firebase Server for your bot. You need to follow the model of the file "config_example.json".
+
     You want connect your bot events with your Firebase Server?
     Choose you bot database and the database path. If you don't choose a path, the database root will be used to store the data.
     tinyCfg['test-bot-firebase-test'].database = { name: '', path: '' };
 
+    tinyCfg['test-bot-firebase-test'].messageCache - This is your cache setting for your database.
+    Example: tinyCfg['test-bot-firebase-test'].messageCache.maxSize;
+
+    (Yes. This Cache Setting is a copy of Discord.JS)
+    maxSize - Maximum number of messages to cache per channel (-1 or Infinity for unlimited - don't do this without message sweeping, otherwise database usage will climb indefinitely)
+    lifeTime - How long a message should stay in the cache until it is considered sweepable (in seconds, 0 for forever)
+    sweepInterval - How frequently to remove messages from the cache that are older than the message cache lifetime (in seconds, 0 for never)
+    editHistoryMaxSize - Maximum number of previous versions to hold for an edited message (-1 or Infinity for unlimited - don't do this without sweeping, otherwise memory usage may climb indefinitely.)
+
 */
 const bot = ds.addBot(tinyCfg.testBot, { autoReconnect: true }, tinyCfg['test-bot-firebase-test']);
+
+// Default Message Cache Config
+tinyCfg['test-bot-firebase-test'].messageCache = {
+    maxSize: 200,
+    lifeTime: 0,
+    sweepInterval: 0,
+    editHistoryMaxSize: -1
+};
 
 // Test Events. All events are disabled by default.
 tinyCfg['test-bot-firebase-test'].events = {

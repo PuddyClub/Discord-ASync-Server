@@ -12,10 +12,10 @@ module.exports = function (bot, firebase, fbCfg) {
 
             // Message Cache
             messageCache: {
-                maxSize: 0,
+                maxSize: 200,
                 lifeTime: 0,
                 sweepInterval: 0,
-                editHistoryMaxSize: 0
+                editHistoryMaxSize: -1
             },
 
             // Events
