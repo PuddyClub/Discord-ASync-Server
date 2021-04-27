@@ -10,6 +10,14 @@ module.exports = function (bot, firebase, fbCfg) {
             // Database
             database: { name: '', path: null },
 
+            // Message Cache
+            messageCache: {
+                maxSize: 0,
+                lifeTime: 0,
+                sweepInterval: 0,
+                editHistoryMaxSize: 0
+            },
+
             // Events
             events: {
                 channelCreate: false,
