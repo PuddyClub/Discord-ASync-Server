@@ -74,7 +74,7 @@ module.exports = function (bot, firebase, fbCfg) {
         });
 
         // Is Object
-        if (objType(fbCfg, 'object') && typeof fbCfg.database === "string" && fbCfg.database.length > 0) {
+        if (objType(fbCfg, 'object') && objType(fbCfg.database, 'object') && typeof fbCfg.database.name === "string" && fbCfg.database.name.length > 0) {
 
             // Result
             resolve();
