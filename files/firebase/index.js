@@ -2,7 +2,7 @@ module.exports = function (app, index) {
     return new Promise(async (resolve, reject) => {
 
         // Get Values
-        const bot = app.discord.bots[index].bot; 
+        const bot = app.discord.bots[index].bot;
         const firebaseBaseCfg = app.firebaseCfg;
         const firebase = app.firebase;
         const login = app.auth.login;
@@ -16,27 +16,25 @@ module.exports = function (app, index) {
         const clone = require('clone');
 
         // Prepare Config
-        app.discord.bots[index].fbCfg = _.defaultsDeep({}, app.discord.bots[index].fbCfg, {
-
-            // Database
-            databaseURL: '',
-            path: null,
-            id: null,
-
-            // Message Cache
-            messageCache: {
-                maxSize: 200,
-                lifeTime: 0,
-                sweepInterval: 0,
-                editHistoryMaxSize: -1
-            },
-
-            // All Events
-            allEvents: false,
-
-            // Events
-            events: {
-                channelCreate: false,
+        if (!app.discord.bots[index].fbCfg) { app.discord.bots[index].fbCfg = {}; }
+        
+        // Firebase Setting
+        if(typeof app.discord.bots[index].fbCfg.databaseURL !== "string") {app.discord.bots[index].fbCfg.databaseURL = '';}
+        if(typeof app.discord.bots[index].fbCfg.path !== "string") {app.discord.bots[index].fbCfg.path = null;}
+        if(typeof app.discord.bots[index].fbCfg.id !== "string") {app.discord.bots[index].fbCfg.id = null;}
+        if(typeof app.discord.bots[index].fbCfg.allEvents !== "boolean") {app.discord.bots[index].fbCfg.allEvents = false;}
+        
+        // Message Cache
+        app.discord.bots[index].fbCfg.messageCache =  _.defaultsDeep({}, app.discord.bots[index].fbCfg.messageCache, {
+            maxSize: 200,
+            lifeTime: 0,
+            sweepInterval: 0,
+            editHistoryMaxSize: -1
+        });
+        
+        // Events
+        app.discord.bots[index].fbCfg.events =  _.defaultsDeep({}, app.discord.bots[index].fbCfg.events, {
+            channelCreate: false,
                 channelDelete: false,
                 channelPinsUpdate: false,
                 channelUpdate: false,
@@ -85,10 +83,9 @@ module.exports = function (app, index) {
                 voiceStateUpdate: false,
                 warn: false,
                 webhookUpdate: false
-            }
-
         });
 
+        // Config Value
         const fbCfg = app.discord.bots[index].fbCfg;
 
         // Is Object
