@@ -4,14 +4,16 @@ module.exports = function (cmd, db, cfg) {
         // Channel
         const channel = cmd[0];
 
+        // Data
+        const data = require('./global/channel')(channel);
+
         // Guild Channel
         if (channel.type !== "dm") {
 
             // Exist Guild
             if (channel.guild) {
 
-                db.event
-                
+
 
             }
 
@@ -22,8 +24,10 @@ module.exports = function (cmd, db, cfg) {
 
         }
 
+        // Set Event
+        db.event.set(data).then(resolve).catch(reject);
+
         // Complete
-        resolve();
         return;
 
     });
