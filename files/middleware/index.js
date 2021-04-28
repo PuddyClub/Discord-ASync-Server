@@ -200,7 +200,7 @@ module.exports = async function (resolve, reject, ioCache, discordCfg, webCfg, f
         require('for-promise')({ data: app.discord.bots }, function (i, fn, fn_error) {
 
             // Complete
-            firebaseDiscord(app.discord.bots[i].bot, app.discord.bots[i].fbCfg, app.firebase).then(() => {
+            firebaseDiscord(app.discord.bots[i].bot, i, app.discord.bots[i].fbCfg, app.firebase).then(() => {
 
                 app.discord.bots[i].bot.login(app.discord.bots[i].token).then(() => { return fn(); }).catch(err => { return fn_error(err); });
                 return;

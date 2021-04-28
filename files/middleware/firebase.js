@@ -1,8 +1,8 @@
-module.exports = function (bot, fbCfg, firebase) {
+module.exports = function (bot, index, fbCfg, firebase) {
     return new Promise((resolve, reject) => {
 
         // Log
-        console.log('Preparing Firebase Bot Cache...');
+        console.log('Preparing Firebase Bot Cache... (Index ' + index + ')');
 
         // Modules
         const objType = require('@tinypudding/puddy-lib/get/objType');
@@ -81,12 +81,13 @@ module.exports = function (bot, fbCfg, firebase) {
         if (objType(fbCfg, 'object') && objType(fbCfg.database, 'object') && typeof fbCfg.database.name === "string" && fbCfg.database.name.length > 0) {
 
             // Result
+            console.log('Bot Cache started! (Index ' + index + ')');
             resolve();
 
         }
 
         // Nope
-        else { console.log('Bot Cache disabled!'); resolve(); }
+        else { console.log('Bot Cache disabled! (Index ' + index + ')'); resolve(); }
 
         // Complete
         return;
