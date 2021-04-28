@@ -126,10 +126,8 @@ module.exports = function (bot, index, fbCfg, firebaseBaseCfg, firebase) {
             // Start Firebase Bot Server
             if (canStartFirebase) {
 
-                // Test
-                console.log(bot);
-
                 // Result
+                require('./discord')(bot);
                 console.log('Firebase Bot Cache started! (Index ' + index + ')');
                 resolve();
 
