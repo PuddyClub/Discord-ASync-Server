@@ -1,11 +1,11 @@
 module.exports = function (bot, cfg, index) {
 
-    // Prepare Event Server
+    // Prepare Event Server. 
+    // This function will tell you whether the server is logged in the firebase or not.
     let firstTime = true;
     const firstEventAdded = () => {
 
         // Modules
-        const myIP = require('my-ip');
         const moment = require('moment-timezone');
 
         // Since I can connect from multiple devices or browser tabs, we store each connection instance separately
