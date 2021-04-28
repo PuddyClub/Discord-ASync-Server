@@ -13,7 +13,9 @@ module.exports = function (bot, index, fbCfg, firebaseBaseCfg, firebase) {
         fbCfg = _.defaultsDeep({}, fbCfg, {
 
             // Database
-            database: { name: '', path: null },
+            databaseURL: '',
+            path: null,
+            id: null,
 
             // Message Cache
             messageCache: {
@@ -83,10 +85,10 @@ module.exports = function (bot, index, fbCfg, firebaseBaseCfg, firebase) {
             objType(firebase, 'object') &&
             objType(firebaseBaseCfg, 'object') &&
             objType(fbCfg, 'object') &&
-            objType(fbCfg.database, 'object') &&
-            typeof fbCfg.database.databaseURL === "string" &&
-            typeof fbCfg.database.id === "string" &&
-            fbCfg.database.databaseURL.length > 0
+            typeof fbCfg.databaseURL === "string" &&
+            typeof fbCfg.id === "string" &&
+            fbCfg.id.length > 0 &&
+            fbCfg.databaseURL.length > 0
         ) {
 
             // Start Firebase
@@ -95,17 +97,17 @@ module.exports = function (bot, index, fbCfg, firebaseBaseCfg, firebase) {
 
                 // Config Firebase
                 const firebaseCfg = clone(firebaseBaseCfg);
-                firebaseCfg.databaseURL = fbCfg.database.databaseURL;
+                firebaseCfg.databaseURL = fbCfg.databaseURL;
 
                 // Create Firebase App
-                bot.firebase = { root: firebase.initializeApp(firebaseCfg, fbCfg.database.id) };
+                bot.firebase = { root: firebase.initializeApp(firebaseCfg, fbCfg.id) };
                 bot.firebase.db = { root: bot.firebase.root.database() };
 
                 // Start DB
-                if (typeof fbCfg.database.path !== "string" || fbCfg.database.path === '') {
+                if (typeof fbCfg.path !== "string" || fbCfg.path === '') {
                     bot.firebase.db.main = bot.firebase.db.root.ref('/');
                 } else {
-                    bot.firebase.db.main = bot.firebase.db.root.ref(fbCfg.database.path);
+                    bot.firebase.db.main = bot.firebase.db.root.ref(fbCfg.path);
                 }
 
                 // Allow
@@ -127,7 +129,6 @@ module.exports = function (bot, index, fbCfg, firebaseBaseCfg, firebase) {
             if (canStartFirebase) {
 
                 // Result
-                delete fbCfg.database;
                 require('./discord')(bot, fbCfg);
                 console.log('Firebase Bot Cache started! (Index ' + index + ')');
                 resolve();
