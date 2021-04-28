@@ -15,7 +15,7 @@ module.exports = function (bot, cfg, index) {
         // stores the timestamp of my last disconnect (the last time I was seen online)
         var lastOnlineRef = bot.firebase.db.main.child('dsjs/lastOnline');
 
-        var connectedRef = bot.firebase.db.main.child('.info/connected');
+        var connectedRef = bot.firebase.db.main.child('dsjs/connected');
         connectedRef.on('value', (snap) => {
             if (snap.val() === true) {
 

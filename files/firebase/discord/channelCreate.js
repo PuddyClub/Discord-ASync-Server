@@ -11,6 +11,7 @@ module.exports = function (cmd, db, cfg) {
             if (channel.guild) {
 
                 db.event
+                
 
             }
 
