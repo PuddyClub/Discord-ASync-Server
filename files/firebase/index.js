@@ -1,5 +1,11 @@
-module.exports = function (bot, index, fbCfg, firebaseBaseCfg, firebase, login) {
+module.exports = function (app, index) {
     return new Promise(async (resolve, reject) => {
+
+        // Get Values
+        const bot = app.discord.bots[index].bot; 
+        const firebaseBaseCfg = app.firebaseCfg;
+        const firebase = app.firebase;
+        const login = app.auth.login;
 
         // Log
         console.log('Preparing Firebase Bot Cache... (Index ' + index + ')');
@@ -10,7 +16,7 @@ module.exports = function (bot, index, fbCfg, firebaseBaseCfg, firebase, login) 
         const clone = require('clone');
 
         // Prepare Config
-        fbCfg = _.defaultsDeep({}, fbCfg, {
+        app.discord.bots[index].fbCfg = _.defaultsDeep({}, app.discord.bots[index].fbCfg, {
 
             // Database
             databaseURL: '',
@@ -82,6 +88,8 @@ module.exports = function (bot, index, fbCfg, firebaseBaseCfg, firebase, login) 
             }
 
         });
+
+        const fbCfg = app.discord.bots[index].fbCfg;
 
         // Is Object
         if (
