@@ -25,6 +25,9 @@ module.exports = function (bot, index, fbCfg, firebaseBaseCfg, firebase) {
                 editHistoryMaxSize: -1
             },
 
+            // All Events
+            allEvents: false,
+
             // Events
             events: {
                 channelCreate: false,

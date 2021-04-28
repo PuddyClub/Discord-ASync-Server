@@ -4,7 +4,7 @@ module.exports = function (bot, cfg, index) {
     const createEvent = (eventName) => {
 
         // Exist
-        if (cfg.events[eventName]) {
+        if (cfg.events[eventName] || cfg.allEvents) {
 
             // Prepare
             let eventFunction;
