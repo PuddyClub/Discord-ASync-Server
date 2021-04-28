@@ -109,6 +109,10 @@ console.log('Starting App! Getting the Firebase Token...');
     sweepInterval - How frequently to remove messages from the cache that are older than the message cache lifetime (in seconds, 0 for never)
     editHistoryMaxSize - Maximum number of previous versions to hold for an edited message (-1 or Infinity for unlimited - don't do this without sweeping, otherwise memory usage may climb indefinitely.)
 
+    tinyCfg['test-bot-firebase-test'].databaseURL - Your Database Realtime URL.
+    tinyCfg['test-bot-firebase-test'].id - Put any value here. This value is only for Firebase to differentiate your requests from your Firebase Server.
+    tinyCfg['test-bot-firebase-test'].path (Optional) - Your Database Realtime Path.
+
     When your bot is connected to Firebase, the Discord.JS client will add a new object "bot.firebase". Here is your Firebase application connected to your bot.
 
 */

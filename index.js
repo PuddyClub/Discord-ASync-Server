@@ -431,6 +431,7 @@ const appModule = {
 
             // Starting Firebase
             firebase.initializeApp(cfg);
+            app.firebaseCfg = cfg;
             app.firebase = firebase;
             app.auth.root = firebase.auth();
 

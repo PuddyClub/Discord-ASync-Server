@@ -1,4 +1,4 @@
-module.exports = function (bot, index, fbCfg, firebase) {
+module.exports = function (bot, index, fbCfg, firebaseBaseCfg, firebase) {
     return new Promise((resolve, reject) => {
 
         // Log
@@ -7,6 +7,7 @@ module.exports = function (bot, index, fbCfg, firebase) {
         // Modules
         const objType = require('@tinypudding/puddy-lib/get/objType');
         const _ = require('lodash');
+        const clone = require('clone');
 
         // Prepare Config
         fbCfg = _.defaultsDeep({}, fbCfg, {
@@ -78,12 +79,26 @@ module.exports = function (bot, index, fbCfg, firebase) {
         });
 
         // Is Object
-        if (objType(fbCfg, 'object') && objType(fbCfg.database, 'object') && typeof fbCfg.database.name === "string" && fbCfg.database.name.length > 0) {
+        if (
+            objType(firebase, 'object') && 
+            objType(firebaseBaseCfg, 'object') && 
+            objType(fbCfg, 'object') && 
+            objType(fbCfg.database, 'object') && 
+            typeof fbCfg.database.databaseURL === "string" && 
+            typeof fbCfg.database.id === "string" && 
+            fbCfg.database.databaseURL.length > 0
+        ) {
+
+            // Config Firebase
+            const firebaseCfg = clone(firebaseBaseCfg);
+            firebaseCfg.databaseURL = fbCfg.database.databaseURL;
+
+            // Create Firebase App
+            bot.firebase = firebase.initializeApp(firebaseCfg, fbCfg.database.id);
 
             // Test
             console.log(fbCfg);
             console.log(bot);
-            console.log(firebase);
 
             // Result
             console.log('Bot Cache started! (Index ' + index + ')');
