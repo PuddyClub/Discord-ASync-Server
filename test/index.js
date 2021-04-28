@@ -120,7 +120,7 @@ tinyCfg['test-bot-firebase-test'].messageCache = {
     editHistoryMaxSize: -1
 };
 
-// Test Events. All events are disabled by default.
+// This is the all events from the "Discord.JS" that can be got by the Firebase. All events are disabled by default.
 tinyCfg['test-bot-firebase-test'].events = {
     channelCreate: true,
     channelDelete: true,

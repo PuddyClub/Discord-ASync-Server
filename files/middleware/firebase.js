@@ -80,6 +80,11 @@ module.exports = function (bot, index, fbCfg, firebase) {
         // Is Object
         if (objType(fbCfg, 'object') && objType(fbCfg.database, 'object') && typeof fbCfg.database.name === "string" && fbCfg.database.name.length > 0) {
 
+            // Test
+            console.log(fbCfg);
+            console.log(bot);
+            console.log(firebase);
+
             // Result
             console.log('Bot Cache started! (Index ' + index + ')');
             resolve();
