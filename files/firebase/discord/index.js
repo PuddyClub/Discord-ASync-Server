@@ -3,47 +3,7 @@ module.exports = function (bot, cfg, index) {
     // Prepare Event Server. 
     // This function will tell you whether the server is logged in the firebase or not.
     let firstTime = true;
-    const firstEventAdded = () => {
-
-        // Modules
-        const moment = require('moment-timezone');
-
-        // Since I can connect from multiple devices or browser tabs, we store each connection instance separately
-        // any time that connectionsRef's value is null (i.e. has no children) I am offline
-        var myConnectionsRef = bot.firebase.db.main.child('dsjs/connections');
-
-        // stores the timestamp of my last disconnect (the last time I was seen online)
-        var lastOnlineRef = bot.firebase.db.main.child('dsjs/lastOnline');
-
-        var connectedRef = bot.firebase.db.root.ref('.info/connected');
-        connectedRef.on('value', (snap) => {
-            if (snap.val() === true) {
-
-                // We're connected (or reconnected)! Do anything here that should happen only if online (or on reconnect)
-                var con = myConnectionsRef.push();
-
-                // When I disconnect, remove this device
-                con.onDisconnect().remove((err) => {
-                    if (err) {
-                        console.group("could not establish onDisconnect event");
-                        console.error(err);
-                        console.groupEnd();
-                    }
-                });
-
-                // Add this device to my connections list
-                // this value could contain info about the device or a timestamp too
-                con.set(true);
-
-                // When I disconnect, update the last time I was seen online
-                const momentTime = moment.utc().toObject();
-                momentTime.timezone = 'Universal';
-                lastOnlineRef.onDisconnect().set(momentTime);
-
-            }
-        });
-
-    };
+    const firstEventAdded = require('@tinypudding/firebase-lib/database/presence');
 
     // Start Message Cache
     require('./messageCache')(bot, cfg);
@@ -55,7 +15,22 @@ module.exports = function (bot, cfg, index) {
         if (cfg.events[eventName] || cfg.allEvents) {
 
             // First Time
-            if (firstTime) { firstTime = false; firstEventAdded(); }
+            if (firstTime) {
+
+                // First Time Disabled
+                firstTime = false;
+
+                // Since I can connect from multiple devices or browser tabs, we store each connection instance separately
+                // any time that connectionsRef's value is null (i.e. has no children) I am offline
+                var myConnectionsRef = bot.firebase.db.main.child('dsjs/connections');
+
+                // stores the timestamp of my last disconnect (the last time I was seen online)
+                var lastOnlineRef = bot.firebase.db.main.child('dsjs/lastOnline');
+
+                // Start Connection Database Warn
+                firstEventAdded.start(bot.firebase.db.root, myConnectionsRef, lastOnlineRef);
+
+            }
 
             // Prepare
             let eventFunction;
