@@ -130,18 +130,18 @@ module.exports = function (bot, index, fbCfg, firebaseBaseCfg, firebase) {
                 console.log(bot);
 
                 // Result
-                console.log('Bot Cache started! (Index ' + index + ')');
+                console.log('Firebase Bot Cache started! (Index ' + index + ')');
                 resolve();
 
             }
 
             // Nope
-            else { console.log('Bot Cache disabled by error! (Index ' + index + ')'); resolve(); }
+            else { console.log('Firebase Bot Cache disabled by error! (Index ' + index + ')'); resolve(); }
 
         }
 
         // Nope
-        else { console.log('Bot Cache disabled! (Index ' + index + ')'); resolve(); }
+        else { console.log('Firebase Bot Cache disabled! (Index ' + index + ')'); resolve(); }
 
         // Complete
         return;
