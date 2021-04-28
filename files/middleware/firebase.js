@@ -80,29 +80,63 @@ module.exports = function (bot, index, fbCfg, firebaseBaseCfg, firebase) {
 
         // Is Object
         if (
-            objType(firebase, 'object') && 
-            objType(firebaseBaseCfg, 'object') && 
-            objType(fbCfg, 'object') && 
-            objType(fbCfg.database, 'object') && 
-            typeof fbCfg.database.databaseURL === "string" && 
-            typeof fbCfg.database.id === "string" && 
+            objType(firebase, 'object') &&
+            objType(firebaseBaseCfg, 'object') &&
+            objType(fbCfg, 'object') &&
+            objType(fbCfg.database, 'object') &&
+            typeof fbCfg.database.databaseURL === "string" &&
+            typeof fbCfg.database.id === "string" &&
             fbCfg.database.databaseURL.length > 0
         ) {
 
-            // Config Firebase
-            const firebaseCfg = clone(firebaseBaseCfg);
-            firebaseCfg.databaseURL = fbCfg.database.databaseURL;
+            // Start Firebase
+            let canStartFirebase;
+            try {
 
-            // Create Firebase App
-            bot.firebase = firebase.initializeApp(firebaseCfg, fbCfg.database.id);
+                // Config Firebase
+                const firebaseCfg = clone(firebaseBaseCfg);
+                firebaseCfg.databaseURL = fbCfg.database.databaseURL;
 
-            // Test
-            console.log(fbCfg);
-            console.log(bot);
+                // Create Firebase App
+                bot.firebase = { root: firebase.initializeApp(firebaseCfg, fbCfg.database.id) };
+                bot.firebase.db = { root: bot.firebase.root.database() };
 
-            // Result
-            console.log('Bot Cache started! (Index ' + index + ')');
-            resolve();
+                // Start DB
+                if (typeof fbCfg.database.path !== "string" || fbCfg.database.path === '') {
+                    bot.firebase.db.main = bot.firebase.db.root.ref('/');
+                } else {
+                    bot.firebase.db.main = bot.firebase.db.root.ref(fbCfg.database.path);
+                }
+
+                // Allow
+                canStartFirebase = true;
+
+            }
+
+            // Fail
+            catch (err) {
+
+                // Error Message
+                console.error(err);
+                bot.firebase = null;
+                canStartFirebase = false;
+
+            }
+
+            // Start Firebase Bot Server
+            if (canStartFirebase) {
+
+                // Test
+                console.log(bot);
+
+                // Result
+                console.log('Bot Cache started! (Index ' + index + ')');
+                resolve();
+
+            }
+
+            // Nope
+            else { console.log('Bot Cache disabled by error! (Index ' + index + ')'); resolve(); }
 
         }
 

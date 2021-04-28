@@ -113,7 +113,8 @@ console.log('Starting App! Getting the Firebase Token...');
     tinyCfg['test-bot-firebase-test'].id - Put any value here. This value is only for Firebase to differentiate your requests from your Firebase Server.
     tinyCfg['test-bot-firebase-test'].path (Optional) - Your Database Realtime Path.
 
-    When your bot is connected to Firebase, the Discord.JS client will add a new object "bot.firebase". Here is your Firebase application connected to your bot.
+    When your bot is connected to Firebase, the Discord.JS client will add a new object "bot.firebase.root". Here is your Firebase application connected to your bot.
+    The "bot.firebase.db.main" is your main Database path from "firebase.database()". You can use the method "bot.firebase.db.main.child()" to edit other path inside the main path.
 
 */
 const bot = ds.addBot(tinyCfg.testBot, { autoReconnect: true }, tinyCfg['test-bot-firebase-test']);
