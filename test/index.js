@@ -239,6 +239,7 @@ tinyCfg.web.middleware = function (web, app) {
     console.group('Middleware Values');
     console.log(web);
     console.log(app);
+    console.log(fireApp.app);
     console.groupEnd();
 
     /// Complete

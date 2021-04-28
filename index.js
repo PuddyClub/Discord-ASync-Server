@@ -576,6 +576,7 @@ ON_DEATH(async function (signal, err) {
     console.log(`Closing "Discord.JS"...`);
     if (app && app.discord && Array.isArray(app.discord.bots)) {
         for (const item in app.discord.bots) {
+            try { await app.discord.bots[item].fbCfg.app.auth.signOut(); } catch (err) { console.error(err); }
             try { await app.discord.bots[item].bot.destroy(); } catch (err) { console.error(err); }
         }
     }
