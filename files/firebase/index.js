@@ -127,7 +127,8 @@ module.exports = function (bot, index, fbCfg, firebaseBaseCfg, firebase) {
             if (canStartFirebase) {
 
                 // Result
-                require('./discord')(bot);
+                delete fbCfg.database;
+                require('./discord')(bot, fbCfg);
                 console.log('Firebase Bot Cache started! (Index ' + index + ')');
                 resolve();
 
