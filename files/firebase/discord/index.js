@@ -20,7 +20,7 @@ module.exports = function (bot, cfg, index) {
             // Add Event
             if (typeof eventFunction === "function") {
                 console.log(`The Firebase Event ${eventName} was added in the bot index ${index}!`);
-                bot.on(eventName, async () => {
+                bot.on(eventName, async function() {
                     await eventFunction(arguments, cfg, index);
                     return;
                 });
@@ -83,10 +83,6 @@ module.exports = function (bot, cfg, index) {
     createEvent('voiceStateUpdate');
     createEvent('warn');
     createEvent('webhookUpdate');
-
-    // Test
-    console.log(cfg);
-    console.log(bot);
 
     // Complete
     return;
