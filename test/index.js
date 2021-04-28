@@ -232,7 +232,7 @@ tinyCfg.web.middleware = function (web, app) {
         app.web.server = HTTP Module from NodeJS
     
     */
-    console.group('Starting Middleware...');
+    console.group('Middleware Values');
     console.log(web);
     console.log(app);
     console.groupEnd();

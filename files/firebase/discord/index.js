@@ -19,7 +19,7 @@ module.exports = function (bot, cfg, index) {
 
             // Add Event
             if (typeof eventFunction === "function") {
-                console.log(`The Firebase Event ${eventName} was added in the bot index ${index}!`);
+                console.log(`The Firebase Event "${eventName}" was added in the bot index ${index}!`);
                 bot.on(eventName, async function() {
                     await eventFunction(arguments, cfg, index);
                     return;

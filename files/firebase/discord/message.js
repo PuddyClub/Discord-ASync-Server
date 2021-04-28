@@ -3,6 +3,7 @@ module.exports = function (cmd, cfg, index) {
 
         // Message
         const msg = cmd[0];
+        console.log(msg);
 
         // Complete
         resolve();

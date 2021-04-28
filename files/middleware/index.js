@@ -1,5 +1,8 @@
 module.exports = async function (resolve, reject, ioCache, discordCfg, webCfg, fileCfg, web, app) {
 
+    // Start Warn
+    console.log('Starting Middleware...');
+
     // Nunjucks
     const express = require('express');
     const checkUser = require('../checkUser')(app);
@@ -46,6 +49,9 @@ module.exports = async function (resolve, reject, ioCache, discordCfg, webCfg, f
 
     // Bot Checker
     if (webCfg.botChecker) {
+
+        // Preparing Message
+        console.log('Starting Discord Bot Panel...');
 
         // Modules
         const homepage = require('./homepage');
@@ -173,6 +179,9 @@ module.exports = async function (resolve, reject, ioCache, discordCfg, webCfg, f
             return;
         });
 
+        // Final Message
+        console.log('Discord Bot Panel started!');
+
     }
 
     // Interaction
@@ -188,10 +197,18 @@ module.exports = async function (resolve, reject, ioCache, discordCfg, webCfg, f
             return interactionEndPoint(req, res, webCfg.slashCommandListener, { root: app.firebase }, discordCfg.apps);
         });
 
+        // Message
+        console.log('Slash Command Listener actived!');
+
     }
+
+    // Middleware Final Message
+    console.log('Middleware started!');
 
     // Load Bots and Start the Website
     if (app.discord.bots && app.discord.bots.length > 0) {
+
+        console.log('Starting Discord Bots...');
 
         // Get Firebase
         const firebaseDiscord = require('../firebase');
@@ -211,6 +228,8 @@ module.exports = async function (resolve, reject, ioCache, discordCfg, webCfg, f
         }).then(() => {
 
             // Complete
+            console.log('Discord Bots started!');
+            console.log('Middleware ready!');
             web.fn();
             resolve();
             return;
@@ -225,6 +244,6 @@ module.exports = async function (resolve, reject, ioCache, discordCfg, webCfg, f
     }
 
     // Nope
-    else { web.fn(); resolve(); return; }
+    else { web.fn(); console.log('Middleware ready!'); resolve(); return; }
 
 };
