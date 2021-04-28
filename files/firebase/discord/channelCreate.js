@@ -5,7 +5,7 @@ module.exports = function (cmd, db, cfg) {
         const channel = cmd[0];
 
         // Data
-        const data = require('./global/channel')(channel);
+        const data = require('./generator/channel')(channel);
 
         // Guild Channel
         if (channel.type !== "dm") {

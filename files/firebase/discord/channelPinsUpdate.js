@@ -6,7 +6,7 @@ module.exports = function (cmd, db, cfg) {
         const time = cmd[1];
 
         // Data
-        const data = require('./global/channel')(channel);
+        const data = require('./generator/channel')(channel);
 
         // Set Event
         db.event.set({ channel: data, time: time }).then(resolve).catch(reject);

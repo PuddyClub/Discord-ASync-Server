@@ -6,7 +6,7 @@ module.exports = function (cmd, db, cfg) {
         const newChannel = cmd[1];
 
         // Data
-        const channelGenerator = require('./global/channel');
+        const channelGenerator = require('./generator/channel');
         const oldData = channelGenerator(oldChannel);
         const newData = channelGenerator(newChannel);
 
