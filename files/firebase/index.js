@@ -1,5 +1,5 @@
-module.exports = function (bot, index, fbCfg, firebaseBaseCfg, firebase) {
-    return new Promise((resolve, reject) => {
+module.exports = function (bot, index, fbCfg, firebaseBaseCfg, firebase, login) {
+    return new Promise(async (resolve, reject) => {
 
         // Log
         console.log('Preparing Firebase Bot Cache... (Index ' + index + ')');
@@ -95,7 +95,6 @@ module.exports = function (bot, index, fbCfg, firebaseBaseCfg, firebase) {
         ) {
 
             // Start Firebase
-            let canStartFirebase;
             try {
 
                 // Config Firebase
@@ -113,8 +112,73 @@ module.exports = function (bot, index, fbCfg, firebaseBaseCfg, firebase) {
                     bot.firebase.db.main = bot.firebase.db.root.ref(fbCfg.path);
                 }
 
-                // Allow
-                canStartFirebase = true;
+                // Prepare Auth
+                bot.firebase.auth = bot.firebase.root.auth();
+
+                // Firebase AuthStateChanged
+                let firstTiemAuthState = true;
+                bot.firebase.auth.onAuthStateChanged((user) => {
+
+                    // Update User
+                    fbCfg.user = user;
+
+                    // is User
+                    if (user) {
+                        console.log('Firebase Auth from Discord Bot received User Data! (Index ' + index + ')');
+                        if (firstTiemAuthState) {
+
+                            // Disable
+                            firstTiemAuthState = false;
+
+                            // Result
+                            fbCfg.bot = bot;
+                            require('./discord')(bot, fbCfg, index);
+                            console.log('Firebase Bot Cache started! (Index ' + index + ')');
+                            resolve();
+
+                        }
+                    }
+
+                    // Nope
+                    else {
+                        console.log('Firebase Auth from Discord Bot received a empty User Data! (Index ' + index + ')');
+                    }
+
+                });
+
+                // bot.firebase.auth
+                // Start Login
+                const loginStart = function (token) {
+                    return bot.firebase.auth.signInWithCustomToken(token).then((userCredential) => {
+                        fbCfg.userCredential = userCredential;
+                        return;
+                    }).catch((err) => {
+                        reject(err);
+                        return;
+                    });
+                };
+
+                // Is Function
+                if (typeof login === "function") {
+
+                    // Try Token
+                    try {
+                        const tokenResult = await login();
+                        loginStart(tokenResult);
+                    }
+
+                    // Fail
+                    catch (err) { reject(err); }
+
+                }
+
+                // Is String
+                else if (typeof login === "string") {
+                    loginStart(login);
+                }
+
+                // Nothing
+                else { reject(new Error('Invalid Firebase Token Value from Discord Bot in the login method! (Index ' + index + ')')); }
 
             }
 
@@ -124,23 +188,8 @@ module.exports = function (bot, index, fbCfg, firebaseBaseCfg, firebase) {
                 // Error Message
                 console.error(err);
                 bot.firebase = null;
-                canStartFirebase = false;
 
             }
-
-            // Start Firebase Bot Server
-            if (canStartFirebase) {
-
-                // Result
-                fbCfg.bot = bot;
-                require('./discord')(bot, fbCfg, index);
-                console.log('Firebase Bot Cache started! (Index ' + index + ')');
-                resolve();
-
-            }
-
-            // Nope
-            else { console.log('Firebase Bot Cache disabled by error! (Index ' + index + ')'); resolve(); }
 
         }
 

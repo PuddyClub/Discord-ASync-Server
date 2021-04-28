@@ -1,5 +1,42 @@
 module.exports = function (bot, cfg, index) {
 
+    // Prepare Event Server
+    let firstTime = true;
+    const firstEventAdded = () => {
+
+        // Modules
+        const myIP = require('my-ip');
+        const moment = require('moment-timezone');
+
+        // Since I can connect from multiple devices or browser tabs, we store each connection instance separately
+        // any time that connectionsRef's value is null (i.e. has no children) I am offline
+        var myConnectionsRef = bot.firebase.db.main.child('dsjs/connections');
+
+        // stores the timestamp of my last disconnect (the last time I was seen online)
+        var lastOnlineRef = bot.firebase.db.main.child('dsjs/lastOnline');
+
+        var connectedRef = bot.firebase.db.main.child('.info/connected');
+        connectedRef.on('value', (snap) => {
+            if (snap.val() === true) {
+
+                // We're connected (or reconnected)! Do anything here that should happen only if online (or on reconnect)
+                var con = myConnectionsRef.push();
+
+                // When I disconnect, remove this device
+                con.onDisconnect().remove();
+
+                // Add this device to my connections list
+                // this value could contain info about the device or a timestamp too
+                con.set(true);
+
+                // When I disconnect, update the last time I was seen online
+                lastOnlineRef.onDisconnect().set(moment.utc().toObject());
+
+            }
+        });
+
+    };
+
     // Start Message Cache
     require('./messageCache')(bot, cfg);
 
@@ -8,6 +45,9 @@ module.exports = function (bot, cfg, index) {
 
         // Exist
         if (cfg.events[eventName] || cfg.allEvents) {
+
+            // First Time
+            if (firstTime) { firstTime = false; firstEventAdded(); }
 
             // Prepare
             let eventFunction;
@@ -24,11 +64,11 @@ module.exports = function (bot, cfg, index) {
             if (typeof eventFunction === "function") {
                 console.log(`The Firebase Event "${eventName}" was added in the bot index ${index}!`);
                 bot.on(eventName, async function () {
-                    
+
                     // Execute Event
-                    await eventFunction(arguments, { 
-                        root: bot.firebase.db.main, 
-                        event: bot.firebase.db.main.child('events/' + eventName) 
+                    await eventFunction(arguments, {
+                        root: bot.firebase.db.main,
+                        event: bot.firebase.db.main.child('events/' + eventName)
                     }, cfg, index);
                     return;
 

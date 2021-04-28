@@ -10,6 +10,8 @@ module.exports = function (cmd, db, cfg) {
             // Exist Guild
             if (channel.guild) {
 
+                db.event
+
             }
 
         }
