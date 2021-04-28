@@ -1,11 +1,10 @@
 module.exports = function (cmd, db, cfg) {
     return new Promise((resolve, reject) => {
 
-        // Firebase
-        const db = cfg.app.db.main;
+        // Set Event
+        db.event.child('info').set(cmd[0]).then(resolve).catch(reject);
 
         // Complete
-        resolve();
         return;
 
     });
