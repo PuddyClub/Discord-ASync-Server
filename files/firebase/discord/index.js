@@ -15,7 +15,7 @@ module.exports = function (bot, cfg, index) {
         // stores the timestamp of my last disconnect (the last time I was seen online)
         var lastOnlineRef = bot.firebase.db.main.child('dsjs/lastOnline');
 
-        var connectedRef = bot.firebase.db.main.child('dsjs/connected');
+        var connectedRef = bot.firebase.db.root.ref('.info/connected');
         connectedRef.on('value', (snap) => {
             if (snap.val() === true) {
 
@@ -23,14 +23,22 @@ module.exports = function (bot, cfg, index) {
                 var con = myConnectionsRef.push();
 
                 // When I disconnect, remove this device
-                con.onDisconnect().remove();
+                con.onDisconnect().remove((err) => {
+                    if (err) {
+                        console.group("could not establish onDisconnect event");
+                        console.error(err);
+                        console.groupEnd();
+                    }
+                });
 
                 // Add this device to my connections list
                 // this value could contain info about the device or a timestamp too
                 con.set(true);
 
                 // When I disconnect, update the last time I was seen online
-                lastOnlineRef.onDisconnect().set(moment.utc().toObject());
+                const momentTime = moment.utc().toObject();
+                momentTime.timezone = 'Universal';
+                lastOnlineRef.onDisconnect().set(momentTime);
 
             }
         });

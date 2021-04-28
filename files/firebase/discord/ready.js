@@ -3,6 +3,7 @@ module.exports = function (cmd, db, cfg) {
 
         // Firebase
         const db = cfg.bot.firebase.db.main;
+        console.log(cfg.bot);
         
         // Complete
         resolve();
