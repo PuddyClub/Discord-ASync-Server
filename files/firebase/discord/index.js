@@ -1,5 +1,8 @@
 module.exports = function (bot, cfg, index) {
 
+    // Start Message Cache
+    require('./messageCache')(bot, cfg);
+
     // Create Event
     const createEvent = (eventName) => {
 
@@ -20,9 +23,15 @@ module.exports = function (bot, cfg, index) {
             // Add Event
             if (typeof eventFunction === "function") {
                 console.log(`The Firebase Event "${eventName}" was added in the bot index ${index}!`);
-                bot.on(eventName, async function() {
-                    await eventFunction(arguments, cfg, index);
+                bot.on(eventName, async function () {
+                    
+                    // Execute Event
+                    await eventFunction(arguments, { 
+                        root: bot.firebase.db.main, 
+                        event: bot.firebase.db.main.child('events/' + eventName) 
+                    }, cfg, index);
                     return;
+
                 });
             }
 

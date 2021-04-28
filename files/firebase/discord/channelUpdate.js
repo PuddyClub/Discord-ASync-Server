@@ -1,4 +1,4 @@
-module.exports = function (cmd, cfg) {
+module.exports = function (cmd, db, cfg) {
     return new Promise((resolve, reject) => {
 
         // Firebase
