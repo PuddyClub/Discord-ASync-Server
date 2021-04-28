@@ -1,7 +1,7 @@
 module.exports = function (cmd, db, cfg) {
     return new Promise((resolve, reject) => {
 
-        // Channel
+        // Emoji
         const emoji = cmd[0];
 
         // Data
