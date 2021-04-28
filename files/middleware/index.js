@@ -194,7 +194,7 @@ module.exports = async function (resolve, reject, ioCache, discordCfg, webCfg, f
     if (app.discord.bots && app.discord.bots.length > 0) {
 
         // Get Firebase
-        const firebaseDiscord = require('./firebase');
+        const firebaseDiscord = require('../firebase');
 
         // For Promise
         require('for-promise')({ data: app.discord.bots }, function (i, fn, fn_error) {
