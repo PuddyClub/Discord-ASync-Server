@@ -5,7 +5,7 @@ module.exports = function (cmd, db, cfg) {
         const msg = cmd[0];
 
         // Firebase
-        const db = cfg.bot.firebase.db.main;
+        const db = cfg.app.db.main;
         
         // Complete
         resolve();

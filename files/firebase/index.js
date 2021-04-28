@@ -102,22 +102,22 @@ module.exports = function (bot, index, fbCfg, firebaseBaseCfg, firebase, login) 
                 firebaseCfg.databaseURL = fbCfg.databaseURL;
 
                 // Create Firebase App
-                bot.firebase = { root: firebase.initializeApp(firebaseCfg, fbCfg.id) };
-                bot.firebase.db = { root: bot.firebase.root.database() };
+                fbCfg.app = { root: firebase.initializeApp(firebaseCfg, fbCfg.id) };
+                fbCfg.app.db = { root: fbCfg.app.root.database() };
 
                 // Start DB
                 if (typeof fbCfg.path !== "string" || fbCfg.path === '') {
-                    bot.firebase.db.main = bot.firebase.db.root.ref('/');
+                    fbCfg.app.db.main = fbCfg.app.db.root.ref('/');
                 } else {
-                    bot.firebase.db.main = bot.firebase.db.root.ref(fbCfg.path);
+                    fbCfg.app.db.main = fbCfg.app.db.root.ref(fbCfg.path);
                 }
 
                 // Prepare Auth
-                bot.firebase.auth = bot.firebase.root.auth();
+                fbCfg.app.auth = fbCfg.app.root.auth();
 
                 // Firebase AuthStateChanged
                 let firstTiemAuthState = true;
-                bot.firebase.auth.onAuthStateChanged((user) => {
+                fbCfg.app.auth.onAuthStateChanged((user) => {
 
                     // Update User
                     fbCfg.user = user;
@@ -146,10 +146,9 @@ module.exports = function (bot, index, fbCfg, firebaseBaseCfg, firebase, login) 
 
                 });
 
-                // bot.firebase.auth
                 // Start Login
                 const loginStart = function (token) {
-                    return bot.firebase.auth.signInWithCustomToken(token).then((userCredential) => {
+                    return fbCfg.app.auth.signInWithCustomToken(token).then((userCredential) => {
                         fbCfg.userCredential = userCredential;
                         return;
                     }).catch((err) => {
@@ -187,7 +186,7 @@ module.exports = function (bot, index, fbCfg, firebaseBaseCfg, firebase, login) 
 
                 // Error Message
                 console.error(err);
-                bot.firebase = null;
+                fbCfg.app = null;
 
             }
 

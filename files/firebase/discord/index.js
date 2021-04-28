@@ -22,13 +22,13 @@ module.exports = function (bot, cfg, index) {
 
                 // Since I can connect from multiple devices or browser tabs, we store each connection instance separately
                 // any time that connectionsRef's value is null (i.e. has no children) I am offline
-                var myConnectionsRef = bot.firebase.db.main.child('dsjs/connections');
+                var myConnectionsRef = cfg.app.db.main.child('dsjs/connections');
 
                 // stores the timestamp of my last disconnect (the last time I was seen online)
-                var lastOnlineRef = bot.firebase.db.main.child('dsjs/lastOnline');
+                var lastOnlineRef = cfg.app.db.main.child('dsjs/lastOnline');
 
                 // Start Connection Database Warn
-                firstEventAdded.start(bot.firebase.db.root, myConnectionsRef, lastOnlineRef);
+                firstEventAdded.start(cfg.app.db.root, myConnectionsRef, lastOnlineRef);
 
             }
 
@@ -50,8 +50,8 @@ module.exports = function (bot, cfg, index) {
 
                     // Execute Event
                     await eventFunction(arguments, {
-                        root: bot.firebase.db.main,
-                        event: bot.firebase.db.main.child('events/' + eventName)
+                        root: cfg.app.db.main,
+                        event: cfg.app.db.main.child('events/' + eventName)
                     }, cfg, index);
                     return;
 
