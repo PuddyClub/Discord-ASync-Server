@@ -118,7 +118,7 @@ console.log('Starting App! Getting the Firebase Token...');
 
 */
 const bot = ds.addBot(tinyCfg.testBot, { autoReconnect: true }, tinyCfg['test-bot-firebase-test']);
-//const fireApp = ds.getBotFirebase(tinyCfg.testBot);
+const fireApp = ds.getBotFirebase(tinyCfg.testBot);
 
 // Default Message Cache Config.
 tinyCfg['test-bot-firebase-test'].messageCache = {

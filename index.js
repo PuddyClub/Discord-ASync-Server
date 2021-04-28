@@ -329,6 +329,11 @@ const appModule = {
 
     },
 
+    // Get Bot Firebase
+    getBotFirebase: function (token) {
+        return app.discord.bots.find(bot => bot.token === token);
+    },
+
     // Check User Session
     validateUserSession: function (userID) {
 
