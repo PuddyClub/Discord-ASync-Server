@@ -1,8 +1,12 @@
-module.exports = function (bot, firebase, fbCfg) {
+module.exports = function (bot, fbCfg, firebase) {
     return new Promise((resolve, reject) => {
+
+        // Log
+        console.log('Preparing Firebase Bot Cache...');
 
         // Modules
         const objType = require('@tinypudding/puddy-lib/get/objType');
+        const _ = require('lodash');
 
         // Prepare Config
         fbCfg = _.defaultsDeep({}, fbCfg, {
@@ -82,7 +86,7 @@ module.exports = function (bot, firebase, fbCfg) {
         }
 
         // Nope
-        else { resolve(); }
+        else { console.log('Bot Cache disabled!'); resolve(); }
 
         // Complete
         return;
