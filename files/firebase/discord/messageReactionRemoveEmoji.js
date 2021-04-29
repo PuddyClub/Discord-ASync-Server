@@ -1,11 +1,17 @@
 module.exports = function (cmd, db, cfg) {
     return new Promise((resolve, reject) => {
 
-        // Firebase
-        const db = cfg.app.db.main;
-        
+        // Data
+        const messageReaction = cmd[0];
+
+        // Data
+        const reactionGenerator = require('./generator/reaction');
+        const data = reactionGenerator(messageReaction);
+
+        // Set Event
+        db.event.set({ reaction: data }).then(resolve).catch(reject);
+
         // Complete
-        resolve();
         return;
 
     });
