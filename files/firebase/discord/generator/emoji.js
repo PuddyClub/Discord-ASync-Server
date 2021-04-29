@@ -19,9 +19,9 @@ module.exports = function (emoji) {
         roles: []
     };
 
-    // Get Members ID
-    if (emoji.roles) {
-        emoji.roles.forEach(function (value, key) {
+    // Get Role ID
+    if (emoji.roles && emoji.roles.cache) {
+        emoji.roles.cache.forEach(function (value, key) {
             data.roles.push(key);
             return;
         });

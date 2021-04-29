@@ -27,9 +27,9 @@ module.exports = function (channel) {
         data.viewable = channel.viewable;
         data.members = [];
 
-        // Get Members ID
-        if (channel.members) {
-            channel.members.forEach(function (value, key) {
+        // Get Channel ID
+        if (channel.members && channel.members.cache) {
+            channel.members.cache.forEach(function (value, key) {
                 data.members.push(key);
                 return;
             });
