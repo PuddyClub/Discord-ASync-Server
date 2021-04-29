@@ -1,19 +1,21 @@
 module.exports = function (memberTeam) {
+    if (memberTeam) {
 
-    // Data
-    const data = {
-        id: memberTeam.id,
-        membershipState: memberTeam.membershipState,
-        permissions: memberTeam.permissions
-    };
+        // Data
+        const data = {
+            id: memberTeam.id,
+            membershipState: memberTeam.membershipState,
+            permissions: memberTeam.permissions
+        };
 
-    // Team ID
-    if (memberTeam.team && memberTeam.team.id) { data.teamID = memberTeam.team.id; }
+        // Team ID
+        if (memberTeam.team && memberTeam.team.id) { data.teamID = memberTeam.team.id; }
 
-    // User ID
-    if (memberTeam.user && memberTeam.user.id) { data.userID = memberTeam.user.id; }
+        // User ID
+        if (memberTeam.user && memberTeam.user.id) { data.userID = memberTeam.user.id; }
 
-    // Complete
-    return data;
+        // Complete
+        return data;
 
+    } else { return null; }
 };
