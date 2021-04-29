@@ -10,7 +10,12 @@ module.exports = function (activities) {
         createdAt: activities.createdAt,
         createdTimestamp: activities.createdTimestamp,
         details: activities.details,
-        emojiID: activities.emoji.id,
+        name: activities.name,
+        party: activities.party,
+        state: activities.state,
+        timestamps: activities.timestamps,
+        type: activities.type,
+        state: activities.url,
         flags: flagsGenerator(activities.flags),
         assets: assetsGenerator(activities.assets),
     };
