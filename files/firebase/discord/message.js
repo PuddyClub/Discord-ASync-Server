@@ -9,7 +9,7 @@ module.exports = function (cmd, db, cfg) {
         const data = messageGenerator(msg);
 
         // Set Event
-        db.event.set({ invite: data }).then(resolve).catch(reject);
+        db.event.set({ message: data }).then(resolve).catch(reject);
 
         // Complete
         return;
