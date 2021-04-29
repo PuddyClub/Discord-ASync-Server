@@ -1,7 +1,7 @@
 module.exports = function (cmd, db, cfg) {
     return new Promise((resolve, reject) => {
 
-        // Emoji
+        // Member
         const oldMember = cmd[0];
         const newMember = cmd[1];
 

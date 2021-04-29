@@ -1,7 +1,7 @@
 module.exports = function (cmd, db, cfg) {
     return new Promise((resolve, reject) => {
 
-        // Emoji
+        // Guild
         const oldGuild = cmd[0];
         const newGuild = cmd[1];
 
