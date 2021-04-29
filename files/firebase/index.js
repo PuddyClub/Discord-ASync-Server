@@ -24,14 +24,6 @@ module.exports = function (app, index) {
         if(typeof app.discord.bots[index].fbCfg.id !== "string") {app.discord.bots[index].fbCfg.id = null;}
         if(typeof app.discord.bots[index].fbCfg.allEvents !== "boolean") {app.discord.bots[index].fbCfg.allEvents = false;}
         
-        // Message Cache
-        app.discord.bots[index].fbCfg.messageCache =  _.defaultsDeep({}, app.discord.bots[index].fbCfg.messageCache, {
-            maxSize: 200,
-            lifeTime: 0,
-            sweepInterval: 0,
-            editHistoryMaxSize: -1
-        });
-        
         // Events
         app.discord.bots[index].fbCfg.events =  _.defaultsDeep({}, app.discord.bots[index].fbCfg.events, {
             channelCreate: false,

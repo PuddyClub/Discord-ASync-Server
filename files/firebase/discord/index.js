@@ -5,9 +5,6 @@ module.exports = function (bot, cfg, index) {
     let firstTime = true;
     const firstEventAdded = require('@tinypudding/firebase-lib/database/presence');
 
-    // Start Message Cache
-    require('./messageCache')(bot, cfg);
-
     // Create Event
     const createEvent = (eventName) => {
 

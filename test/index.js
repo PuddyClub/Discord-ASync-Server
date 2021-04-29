@@ -100,15 +100,6 @@ console.log('Starting App! Getting the Firebase Token...');
     Choose you bot database and the database path. If you don't choose a path, the database root will be used to store the data.
     tinyCfg['test-bot-firebase-test'].database = { name: '', path: '' };
 
-    tinyCfg['test-bot-firebase-test'].messageCache - This is your cache setting for your database.
-    Example: tinyCfg['test-bot-firebase-test'].messageCache.maxSize;
-
-    (Yes. This Cache Setting is a copy of Discord.JS)
-    maxSize - Maximum number of messages to cache per channel (-1 or Infinity for unlimited - don't do this without message sweeping, otherwise database usage will climb indefinitely)
-    lifeTime - How long a message should stay in the cache until it is considered sweepable (in seconds, 0 for forever)
-    sweepInterval - How frequently to remove messages from the cache that are older than the message cache lifetime (in seconds, 0 for never)
-    editHistoryMaxSize - Maximum number of previous versions to hold for an edited message (-1 or Infinity for unlimited - don't do this without sweeping, otherwise memory usage may climb indefinitely.)
-
     tinyCfg['test-bot-firebase-test'].databaseURL - Your Database Realtime URL.
     tinyCfg['test-bot-firebase-test'].id - Put any value here. This value is only for Firebase to differentiate your requests from your Firebase Server.
     tinyCfg['test-bot-firebase-test'].path (Optional) - Your Database Realtime Path.
@@ -119,14 +110,6 @@ console.log('Starting App! Getting the Firebase Token...');
 */
 const bot = ds.addBot(tinyCfg.testBot, { autoReconnect: true }, tinyCfg['test-bot-firebase-test']);
 const fireApp = ds.getBotFirebase(tinyCfg.testBot);
-
-// Default Message Cache Config.
-tinyCfg['test-bot-firebase-test'].messageCache = {
-    maxSize: 200,
-    lifeTime: 0,
-    sweepInterval: 0,
-    editHistoryMaxSize: -1
-};
 
 // When this value is True, all events are activated, regardless of whether you disable them in the "events" object.
 tinyCfg['test-bot-firebase-test'].allEvents = true;
