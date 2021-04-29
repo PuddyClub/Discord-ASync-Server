@@ -1,14 +1,17 @@
 module.exports = function (cmd, db, cfg) {
     return new Promise((resolve, reject) => {
 
-        // Message
+        // Error
         const msg = cmd[0];
 
-        // Firebase
-        const db = cfg.app.db.main;
-        
+        // Data
+        const messageGenerator = require('./generator/message');
+        const data = messageGenerator(msg);
+
+        // Set Event
+        db.event.set({ invite: data }).then(resolve).catch(reject);
+
         // Complete
-        resolve();
         return;
 
     });
