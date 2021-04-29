@@ -17,41 +17,27 @@ module.exports = function (member) {
         manageable: member.manageable,
         nickname: member.nickname,
         partial: member.partial,
-        bannable: member.bannable,
-        bannable: member.bannable,
-        bannable: member.bannable,
-        bannable: member.bannable,
-        bannable: member.bannable,
-        bannable: member.bannable,
-        bannable: member.bannable,
-        bannable: member.bannable,
-        bannable: member.bannable,
-        bannable: member.bannable,
-        bannable: member.bannable,
-        bannable: member.bannable,
-        bannable: member.bannable,
-        bannable: member.bannable,
-        bannable: member.bannable,
-        bannable: member.bannable,
-        bannable: member.bannable,
-        bannable: member.bannable,
-        bannable: member.bannable,
-        bannable: member.bannable,
-        bannable: member.bannable,
-        bannable: member.bannable,
-        bannable: member.bannable,
-        bannable: member.bannable,
-        bannable: member.bannable,
+        premiumSince: member.premiumSince,
+        premiumSinceTimestamp: member.premiumSinceTimestamp,
+        roles: [],
     };
+
+    // Permission Generator
+    const voiceGenerator = require('./voice');
+    data.voice = voiceGenerator(user.voice);
 
     // Permission Generator
     const permissionGenerator = require('./permissions');
     data.permissions = permissionGenerator(user.permissions);
 
-    // Get Members ID
-    if (guild.channels && guild.channels.cache) {
-        guild.channels.cache.forEach(function (value, key) {
-            data.channels.push(key);
+    // Presence Generator
+    const presenceGenerator = require('./presence');
+    data.presence = presenceGenerator(user.presence);
+
+    // Get Role ID
+    if (guild.roles && guild.roles.cache) {
+        guild.roles.cache.forEach(function (value, key) {
+            data.roles.push(key);
             return;
         });
     }

@@ -1,9 +1,5 @@
 module.exports = function (activities) {
 
-    // Activities Generator
-    const assetsGenerator = require('./presence/assets');
-    const flagsGenerator = require('./presence/flags');
-
     // Data
     const data = {
         applicationID: activities.applicationID,
@@ -15,10 +11,15 @@ module.exports = function (activities) {
         state: activities.state,
         timestamps: activities.timestamps,
         type: activities.type,
-        state: activities.url,
-        flags: flagsGenerator(activities.flags),
-        assets: assetsGenerator(activities.assets),
+        state: activities.url
     };
+
+    // Activities Generator
+    const assetsGenerator = require('./presence/assets');
+    const flagsGenerator = require('./presence/flags');
+    
+    data.flags = flagsGenerator(activities.flags);
+    data.assets = assetsGenerator(activities.assets);
 
     // Emoji
     if (activities.emoji && activities.emoji.id) { data.emojiID = activities.emoji.id; }
