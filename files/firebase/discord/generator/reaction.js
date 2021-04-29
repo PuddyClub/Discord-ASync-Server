@@ -4,22 +4,15 @@ module.exports = function (reaction) {
         // Data
         const data = {
             count: reaction.count,
-            count: reaction.count,
-            count: reaction.count,
-            count: reaction.count,
-            count: reaction.count,
-            count: reaction.count,
-            count: reaction.count,
-            count: reaction.count,
-            count: reaction.count,
-            count: reaction.count
+            me: reaction.me,
+            partial: reaction.partial
         };
 
         // Emoji Reaction Generator
         if (reaction.emoji) {
 
             // Guild
-            if(reaction.emoji.guild) {
+            if (reaction.emoji.guild) {
                 const emojiGenerator = require('./emoji');
                 data.emoji = emojiGenerator(reaction.emoji);
             }
@@ -31,6 +24,9 @@ module.exports = function (reaction) {
             }
 
         }
+
+        // Message ID
+        if (reaction.message && reaction.message.id) { data.messageID = reaction.message.id; }
 
         // Complete
         return data;
