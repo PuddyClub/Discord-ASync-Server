@@ -6,7 +6,7 @@ module.exports = function (cmd, db, cfg) {
 
         // Data
         const guildGenerator = require('./generator/guild');
-        const data = guildGenerator(user);
+        const data = guildGenerator(guild);
 
         // Set Event
         db.event.set({ guild: guild.id }).then(resolve).catch(reject);
