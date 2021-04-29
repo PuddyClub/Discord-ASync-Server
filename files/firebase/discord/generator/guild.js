@@ -37,20 +37,13 @@ module.exports = function (guild) {
         rulesChannelID: guild.rulesChannelID,
         shardID: guild.shardID,
         splash: guild.splash,
-        premiumTier: guild.premiumTier,
-        premiumTier: guild.premiumTier,
-        premiumTier: guild.premiumTier,
-        premiumTier: guild.premiumTier,
-        premiumTier: guild.premiumTier,
-        premiumTier: guild.premiumTier,
-        premiumTier: guild.premiumTier,
-        premiumTier: guild.premiumTier,
-        premiumTier: guild.premiumTier,
-        premiumTier: guild.premiumTier,
-        premiumTier: guild.premiumTier,
-        premiumTier: guild.premiumTier,
-        premiumTier: guild.premiumTier,
-        premiumTier: guild.premiumTier,
+        systemChannelID: guild.systemChannelID,
+        vanityURLCode: guild.vanityURLCode,
+        vanityURLUses: guild.vanityURLUses,
+        verificationLevel: guild.verificationLevel,
+        verified: guild.verified,
+        widgetChannelID: guild.widgetChannelID,
+        widgetEnabled: guild.widgetEnabled,
         roles: [],
         presences: [],
         emojis: [],
@@ -58,7 +51,9 @@ module.exports = function (guild) {
         channels: []
     };
 
-
+    // Role Generator
+    const SCFlagsGenerator = require('./systemChannelFlags');
+    data.systemChannelFlags = SCFlagsGenerator(guild.systemChannelFlags);
 
     // Role Generator
     const roleGenerator = require('./role');
