@@ -9,7 +9,7 @@ module.exports = function (cmd, db, cfg) {
         const data = require('./generator/channel')(channel);
 
         // Set Event
-        db.event.set({ channel: data, time: time }).then(resolve).catch(reject);
+        db.event.set({ channel: channel.id, time: time }).then(resolve).catch(reject);
 
         // Complete
         return;

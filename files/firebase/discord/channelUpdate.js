@@ -30,7 +30,7 @@ module.exports = function (cmd, db, cfg) {
         // Set Event
         db.event.set({
             oldChannel: oldData,
-            newChannel: newData
+            newChannel: newChannel.id
         }).then(resolve).catch(reject);
 
         // Complete

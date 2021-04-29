@@ -11,7 +11,7 @@ module.exports = function (cmd, db, cfg) {
         const newData = emojiGenerator(newEmoji);
 
         // Set Event
-        db.event.set({oldEmoji: oldData, newEmoji: newData}).then(resolve).catch(reject);
+        db.event.set({oldEmoji: oldData, newEmoji: newEmoji.id}).then(resolve).catch(reject);
 
         // Complete
         return;

@@ -8,7 +8,7 @@ module.exports = function (cmd, db, cfg) {
         const data = require('./generator/emoji')(emoji);
 
         // Set Event
-        db.event.child('emoji').set(data).then(resolve).catch(reject);
+        db.event.child('emoji').set(emoji.id).then(resolve).catch(reject);
 
         // Complete
         return;

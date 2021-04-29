@@ -25,7 +25,7 @@ module.exports = function (cmd, db, cfg) {
         }
 
         // Set Event
-        db.event.child('channel').set(data).then(resolve).catch(reject);
+        db.event.child('channel').set(channel.id).then(resolve).catch(reject);
 
         // Complete
         return;
