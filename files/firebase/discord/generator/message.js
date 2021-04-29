@@ -27,6 +27,10 @@ module.exports = function (msg) {
         const applicationGenerator = require('./application');
         data.application = applicationGenerator(embed.application);
 
+        // Mentions Generator
+        const mentionsGenerator = require('./mentions');
+        data.mentions = mentionsGenerator(embed.mentions);
+
         // Tags Generator
         const flagsGenerator = require('./presence/flags');
         data.flags = flagsGenerator(embed.flags);
