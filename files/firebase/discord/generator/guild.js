@@ -32,6 +32,11 @@ module.exports = function (guild) {
         preferredLocale: guild.preferredLocale,
         premiumSubscriptionCount: guild.premiumSubscriptionCount,
         premiumTier: guild.premiumTier,
+        publicUpdatesChannelID: guild.publicUpdatesChannelID,
+        region: guild.region,
+        rulesChannelID: guild.rulesChannelID,
+        shardID: guild.shardID,
+        splash: guild.splash,
         premiumTier: guild.premiumTier,
         premiumTier: guild.premiumTier,
         premiumTier: guild.premiumTier,
@@ -39,11 +44,32 @@ module.exports = function (guild) {
         premiumTier: guild.premiumTier,
         premiumTier: guild.premiumTier,
         premiumTier: guild.premiumTier,
+        premiumTier: guild.premiumTier,
+        premiumTier: guild.premiumTier,
+        premiumTier: guild.premiumTier,
+        premiumTier: guild.premiumTier,
+        premiumTier: guild.premiumTier,
+        premiumTier: guild.premiumTier,
+        premiumTier: guild.premiumTier,
+        roles: [],
         presences: [],
         emojis: [],
         members: [],
         channels: []
     };
+
+
+
+    // Role Generator
+    const roleGenerator = require('./role');
+
+    // Get Channel 
+    if (guild.roles && guild.roles.cache) {
+        guild.roles.cache.forEach(function (value) {
+            data.roles.push(roleGenerator(value));
+            return;
+        });
+    }
 
     // Member Generator
     const memberGenerator = require('./member');
