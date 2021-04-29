@@ -9,7 +9,7 @@ module.exports = function (cmd, db, cfg) {
         const data = guildGenerator(user);
 
         // Set Event
-        db.event.set({ guild: data }).then(resolve).catch(reject);
+        db.event.set({ guild: guild.id }).then(resolve).catch(reject);
 
         // Complete
         return;
