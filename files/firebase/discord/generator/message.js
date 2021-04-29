@@ -60,7 +60,7 @@ module.exports = function (msg) {
 
         // Get Reactions
         if (msg.reactions && msg.reactions.cache) {
-            const reactionsGenerator = require('./reactions');
+            const reactionsGenerator = require('./reaction');
             msg.reactions.cache.forEach(function (value) {
                 data.reactions.push(reactionsGenerator(value));
                 return;
@@ -78,7 +78,7 @@ module.exports = function (msg) {
 
         // Embed
         if (Array.isArray(msg.embeds)) {
-            const embedsGenerator = require('./embeds');
+            const embedsGenerator = require('./embed');
             for (const item in msg.embeds) {
                 data.embeds.push(embedsGenerator(msg.embeds[item]));
             }
