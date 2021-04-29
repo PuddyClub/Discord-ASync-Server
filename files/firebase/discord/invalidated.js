@@ -1,11 +1,12 @@
 module.exports = function (cmd, db, cfg) {
     return new Promise((resolve, reject) => {
 
-        // Firebase
-        const db = cfg.app.db.main;
-        
+        // Set Event
+        const data = require('moment-timezone').utc().toObject();
+        data.timezone = 'Universal';
+        db.event.set(data).then(resolve).catch(reject);
+
         // Complete
-        resolve();
         return;
 
     });
