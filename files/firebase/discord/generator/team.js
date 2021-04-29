@@ -12,9 +12,9 @@ module.exports = function (team) {
     };
 
     // Get Member ID
-    if (team.members && team.members.cache) {
+    if (team.members) {
         const teamMemberGenerator = require('./teamMember');
-        team.members.cache.forEach(function (value) {
+        team.members.forEach(function (value) {
             data.members.push(teamMemberGenerator(value));
             return;
         });

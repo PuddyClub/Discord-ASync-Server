@@ -15,7 +15,7 @@ module.exports = function (msg) {
             editedAt: msg.editedAt,
             editedTimestamp: msg.editedTimestamp,
             embeds: msg.embeds,
-            code: msg.code,
+            id: msg.id,
             code: msg.code,
             code: msg.code,
             code: msg.code,
@@ -25,7 +25,11 @@ module.exports = function (msg) {
 
         // Application Generator
         const applicationGenerator = require('./application');
-        data.application = applicationGenerator(role.application);
+        data.application = applicationGenerator(embed.application);
+
+        // Tags Generator
+        const flagsGenerator = require('./presence/flags');
+        data.flags = flagsGenerator(embed.flags);
 
         // Channel ID
         if (msg.channel && msg.channel.id) { data.channelID = msg.channel.id; }
@@ -37,9 +41,9 @@ module.exports = function (msg) {
         if (msg.author && msg.author.id) { data.authorID = msg.author.id; }
 
         // Get Attachments
-        if (msg.attachments && msg.attachments.cache) {
+        if (msg.attachments) {
             const attachmentsGenerator = require('./attachments');
-            msg.attachments.cache.forEach(function (value) {
+            msg.attachments.forEach(function (value) {
                 data.attachments.push(attachmentsGenerator(value));
                 return;
             });
