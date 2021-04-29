@@ -35,8 +35,8 @@ module.exports = function (member) {
     data.presence = presenceGenerator(user.presence);
 
     // Get Role ID
-    if (guild.roles && guild.roles.cache) {
-        guild.roles.cache.forEach(function (value, key) {
+    if (member.roles && member.roles.cache) {
+        member.roles.cache.forEach(function (value, key) {
             data.roles.push(key);
             return;
         });
