@@ -26,14 +26,6 @@ module.exports = function (user) {
     const presenceGenerator = require('./presence');
     data.presence = presenceGenerator(user.presence);
 
-    // Get Members ID
-    if (guild.channels && guild.channels.cache) {
-        guild.channels.cache.forEach(function (value, key) {
-            data.channels.push(key);
-            return;
-        });
-    }
-
     // Complete
     return data;
 
