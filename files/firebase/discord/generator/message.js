@@ -16,9 +16,23 @@ module.exports = function (msg) {
             editedTimestamp: msg.editedTimestamp,
             embeds: msg.embeds,
             id: msg.id,
-            code: msg.code,
-            code: msg.code,
-            code: msg.code,
+            partial: msg.partial,
+            pinnable: msg.pinnable,
+            pinned: msg.pinned,
+            pinned: msg.pinned,
+            pinned: msg.pinned,
+            pinned: msg.pinned,
+            pinned: msg.pinned,
+            pinned: msg.pinned,
+            pinned: msg.pinned,
+            pinned: msg.pinned,
+            pinned: msg.pinned,
+            pinned: msg.pinned,
+            pinned: msg.pinned,
+            pinned: msg.pinned,
+            pinned: msg.pinned,
+            pinned: msg.pinned,
+            pinned: msg.pinned,
             embeds: [],
             attachments: [],
         };
@@ -43,6 +57,15 @@ module.exports = function (msg) {
 
         // Author ID
         if (msg.author && msg.author.id) { data.authorID = msg.author.id; }
+
+        // Get Reactions
+        if (msg.reactions && msg.reactions.cache) {
+            const reactionsGenerator = require('./reactions');
+            msg.reactions.cache.forEach(function (value) {
+                data.reactions.push(reactionsGenerator(value));
+                return;
+            });
+        }
 
         // Get Attachments
         if (msg.attachments) {
