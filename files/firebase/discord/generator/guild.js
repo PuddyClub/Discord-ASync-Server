@@ -15,11 +15,49 @@ module.exports = function (guild) {
         deleted: guild.deleted,
         description: guild.description,
         discoverySplash: guild.discoverySplash,
-        createdAt: guild.createdAt,
-        createdAt: guild.createdAt,
+        explicitContentFilter: guild.explicitContentFilter,
+        features: guild.features,
+        icon: guild.icon,
+        id: guild.id,
+        joinedAt: guild.joinedAt,
+        joinedTimestamp: guild.joinedTimestamp,
+        large: guild.large,
+        maximumMembers: guild.maximumMembers,
+        memberCount: guild.memberCount,
+        mfaLevel: guild.mfaLevel,
+        name: guild.name,
+        nameAcronym: guild.nameAcronym,
+        ownerID: guild.ownerID,
+        partnered: guild.partnered,
+        preferredLocale: guild.preferredLocale,
+        premiumSubscriptionCount: guild.premiumSubscriptionCount,
+        premiumTier: guild.premiumTier,
+        premiumTier: guild.premiumTier,
+        premiumTier: guild.premiumTier,
+        premiumTier: guild.premiumTier,
+        premiumTier: guild.premiumTier,
+        premiumTier: guild.premiumTier,
+        premiumTier: guild.premiumTier,
+        premiumTier: guild.premiumTier,
+        presences: [],
         emojis: [],
+        members: [],
         channels: []
     };
+
+    // Member Generator
+    const memberGenerator = require('./member');
+
+    // Get Channel 
+    if (guild.members && guild.members.cache) {
+        guild.members.cache.forEach(function (value) {
+            data.members.push(memberGenerator(value));
+            return;
+        });
+    }
+
+    // Me
+    data.me = memberGenerator(guild.me);
 
     // Channel Generator
     const channelGenerator = require('./channel');
