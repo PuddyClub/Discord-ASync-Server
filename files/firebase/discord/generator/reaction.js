@@ -28,6 +28,14 @@ module.exports = function (reaction) {
         // Message ID
         if (reaction.message && reaction.message.id) { data.messageID = reaction.message.id; }
 
+        // Get Users
+        if (reaction.users && reaction.users.cache) {
+            reaction.users.cache.forEach(function (value, key) {
+                data.users.push(key);
+                return;
+            });
+        }
+
         // Complete
         return data;
 
