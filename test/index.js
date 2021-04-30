@@ -108,7 +108,10 @@ console.log('Starting App! Getting the Firebase Token...');
     The "fireApp.db.main" is your main Database path from "firebase.database()". You can use the method "fireApp.db.main.child()" to edit other path inside the main path.
 
 */
-const bot = ds.addBot(tinyCfg.testBot, { autoReconnect: true }, tinyCfg['test-bot-firebase-test']);
+const bot = ds.addBot(tinyCfg.testBot, {
+     autoReconnect: true,
+     fetchAllMembers: true
+}, tinyCfg['test-bot-firebase-test']);
 const fireApp = ds.getBotFirebase(tinyCfg.testBot);
 
 // When this value is True, all events are activated, regardless of whether you disable them in the "events" object.
