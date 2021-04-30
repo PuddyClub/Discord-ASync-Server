@@ -10,7 +10,6 @@ module.exports = function (emoji) {
             createdTimestamp: emoji.createdTimestamp,
             deletable: emoji.deletable,
             deleted: emoji.deleted,
-            guildID: emoji.guild.id,
             id: emoji.id,
             identifier: emoji.identifier,
             managed: emoji.managed,
@@ -19,6 +18,12 @@ module.exports = function (emoji) {
             url: emoji.url,
             roles: []
         };
+
+        // Guild
+        if (emoji.guild && emoji.guild.id) { data.guildID = emoji.guild.id; }
+
+        // Author
+        if (emoji.author && emoji.author.id) { data.authorID = emoji.author.id; }
 
         // Get Role ID
         if (emoji.roles && emoji.roles.cache) {
