@@ -10,8 +10,20 @@ module.exports = function (cmd, db, cfg) {
         const oldData = db.escape(emojiGenerator(oldEmoji));
         const newData = db.escape(emojiGenerator(newEmoji));
 
+        // Emoji ID
+        const emojiID = db.escape(newEmoji.id);
+
+        // Channel ID
+        const guildID = db.escape(newEmoji.guild.id);
+
+        // Set Channel
+        db.root.child('emojis').child(emojiID).set(guildID);
+
+        // Update Channel
+        await db.root.child('guilds').child(guildID).child('emojis').child(emojiID).update(newData);
+
         // Set Event
-        db.event.set({oldEmoji: oldData, newEmoji: db.escape(newEmoji.id)}).then(resolve).catch(reject);
+        db.event.set({ oldEmoji: oldData, newEmoji: db.escape(newEmoji.id) }).then(resolve).catch(reject);
 
         // Complete
         return;

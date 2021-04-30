@@ -11,7 +11,7 @@ module.exports = function (cmd, db, cfg) {
         // Channel ID
         const channelID = db.escape(channel.id);
 
-        // Channel ID
+        // Guild ID
         const guildID = db.escape(channel.guild.id);
 
         // Update Channel

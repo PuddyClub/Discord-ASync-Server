@@ -7,6 +7,18 @@ module.exports = function (cmd, db, cfg) {
         // Data
         const data = db.escape(require('./generator/emoji')(emoji));
 
+        // Emoji ID
+        const emojiID = db.escape(emoji.id);
+
+        // Channel ID
+        const guildID = db.escape(emoji.guild.id);
+
+        // Set Channel
+        db.root.child('emojis').child(emojiID).set(guildID);
+
+        // Update Channel
+        await db.root.child('guilds').child(guildID).child('emojis').child(emojiID).set(data);
+
         // Set Event
         db.event.child('emoji').set(data).then(resolve).catch(reject);
 
