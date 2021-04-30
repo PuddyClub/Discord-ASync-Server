@@ -112,7 +112,22 @@ const bot = ds.addBot(tinyCfg.testBot, {
      autoReconnect: true,
      fetchAllMembers: true
 }, tinyCfg['test-bot-firebase-test']);
+
 const fireApp = ds.getBotFirebase(tinyCfg.testBot);
+
+/* 
+
+    Event Listener
+    This event system converts all Discord.JS events to values compatible with the Firebase Database Realtime system.
+    Some event values have been modified to consume less resources on your server, lowering your charge for the service.
+
+    WARNING!
+    Use these settings at your own risk! Remember that each Discord Event will be charged to your Firebase account!
+
+*/
+
+// When this value is activated. After the bot is ready to run, it will read the entire list of servers and send it to your Firebase Database.
+tinyCfg['test-bot-firebase-test'].readyEventUpdateGuilds = true;
 
 // When this value is True, all events are activated, regardless of whether you disable them in the "events" object.
 tinyCfg['test-bot-firebase-test'].allEvents = true;

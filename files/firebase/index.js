@@ -23,6 +23,7 @@ module.exports = function (app, index) {
         if(typeof app.discord.bots[index].fbCfg.path !== "string") {app.discord.bots[index].fbCfg.path = null;}
         if(typeof app.discord.bots[index].fbCfg.id !== "string") {app.discord.bots[index].fbCfg.id = null;}
         if(typeof app.discord.bots[index].fbCfg.allEvents !== "boolean") {app.discord.bots[index].fbCfg.allEvents = false;}
+        if(typeof app.discord.bots[index].fbCfg.readyEventUpdateGuilds !== "boolean") {app.discord.bots[index].fbCfg.readyEventUpdateGuilds = false;}
         
         // Events
         app.discord.bots[index].fbCfg.events =  _.defaultsDeep({}, app.discord.bots[index].fbCfg.events, {
