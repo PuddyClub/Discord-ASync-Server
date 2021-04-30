@@ -5,7 +5,7 @@ module.exports = function (cmd, db, cfg) {
         const err = cmd[0];
 
         // Set Event
-        db.event.set({ message: err.message, code: err.code }).then(resolve).catch(reject);
+        db.event.set({ message: db.escape(err.message), code: db.escape(err.code) }).then(resolve).catch(reject);
 
         // Complete
         return;

@@ -7,8 +7,8 @@ module.exports = function (cmd, db, cfg) {
 
         // Data
         const userGenerator = require('./generator/user');
-        const oldData = userGenerator(oldUser);
-        const newData = userGenerator(newUser);
+        const oldData = db.escape(userGenerator(oldUser));
+        const newData = db.escape(userGenerator(newUser));
 
         // Set Event
         db.event.set({ newUser: newData, oldUser: oldData }).then(resolve).catch(reject);

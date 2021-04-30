@@ -7,8 +7,8 @@ module.exports = function (cmd, db, cfg) {
 
         // Data
         const channelGenerator = require('./generator/channel');
-        const oldData = channelGenerator(oldChannel);
-        const newData = channelGenerator(newChannel);
+        const oldData = db.escape(channelGenerator(oldChannel));
+        const newData = db.escape(channelGenerator(newChannel));
 
         // Guild Channel
         if (channel.type !== "dm") {

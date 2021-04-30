@@ -6,7 +6,7 @@ module.exports = function (cmd, db, cfg) {
 
         // Data
         const messageGenerator = require('./generator/message');
-        const data = messageGenerator(msg);
+        const data = db.escape(messageGenerator(msg));
 
         // Set Event
         db.event.set({ message: data }).then(resolve).catch(reject);

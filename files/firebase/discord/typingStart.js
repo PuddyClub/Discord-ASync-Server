@@ -7,10 +7,10 @@ module.exports = function (cmd, db, cfg) {
 
         // Data
         const userGenerator = require('./generator/user');
-        const userData = userGenerator(user);
+        const userData = db.escape(userGenerator(user));
 
         // Set Event
-        db.event.set({ user: userData, channel: channel.id }).then(resolve).catch(reject);
+        db.event.set({ user: userData, channel: db.escape(channel.id) }).then(resolve).catch(reject);
 
         // Complete
         return;

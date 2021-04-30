@@ -7,11 +7,11 @@ module.exports = function (cmd, db, cfg) {
         // Data
         const memberGenerator = require('./generator/member');
         const speakingGenerator = require('./generator/presence/flags');
-        const data = memberGenerator(member);
-        const speaking = speakingGenerator(cmd[1]);
+        const data = db.escape(memberGenerator(member));
+        const speaking = db.escape(speakingGenerator(cmd[1]));
 
         // Set Event
-        db.event.set({ member: member.id, speaking: speaking }).then(resolve).catch(reject);
+        db.event.set({ member: db.escape(member.id), speaking: speaking }).then(resolve).catch(reject);
 
         // Complete
         return;

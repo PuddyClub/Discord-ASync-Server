@@ -7,8 +7,8 @@ module.exports = function (cmd, db, cfg) {
 
         // Data
         const voiceGenerator = require('./generator/voice');
-        const oldData = voiceGenerator(oldState);
-        const newData = voiceGenerator(newState);
+        const oldData = db.escape(voiceGenerator(oldState));
+        const newData = db.escape(voiceGenerator(newState));
 
         // Set Event
         db.event.set({ newState: newData, oldState: oldData }).then(resolve).catch(reject);

@@ -16,14 +16,14 @@ module.exports = function (cmd, db, cfg) {
         // Get Members
         if (members) {
             members.forEach(function (value, key) {
-                membersData.ids.push(key);
-                membersData.data.push(memberGenerator(value));
+                membersData.ids.push(db.escape(key));
+                membersData.data.push(db.escape(memberGenerator(value)));
                 return;
             });
         }
 
         // Set Event
-        db.event.set({ members: membersData.ids, guild: guild.id, chunk: chunk }).then(resolve).catch(reject);
+        db.event.set({ members: membersData.ids, guild: db.escape(guild.id), chunk: db.escape(chunk) }).then(resolve).catch(reject);
 
         // Complete
         return;

@@ -6,7 +6,7 @@ module.exports = function (cmd, db, cfg) {
 
         // Data
         const reactionGenerator = require('./generator/reaction');
-        const data = reactionGenerator(messageReaction);
+        const data = db.escape(reactionGenerator(messageReaction));
 
         // Set Event
         db.event.set({ reaction: data }).then(resolve).catch(reject);

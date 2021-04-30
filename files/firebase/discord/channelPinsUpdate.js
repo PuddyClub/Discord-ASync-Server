@@ -6,10 +6,10 @@ module.exports = function (cmd, db, cfg) {
         const time = cmd[1];
 
         // Data
-        const data = require('./generator/channel')(channel);
+        const data = db.escape(require('./generator/channel')(channel));
 
         // Set Event
-        db.event.set({ channel: channel.id, time: time }).then(resolve).catch(reject);
+        db.event.set({ channel: db.escape(channel.id), time: db.escape(time) }).then(resolve).catch(reject);
 
         // Complete
         return;

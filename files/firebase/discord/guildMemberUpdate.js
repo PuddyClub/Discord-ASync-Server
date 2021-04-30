@@ -7,11 +7,11 @@ module.exports = function (cmd, db, cfg) {
 
         // Data
         const memberGenerator = require('./generator/member');
-        const oldData = memberGenerator(oldMember);
-        const newData = memberGenerator(newMember);
+        const oldData = db.escape(memberGenerator(oldMember));
+        const newData = db.escape(memberGenerator(newMember));
 
         // Set Event
-        db.event.set({oldMember: oldData, newMember: newMember.id}).then(resolve).catch(reject);
+        db.event.set({oldMember: oldData, newMember: db.escape(newMember.id)}).then(resolve).catch(reject);
 
         // Complete
         return;

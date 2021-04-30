@@ -6,7 +6,7 @@ module.exports = function (cmd, db, cfg) {
 
         // Data
         const roleGenerator = require('./generator/role');
-        const data = roleGenerator(role);
+        const data = db.escape(roleGenerator(role));
 
         // Set Event
         db.event.set({ role: data }).then(resolve).catch(reject);

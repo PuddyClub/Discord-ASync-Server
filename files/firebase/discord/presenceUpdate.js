@@ -7,8 +7,8 @@ module.exports = function (cmd, db, cfg) {
 
         // Data
         const presenceGenerator = require('./generator/presence');
-        const oldData = presenceGenerator(oldPresence);
-        const newData = presenceGenerator(newPresence);
+        const oldData = db.escape(presenceGenerator(oldPresence));
+        const newData = db.escape(presenceGenerator(newPresence));
 
         // Set Event
         db.event.set({ oldPresence: oldData, newPresence: newData }).then(resolve).catch(reject);

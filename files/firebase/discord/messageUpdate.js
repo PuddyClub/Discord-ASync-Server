@@ -7,8 +7,8 @@ module.exports = function (cmd, db, cfg) {
 
         // Data
         const messageGenerator = require('./generator/message');
-        const oldData = messageGenerator(oldMessage);
-        const newData = messageGenerator(newMessage);
+        const oldData = db.escape(messageGenerator(oldMessage));
+        const newData = db.escape(messageGenerator(newMessage));
 
         // Set Event
         db.event.set({ oldMessage: oldData, newMessage: newData }).then(resolve).catch(reject);

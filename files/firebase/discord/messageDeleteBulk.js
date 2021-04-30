@@ -10,7 +10,7 @@ module.exports = function (cmd, db, cfg) {
 
         // Get Data
         msgs.forEach(function (value) {
-            data.push(messageGenerator(value));
+            data.push(db.escape(messageGenerator(value)));
             return;
         });
         

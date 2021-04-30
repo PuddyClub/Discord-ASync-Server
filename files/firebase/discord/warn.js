@@ -5,7 +5,7 @@ module.exports = function (cmd, db, cfg) {
         const warn = cmd[0];
 
         // Set Event
-        db.event.set({ warn: warn }).then(resolve).catch(reject);
+        db.event.set({ warn: db.escape(warn) }).then(resolve).catch(reject);
 
         // Complete
         return;

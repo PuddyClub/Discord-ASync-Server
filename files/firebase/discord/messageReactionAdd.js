@@ -7,10 +7,10 @@ module.exports = function (cmd, db, cfg) {
 
         // Data
         const reactionGenerator = require('./generator/reaction');
-        const data = reactionGenerator(messageReaction);
+        const data = db.escape(reactionGenerator(messageReaction));
 
         // Set Event
-        db.event.set({ messageReaction: data, user: user.id }).then(resolve).catch(reject);
+        db.event.set({ messageReaction: data, user: db.escape(user.id) }).then(resolve).catch(reject);
 
         // Complete
         return;

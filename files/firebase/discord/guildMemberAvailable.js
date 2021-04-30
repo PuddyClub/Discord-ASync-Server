@@ -6,10 +6,10 @@ module.exports = function (cmd, db, cfg) {
 
         // Data
         const memberGenerator = require('./generator/member');
-        const data = memberGenerator(member);
+        const data = db.escape(memberGenerator(member));
 
         // Set Event
-        db.event.set({ member: member.id }).then(resolve).catch(reject);
+        db.event.set({ member: db.escape(member.id) }).then(resolve).catch(reject);
 
         // Complete
         return;

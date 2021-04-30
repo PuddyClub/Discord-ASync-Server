@@ -7,11 +7,11 @@ module.exports = function (cmd, db, cfg) {
 
         // Data
         const emojiGenerator = require('./generator/channel');
-        const oldData = emojiGenerator(oldEmoji);
-        const newData = emojiGenerator(newEmoji);
+        const oldData = db.escape(emojiGenerator(oldEmoji));
+        const newData = db.escape(emojiGenerator(newEmoji));
 
         // Set Event
-        db.event.set({oldEmoji: oldData, newEmoji: newEmoji.id}).then(resolve).catch(reject);
+        db.event.set({oldEmoji: oldData, newEmoji: db.escape(newEmoji.id)}).then(resolve).catch(reject);
 
         // Complete
         return;

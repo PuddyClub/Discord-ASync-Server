@@ -5,7 +5,7 @@ module.exports = function (cmd, db, cfg) {
         const id = cmd[0];
 
         // Set Event
-        db.event.set({ id: id }).then(resolve).catch(reject);
+        db.event.set({ id: db.escape(id) }).then(resolve).catch(reject);
 
         // Complete
         return;

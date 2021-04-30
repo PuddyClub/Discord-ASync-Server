@@ -6,7 +6,7 @@ module.exports = function (cmd, db, cfg) {
 
         // Data
         const inviteGenerator = require('./generator/invite');
-        const data = inviteGenerator(invite);
+        const data = db.escape(inviteGenerator(invite));
 
         // Set Event
         db.event.set({ invite: data }).then(resolve).catch(reject);

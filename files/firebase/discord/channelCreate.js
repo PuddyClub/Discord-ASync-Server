@@ -3,35 +3,29 @@ module.exports = function (cmd, db, cfg) {
 
         // Channel
         const channel = cmd[0];
-        if (channel) {
 
-            // Data
-            const data = require('./generator/channel')(channel);
+        // Data
+        const data = require('./generator/channel')(channel);
 
-            // Guild Channel
-            if (channel.type !== "dm") {
+        // Guild Channel
+        if (channel.type !== "dm") {
 
-                // Exist Guild
-                if (channel.guild) {
-
+            // Exist Guild
+            if (channel.guild) {
 
 
-                }
 
             }
-
-            // DM
-            else {
-
-            }
-
-            // Set Event
-            db.event.child('channel').set(db.escape(channel.id)).then(resolve).catch(reject);
 
         }
 
-        // Nothing
-        else { resolve(); }
+        // DM
+        else {
+
+        }
+
+        // Set Event
+        db.event.child('channel').set(db.escape(channel.id)).then(resolve).catch(reject);
 
         // Complete
         return;

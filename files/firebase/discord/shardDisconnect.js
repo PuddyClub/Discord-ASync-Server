@@ -7,10 +7,10 @@ module.exports = function (cmd, db, cfg) {
 
         // Set Event
         db.event.set({
-            id: id, event: {
-                code: event.code,
-                reason: event.reason,
-                wasClean: event.wasClean
+            id: db.escape(id), event: {
+                code: db.escape(event.code),
+                reason: db.escape(event.reason),
+                wasClean: db.escape(event.wasClean)
             }
         }).then(resolve).catch(reject);
 

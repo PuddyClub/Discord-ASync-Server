@@ -6,7 +6,7 @@ module.exports = function (cmd, db, cfg) {
         const replayedEvents = cmd[1];
 
         // Set Event
-        db.event.set({ id: id, replayedEvents: replayedEvents }).then(resolve).catch(reject);
+        db.event.set({ id: db.escape(id), replayedEvents: db.escape(replayedEvents) }).then(resolve).catch(reject);
 
         // Complete
         return;

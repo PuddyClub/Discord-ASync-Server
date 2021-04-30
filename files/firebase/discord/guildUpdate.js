@@ -7,11 +7,11 @@ module.exports = function (cmd, db, cfg) {
 
         // Data
         const guildGenerator = require('./generator/guild');
-        const oldData = guildGenerator(oldGuild);
-        const newData = guildGenerator(newGuild);
+        const oldData = db.escape(guildGenerator(oldGuild));
+        const newData = db.escape(guildGenerator(newGuild));
 
         // Set Event
-        db.event.set({oldMember: oldData, newMember: newGuild.id}).then(resolve).catch(reject);
+        db.event.set({ oldMember: oldData, newMember: db.escape(newGuild.id) }).then(resolve).catch(reject);
 
         // Complete
         return;
