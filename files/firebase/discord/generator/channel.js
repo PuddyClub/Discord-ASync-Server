@@ -19,6 +19,8 @@ module.exports = function (channel) {
             // Insert Data
             data.guildID = channel.guild.id;
             data.deletable = channel.deletable;
+            data.topic = channel.topic;
+            data.nsfw = channel.nsfw;
             data.parentID = channel.parentID;
             data.manageable = channel.manageable;
             data.permissionOverwrites = channel.permissionOverwrites;
