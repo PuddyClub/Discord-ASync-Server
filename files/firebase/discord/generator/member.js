@@ -27,15 +27,15 @@ module.exports = function (member) {
 
         // Permission Generator
         const voiceGenerator = require('./voice');
-        data.voice = voiceGenerator(user.voice);
+        data.voice = voiceGenerator(member.voice);
 
         // Permission Generator
         const permissionGenerator = require('./permissions');
-        data.permissions = permissionGenerator(user.permissions);
+        data.permissions = permissionGenerator(member.permissions);
 
         // Presence Generator
         const presenceGenerator = require('./presence');
-        data.presence = presenceGenerator(user.presence);
+        data.presence = presenceGenerator(member.presence);
 
         // Get Role ID
         if (member.roles && member.roles.cache) {
