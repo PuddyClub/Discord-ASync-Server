@@ -1,7 +1,7 @@
 module.exports = function (cmd, db, cfg) {
     return new Promise((resolve, reject) => {
 
-        // Error
+        // Data
         const id = cmd[0];
 
         // Set Event

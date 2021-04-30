@@ -1,7 +1,7 @@
 module.exports = function (cmd, db, cfg) {
     return new Promise((resolve, reject) => {
 
-        // Error
+        // Data
         const err = cmd[0];
         const shardID = cmd[1];
 
