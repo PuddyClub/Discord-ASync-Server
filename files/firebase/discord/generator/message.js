@@ -31,15 +31,15 @@ module.exports = function (msg) {
 
         // Application Generator
         const applicationGenerator = require('./application');
-        data.application = applicationGenerator(embed.application);
+        data.application = applicationGenerator(msg.application);
 
         // Mentions Generator
         const mentionsGenerator = require('./mentions');
-        data.mentions = mentionsGenerator(embed.mentions);
+        data.mentions = mentionsGenerator(msg.mentions);
 
         // Tags Generator
         const flagsGenerator = require('./presence/flags');
-        data.flags = flagsGenerator(embed.flags);
+        data.flags = flagsGenerator(msg.flags);
 
         // Channel ID
         if (msg.channel && msg.channel.id) { data.channelID = msg.channel.id; }
@@ -70,7 +70,7 @@ module.exports = function (msg) {
 
         // Embed
         if (Array.isArray(msg.embeds)) {
-            const embedsGenerator = require('./embed');
+            const embedsGenerator = require('./msg');
             for (const item in msg.embeds) {
                 data.embeds.push(embedsGenerator(msg.embeds[item]));
             }
