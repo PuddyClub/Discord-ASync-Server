@@ -5,7 +5,8 @@ module.exports = function (reaction) {
         const data = {
             count: reaction.count,
             me: reaction.me,
-            partial: reaction.partial
+            partial: reaction.partial,
+            users: []
         };
 
         // Emoji Reaction Generator

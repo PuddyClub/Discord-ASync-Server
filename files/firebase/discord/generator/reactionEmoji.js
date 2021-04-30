@@ -14,7 +14,7 @@ module.exports = function (emoji) {
         };
 
         // Message ID
-        if (msg.reaction && msg.reaction.message && msg.reaction.message.id) { data.messageID = msg.reaction.message.id; }
+        if (emoji.reaction && emoji.reaction.message && emoji.reaction.message.id) { data.messageID = emoji.reaction.message.id; }
 
         // Complete
         return data;
