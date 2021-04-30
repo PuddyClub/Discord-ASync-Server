@@ -70,7 +70,7 @@ module.exports = function (msg) {
 
         // Embed
         if (Array.isArray(msg.embeds)) {
-            const embedsGenerator = require('./msg');
+            const embedsGenerator = require('./embed');
             for (const item in msg.embeds) {
                 data.embeds.push(embedsGenerator(msg.embeds[item]));
             }
