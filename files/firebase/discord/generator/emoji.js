@@ -4,7 +4,6 @@ module.exports = function (emoji) {
         // Data
         const data = {
             animated: emoji.animated,
-            authorID: emoji.author.id,
             available: emoji.available,
             createdAt: emoji.createdAt,
             createdTimestamp: emoji.createdTimestamp,
