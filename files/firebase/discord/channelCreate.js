@@ -5,7 +5,7 @@ module.exports = function (cmd, db, cfg) {
         const channel = cmd[0];
 
         // Data
-        const data = require('./generator/channel')(channel);
+        const data = db.escape(require('./generator/channel')(channel));
 
         // Guild Channel
         if (channel.type !== "dm") {
@@ -25,7 +25,7 @@ module.exports = function (cmd, db, cfg) {
         }
 
         // Set Event
-        db.event.child('channel').set(db.escape(channel.id)).then(resolve).catch(reject);
+        db.event.child('channel').set(data).then(resolve).catch(reject);
 
         // Complete
         return;

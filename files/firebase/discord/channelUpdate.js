@@ -11,10 +11,10 @@ module.exports = function (cmd, db, cfg) {
         const newData = db.escape(channelGenerator(newChannel));
 
         // Guild Channel
-        if (channel.type !== "dm") {
+        if (newData.type !== "dm") {
 
             // Exist Guild
-            if (channel.guild) {
+            if (newData.guild) {
 
 
 
