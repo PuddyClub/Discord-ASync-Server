@@ -24,6 +24,12 @@ module.exports = function (cmd, db, cfg) {
 
         }
 
+        // Channel ID
+        const channelID = db.escape(channel.id);
+
+        // Set Channel
+        db.root.child('channels').child().set();
+
         // Set Event
         db.event.child('channel').set(data).then(resolve).catch(reject);
 
