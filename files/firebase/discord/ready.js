@@ -21,7 +21,7 @@ module.exports = function (cmd, db, cfg) {
                 guildCreate([guilds[item]], {
                     escape: db.escape,
                     root: cfg.app.db.main,
-                    event: cfg.app.db.main.child('events/guildCreate')
+                    event: cfg.app.db.main.child('events/guildLoaded')
                 }, cfg).then(() => { fn(); return; }).catch(err => { fn_error(err); return; });
                 return;
 
