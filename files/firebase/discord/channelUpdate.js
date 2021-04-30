@@ -1,5 +1,5 @@
 module.exports = function (cmd, db, cfg) {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
 
         // Channel
         const oldChannel = cmd[0];
@@ -16,14 +16,16 @@ module.exports = function (cmd, db, cfg) {
             // Exist Guild
             if (newData.guild) {
 
+                // Channel ID
+                const channelID = db.escape(newChannel.id);
 
+                // Channel ID
+                const guildID = db.escape(newChannel.guild.id);
+
+                // Update Channel
+                await db.root.child('guilds').child(guildID).child('channels').child(channelID).update(newData);
 
             }
-
-        }
-
-        // DM
-        else {
 
         }
 

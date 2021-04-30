@@ -23,7 +23,7 @@ module.exports = function (cmd, db, cfg) {
                 db.root.child('channels').child(channelID).set(guildID);
 
                 // Update Channel
-                db.root.child('guilds').child(guildID).child('channels').child(channelID).set(data);
+                await db.root.child('guilds').child(guildID).child('channels').child(channelID).set(data);
 
             }
 
