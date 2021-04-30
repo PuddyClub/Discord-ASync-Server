@@ -18,7 +18,7 @@ module.exports = function (cmd, db, cfg) {
             forPromise({ data: guilds }, function (item, fn, fn_error) {
 
                 // Complete
-                uilds[item];
+                console.log(guilds[item]);
                 fn();
                 return;
 
