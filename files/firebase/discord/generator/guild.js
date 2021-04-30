@@ -53,7 +53,7 @@ module.exports = function (guild) {
         };
 
         // Role Generator
-        const SCFlagsGenerator = require('./systemChannelFlags');
+        const SCFlagsGenerator = require('./presence/flags');
         data.systemChannelFlags = SCFlagsGenerator(guild.systemChannelFlags);
 
         // Role Generator
