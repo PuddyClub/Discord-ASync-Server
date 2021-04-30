@@ -47,6 +47,7 @@ module.exports = function (bot, cfg, index) {
 
                     // Execute Event
                     await eventFunction(arguments, {
+                        escape: require('./generator/escapeResult'),
                         root: cfg.app.db.main,
                         event: cfg.app.db.main.child('events/' + eventName)
                     }, cfg, index);
