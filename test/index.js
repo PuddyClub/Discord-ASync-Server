@@ -117,7 +117,7 @@ const fireApp = ds.getBotFirebase(tinyCfg.testBot);
 
 /* 
 
-    Event Listener
+    Event Listener (BETA!)
     This event system converts all Discord.JS events to values compatible with the Firebase Database Realtime system.
     Some event values have been modified to consume less resources on your server, lowering your charge for the service.
 
