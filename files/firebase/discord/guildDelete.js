@@ -12,7 +12,7 @@ module.exports = function (cmd, db, cfg) {
         const guildID = db.escape(guild.id);
 
         // Update Channel
-        await db.root.child('guilds').child(guildID).set(data);
+        await db.root.child('guilds').child(guildID).remove();
 
         // Set Event
         db.event.set({ guild: data }).then(resolve).catch(reject);
