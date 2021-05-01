@@ -10,6 +10,15 @@ module.exports = function (cmd, db, cfg) {
         const oldData = db.escape(presenceGenerator(oldPresence));
         const newData = db.escape(presenceGenerator(newPresence));
 
+        // Member ID
+        const memberID = db.escape(newData.userID);
+
+        // Guild ID
+        const guildID = db.escape(newMember.guildID);
+
+        // Update Channel
+        await db.root.child('guilds').child(guildID).child('members').child(memberID).child('presence').update(newData);
+
         // Set Event
         db.event.set({ oldPresence: oldData, newPresence: newData }).then(resolve).catch(reject);
 
