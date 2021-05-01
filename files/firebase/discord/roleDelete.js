@@ -1,5 +1,5 @@
 module.exports = function (cmd, db, cfg) {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
 
         // Role
         const role = cmd[0];
