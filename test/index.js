@@ -111,8 +111,8 @@ console.log('Starting App! Getting the Firebase Token...');
 
 */
 const bot = ds.addBot(tinyCfg.testBot, {
-     autoReconnect: true,
-     fetchAllMembers: true
+    autoReconnect: true,
+    fetchAllMembers: true
 }, tinyCfg['test-bot-firebase-test']);
 
 const fireApp = ds.getBotFirebase(tinyCfg.testBot);
@@ -189,6 +189,11 @@ tinyCfg['test-bot-firebase-test'].events = {
 
 /* Example code of bot.on() from Discord.JS */
 bot.on('ready', (event) => {
+
+    // Firebase App Ready
+    console.group('Firebase App Test');
+    console.log(fireApp.app);
+    console.groupEnd();
 
     // Welcome Message when the bot start.
     console.log(`Discord Logged in as ${bot.user.tag}!`);
