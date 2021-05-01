@@ -10,7 +10,7 @@ module.exports = function (cmd, db, cfg) {
         // Emoji ID
         const emojiID = db.escape(emoji.id);
 
-        // Channel ID
+        // Guild ID
         const guildID = db.escape(emoji.guild.id);
 
         // Update Channel
