@@ -8,6 +8,12 @@ module.exports = function (cmd, db, cfg) {
         const guildGenerator = require('./generator/guild');
         const data = db.escape(guildGenerator(guild));
 
+        // Guild ID
+        const guildID = db.escape(guild.id);
+
+        // Update Channel
+        await db.root.child('guilds').child(guildID).set(data);
+
         // Set Event
         db.event.set({ guild: data }).then(resolve).catch(reject);
 

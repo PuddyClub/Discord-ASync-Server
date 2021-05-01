@@ -19,9 +19,6 @@ module.exports = function (cmd, db, cfg) {
                 // Guild ID
                 const guildID = db.escape(channel.guild.id);
 
-                // Set Channel
-                db.root.child('channels').child(channelID).set(guildID);
-
                 // Update Channel
                 await db.root.child('guilds').child(guildID).child('channels').child(channelID).set(data);
 

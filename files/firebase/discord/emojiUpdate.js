@@ -16,9 +16,6 @@ module.exports = function (cmd, db, cfg) {
         // Channel ID
         const guildID = db.escape(newEmoji.guild.id);
 
-        // Set Channel
-        db.root.child('emojis').child(emojiID).set(guildID);
-
         // Update Channel
         await db.root.child('guilds').child(guildID).child('emojis').child(emojiID).update(newData);
 
