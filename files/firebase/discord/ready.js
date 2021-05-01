@@ -17,9 +17,34 @@ module.exports = function (cmd, db, cfg) {
             const guilds = cfg.bot.guilds.cache.array();
             forPromise({ data: guilds }, function (item, fn, fn_error) {
 
+                // Guild
+                const guild = guilds[item];
+
+                // Data
+                const guildGenerator = require('./generator/guild');
+                const data = db.escape(guildGenerator(guild));
+
+                // Guild ID
+                const guildID = db.escape(guild.id);
+
+                // Update Channel
+                db.root.child('guilds').child(guildID).set(data).then(() => {
+
+                    // Set Event
+                    db.event.set({ guild: data }).then(() => {
+                        fn(); return;
+                    }).catch((err) => {
+                        fn_error(err); return;
+                    });
+
+                    // Complete
+                    return;
+
+                }).catch((err) => {
+                    fn_error(err); return;
+                });
+
                 // Complete
-                console.log(guilds[item]);
-                fn();
                 return;
 
             }).then(() => {
