@@ -10,6 +10,12 @@ module.exports = function (cmd, db, cfg) {
         const oldData = db.escape(guildGenerator(oldGuild));
         const newData = db.escape(guildGenerator(newGuild));
 
+        // Guild ID
+        const guildID = db.escape(newGuild.id);
+
+        // Update Channel
+        await db.root.child('guilds').child(guildID).update(newData);
+
         // Set Event
         db.event.set({ oldMember: oldData, newMember: db.escape(newGuild.id) }).then(resolve).catch(reject);
 
