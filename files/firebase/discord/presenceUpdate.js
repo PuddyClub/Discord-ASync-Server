@@ -14,7 +14,7 @@ module.exports = function (cmd, db, cfg) {
         const memberID = db.escape(newData.userID);
 
         // Guild ID
-        const guildID = db.escape(newMember.guildID);
+        const guildID = db.escape(newData.guildID);
 
         // Update Channel
         await db.root.child('guilds').child(guildID).child('members').child(memberID).child('presence').update(newData);
