@@ -14,7 +14,7 @@ module.exports = function (cmd, db, cfg) {
         if (newData.type !== "dm") {
 
             // Exist Guild
-            if (newData.guild) {
+            if (newChannel.guild) {
 
                 // Channel ID
                 const channelID = db.escape(newChannel.id);
