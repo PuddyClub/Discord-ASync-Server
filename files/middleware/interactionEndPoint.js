@@ -23,6 +23,7 @@ module.exports = function (req, res, cfg, firebase, discordApps) {
                     debug: cfg.debug,
                     firebase: firebase,
                     app: discordApps,
+                    hiddenDetector: cfg.hiddenDetector,
                     errorCallback: function (req, res, code, message) {
 
                         // Console Error
