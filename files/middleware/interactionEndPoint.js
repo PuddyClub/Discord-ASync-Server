@@ -108,6 +108,47 @@ module.exports = function (req, res, cfg, firebase, discordApps) {
             // Message
             const msgToSend = { tts: false, content: discordApps[req.query.bot].waitMessage };
 
+            // Is Hidden
+            let isHidden = false;
+
+            // Hidden Checker
+            const hiddenChecker = (getItem) => {
+
+                // Boolean
+                let isBoolean = false;
+
+                // String
+                if (typeof tinyCfg.hiddenDetector.value === "string") {
+
+                    // Check
+                    if (getItem.boolean(tinyCfg.hiddenDetector.value)) {
+                        isBoolean = true;
+                    }
+
+                }
+
+                // Array
+                else if (Array.isArray(tinyCfg.hiddenDetector.value) && tinyCfg.hiddenDetector.value.length > 0) {
+                    for (const hvalue in tinyCfg.hiddenDetector.value) {
+
+                        // Check
+                        if (typeof tinyCfg.hiddenDetector.value[hvalue] === "string" && getItem.boolean(tinyCfg.hiddenDetector.value[hvalue])) {
+                            isBoolean = true;
+                            break;
+                        }
+
+                    }
+                }
+
+                // Complete
+                if (isBoolean) { isHidden = true; }
+                return;
+
+            };
+
+            // Hidden Command
+            if (isHidden) { msgToSend.flags = 64; }
+
             // Send Command
             return interactionsEndpoint(req, res, msgToSend).then(function (item) {
 
