@@ -151,10 +151,7 @@ module.exports = function (req, res, cfg, firebase, discordApps) {
 
                         // Check
                         if (
-                            (
-                                typeof cfg.hiddenDetector.name[hvalue] === "string" &&
-                                commandName === cfg.hiddenDetector.name[hvalue]
-                            ) ||
+                            req.query.bot && 
                             (
                                 cfg.hiddenDetector.name[hvalue] && cfg.hiddenDetector.name[hvalue].type === "indexOf" &&
                                 commandName.indexOf(cfg.hiddenDetector.name[hvalue].value)
