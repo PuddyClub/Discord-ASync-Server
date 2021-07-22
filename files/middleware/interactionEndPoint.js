@@ -118,21 +118,21 @@ module.exports = function (req, res, cfg, firebase, discordApps) {
                 let isBoolean = false;
 
                 // String
-                if (typeof tinyCfg.hiddenDetector.value === "string") {
+                if (typeof cfg.hiddenDetector.description === "string") {
 
                     // Check
-                    if (getItem.boolean(tinyCfg.hiddenDetector.value)) {
+                    if (getItem.boolean(cfg.hiddenDetector.description)) {
                         isBoolean = true;
                     }
 
                 }
 
                 // Array
-                else if (Array.isArray(tinyCfg.hiddenDetector.value) && tinyCfg.hiddenDetector.value.length > 0) {
-                    for (const hvalue in tinyCfg.hiddenDetector.value) {
+                else if (Array.isArray(cfg.hiddenDetector.description) && cfg.hiddenDetector.description.length > 0) {
+                    for (const hvalue in cfg.hiddenDetector.description) {
 
                         // Check
-                        if (typeof tinyCfg.hiddenDetector.value[hvalue] === "string" && getItem.boolean(tinyCfg.hiddenDetector.value[hvalue])) {
+                        if (typeof cfg.hiddenDetector.description[hvalue] === "string" && getItem.boolean(cfg.hiddenDetector.description[hvalue])) {
                             isBoolean = true;
                             break;
                         }
