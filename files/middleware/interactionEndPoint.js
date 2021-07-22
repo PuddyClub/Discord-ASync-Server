@@ -2,6 +2,26 @@
 let interactionsEndpoint;
 const firebaseEndPoint = require('@tinypudding/firebase-discord-interactions/functionListener/firebaseCallback/client');
 
+// Command Name Generator
+const commandNameGenerator = function (data) {
+
+    // Prepare Result
+    let result = data.name;
+
+    // Exist Options
+    if (Array.isArray(data.options)) {
+        for (const item in data.options) {
+            if (data.options[item].type === 1) {
+                result += ' ' + commandNameGenerator(data.options[item]);
+            }
+        }
+    }
+
+    // Complete
+    return result;
+
+};
+
 // Export
 module.exports = function (req, res, cfg, firebase, discordApps) {
 
@@ -107,22 +127,20 @@ module.exports = function (req, res, cfg, firebase, discordApps) {
 
             // Message
             const msgToSend = { tts: false, content: discordApps[req.query.bot].waitMessage };
+            const commandName = commandNameGenerator(req.body.data);
 
             // Is Hidden
             let isHidden = false;
 
-            // Hidden Checker
-            const hiddenChecker = (getItem) => {
-
-                // Boolean
-                let isBoolean = false;
+            // Checker Start
+            if (cfg.hiddenDetector && cfg.hiddenDetector.description) { 
 
                 // String
                 if (typeof cfg.hiddenDetector.description === "string") {
 
                     // Check
-                    if (getItem.boolean(cfg.hiddenDetector.description)) {
-                        isBoolean = true;
+                    if (commandName.indexOf(cfg.hiddenDetector.description)) {
+                        isHidden = true;
                     }
 
                 }
@@ -132,19 +150,19 @@ module.exports = function (req, res, cfg, firebase, discordApps) {
                     for (const hvalue in cfg.hiddenDetector.description) {
 
                         // Check
-                        if (typeof cfg.hiddenDetector.description[hvalue] === "string" && getItem.boolean(cfg.hiddenDetector.description[hvalue])) {
-                            isBoolean = true;
+                        if (
+                            typeof cfg.hiddenDetector.description[hvalue] === "string" &&
+                            commandName.indexOf(cfg.hiddenDetector.description[hvalue])
+                        ) {
+                            isHidden = true;
                             break;
                         }
 
                     }
                 }
 
-                // Complete
-                if (isBoolean) { isHidden = true; }
-                return;
 
-            };
+             }
 
             // Hidden Command
             if (isHidden) { msgToSend.flags = 64; }
