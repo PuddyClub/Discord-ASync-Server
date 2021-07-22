@@ -161,7 +161,6 @@ module.exports = function (req, res, cfg, firebase, discordApps) {
                     }
                 }
 
-
              }
 
             // Hidden Command
