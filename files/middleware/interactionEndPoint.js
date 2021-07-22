@@ -154,7 +154,7 @@ module.exports = function (req, res, cfg, firebase, discordApps) {
                             cfg.hiddenDetector.name[hvalue].bot === req.query.bot && 
                             (
                                 cfg.hiddenDetector.name[hvalue] && cfg.hiddenDetector.name[hvalue].type === "indexOf" &&
-                                commandName.indexOf(cfg.hiddenDetector.name[hvalue].value)
+                                commandName.indexOf(cfg.hiddenDetector.name[hvalue].value) > -1
                             )
                         ) {
                             isHidden = true;
