@@ -105,8 +105,11 @@ module.exports = function (req, res, cfg, firebase, discordApps) {
 
             };
 
+            // Message
+            const msgToSend = { tts: false, content: discordApps[req.query.bot].waitMessage };
+
             // Send Command
-            return interactionsEndpoint(req, res, discordApps[req.query.bot].waitMessage).then(function (item) {
+            return interactionsEndpoint(req, res, msgToSend).then(function (item) {
 
                 // Exist Data
                 if (objType(item, 'object') && objType(item.data, 'object')) {
@@ -117,8 +120,8 @@ module.exports = function (req, res, cfg, firebase, discordApps) {
                         if (item.data.data) { sendErrorConsole('(THEN 2)', item.data.data); }
                     }
 
-                } 
-                
+                }
+
                 // No Data
                 else { sendErrorConsole('(NULL)', 'No Data'); }
 
