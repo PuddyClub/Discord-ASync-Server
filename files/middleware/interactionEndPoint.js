@@ -133,26 +133,32 @@ module.exports = function (req, res, cfg, firebase, discordApps) {
             let isHidden = false;
 
             // Checker Start
-            if (cfg.hiddenDetector && cfg.hiddenDetector.description) { 
+            if (cfg.hiddenDetector && cfg.hiddenDetector.name) {
 
                 // String
-                if (typeof cfg.hiddenDetector.description === "string") {
+                if (typeof cfg.hiddenDetector.name === "string") {
 
                     // Check
-                    if (commandName.indexOf(cfg.hiddenDetector.description)) {
+                    if (commandName === cfg.hiddenDetector.name) {
                         isHidden = true;
                     }
 
                 }
 
                 // Array
-                else if (Array.isArray(cfg.hiddenDetector.description) && cfg.hiddenDetector.description.length > 0) {
-                    for (const hvalue in cfg.hiddenDetector.description) {
+                else if (Array.isArray(cfg.hiddenDetector.name) && cfg.hiddenDetector.name.length > 0) {
+                    for (const hvalue in cfg.hiddenDetector.name) {
 
                         // Check
                         if (
-                            typeof cfg.hiddenDetector.description[hvalue] === "string" &&
-                            commandName.indexOf(cfg.hiddenDetector.description[hvalue])
+                            (
+                                typeof cfg.hiddenDetector.name[hvalue] === "string" &&
+                                commandName === cfg.hiddenDetector.name[hvalue]
+                            ) ||
+                            (
+                                cfg.hiddenDetector.name[hvalue] && cfg.hiddenDetector.name[hvalue].type === "indexOf" &&
+                                commandName.indexOf(cfg.hiddenDetector.name[hvalue].value)
+                            )
                         ) {
                             isHidden = true;
                             break;
@@ -161,7 +167,7 @@ module.exports = function (req, res, cfg, firebase, discordApps) {
                     }
                 }
 
-             }
+            }
 
             // Hidden Command
             if (isHidden) { msgToSend.flags = 64; }
