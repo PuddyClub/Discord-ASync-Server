@@ -16,11 +16,11 @@ const appModule = {
     express: {
 
         // Cookie Session
-        setCookieSession: function (result) { appModule.express.cookieSession = result; },
+        setCookieSession: function(result) { appModule.express.cookieSession = result; },
         cookieSession: {},
 
         // Create
-        create: function (tinyCfg) {
+        create: function(tinyCfg) {
             return new Promise((resolve, reject) => {
 
                 // Create Settings
@@ -171,7 +171,7 @@ const appModule = {
                     main: {
 
                         // Invalid Domain
-                        invalidDomainCallback: function (req, res, next) {
+                        invalidDomainCallback: function(req, res, next) {
 
                             // Invalid Domain
                             if (!isDebug) {
@@ -202,7 +202,7 @@ const appModule = {
                         module: ['csrfToken', 1, 'hours'],
 
                         // The Callback of the Csrf Token validator for all other modules of the template.
-                        callback: function (req) { return { now: req.body.csrftoken, server: req.csrftoken.now.value }; }
+                        callback: function(req) { return { now: req.body.csrftoken, server: req.csrftoken.now.value }; }
 
                     },
 
@@ -236,7 +236,7 @@ const appModule = {
                             ],
 
                             // Loader
-                            loader: function (local, lang) {
+                            loader: function(local, lang) {
 
                                 // Get Module
                                 const optionalModule = require('@tinypudding/puddy-lib/get/module');
@@ -249,9 +249,8 @@ const appModule = {
                         },
 
                         // Is User
-                        getIsUser: function (req, res) {
-                            if (req.discord_session.user) { return true; }
-                            else { return false; }
+                        getIsUser: function(req, res) {
+                            if (req.discord_session.user) { return true; } else { return false; }
                         },
 
                         // URLs of the module.
@@ -301,7 +300,7 @@ const appModule = {
         },
 
         // Start
-        start: function (port, callback) {
+        start: function(port, callback) {
 
             // Callback
             if (typeof callback === "function") { app.web.server.listen(port, callback); }
@@ -314,12 +313,19 @@ const appModule = {
     },
 
     // Add Bots
-    addBot: function (token, cfg = {}, fbCfg = {}) {
+    addBot: function(token, cfg = {}, fbCfg = {}) {
 
         // First Time
         if (app.discord.firstTime) {
             app.discord.firstTime = false;
             console.log(`Starting "Discord.JS"... (Version - ${app.discord.module.version})`);
+        }
+
+        // Read Intents
+        if (Array.isArray(cfg.intents)) {
+            for (const item in cfg.intents) {
+
+            }
         }
 
         // Add Bot
@@ -330,7 +336,7 @@ const appModule = {
     },
 
     // Get Bot Firebase
-    getBotFirebase: function (token) {
+    getBotFirebase: function(token) {
 
         // Get Result
         const result = app.discord.bots.find(bot => bot.token === token);
@@ -342,7 +348,7 @@ const appModule = {
     },
 
     // Check User Session
-    validateUserSession: function (userID) {
+    validateUserSession: function(userID) {
 
         // Validated
         if ((typeof userID === "string" || typeof userID === "number") && ioCache.users && ioCache.users[userID]) {
@@ -374,7 +380,7 @@ const appModule = {
     },
 
     // Add User
-    addUser: function (userID, permLevel) {
+    addUser: function(userID, permLevel) {
 
         // Add User
         const objType = require('@tinypudding/puddy-lib/get/objType');
@@ -413,7 +419,7 @@ const appModule = {
     },
 
     // Remove User
-    removeUser: function (userID) {
+    removeUser: function(userID) {
 
         // Get Value
         const index = app.users.findIndex(user => user.id === userID);
@@ -421,7 +427,9 @@ const appModule = {
         // Exist User
         if (index > -1) {
             if (ioCache.users && ioCache.users[userID]) { ioCache.users[userID].sUser = { id: userID, perm: 0 }; }
-            app.users.splice(index, 1); appModule.validateUserSession(userID); return true;
+            app.users.splice(index, 1);
+            appModule.validateUserSession(userID);
+            return true;
         }
 
         // Nope
@@ -433,10 +441,10 @@ const appModule = {
     firebase: {
 
         // Set onAuthStateChanged
-        onAuthStateChanged: function (callback) { app.auth.onAuthStateChanged = callback; },
+        onAuthStateChanged: function(callback) { app.auth.onAuthStateChanged = callback; },
 
         // Start
-        start: function (cfg) {
+        start: function(cfg) {
 
             // Console Log
             console.log('Starting Firebase...');
@@ -476,14 +484,14 @@ const appModule = {
         },
 
         // Login Firebase
-        login: function (token) {
-            return new Promise(async (resolve, reject) => {
+        login: function(token) {
+            return new Promise(async(resolve, reject) => {
 
                 // Add Login Cache
                 if (typeof token !== "undefined") { app.auth.login = token; }
 
                 // Start Login
-                const loginStart = function (token) {
+                const loginStart = function(token) {
                     return app.auth.root.signInWithCustomToken(token).then((userCredential) => {
                         resolve(userCredential);
                     }).catch((err) => {
@@ -526,7 +534,7 @@ const appModule = {
 module.exports = appModule;
 
 // ON Death
-ON_DEATH(async function (signal, err) {
+ON_DEATH(async function(signal, err) {
 
     // Closing Message
     console.log(`Closing App: ${signal}`);
@@ -534,7 +542,7 @@ ON_DEATH(async function (signal, err) {
 
     // Close Web Server
     console.log(`Closing "Socket.IO"...`);
-    await new Promise(function (resolve) {
+    await new Promise(function(resolve) {
 
         // Try Close the Server
         try {
@@ -554,7 +562,7 @@ ON_DEATH(async function (signal, err) {
 
     // Close Web Server
     console.log(`Closing "Express"...`);
-    await new Promise(function (resolve) {
+    await new Promise(function(resolve) {
 
         // Try Close the Server
         try {
