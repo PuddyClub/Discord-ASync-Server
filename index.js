@@ -324,7 +324,9 @@ const appModule = {
         // Read Intents
         if (Array.isArray(cfg.intents)) {
             for (const item in cfg.intents) {
-
+                if (typeof cfg.intents[item] === "string" && typeof app.discord.module.Intents.FLAGS[cfg.intents[item]] !== "undefined") {
+                    cfg.intents[item] = app.discord.module.Intents.FLAGS[cfg.intents[item]];
+                }
             }
         }
 
