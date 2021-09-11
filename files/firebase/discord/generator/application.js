@@ -1,4 +1,4 @@
-module.exports = function (app) {
+module.exports = function(app) {
     if (app) {
 
         // Data
@@ -18,7 +18,7 @@ module.exports = function (app) {
         if (app.owner) {
 
             // User
-            if (!app.ower.ownerID) {
+            if (!app.owner.ownerId) {
                 const userGenerator = require('./user');
                 data.owner = userGenerator(data.owner);
             }

@@ -1,5 +1,5 @@
 // Send Info
-const sendInfo = function (ioCache, where, botID, itemSent, perm = 1, guildID, type = 'general') {
+const sendInfo = function(ioCache, where, botID, itemSent, perm = 1, guildID, type = 'general') {
 
     // Validate User Session
     if (ioCache.users) {
@@ -39,7 +39,7 @@ const sendInfo = function (ioCache, where, botID, itemSent, perm = 1, guildID, t
 };
 
 // Update Log
-const updateDiscordLog = function (ioCache, logList, botID, where, itemResult) {
+const updateDiscordLog = function(ioCache, logList, botID, where, itemResult) {
 
     // Add To Log
     logList.push(itemResult);
@@ -53,7 +53,7 @@ const updateDiscordLog = function (ioCache, logList, botID, where, itemResult) {
 };
 
 // Start
-const startDiscordSocket = function (ioCache, io, data) {
+const startDiscordSocket = function(ioCache, io, data) {
 
     // Get Bot
     const bot = data.bot;
@@ -91,7 +91,7 @@ const startDiscordSocket = function (ioCache, io, data) {
     bot.on('guildDelete', () => { sendInfo(ioCache, 'dsBot_serverCount', bot.user.id, { value: bot.guilds.cache.size, isCount: false }); return; });
 
     // Guild Item
-    const updateGuildData = async (guild) => {
+    const updateGuildData = async(guild) => {
 
         // Exist Guild
         if (guild) {
@@ -105,7 +105,7 @@ const startDiscordSocket = function (ioCache, io, data) {
             sendInfo(ioCache, 'dsBot_guildName', bot.user.id, guild.name, 2, guild.id, 'guild');
             sendInfo(ioCache, 'dsBot_guildCreationDate', bot.user.id, require('moment-timezone')(guild.createdAt).format('YYYY-MM-DD'), 2, guild.id, 'guild');
 
-            const guildOwner = await guild.members.fetch(guild.ownerID);
+            const guildOwner = await guild.members.fetch(guild.ownerId);
             sendInfo(ioCache, 'dsBot_guildOwner', bot.user.id, {
                 id: guildOwner.user.id,
                 tag: guildOwner.user.tag,
@@ -144,7 +144,7 @@ const startDiscordSocket = function (ioCache, io, data) {
 };
 
 // Export Module
-module.exports = function (ioCache, io, discord) {
+module.exports = function(ioCache, io, discord) {
     for (const item in discord.bots) { startDiscordSocket(ioCache, io, discord.bots[item]); }
     return;
 };

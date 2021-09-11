@@ -1,4 +1,4 @@
-module.exports = function (team) {
+module.exports = function(team) {
     if (team) {
 
         // Data
@@ -8,14 +8,14 @@ module.exports = function (team) {
             icon: team.icon,
             id: team.id,
             name: team.name,
-            ownerID: team.ownerID,
+            ownerId: team.ownerId,
             members: [],
         };
 
         // Get Member ID
         if (team.members) {
             const teamMemberGenerator = require('./teamMember');
-            team.members.forEach(function (value) {
+            team.members.forEach(function(value) {
                 data.members.push(teamMemberGenerator(value));
                 return;
             });

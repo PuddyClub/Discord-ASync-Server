@@ -1,15 +1,15 @@
-module.exports = function (pluginSocket, socket, ioCache, io, session, web, app, socketUser, userData) {
+module.exports = function(pluginSocket, socket, ioCache, io, session, web, app, socketUser, userData) {
 
     // Discord User Data
     const user = socketUser.data;
     socketUser.sUser = userData;
 
     // Send Log
-    socketUser.sendLog = function (type, isAll = false, data) {
+    socketUser.sendLog = function(type, isAll = false, data) {
         if (typeof type === "string" && socketUser.checkPerm(4)) {
 
             // Send Log
-            const sendLog = function (botID) {
+            const sendLog = function(botID) {
 
                 // Get Discord App
                 const botData = app.discord.bots.find(tbot => tbot.bot && tbot.bot.user && tbot.bot.user.id === botID);
@@ -71,7 +71,7 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
     };
 
     // Connect Discord Bot Guild
-    socket.on('updateCountPage', async function (type) {
+    socket.on('updateCountPage', async function(type) {
 
         // Exist Guild
         if (socketUser.ids[socket.id].guild) {
@@ -87,7 +87,7 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
             socket.emit('dsBot_guildChannelsCount', socketUser.ids[socket.id].guild.channels.cache.size);
             socket.emit('dsBot_guildCreationDate', require('moment-timezone')(socketUser.ids[socket.id].guild.createdAt).format('YYYY-MM-DD'));
 
-            const guildOwner = await socketUser.ids[socket.id].guild.members.fetch(socketUser.ids[socket.id].guild.ownerID);
+            const guildOwner = await socketUser.ids[socket.id].guild.members.fetch(socketUser.ids[socket.id].guild.ownerId);
             socket.emit('dsBot_guildOwner', {
                 id: guildOwner.user.id,
                 tag: guildOwner.user.tag,
@@ -119,7 +119,7 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
     });
 
     // Connect Discord Bot Guild
-    socket.on('connectDiscordGuild', async function (guildID, fn) {
+    socket.on('connectDiscordGuild', async function(guildID, fn) {
 
         // Is String
         if (
@@ -145,7 +145,10 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
             }
 
             // Nope
-            else { socketUser.ids[socket.id].guild = null; fn({ success: false }); }
+            else {
+                socketUser.ids[socket.id].guild = null;
+                fn({ success: false });
+            }
 
         }
 
@@ -158,7 +161,7 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
     });
 
     // Connect Discord Bot
-    socket.on('connectDiscordBot', function (botID, fn) {
+    socket.on('connectDiscordBot', function(botID, fn) {
 
         // Is String
         if ((typeof botID === "string" || typeof botID === "number") && socketUser.checkPerm(2, 'bot', botID)) {
@@ -205,7 +208,7 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
     socket.emit('discordConnected', user);
 
     // Leave Guild
-    socket.on('leaveDiscordGuild', function (data, fn) {
+    socket.on('leaveDiscordGuild', function(data, fn) {
 
         // Check Permission
         if (socketUser.ids[socket.id].bot && socketUser.ids[socket.id].bot.user && socketUser.ids[socket.id].bot.user.id) {
@@ -217,8 +220,8 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
                 if (data && typeof data.guildID === "string" || typeof data.guildID === "number") {
 
                     // Leave Guild
-                    const leave_guild_action = function (guildID) {
-                        return new Promise(function (resolve, reject) {
+                    const leave_guild_action = function(guildID) {
+                        return new Promise(function(resolve, reject) {
                             return socketUser.ids[socket.id].bot.guilds.fetch(guildID).then(guild => {
 
                                 // Leave the Guild
@@ -255,7 +258,7 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
                         // Prepare Module
                         const forPromise = require('for-promise');
                         const guilds = Array.from(socketUser.ids[socket.id].bot.guilds.cache.keys());
-                        forPromise({ data: guilds }, function (item, fn, fn_error) {
+                        forPromise({ data: guilds }, function(item, fn, fn_error) {
 
                             // Leave Guild
                             return leave_guild_action(guilds[item]).then(() => {
@@ -291,7 +294,7 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
     });
 
     // Get Guild Channels
-    socket.on('getDiscordGuildChannels', function (guildID, fn) {
+    socket.on('getDiscordGuildChannels', function(guildID, fn) {
 
         // Exist Bot
         if (
@@ -312,7 +315,7 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
                     const moment = require('moment-timezone');
 
                     // Read Cache
-                    guild.channels.cache.forEach(function (data) {
+                    guild.channels.cache.forEach(function(data) {
 
                         // Prepare Cache
                         const channelCache = {
@@ -359,7 +362,7 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
     });
 
     // Get Guild Roles
-    socket.on('getDiscordGuildRoles', function (guildID, fn) {
+    socket.on('getDiscordGuildRoles', function(guildID, fn) {
 
         // Exist Bot
         if (
@@ -380,7 +383,7 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
                     const moment = require('moment-timezone');
 
                     // Read Cache
-                    guild.roles.cache.forEach(function (data) {
+                    guild.roles.cache.forEach(function(data) {
 
                         // Prepare Cache
                         const roleCache = {
@@ -426,7 +429,7 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
     });
 
     // Get Guild Emojis
-    socket.on('getDiscordGuildEmojis', function (guildID, fn) {
+    socket.on('getDiscordGuildEmojis', function(guildID, fn) {
 
         // Exist Bot
         if (
@@ -447,7 +450,7 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
                     const moment = require('moment-timezone');
 
                     // Read Cache
-                    guild.emojis.cache.forEach(function (data) {
+                    guild.emojis.cache.forEach(function(data) {
 
                         // Prepare Cache
                         const emojiCache = {
@@ -500,7 +503,7 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
     });
 
     // Get Guild Emojis
-    socket.on('getDiscordGuilds', async function (data, fn) {
+    socket.on('getDiscordGuilds', async function(data, fn) {
 
         // Exist Bot
         if (socketUser.ids[socket.id].bot) {
@@ -532,12 +535,12 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
                 // Create Cache
                 // Array.from(socketUser.ids[socket.id].bot.guilds.cache.keys())
                 const guilds = [];
-                await Promise.all(socketUser.ids[socket.id].bot.guilds.cache.map(async (guild) => {
+                await Promise.all(socketUser.ids[socket.id].bot.guilds.cache.map(async(guild) => {
 
                     // Get Guild Owner
                     let guildOwner = null;
                     if (data.filters.owner.length > 0) {
-                        try { guildOwner = await guild.members.fetch(guild.ownerID); } catch (err) { guildOwner = null; }
+                        try { guildOwner = await guild.members.fetch(guild.ownerId); } catch (err) { guildOwner = null; }
                     }
 
                     // Filter
@@ -573,7 +576,7 @@ module.exports = function (pluginSocket, socket, ioCache, io, session, web, app,
                             ) ||
 
                             // Is Same ID
-                            guild.ownerID === data.filters.owner
+                            guild.ownerId === data.filters.owner
 
                         ))
 

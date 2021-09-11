@@ -1,4 +1,4 @@
-module.exports = function (guild) {
+module.exports = function(guild) {
     if (guild) {
 
         // Data
@@ -28,7 +28,7 @@ module.exports = function (guild) {
             mfaLevel: guild.mfaLevel,
             name: guild.name,
             nameAcronym: guild.nameAcronym,
-            ownerID: guild.ownerID,
+            ownerId: guild.ownerId,
             partnered: guild.partnered,
             preferredLocale: guild.preferredLocale,
             premiumSubscriptionCount: guild.premiumSubscriptionCount,
@@ -61,7 +61,7 @@ module.exports = function (guild) {
 
         // Get Channel 
         if (guild.roles && guild.roles.cache) {
-            guild.roles.cache.forEach(function (value) {
+            guild.roles.cache.forEach(function(value) {
                 data.roles[value.id] = roleGenerator(value);
                 return;
             });
@@ -72,7 +72,7 @@ module.exports = function (guild) {
 
         // Get Channel 
         if (guild.members && guild.members.cache) {
-            guild.members.cache.forEach(function (value) {
+            guild.members.cache.forEach(function(value) {
                 data.members[value.id] = memberGenerator(value);
                 return;
             });
@@ -86,7 +86,7 @@ module.exports = function (guild) {
 
         // Get Channel 
         if (guild.channels && guild.channels.cache) {
-            guild.channels.cache.forEach(function (value) {
+            guild.channels.cache.forEach(function(value) {
                 data.channels[value.id] = channelGenerator(value);
                 return;
             });
@@ -97,7 +97,7 @@ module.exports = function (guild) {
 
         // Get Emoji
         if (guild.emojis && guild.emojis.cache) {
-            guild.emojis.cache.forEach(function (value) {
+            guild.emojis.cache.forEach(function(value) {
                 data.emojis[value.id] = emojiGenerator(value);
                 return;
             });
