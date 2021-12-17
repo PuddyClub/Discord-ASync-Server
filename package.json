@@ -1,6 +1,6 @@
 {
     "name": "@tinypudding/discord-firebase-async-server",
-    "version": "1.4.8",
+    "version": "1.4.9",
     "description": "System for synchronizing Discord Bots with the Firebase.",
     "main": "index.js",
     "scripts": {},
@@ -26,7 +26,7 @@
     "dependencies": {
         "@tinypudding/csrftoken-lib": "^1.0.6",
         "@tinypudding/discord-oauth2": "^1.1.0",
-        "@tinypudding/firebase-discord-interactions": "^1.7.9",
+        "@tinypudding/firebase-discord-interactions": "^1.7.10",
         "@tinypudding/firebase-express-template": "^1.2.17",
         "@tinypudding/firebase-lib": "^1.0.13",
         "@tinypudding/i18": "^1.3.4",
