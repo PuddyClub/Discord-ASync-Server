@@ -1,218 +1,231 @@
 // Preparing Module
 let interactionsEndpoint;
+const objType = require('@tinypudding/puddy-lib/get/objType');
 const firebaseEndPoint = require('@tinypudding/firebase-discord-interactions/functionListener/firebaseCallback/client');
 
 // Command Name Generator
 const commandNameGenerator = function(data) {
 
-    // Prepare Result
-    let result = data.name;
+    if (objType(data, 'object')) {
 
-    // Exist Options
-    if (Array.isArray(data.options)) {
-        for (const item in data.options) {
-            if (data.options[item].type === 1) {
-                result += ' ' + commandNameGenerator(data.options[item]);
+        // Prepare Result
+        let result = data.name;
+
+        // Exist Options
+        if (Array.isArray(data.options)) {
+            for (const item in data.options) {
+                if (data.options[item].type === 1) {
+                    result += ' ' + commandNameGenerator(data.options[item]);
+                }
             }
         }
-    }
 
-    // Complete
-    return result;
+        // Complete
+        return result;
+
+    } else {
+        return '';
+    }
 
 };
 
 // Export
 module.exports = function(req, res, cfg, firebase, discordApps) {
 
-    // Get Error Page
-    const errorPage = require('@tinypudding/puddy-lib/http/HTTP-1.0');
-    const objType = require('@tinypudding/puddy-lib/get/objType');
+    try {
 
-    // Verify Interaction ID
-    if (typeof req.query.id === "string" && req.query.id === cfg.id) {
+        // Get Error Page
+        const errorPage = require('@tinypudding/puddy-lib/http/HTTP-1.0');
 
-        // Bot
-        if (discordApps[req.query.bot]) {
+        // Verify Interaction ID
+        if (typeof req.query.id === "string" && req.query.id === cfg.id) {
 
-            // Prepare Module
-            if (!interactionsEndpoint) {
-                interactionsEndpoint = firebaseEndPoint({
-                    callbackName: cfg.function,
-                    objString: cfg.objString,
-                    debug: cfg.debug,
-                    firebase: firebase,
-                    app: discordApps,
-                    hiddenDetector: cfg.hiddenDetector,
-                    errorCallback: function(req, res, code, message) {
+            // Bot
+            if (discordApps[req.query.bot]) {
 
-                        // Console Error
-                        console.error('Firebase-Discord-Interactions ERROR!');
-                        const errorMEssage = { code: code, message: message, body: { normal: req.body, raw: req.rawBody } };
+                // Prepare Module
+                if (!interactionsEndpoint) {
+                    interactionsEndpoint = firebaseEndPoint({
+                        callbackName: cfg.function,
+                        objString: cfg.objString,
+                        debug: cfg.debug,
+                        firebase: firebase,
+                        app: discordApps,
+                        hiddenDetector: cfg.hiddenDetector,
+                        errorCallback: function(req, res, code, message) {
 
-                        if (!cfg.objString) { console.error(errorMEssage); } else {
-                            console.error(JSON.stringify(errorMEssage, null, 2));
+                            // Console Error
+                            console.error('Firebase-Discord-Interactions ERROR!');
+                            const errorMEssage = { code: code, message: message, body: { normal: req.body, raw: req.rawBody } };
+
+                            if (!cfg.objString) { console.error(errorMEssage); } else {
+                                console.error(JSON.stringify(errorMEssage, null, 2));
+                            }
+
+                            // Send Error HTTP
+                            if (req) {
+                                res.status(code);
+                                return res.json({ code: code, message: message });
+                            } else { return; }
+
+                        },
+                        varNames: { bot: 'bot' }
+                    });
+                }
+
+                // Fix Raw
+                if (typeof req.rawBody !== "string" && typeof req.body !== "undefined") {
+
+                    // Insert Body Here
+                    const clone = require('clone');
+                    req.rawBody = clone(req.body);
+
+                    // Convert Data
+                    if (typeof req.rawBody !== "string") {
+                        try { req.rawBody = JSON.stringify(req.rawBody); } catch (err) {
+
+                            console.error('Error Raw Body!');
+                            if (!cfg.objString) { console.error(err); } else {
+                                console.error(JSON.stringify(err, null, 2));
+                            }
+
+                            req.rawBody = '';
+
                         }
+                    }
 
-                        // Send Error HTTP
-                        if (req) {
-                            res.status(code);
-                            return res.json({ code: code, message: message });
-                        } else { return; }
+                } else { console.error('NO BODY DATA FOUND!'); }
 
-                    },
-                    varNames: { bot: 'bot' }
-                });
-            }
+                // Fix Body
+                if (typeof req.body === "string") {
+                    try { req.body = JSON.parse(req.body); } catch (err) {
 
-            // Fix Raw
-            if (typeof req.rawBody !== "string" && typeof req.body !== "undefined") {
-
-                // Insert Body Here
-                const clone = require('clone');
-                req.rawBody = clone(req.body);
-
-                // Convert Data
-                if (typeof req.rawBody !== "string") {
-                    try { req.rawBody = JSON.stringify(req.rawBody); } catch (err) {
-
-                        console.error('Error Raw Body!');
+                        console.error('Error Body!');
                         if (!cfg.objString) { console.error(err); } else {
                             console.error(JSON.stringify(err, null, 2));
                         }
 
-                        req.rawBody = '';
+                        req.body = {};
 
                     }
                 }
 
-            } else { console.error('NO BODY DATA FOUND!'); }
+                // Send Error Console
+                const sendErrorConsole = function(type, err) {
 
-            // Fix Body
-            if (typeof req.body === "string") {
-                try { req.body = JSON.parse(req.body); } catch (err) {
+                    // Prepare Error Message
+                    let errorMessage = type + ' Firebase-Discord-Interactions Server ERROR!';
+                    if (err && typeof err !== "string" && typeof err.message === "string") { errorMessage += ' ' + err.message; }
 
-                    console.error('Error Body!');
-                    if (!cfg.objString) { console.error(err); } else {
-                        console.error(JSON.stringify(err, null, 2));
+                    // No String
+                    if (typeof err !== "string") {
+
+                        // Print Errors
+                        console.error(errorMessage);
+                        console.error(err);
+
                     }
 
-                    req.body = {};
+                    // String
+                    else { console.error(errorMessage + ' ' + err); }
 
-                }
-            }
+                    return;
 
-            // Send Error Console
-            const sendErrorConsole = function(type, err) {
+                };
 
-                // Prepare Error Message
-                let errorMessage = type + ' Firebase-Discord-Interactions Server ERROR!';
-                if (err && typeof err !== "string" && typeof err.message === "string") { errorMessage += ' ' + err.message; }
+                // Message
+                const msgToSend = { tts: false, content: discordApps[req.query.bot].waitMessage };
+                const commandName = commandNameGenerator(req.body.data);
 
-                // No String
-                if (typeof err !== "string") {
+                // Is Hidden
+                let isHidden = false;
 
-                    // Print Errors
-                    console.error(errorMessage);
-                    console.error(err);
+                // Checker Start
+                if (cfg.hiddenDetector && cfg.hiddenDetector.name) {
 
-                }
-
-                // String
-                else { console.error(errorMessage + ' ' + err); }
-
-                return;
-
-            };
-
-            // Message
-            const msgToSend = { tts: false, content: discordApps[req.query.bot].waitMessage };
-            const commandName = commandNameGenerator(req.body.data);
-
-            // Is Hidden
-            let isHidden = false;
-
-            // Checker Start
-            if (cfg.hiddenDetector && cfg.hiddenDetector.name) {
-
-                // String
-                if (typeof cfg.hiddenDetector.name === "string") {
-
-                    // Check
-                    if (commandName === cfg.hiddenDetector.name) {
-                        isHidden = true;
-                    }
-
-                }
-
-                // Array
-                else if (Array.isArray(cfg.hiddenDetector.name) && cfg.hiddenDetector.name.length > 0) {
-                    for (const hvalue in cfg.hiddenDetector.name) {
+                    // String
+                    if (typeof cfg.hiddenDetector.name === "string") {
 
                         // Check
-                        if (
-                            cfg.hiddenDetector.name[hvalue] && cfg.hiddenDetector.name[hvalue].bot === req.query.bot &&
-                            (
-                                (
-                                    cfg.hiddenDetector.name[hvalue].type === "===" &&
-                                    commandName === cfg.hiddenDetector.name[hvalue].value
-                                ) ||
-                                (
-                                    cfg.hiddenDetector.name[hvalue].type === "indexOf" &&
-                                    commandName.indexOf(cfg.hiddenDetector.name[hvalue].value) > -1
-                                )
-                            )
-                        ) {
+                        if (commandName === cfg.hiddenDetector.name) {
                             isHidden = true;
-                            break;
                         }
 
                     }
-                }
 
-            }
+                    // Array
+                    else if (Array.isArray(cfg.hiddenDetector.name) && cfg.hiddenDetector.name.length > 0) {
+                        for (const hvalue in cfg.hiddenDetector.name) {
 
-            // Hidden Command
-            if (isHidden) { msgToSend.flags = 64; }
+                            // Check
+                            if (
+                                cfg.hiddenDetector.name[hvalue] && cfg.hiddenDetector.name[hvalue].bot === req.query.bot &&
+                                (
+                                    (
+                                        cfg.hiddenDetector.name[hvalue].type === "===" &&
+                                        commandName === cfg.hiddenDetector.name[hvalue].value
+                                    ) ||
+                                    (
+                                        cfg.hiddenDetector.name[hvalue].type === "indexOf" &&
+                                        commandName.indexOf(cfg.hiddenDetector.name[hvalue].value) > -1
+                                    )
+                                )
+                            ) {
+                                isHidden = true;
+                                break;
+                            }
 
-            // Send Command
-            return interactionsEndpoint(req, res, msgToSend).then(function(item) {
-
-                // Exist Data
-                if (objType(item, 'object') && objType(item.data, 'object')) {
-
-                    // Error Message
-                    if (!item.data.success) {
-                        if (item.data.error) { sendErrorConsole('(THEN 1)', item.data.error); }
-                        if (item.data.data) { sendErrorConsole('(THEN 2)', item.data.data); }
+                        }
                     }
 
                 }
 
-                // No Data
-                else { sendErrorConsole('(NULL)', 'No Data'); }
+                // Hidden Command
+                if (isHidden) { msgToSend.flags = 64; }
 
-                return;
+                // Send Command
+                return interactionsEndpoint(req, res, msgToSend).then(function(item) {
 
-            })
+                    // Exist Data
+                    if (objType(item, 'object') && objType(item.data, 'object')) {
 
-            // Error
-            .catch((err) => { return sendErrorConsole('(CATCH)', err); });
+                        // Error Message
+                        if (!item.data.success) {
+                            if (item.data.error) { sendErrorConsole('(THEN 1)', item.data.error); }
+                            if (item.data.data) { sendErrorConsole('(THEN 2)', item.data.data); }
+                        }
+
+                    }
+
+                    // No Data
+                    else { sendErrorConsole('(NULL)', 'No Data'); }
+
+                    return;
+
+                })
+
+                // Error
+                .catch((err) => { return sendErrorConsole('(CATCH)', err); });
+
+            }
+
+            // Nope
+            else {
+                console.error('Bot not found.');
+                errorPage.send(res, 404);
+            }
 
         }
 
         // Nope
         else {
-            console.error('Bot not found.');
-            errorPage.send(res, 404);
+            console.error('Invalid ID Request for bots. ' + req.query.id);
+            errorPage.send(res, 401);
         }
 
-    }
-
-    // Nope
-    else {
-        console.error('Invalid ID Request for bots. ' + req.query.id);
-        errorPage.send(res, 401);
+    } catch (err) {
+        console.error(err);
+        errorPage.send(res, 500);
     }
 
     // Complete
