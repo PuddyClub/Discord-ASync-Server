@@ -3,7 +3,7 @@ let interactionsEndpoint;
 const firebaseEndPoint = require('@tinypudding/firebase-discord-interactions/functionListener/firebaseCallback/client');
 
 // Command Name Generator
-const commandNameGenerator = function (data) {
+const commandNameGenerator = function(data) {
 
     // Prepare Result
     let result = data.name;
@@ -23,7 +23,7 @@ const commandNameGenerator = function (data) {
 };
 
 // Export
-module.exports = function (req, res, cfg, firebase, discordApps) {
+module.exports = function(req, res, cfg, firebase, discordApps) {
 
     // Get Error Page
     const errorPage = require('@tinypudding/puddy-lib/http/HTTP-1.0');
@@ -44,7 +44,7 @@ module.exports = function (req, res, cfg, firebase, discordApps) {
                     firebase: firebase,
                     app: discordApps,
                     hiddenDetector: cfg.hiddenDetector,
-                    errorCallback: function (req, res, code, message) {
+                    errorCallback: function(req, res, code, message) {
 
                         // Console Error
                         console.error('Firebase-Discord-Interactions ERROR!');
@@ -86,7 +86,7 @@ module.exports = function (req, res, cfg, firebase, discordApps) {
                     }
                 }
 
-            }
+            } else { console.error('NO BODY DATA FOUND!'); }
 
             // Fix Body
             if (typeof req.body === "string") {
@@ -103,7 +103,7 @@ module.exports = function (req, res, cfg, firebase, discordApps) {
             }
 
             // Send Error Console
-            const sendErrorConsole = function (type, err) {
+            const sendErrorConsole = function(type, err) {
 
                 // Prepare Error Message
                 let errorMessage = type + ' Firebase-Discord-Interactions Server ERROR!';
@@ -176,7 +176,7 @@ module.exports = function (req, res, cfg, firebase, discordApps) {
             if (isHidden) { msgToSend.flags = 64; }
 
             // Send Command
-            return interactionsEndpoint(req, res, msgToSend).then(function (item) {
+            return interactionsEndpoint(req, res, msgToSend).then(function(item) {
 
                 // Exist Data
                 if (objType(item, 'object') && objType(item.data, 'object')) {
@@ -196,18 +196,24 @@ module.exports = function (req, res, cfg, firebase, discordApps) {
 
             })
 
-                // Error
-                .catch((err) => { return sendErrorConsole('(CATCH)', err); });
+            // Error
+            .catch((err) => { return sendErrorConsole('(CATCH)', err); });
 
         }
 
         // Nope
-        else { console.error('Bot not found.'); errorPage.send(res, 404); }
+        else {
+            console.error('Bot not found.');
+            errorPage.send(res, 404);
+        }
 
     }
 
     // Nope
-    else { errorPage.send(res, 401); }
+    else {
+        console.error('Invalid ID Request for bots. ' + req.query.id);
+        errorPage.send(res, 401);
+    }
 
     // Complete
     return;
