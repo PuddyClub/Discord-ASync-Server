@@ -122,12 +122,6 @@ const getPage = function (data) {
                         isText: false
                     },
 
-                    // Region
-                    {
-                        item: data.data[item].region,
-                        isText: true
-                    },
-
                     // Members
                     {
                         item: data.data[item].members,
@@ -342,12 +336,6 @@ const getPage = function (data) {
                         {
                             isText: true,
                             item: tinyLang.name
-                        },
-
-                        // Region
-                        {
-                            isText: true,
-                            item: tinyLang.region
                         },
 
                         // Members
