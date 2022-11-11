@@ -38,7 +38,6 @@ $(() => {
     socket.on('dsBot_guildMemberCount', (count) => { $('#guild_info_table #members_count #info').text(count); });
     socket.on('dsBot_guildEmojiCount', (count) => { $('#guild_info_table #emoji_count #info > a').text(count); });
     socket.on('dsBot_guildRoleCount', (count) => { $('#guild_info_table #role_count #info > a').text(count); });
-    socket.on('dsBot_guildRegion', (count) => { $('#guild_info_table #server_region #info').text(count); });
     socket.on('dsBot_guildName', (count) => { $('#guild_info_table #server_name #info').text(count); });
     socket.on('dsBot_guildChannelsCount', (count) => { $('#guild_info_table #channel_count #info > a').text(count); });
     socket.on('dsBot_guildCreationDate', (count) => { $('#guild_info_table #creation_date #info').text(count); });
