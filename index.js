@@ -353,6 +353,24 @@ const appModule = {
             ];
         }
 
+        if (Array.isArray(cfg.partials)) {
+            for (const item in cfg.partials) {
+                if (typeof cfg.partials[item] === "string" && typeof app.discord.module.Partials[cfg.partials[item]] !== "undefined") {
+                    cfg.partials[item] = app.discord.module.Partials[cfg.partials[item]];
+                }
+            }
+        } else if (typeof cfg.partials === "string" && cfg.partials === "ALL") {
+            cfg.partials = [
+                app.discord.module.Partials.User,
+                app.discord.module.Partials.Channel,
+                app.discord.module.Partials.GuildMember,
+                app.discord.module.Partials.Message,
+                app.discord.module.Partials.Reaction,
+                app.discord.module.Partials.GuildScheduledEvent,
+                app.discord.module.Partials.ThreadMember,
+            ];
+        }
+
         // Add Bot
         const bot = new app.discord.module.Client(cfg);
         app.discord.bots.push({ bot: bot, token: token, fbCfg: fbCfg });
