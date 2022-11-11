@@ -325,27 +325,31 @@ const appModule = {
         // https://discord.js.org/#/docs/main/stable/class/Intents
         if (Array.isArray(cfg.intents)) {
             for (const item in cfg.intents) {
-                if (typeof cfg.intents[item] === "string" && typeof app.discord.module.Intents.FLAGS[cfg.intents[item]] !== "undefined") {
-                    cfg.intents[item] = app.discord.module.Intents.FLAGS[cfg.intents[item]];
+                if (typeof cfg.intents[item] === "string" && typeof app.discord.module.GatewayIntentBits[cfg.intents[item]] !== "undefined") {
+                    cfg.intents[item] = app.discord.module.GatewayIntentBits[cfg.intents[item]];
                 }
             }
         } else if (typeof cfg.intents === "string" && cfg.intents === "ALL") {
             cfg.intents = [
-                app.discord.module.Intents.FLAGS.GUILDS,
-                app.discord.module.Intents.FLAGS.GUILD_MEMBERS,
-                app.discord.module.Intents.FLAGS.GUILD_BANS,
-                app.discord.module.Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS,
-                app.discord.module.Intents.FLAGS.GUILD_INTEGRATIONS,
-                app.discord.module.Intents.FLAGS.GUILD_WEBHOOKS,
-                app.discord.module.Intents.FLAGS.GUILD_INVITES,
-                app.discord.module.Intents.FLAGS.GUILD_VOICE_STATES,
-                app.discord.module.Intents.FLAGS.GUILD_PRESENCES,
-                app.discord.module.Intents.FLAGS.GUILD_MESSAGES,
-                app.discord.module.Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
-                app.discord.module.Intents.FLAGS.GUILD_MESSAGE_TYPING,
-                app.discord.module.Intents.FLAGS.DIRECT_MESSAGES,
-                app.discord.module.Intents.FLAGS.DIRECT_MESSAGE_REACTIONS,
-                app.discord.module.Intents.FLAGS.DIRECT_MESSAGE_TYPING
+                app.discord.module.GatewayIntentBits.Guilds,
+                app.discord.module.GatewayIntentBits.GuildMembers,
+                app.discord.module.GatewayIntentBits.GuildBans,
+                app.discord.module.GatewayIntentBits.GuildEmojisAndStickers,
+                app.discord.module.GatewayIntentBits.GuildIntegrations,
+                app.discord.module.GatewayIntentBits.GuildWebhooks,
+                app.discord.module.GatewayIntentBits.GuildInvites,
+                app.discord.module.GatewayIntentBits.GuildVoiceStates,
+                app.discord.module.GatewayIntentBits.GuildPresences,
+                app.discord.module.GatewayIntentBits.GuildMessages,
+                app.discord.module.GatewayIntentBits.GuildMessageReactions,
+                app.discord.module.GatewayIntentBits.GuildMessageTyping,
+                app.discord.module.GatewayIntentBits.DirectMessages,
+                app.discord.module.GatewayIntentBits.DirectMessageReactions,
+                app.discord.module.GatewayIntentBits.DirectMessageTyping,
+                app.discord.module.GatewayIntentBits.MessageContent,
+                app.discord.module.GatewayIntentBits.GuildScheduledEvents,
+                app.discord.module.GatewayIntentBits.AutoModerationConfiguration,
+                app.discord.module.GatewayIntentBits.AutoModerationExecution
             ];
         }
 
