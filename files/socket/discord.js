@@ -101,7 +101,6 @@ const startDiscordSocket = function(ioCache, io, data) {
 
             // Send Guild Data
             sendInfo(ioCache, 'dsBot_guildFeatures', bot.user.id, guild.features, 2, guild.id, 'guild');
-            sendInfo(ioCache, 'dsBot_guildRegion', bot.user.id, guild.region, 2, guild.id, 'guild');
             sendInfo(ioCache, 'dsBot_guildName', bot.user.id, guild.name, 2, guild.id, 'guild');
             sendInfo(ioCache, 'dsBot_guildCreationDate', bot.user.id, require('moment-timezone')(guild.createdAt).format('YYYY-MM-DD'), 2, guild.id, 'guild');
 
