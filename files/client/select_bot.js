@@ -51,9 +51,6 @@ $('[id^="ds_bot_"]').click(function () {
                     // Server ID
                     toolsCreator.cardRow(tinyLang.id, '???', 'fas fa-id-card-alt', 'primary').attr('id', 'server_id'),
 
-                    // Region
-                    toolsCreator.cardRow(tinyLang.region, '???', 'fas fa-globe-americas', 'info').attr('id', 'server_region'),
-
                     // Server Name
                     toolsCreator.cardRow(tinyLang.name, '???', 'fas fa-font', 'info').attr('id', 'server_name'),
 
@@ -87,7 +84,7 @@ $('[id^="ds_bot_"]').click(function () {
 
                         $.LoadingOverlay("show", { background: "rgba(0,0,0, 0.5)" });
                         socket.emit('getDiscordGuildChannels', bot.guild, (data) => {
-                            { { get_channels } }
+                            {{get_channels}}
                         });
 
                         // Complete
