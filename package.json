@@ -6,7 +6,7 @@
     "scripts": {},
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/TinyPudding/Discord-Firebase-Async-Server.git"
+        "url": "git+https://github.com/PuddyClub/Discord-Firebase-Async-Server.git"
     },
     "keywords": [
         "discord-js",
@@ -20,9 +20,9 @@
     "author": "Yasmin Seidel (Jasmin Dreasond)",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/TinyPudding/Discord-Firebase-Async-Server/issues"
+        "url": "https://github.com/PuddyClub/Discord-Firebase-Async-Server/issues"
     },
-    "homepage": "https://github.com/TinyPudding/Discord-Firebase-Async-Server#readme",
+    "homepage": "https://github.com/PuddyClub/Discord-Firebase-Async-Server#readme",
     "dependencies": {
         "@tinypudding/csrftoken-lib": "^1.0.6",
         "@tinypudding/discord-oauth2": "^1.1.0",
