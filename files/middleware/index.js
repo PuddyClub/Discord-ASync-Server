@@ -1,4 +1,4 @@
-module.exports = async function (resolve, reject, ioCache, discordCfg, webCfg, fileCfg, web, app) {
+module.exports = async function (resolve, reject, ioCache, webCfg, fileCfg, web, app) {
 
     // Start Warn
     console.log('Starting Middleware...');
@@ -25,7 +25,6 @@ module.exports = async function (resolve, reject, ioCache, discordCfg, webCfg, f
 
     // Modules
     const bodyParser = require('body-parser');
-    const interactionEndPoint = require('./interactionEndPoint');
 
     // Create Express App
     app.web.server = require('http').createServer(web.app);
@@ -181,24 +180,6 @@ module.exports = async function (resolve, reject, ioCache, discordCfg, webCfg, f
 
         // Final Message
         console.log('Discord Bot Panel started!');
-
-    }
-
-    // Interaction
-    if (
-        webCfg.slashCommandListener &&
-        webCfg.slashCommandListener.enabled &&
-        typeof webCfg.slashCommandListener.function === "string" &&
-        discordCfg && discordCfg.apps
-    ) {
-
-        // Insert Interactions Endpoint
-        web.app.post('/interactions/endpoint', bodyParser.text({ type: '*/*' }), (req, res) => {
-            return interactionEndPoint(req, res, webCfg.slashCommandListener, { root: app.firebase }, discordCfg.apps);
-        });
-
-        // Message
-        console.log('Slash Command Listener actived!');
 
     }
 

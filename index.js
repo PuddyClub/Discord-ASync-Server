@@ -115,7 +115,7 @@ const appModule = {
 
                     // Website Middleware
                     middleware: (web) => {
-                        return middleware(resolve, reject, ioCache, tinyCfg.discord, tinyCfg.web, {
+                        return middleware(resolve, reject, ioCache, tinyCfg.web, {
                             css: tinyCfg.css,
                             js: tinyCfg.js,
                             custom: tinyCfg.custom
